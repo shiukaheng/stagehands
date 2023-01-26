@@ -1,4 +1,4 @@
-# Stagehands
+# 🤝 Stagehands
 
 ## Usage of ROS installation script
 `NOTE: The install script is only meant to work on DICE computers`

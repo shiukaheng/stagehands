@@ -13,3 +13,13 @@ npm install
 
 The homepage for the app is in the root of the `web` folder and is `index.html`.
 The code/backend can be sound in the `src` folder, this is also where all of the assets and stylesheets are stored.
+
+## Running
+
+To run the website locally use:
+
+```sh
+npm run dev
+```
+
+This will give you a url you can paste into your browser which will show the website or any errors

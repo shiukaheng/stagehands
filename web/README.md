@@ -9,6 +9,8 @@ Then navigate to the `web` folder and run:
 npm install
 ```
 
+If you are using VSCode then install the tailwind CSS extension from the marketplace.
+
 ## Developing
 
 The homepage for the app is in the root of the `web` folder and is `index.html`.

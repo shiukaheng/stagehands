@@ -25,3 +25,10 @@ And to create the javascript and run it use (production)
 ```
 npm start
 ```
+
+## Features
+
+- Bridge
+  - Serialisation of that pose for presets
+  - Translation from web pose to target pose on ROS
+  - Pathfinding to target pose 

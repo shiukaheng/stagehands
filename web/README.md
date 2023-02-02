@@ -1,4 +1,7 @@
-# The Web App
+# StageHands web UI
+## Features
+- Set up all bots for performance
+- Monitoring and controlling all bots
 
 ## Installation 
 

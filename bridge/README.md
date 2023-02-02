@@ -2,7 +2,7 @@
 
 ## Installation
 
-The bridge also uses (node)[https://nodejs.org/en/download/], you can install the dependencies with:
+The bridge also uses [node](https://nodejs.org/en/download/), you can install the dependencies with:
 
 ```
 npm install 

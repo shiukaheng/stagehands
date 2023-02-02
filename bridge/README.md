@@ -10,18 +10,18 @@ npm install
 
 ## Usage 
 
-To run your changes in real time while developing use:
+During development, run the following to run your code, and automatically re-run it if any code was changed:
 ```
 npm dev
 ```
 
 
-To create the javascript from your typescript run:
+To create a production ready version:
 ```
 npm build
 ```
 
-And to create the javascript and run it use (production) 
+To create a production ready version and run it:
 ```
 npm start
 ```

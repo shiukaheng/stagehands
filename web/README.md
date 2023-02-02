@@ -14,7 +14,7 @@ If you are using VSCode then install the tailwind CSS extension from the marketp
 ## Developing
 
 The homepage for the app is in the root of the `web` folder and is `index.html`.
-The code/backend can be sound in the `src` folder, this is also where all of the assets and stylesheets are stored.
+The react code can be sound in the `src` folder, this is also where all of the assets and stylesheets are stored.
 
 ## Running
 
@@ -24,10 +24,9 @@ To run the website locally use:
 npm run dev
 ```
 
-This will give you a url you can paste into your browser which will show the website or any errors
+This will give you a URL you can paste into your browser which will show the website or any errors
 
-## Features 
-
+## Components
 - Setup View
   - Draw stage boundries
     - Easy - Draw 2D boundary relative to known robot pose
@@ -37,10 +36,10 @@ This will give you a url you can paste into your browser which will show the web
     - Naming
     - Give unique LEDs
 - Default view 
-  - Visualization component (3D map view, by default 
+  - Visualization component (3D map view, by default a orthogonal top view)
     - React model of the mic stand with movable components
-    - Battery icon that listens for the battery level and sends warning at 10%
-  - Editable ‘Playlist’ of poses/locationsThe mapping (possibly AR)
+    - Battery icon
+  - Editable ‘Playlist’ of poses/locations
   - Big stop button
   - Selection panel (allows you to cherry pick on a bot)
     - Detailed status

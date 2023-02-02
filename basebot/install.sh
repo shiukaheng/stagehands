@@ -39,11 +39,12 @@ git clone -b noetic-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
 git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3.git
 git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
-git clone http://github.com/ros-perception/openslam_gmapping.git
-git clone http://github.com/ros-perception/slam_gmapping.git
-git clone http://github.com/ros-planning/navigation.git
+git clone https://github.com/ros-perception/openslam_gmapping.git
+git clone https://github.com/ros-perception/slam_gmapping.git
+git clone https://github.com/ros-planning/navigation.git --branch 1.17.2
 git clone https://github.com/ros-planning/navigation_msgs
-git clone http://github.com/ros/geometry2.git
+git clone https://github.com/ros/geometry2.git
+git clone https://github.com/tu-darmstadt-ros-pkg/hector_slam
 cd ..
 # Run catkin_make again
 catkin_make

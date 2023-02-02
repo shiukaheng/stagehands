@@ -1,0 +1,8 @@
+prefix=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel
+
+Name: fake_localization
+Description: Description of fake_localization
+Version: 1.17.2
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: geometry_msgs nav_msgs roscpp rospy

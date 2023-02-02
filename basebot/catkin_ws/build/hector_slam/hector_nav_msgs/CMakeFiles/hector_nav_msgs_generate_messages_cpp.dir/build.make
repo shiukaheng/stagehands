@@ -62,9 +62,9 @@ hector_slam/hector_nav_msgs/CMakeFiles/hector_nav_msgs_generate_messages_cpp: /a
 
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetDistanceToObstacle.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetDistanceToObstacle.h: /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/hector_slam/hector_nav_msgs/srv/GetDistanceToObstacle.srv
+/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetDistanceToObstacle.h: /opt/ros/noetic/share/geometry_msgs/msg/PointStamped.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetDistanceToObstacle.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetDistanceToObstacle.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetDistanceToObstacle.h: /opt/ros/noetic/share/geometry_msgs/msg/PointStamped.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetDistanceToObstacle.h: /opt/ros/noetic/share/gencpp/msg.h.template
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetDistanceToObstacle.h: /opt/ros/noetic/share/gencpp/srv.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from hector_nav_msgs/GetDistanceToObstacle.srv"
@@ -73,11 +73,11 @@ hector_slam/hector_nav_msgs/CMakeFiles/hector_nav_msgs_generate_messages_cpp: /a
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/hector_slam/hector_nav_msgs/srv/GetRecoveryInfo.srv
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
-/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /opt/ros/noetic/share/nav_msgs/msg/Path.msg
+/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /opt/ros/noetic/share/geometry_msgs/msg/PoseStamped.msg
+/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /opt/ros/noetic/share/nav_msgs/msg/Path.msg
+/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /opt/ros/noetic/share/gencpp/msg.h.template
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRecoveryInfo.h: /opt/ros/noetic/share/gencpp/srv.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from hector_nav_msgs/GetRecoveryInfo.srv"
@@ -86,11 +86,11 @@ hector_slam/hector_nav_msgs/CMakeFiles/hector_nav_msgs_generate_messages_cpp: /a
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/hector_slam/hector_nav_msgs/srv/GetRobotTrajectory.srv
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
-/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /opt/ros/noetic/share/nav_msgs/msg/Path.msg
+/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /opt/ros/noetic/share/geometry_msgs/msg/PoseStamped.msg
+/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /opt/ros/noetic/share/nav_msgs/msg/Path.msg
+/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /opt/ros/noetic/share/gencpp/msg.h.template
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetRobotTrajectory.h: /opt/ros/noetic/share/gencpp/srv.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from hector_nav_msgs/GetRobotTrajectory.srv"
@@ -99,10 +99,10 @@ hector_slam/hector_nav_msgs/CMakeFiles/hector_nav_msgs_generate_messages_cpp: /a
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetSearchPosition.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetSearchPosition.h: /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/hector_slam/hector_nav_msgs/srv/GetSearchPosition.srv
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetSearchPosition.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetSearchPosition.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetSearchPosition.h: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
-/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetSearchPosition.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetSearchPosition.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetSearchPosition.h: /opt/ros/noetic/share/geometry_msgs/msg/PoseStamped.msg
+/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetSearchPosition.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetSearchPosition.h: /opt/ros/noetic/share/gencpp/msg.h.template
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetSearchPosition.h: /opt/ros/noetic/share/gencpp/srv.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating C++ code from hector_nav_msgs/GetSearchPosition.srv"
@@ -110,10 +110,10 @@ hector_slam/hector_nav_msgs/CMakeFiles/hector_nav_msgs_generate_messages_cpp: /a
 
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetNormal.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetNormal.h: /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/hector_slam/hector_nav_msgs/srv/GetNormal.srv
+/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetNormal.h: /opt/ros/noetic/share/geometry_msgs/msg/PointStamped.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetNormal.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetNormal.h: /opt/ros/noetic/share/geometry_msgs/msg/Vector3.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetNormal.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetNormal.h: /opt/ros/noetic/share/geometry_msgs/msg/PointStamped.msg
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetNormal.h: /opt/ros/noetic/share/gencpp/msg.h.template
 /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/include/hector_nav_msgs/GetNormal.h: /opt/ros/noetic/share/gencpp/srv.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating C++ code from hector_nav_msgs/GetNormal.srv"

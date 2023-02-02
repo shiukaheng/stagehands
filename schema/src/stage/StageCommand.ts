@@ -1,3 +1,5 @@
+// SAMPLE CODE ONLY
+
 // Import zod
 import { z } from 'zod';
 

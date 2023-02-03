@@ -1,13 +1,11 @@
-// SAMPLE CODE ONLY
+//unsettled schema
 
-// Import zod
+
 import { z } from 'zod';
 
 // Define the schema for command literals and union them
-export const stageCommandLiteralSchema = z.union([
-    z.literal('capturePreset'),
-    z.literal('recallPreset')
-]);
+export const stageCommandLiteralSchema = z.union([z.literal('capturePreset'),z.literal('recallPreset'),z.literal('stopAll'),z.literal('stop'),z.literal('setLED'),
+z.literal('stopAll'),z.literal('stop'),z.literal('setLED'),z.literal('requestAllState'),z.literal('requestBotState'),z.literal('setStageBoundary')]);
 
 // Define the schema for the StageCommand type
 export const stageCommandSchema = z.object({

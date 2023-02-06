@@ -2,33 +2,40 @@
 
 import { z } from 'zod';
 
-export const botPoseSchema = z.unknown(); 
 
-export const obstacleSchema = z.unknown();
 
-export const batteryStatusSchema = z.unknown();
+//obstacle
+export const obstacleSchema = z.object({
+    polygonVerticeCoordinates: z.number().array().length(2).array() // assuming obstacle would be polygon
+});
+
+//battery status
+export const batteryLevelLiteralsSchema = z.union([z.literal('low'),z.literal('medium'),z.literal('high')])
+export const batteryStatusSchema = z.object({
+    batteryPercentage: z.number().gte(0).lte(1),
+    batteryLevel: batteryLevelLiteralsSchema
+})
 
 //Led State
 export const ledModeLiteralsSchema = z.union([z.literal('serverOverwrite'),z.literal('clientOverwrite')])
 export const ledAnimationModeLiteralsSchema = z.union([z.literal('stable'),z.literal('Flashing')])
 export const ledAnimationSchema = z.object({
-    animationState: ledAnimationModeLiteralsSchema
-
+    animationMode: ledAnimationModeLiteralsSchema,
+    flashingFrequency :z.number().optional()
 })
 export const ledStateSchema = z.object({
     ledMode:ledModeLiteralsSchema,
-    rgbValue:z.number().array(),
+    rgbValue:z.number().gte(0).lte(255).array().length(3),
     ledAnimation: ledAnimationSchema
 
 })
 
 //module state
-export const modulePoseSchema = z.unknown();
-
-export const compositePoseSchema = z.object({
-    pose: botPoseSchema,
-    modulePose: modulePoseSchema
+export const micStandPoseSchema = z.object({
+    gripPosition: z.number().gte(0).lte(1),
+    
 })
+export const modulePoseSchema = micStandPoseSchema; //Should be an union with more moduleSchemas
 export const moduleStateSchema = z.object({
 
     type: z.string(),
@@ -37,9 +44,13 @@ export const moduleStateSchema = z.object({
 
 });
 
+//botState
 
 export const robotStatusLiteralSchema = z.union([z.literal('idle'),z.literal('moving'),z.literal('stopped'),z.literal('error')]) ;
-
+export const botPoseSchema = z.object({
+    position:z.number().array().length(3),
+    orientation:z.number().array().length(3)
+}); 
 
 export const botStateSchema = z.object({
 
@@ -52,6 +63,12 @@ export const botStateSchema = z.object({
     module: moduleStateSchema
 
 });
+export const compositePoseSchema = z.object({
+    pose: botPoseSchema,
+    modulePose: modulePoseSchema
+})
+
+
 
 export const aggregateBotStateSchema = z.object({
     bots: z.map(z.string(),botStateSchema)

@@ -7,7 +7,9 @@ import {compositePoseSchema,obstacleSchema} from '../bot/botState'
 
 export const presetRecallStateLiteralSchema = z.union([z.literal('idle'),z.literal('recalling'),z.literal('error')]);
 
-export const stageBoundarySchema = z.unknown();
+export const stageBoundarySchema = z.object({
+    polygonVerticeCoordinates: z.number().array().length(2).array() // assuming stageBoundary would be polygon
+});
 
 export const presetSchema = z.object({
 

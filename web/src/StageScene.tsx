@@ -9,10 +9,10 @@ import { Fragment } from 'react';
 export function StageScene() {
   return (
     <Fragment>
-      <pointLight position={[10, 10, 10]} />
+      <pointLight position={[10, 0, 10]} />
       <mesh>
-        <Plane args={[2, 2]} />
-        <meshStandardMaterial attach="material" color="red"/>
+        <Plane args={[20, 20]} />
+        <meshStandardMaterial attach="material" />
       </mesh> 
     </Fragment>
   )

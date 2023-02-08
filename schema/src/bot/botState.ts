@@ -70,10 +70,11 @@ export const compositePoseSchema = z.object({
 
 
 
-export const aggregateBotStateSchema = z.object({
-    bots: z.map(z.string(),botStateSchema)
-})
+export const aggregateBotStateSchema = botStateSchema.array()
 
 export type botState = z.infer<typeof botStateSchema>;
 export type aggregateBotState = z.infer<typeof aggregateBotStateSchema>;
 export type compositePose = z.infer<typeof compositePoseSchema>;
+export type botPose = z.infer<typeof botPoseSchema>;
+export type modulePose = z.infer<typeof modulePoseSchema>;
+export type obstacle = z.infer<typeof obstacleSchema>;

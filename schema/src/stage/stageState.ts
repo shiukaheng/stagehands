@@ -14,14 +14,17 @@ export const stageBoundarySchema = z.object({
 export const presetSchema = z.object({
 
     name: z.string().describe('The name of the preset'),
-    poses: z.map(z.string(),compositePoseSchema)
+    poses: z.object({
+        botID: z.string(),
+        pose: compositePoseSchema
+    })
 
 });
 
 
 
 export const stageStateSchema = z.object({
-    presets: z.map(z.string().describe('poseID'), presetSchema),
+    presets: presetSchema.array(),
     activePreset: z.string().describe('The ID of the active preset'),
     presetRecallState: presetRecallStateLiteralSchema,
     boundary: stageBoundarySchema,  //Maybe a property of the preset

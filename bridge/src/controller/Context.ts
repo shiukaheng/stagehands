@@ -5,6 +5,7 @@ export class Context {
 
     private aggregatedBotState :aggregateBotState
     private stageState: stageState
+    
 
     constructor(){
         this.aggregatedBotState = null as any;

@@ -8,6 +8,9 @@ export class CreatePresetCommand extends StateChangeCommand<preset>{
     constructor(preset : preset){
         super(preset)
     }
+    execute(context: Context): void {
+        
+    }
     
 }
    

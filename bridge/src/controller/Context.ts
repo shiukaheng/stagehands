@@ -3,20 +3,24 @@ import { stageState } from "../../../schema/src/stage/stageState";
 
 export class Context {
 
-    private aggregatedBotState :aggregateBotState
+    private currentBotState :aggregateBotState
+    private targetBotState :aggregateBotState
+
+
     private stageState: stageState
     
 
     constructor(){
-        this.aggregatedBotState = null as any;
+        this.currentBotState = null as any;
+        this.targetBotState = null as any;
         this.stageState = null as any;
     }
-    public getAggregatedBotState() :aggregateBotState {
-        return this.aggregatedBotState;
+    public getCurrentBotState() :aggregateBotState {
+        return this.currentBotState;
     }
 
-    public setAggregatedBotState(aggregatedBotState:aggregateBotState): void {
-        this.aggregatedBotState = aggregatedBotState;
+    public setCurrentBotState(aggregatedBotState:aggregateBotState): void {
+        this.currentBotState = aggregatedBotState;
     }
 
     public getStageState(): stageState {
@@ -25,6 +29,13 @@ export class Context {
 
     public setStageState(stageState: stageState): void {
         this.stageState = stageState;
+    }
+    public getTargetBotState() :aggregateBotState {
+        return this.targetBotState;
+    }
+
+    public setTargetBotState(targetBotState :aggregateBotState): void {
+        this.targetBotState = targetBotState;
     }
 
 }

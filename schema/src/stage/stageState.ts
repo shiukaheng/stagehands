@@ -17,7 +17,7 @@ export const presetSchema = z.object({
     poses: z.object({
         botID: z.string(),
         pose: compositePoseSchema
-    })
+    }).array()
 
 });
 

@@ -12,11 +12,11 @@ export class MoveBotToPoseCommand implements ICommand {
 
     }
     execute(context: Context): responseMessage {
-        let tempBotState=context.getAggregatedBotState().find(botState =>botState.name ===this.botID)
+        let tempBotState=context.getTargetBotState().find(botState =>botState.name ===this.botID)
         if (tempBotState ===undefined){
             return {
                 responseType:'error',
-                message:`${this.botID} not registered`
+                message:`MoveBotToPoseCommand error: ${this.botID} not registered`
             }
         }
         
@@ -27,14 +27,15 @@ export class MoveBotToPoseCommand implements ICommand {
                 message:`${this.botID} not functioning`
             }
         }
-        else{
-            
-            return {
-                responseType:'success',
-                message:`${this.botID} move to ${JSON.stringify(this.botPose)}`
-            }
-
+    
+        //Might use mergediff
+        tempBotState.pose=this.botPose
+        return {
+            responseType:'success',
+            message:`${this.botID} move to ${JSON.stringify(this.botPose)}`
         }
+
+        
 
     }
 

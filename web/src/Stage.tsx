@@ -5,7 +5,7 @@ import { StageScene } from './StageScene'
 
 export function Stage() {
   return (
-    <div className="absolute h-full">
+    <div className="absolute inset-y-10 right-50">
       <Canvas className="h-full">
         <OrbitControls />
         <StageScene />

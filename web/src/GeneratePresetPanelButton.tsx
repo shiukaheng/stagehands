@@ -1,4 +1,6 @@
 import saveIcon from './assets/save-icon.svg'
+import editIcon from './assets/edit-icon.svg'
+import delIcon from './assets/delete-icon.svg'
 
 function doNothing() {
     return
@@ -23,19 +25,19 @@ function generatePresetPanelButton(buttons: any[]) {
                 id="SaveButton"
                 className="rounded-full border-solid border-slate-500 border-2 m-2 p-1"
                 onClick={() => doNothing()}>
-                <img src={saveIcon} className="save" alt="save" />
+                <img src={saveIcon} style={{ height: 25, width: 25 }} className="fill-black" alt="save" />
             </button>
             <button
                 id="EditButton"
                 className="rounded-full border-solid border-slate-500 border-2 m-2 p-1"
                 onClick={() => doNothing()}>
-                Edit
+                <img src={editIcon} style={{ height: 25, width: 25 }} className="fill-black" alt="save" />
             </button>
             <button
                 id="DeleteButton"
                 className="rounded-full border-solid border-red-500 border-2 m-2 p-1"
                 onClick={() => doNothing()}>
-                {'\xa0\xa0 Del \xa0\xa0'} 
+                <img src={delIcon} style={{ height: 25, width: 25 }} className="fill-black" alt="save" />
             </button>
             </div>
             </div>

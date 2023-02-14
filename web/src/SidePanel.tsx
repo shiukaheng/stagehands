@@ -6,13 +6,13 @@ function test(ComponentSelect: number) {
   if(ComponentSelect === 0) {
     return (<PresetPanel />)
   } else {
-    return (<MicPanel />)
+    return (<MicPanel/>)
   }
 }
 
 function SidePanel() {
   const [ComponentSelect, ComponentSwitch] = useState(1)
-
+  
   return (
     <Fragment>
     <div id="SidePanel" className="absolute inset-y-10 left-10 w-80 border-solid border-2 rounded-md p-5"> {/* Left side panel where a list of mics will be displayed */}

@@ -49,7 +49,7 @@ export const moduleStateSchema = z.object({
 export const robotStatusLiteralSchema = z.union([z.literal('idle'),z.literal('moving'),z.literal('stopped'),z.literal('error')]) ;
 export const botPoseSchema = z.object({
     position:z.number().array().length(3),
-    orientation:z.number().array().length(3)
+    quaternion:z.number().array().length(4)
 }); 
 
 export const botStateSchema = z.object({

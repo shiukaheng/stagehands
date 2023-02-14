@@ -1,9 +1,9 @@
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../utils/responseMessage";
+import { responseMessage } from "../../../../schema/src/serverResponse"
 import { ICommand } from "../ICommand";
 
 export class StopAllBotCommand implements ICommand{
-    execute(context: Context): void | responseMessage {
+    execute(context: Context):  responseMessage {
         
         context.getTargetBotState().forEach(botState => {
             botState.status='stopped'

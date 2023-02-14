@@ -1,11 +1,11 @@
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../utils/responseMessage";
+import { responseMessage } from "../../../../schema/src/serverResponse"
 import { ICommand } from "../ICommand";
 
 export class RequestBotStateCommand implements ICommand{
 
     private botID:string
-    execute(context: Context): void | responseMessage {
+    execute(context: Context): responseMessage {
         let tempBotState=context.getCurrentBotState().find(botState =>botState.name ===this.botID)
         if (tempBotState ===undefined){
             return {

@@ -46,10 +46,12 @@ export function StageScene() {
   // render the mic stands on the plane
   return (
     <Fragment>
-      <pointLight position={[10, 10, 10]} />
+      <pointLight position={[0, 0, 100]} />
       <mesh>
-        <Plane args={[20, 20]} />
-        <meshStandardMaterial attach="material" color="red"/>
+        <mesh>
+          <boxGeometry args={[20, 20, 0.1]} />
+          <meshStandardMaterial attach="material" color="slate"/>
+        </mesh>
         {
           micStands.map((micStand) => micStand.render())
         }

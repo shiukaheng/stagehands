@@ -9,10 +9,15 @@ function App() {
   const [buttons, setButtons] = useState([] as any[])
 
   return (
-    document.body.style.backgroundColor = "grey", // for debugging to see where 3D plane is
     <Fragment>
-    <SidePanel />
-    <Stage />
+      <div className="flex h-screen overflow-hidden">
+        <div className="w-1/3 h-5/6">
+          <SidePanel />
+        </div>
+        <div className="flex w-2/3 h-5/6">
+          <Stage />
+        </div>
+      </div>
     </Fragment>
   )
 }

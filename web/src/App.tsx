@@ -4,6 +4,8 @@ import './App.css'
 import { Stage } from './Stage'
 import SidePanel from './SidePanel'
 import React from 'react'
+import micModule from './MicAttributesPage'
+import MicAttributesPage from './MicAttributesPage'
 
 function App() {
   const [buttons, setButtons] = useState([] as any[])
@@ -11,8 +13,9 @@ function App() {
   return (
     document.body.style.backgroundColor = "grey", // for debugging to see where 3D plane is
     <Fragment>
-    <SidePanel />
-    <Stage />
+    <MicAttributesPage/>
+    {/* <SidePanel />
+    <Stage /> */}
     </Fragment>
   )
 }

@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react';
 import MicStand from './MicStand';
+import GetMicStands from './GetMicStands';
 
 /**
  * StageScene
@@ -7,7 +8,7 @@ import MicStand from './MicStand';
  * @return Fragment with the lighting and plane for the stage
  */
 export function StageScene() {
-  const micStands = [ new MicStand('Mic 1', 2, 4), new MicStand('Mic 2', 5, 7) ];
+  const micStands = GetMicStands();
 
   // render the mic stands on the plane
   return (

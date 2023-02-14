@@ -1,6 +1,6 @@
 import { preset } from "../../../../schema/src/stage/stageState";
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../utils/responseMessage";
+import { responseMessage } from "../../../../schema/src/serverResponse"
 import { ICommand } from "../ICommand";
 
 
@@ -10,7 +10,7 @@ export class UpdatePresetCommand implements ICommand{
         this.newPreset = newPreset;
     }
 
-    execute(context: Context): void | responseMessage {
+    execute(context: Context): responseMessage {
         let tempPresetState = context.getStageState().presets.find(preset => preset.name ===this.newPreset.name)
         if(tempPresetState === undefined){
             return {

@@ -1,6 +1,6 @@
 import { botPose, compositePose,botState} from "../../../../schema/src/bot/botState";
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../utils/responseMessage";
+import { responseMessage } from "../../../../schema/src/serverResponse"
 import { ICommand } from "../ICommand";
 
 export class MoveBotToPoseCommand implements ICommand {

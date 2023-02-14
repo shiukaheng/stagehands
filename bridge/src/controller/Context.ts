@@ -1,6 +1,6 @@
 import { aggregateBotState } from "../../../schema/src/bot/botState"
-import { stageState } from "../../../schema/src/stage/stageState";
-
+import { presetRecallStateLiteralSchema, stageBoundary, stageState } from "../../../schema/src/stage/stageState";
+import { preset } from "../../../schema/src/stage/stageState";
 export class Context {
 
     private currentBotState :aggregateBotState
@@ -11,9 +11,15 @@ export class Context {
     
 
     constructor(){
-        this.currentBotState = null as any;
-        this.targetBotState = null as any;
-        this.stageState = null as any;
+        this.currentBotState = []
+        this.targetBotState = [];
+        this.stageState = {
+            obstacles:[],
+            presets:[],
+            activePreset:"NoActivePreset",
+            presetRecallState:'idle' ,
+            boundary:null as any
+        }
     }
     public getCurrentBotState() :aggregateBotState {
         return this.currentBotState;

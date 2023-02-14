@@ -68,40 +68,6 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -135,6 +101,40 @@ test/fast: test
 
 .PHONY : test/fast
 
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
 # The main all target
 all: cmake_check_build_system
 	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/CMakeFiles /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation/amcl/CMakeFiles/progress.marks
@@ -166,6 +166,96 @@ preinstall/fast:
 depend:
 	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+navigation/amcl/CMakeFiles/amcl_rosie_localization_stage.bag.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_rosie_localization_stage.bag.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/amcl_rosie_localization_stage.bag.dir/rule
+
+# Convenience name for target.
+amcl_rosie_localization_stage.bag: navigation/amcl/CMakeFiles/amcl_rosie_localization_stage.bag.dir/rule
+
+.PHONY : amcl_rosie_localization_stage.bag
+
+# fast build rule for target.
+amcl_rosie_localization_stage.bag/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_rosie_localization_stage.bag.dir/build.make navigation/amcl/CMakeFiles/amcl_rosie_localization_stage.bag.dir/build
+.PHONY : amcl_rosie_localization_stage.bag/fast
+
+# Convenience name for target.
+navigation/amcl/CMakeFiles/amcl_texas_willow_hallway_loop_indexed.bag.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_texas_willow_hallway_loop_indexed.bag.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/amcl_texas_willow_hallway_loop_indexed.bag.dir/rule
+
+# Convenience name for target.
+amcl_texas_willow_hallway_loop_indexed.bag: navigation/amcl/CMakeFiles/amcl_texas_willow_hallway_loop_indexed.bag.dir/rule
+
+.PHONY : amcl_texas_willow_hallway_loop_indexed.bag
+
+# fast build rule for target.
+amcl_texas_willow_hallway_loop_indexed.bag/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_texas_willow_hallway_loop_indexed.bag.dir/build.make navigation/amcl/CMakeFiles/amcl_texas_willow_hallway_loop_indexed.bag.dir/build
+.PHONY : amcl_texas_willow_hallway_loop_indexed.bag/fast
+
+# Convenience name for target.
+navigation/amcl/CMakeFiles/clean_test_results_amcl.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/clean_test_results_amcl.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/clean_test_results_amcl.dir/rule
+
+# Convenience name for target.
+clean_test_results_amcl: navigation/amcl/CMakeFiles/clean_test_results_amcl.dir/rule
+
+.PHONY : clean_test_results_amcl
+
+# fast build rule for target.
+clean_test_results_amcl/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/clean_test_results_amcl.dir/build.make navigation/amcl/CMakeFiles/clean_test_results_amcl.dir/build
+.PHONY : clean_test_results_amcl/fast
+
+# Convenience name for target.
+navigation/amcl/CMakeFiles/std_srvs_generate_messages_eus.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+std_srvs_generate_messages_eus: navigation/amcl/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
+
+.PHONY : std_srvs_generate_messages_eus
+
+# fast build rule for target.
+std_srvs_generate_messages_eus/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/std_srvs_generate_messages_eus.dir/build.make navigation/amcl/CMakeFiles/std_srvs_generate_messages_eus.dir/build
+.PHONY : std_srvs_generate_messages_eus/fast
+
+# Convenience name for target.
+navigation/amcl/CMakeFiles/amcl_texas_greenroom_loop_indexed.bag.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_texas_greenroom_loop_indexed.bag.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/amcl_texas_greenroom_loop_indexed.bag.dir/rule
+
+# Convenience name for target.
+amcl_texas_greenroom_loop_indexed.bag: navigation/amcl/CMakeFiles/amcl_texas_greenroom_loop_indexed.bag.dir/rule
+
+.PHONY : amcl_texas_greenroom_loop_indexed.bag
+
+# fast build rule for target.
+amcl_texas_greenroom_loop_indexed.bag/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_texas_greenroom_loop_indexed.bag.dir/build.make navigation/amcl/CMakeFiles/amcl_texas_greenroom_loop_indexed.bag.dir/build
+.PHONY : amcl_texas_greenroom_loop_indexed.bag/fast
+
+# Convenience name for target.
+navigation/amcl/CMakeFiles/amcl_small_loop_crazy_driving_prg_indexed.bag.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_small_loop_crazy_driving_prg_indexed.bag.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/amcl_small_loop_crazy_driving_prg_indexed.bag.dir/rule
+
+# Convenience name for target.
+amcl_small_loop_crazy_driving_prg_indexed.bag: navigation/amcl/CMakeFiles/amcl_small_loop_crazy_driving_prg_indexed.bag.dir/rule
+
+.PHONY : amcl_small_loop_crazy_driving_prg_indexed.bag
+
+# fast build rule for target.
+amcl_small_loop_crazy_driving_prg_indexed.bag/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_small_loop_crazy_driving_prg_indexed.bag.dir/build.make navigation/amcl/CMakeFiles/amcl_small_loop_crazy_driving_prg_indexed.bag.dir/build
+.PHONY : amcl_small_loop_crazy_driving_prg_indexed.bag/fast
 
 # Convenience name for target.
 navigation/amcl/CMakeFiles/amcl_global_localization_stage_indexed.bag.dir/rule:
@@ -288,19 +378,19 @@ topic_tools_generate_messages_lisp/fast:
 .PHONY : topic_tools_generate_messages_lisp/fast
 
 # Convenience name for target.
-navigation/amcl/CMakeFiles/std_srvs_generate_messages_py.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/std_srvs_generate_messages_py.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/std_srvs_generate_messages_py.dir/rule
+navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
 
 # Convenience name for target.
-std_srvs_generate_messages_py: navigation/amcl/CMakeFiles/std_srvs_generate_messages_py.dir/rule
+dynamic_reconfigure_generate_messages_py: navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
 
-.PHONY : std_srvs_generate_messages_py
+.PHONY : dynamic_reconfigure_generate_messages_py
 
 # fast build rule for target.
-std_srvs_generate_messages_py/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/std_srvs_generate_messages_py.dir/build.make navigation/amcl/CMakeFiles/std_srvs_generate_messages_py.dir/build
-.PHONY : std_srvs_generate_messages_py/fast
+dynamic_reconfigure_generate_messages_py/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build.make navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build
+.PHONY : dynamic_reconfigure_generate_messages_py/fast
 
 # Convenience name for target.
 navigation/amcl/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule:
@@ -348,64 +438,64 @@ _run_tests_amcl_rostest_test_global_localization_stage.xml/fast:
 .PHONY : _run_tests_amcl_rostest_test_global_localization_stage.xml/fast
 
 # Convenience name for target.
-navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
+navigation/amcl/CMakeFiles/amcl_pf.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_pf.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/amcl_pf.dir/rule
 
 # Convenience name for target.
-dynamic_reconfigure_generate_messages_py: navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
+amcl_pf: navigation/amcl/CMakeFiles/amcl_pf.dir/rule
 
-.PHONY : dynamic_reconfigure_generate_messages_py
+.PHONY : amcl_pf
 
 # fast build rule for target.
-dynamic_reconfigure_generate_messages_py/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build.make navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_py/fast
+amcl_pf/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_pf.dir/build.make navigation/amcl/CMakeFiles/amcl_pf.dir/build
+.PHONY : amcl_pf/fast
 
 # Convenience name for target.
-navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_eus.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_eus.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_eus.dir/rule
+navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-diagnostic_msgs_generate_messages_eus: navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_eus.dir/rule
+dynamic_reconfigure_generate_messages_lisp: navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
 
-.PHONY : diagnostic_msgs_generate_messages_eus
+.PHONY : dynamic_reconfigure_generate_messages_lisp
 
 # fast build rule for target.
-diagnostic_msgs_generate_messages_eus/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_eus.dir/build.make navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_eus.dir/build
-.PHONY : diagnostic_msgs_generate_messages_eus/fast
+dynamic_reconfigure_generate_messages_lisp/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build.make navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build
+.PHONY : dynamic_reconfigure_generate_messages_lisp/fast
 
 # Convenience name for target.
-navigation/amcl/CMakeFiles/std_srvs_generate_messages_eus.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
+navigation/amcl/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-std_srvs_generate_messages_eus: navigation/amcl/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
+std_srvs_generate_messages_lisp: navigation/amcl/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
 
-.PHONY : std_srvs_generate_messages_eus
+.PHONY : std_srvs_generate_messages_lisp
 
 # fast build rule for target.
-std_srvs_generate_messages_eus/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/std_srvs_generate_messages_eus.dir/build.make navigation/amcl/CMakeFiles/std_srvs_generate_messages_eus.dir/build
-.PHONY : std_srvs_generate_messages_eus/fast
+std_srvs_generate_messages_lisp/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/std_srvs_generate_messages_lisp.dir/build.make navigation/amcl/CMakeFiles/std_srvs_generate_messages_lisp.dir/build
+.PHONY : std_srvs_generate_messages_lisp/fast
 
 # Convenience name for target.
-navigation/amcl/CMakeFiles/amcl_willow-full.pgm.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_willow-full.pgm.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/amcl_willow-full.pgm.dir/rule
+navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
 
 # Convenience name for target.
-amcl_willow-full.pgm: navigation/amcl/CMakeFiles/amcl_willow-full.pgm.dir/rule
+dynamic_reconfigure_generate_messages_eus: navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
 
-.PHONY : amcl_willow-full.pgm
+.PHONY : dynamic_reconfigure_generate_messages_eus
 
 # fast build rule for target.
-amcl_willow-full.pgm/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_willow-full.pgm.dir/build.make navigation/amcl/CMakeFiles/amcl_willow-full.pgm.dir/build
-.PHONY : amcl_willow-full.pgm/fast
+dynamic_reconfigure_generate_messages_eus/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build.make navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build
+.PHONY : dynamic_reconfigure_generate_messages_eus/fast
 
 # Convenience name for target.
 navigation/amcl/CMakeFiles/topic_tools_generate_messages_cpp.dir/rule:
@@ -483,96 +573,6 @@ _run_tests_amcl_rostest_test_rosie_multilaser.xml/fast:
 .PHONY : _run_tests_amcl_rostest_test_rosie_multilaser.xml/fast
 
 # Convenience name for target.
-navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_nodejs.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_nodejs.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-diagnostic_msgs_generate_messages_nodejs: navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : diagnostic_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-diagnostic_msgs_generate_messages_nodejs/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_nodejs.dir/build.make navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_nodejs.dir/build
-.PHONY : diagnostic_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_py.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_py.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-diagnostic_msgs_generate_messages_py: navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_py.dir/rule
-
-.PHONY : diagnostic_msgs_generate_messages_py
-
-# fast build rule for target.
-diagnostic_msgs_generate_messages_py/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_py.dir/build.make navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_py.dir/build
-.PHONY : diagnostic_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-navigation/amcl/CMakeFiles/amcl_pf.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_pf.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/amcl_pf.dir/rule
-
-# Convenience name for target.
-amcl_pf: navigation/amcl/CMakeFiles/amcl_pf.dir/rule
-
-.PHONY : amcl_pf
-
-# fast build rule for target.
-amcl_pf/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_pf.dir/build.make navigation/amcl/CMakeFiles/amcl_pf.dir/build
-.PHONY : amcl_pf/fast
-
-# Convenience name for target.
-navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_lisp: navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_lisp
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_lisp/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build.make navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_lisp/fast
-
-# Convenience name for target.
-navigation/amcl/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_lisp: navigation/amcl/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
-
-.PHONY : std_srvs_generate_messages_lisp
-
-# fast build rule for target.
-std_srvs_generate_messages_lisp/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/std_srvs_generate_messages_lisp.dir/build.make navigation/amcl/CMakeFiles/std_srvs_generate_messages_lisp.dir/build
-.PHONY : std_srvs_generate_messages_lisp/fast
-
-# Convenience name for target.
-navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_eus: navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_eus
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_eus/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build.make navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_eus/fast
-
-# Convenience name for target.
 navigation/amcl/CMakeFiles/amcl.dir/rule:
 	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl.dir/rule
 .PHONY : navigation/amcl/CMakeFiles/amcl.dir/rule
@@ -601,6 +601,36 @@ dynamic_reconfigure_generate_messages_nodejs: navigation/amcl/CMakeFiles/dynamic
 dynamic_reconfigure_generate_messages_nodejs/fast:
 	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build.make navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build
 .PHONY : dynamic_reconfigure_generate_messages_nodejs/fast
+
+# Convenience name for target.
+navigation/amcl/CMakeFiles/run_tests_amcl_rostest.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/run_tests_amcl_rostest.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/run_tests_amcl_rostest.dir/rule
+
+# Convenience name for target.
+run_tests_amcl_rostest: navigation/amcl/CMakeFiles/run_tests_amcl_rostest.dir/rule
+
+.PHONY : run_tests_amcl_rostest
+
+# fast build rule for target.
+run_tests_amcl_rostest/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/run_tests_amcl_rostest.dir/build.make navigation/amcl/CMakeFiles/run_tests_amcl_rostest.dir/build
+.PHONY : run_tests_amcl_rostest/fast
+
+# Convenience name for target.
+navigation/amcl/CMakeFiles/amcl_small_loop_prf_indexed.bag.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_small_loop_prf_indexed.bag.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/amcl_small_loop_prf_indexed.bag.dir/rule
+
+# Convenience name for target.
+amcl_small_loop_prf_indexed.bag: navigation/amcl/CMakeFiles/amcl_small_loop_prf_indexed.bag.dir/rule
+
+.PHONY : amcl_small_loop_prf_indexed.bag
+
+# fast build rule for target.
+amcl_small_loop_prf_indexed.bag/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_small_loop_prf_indexed.bag.dir/build.make navigation/amcl/CMakeFiles/amcl_small_loop_prf_indexed.bag.dir/build
+.PHONY : amcl_small_loop_prf_indexed.bag/fast
 
 # Convenience name for target.
 navigation/amcl/CMakeFiles/amcl_gencfg.dir/rule:
@@ -633,124 +663,34 @@ std_srvs_generate_messages_cpp/fast:
 .PHONY : std_srvs_generate_messages_cpp/fast
 
 # Convenience name for target.
-navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_cpp.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_cpp.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_cpp.dir/rule
+navigation/amcl/CMakeFiles/std_srvs_generate_messages_py.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/std_srvs_generate_messages_py.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/std_srvs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-diagnostic_msgs_generate_messages_cpp: navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_cpp.dir/rule
+std_srvs_generate_messages_py: navigation/amcl/CMakeFiles/std_srvs_generate_messages_py.dir/rule
 
-.PHONY : diagnostic_msgs_generate_messages_cpp
+.PHONY : std_srvs_generate_messages_py
 
 # fast build rule for target.
-diagnostic_msgs_generate_messages_cpp/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_cpp.dir/build.make navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_cpp.dir/build
-.PHONY : diagnostic_msgs_generate_messages_cpp/fast
+std_srvs_generate_messages_py/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/std_srvs_generate_messages_py.dir/build.make navigation/amcl/CMakeFiles/std_srvs_generate_messages_py.dir/build
+.PHONY : std_srvs_generate_messages_py/fast
 
 # Convenience name for target.
-navigation/amcl/CMakeFiles/amcl_small_loop_crazy_driving_prg_indexed.bag.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_small_loop_crazy_driving_prg_indexed.bag.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/amcl_small_loop_crazy_driving_prg_indexed.bag.dir/rule
+navigation/amcl/CMakeFiles/amcl_willow-full.pgm.dir/rule:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_willow-full.pgm.dir/rule
+.PHONY : navigation/amcl/CMakeFiles/amcl_willow-full.pgm.dir/rule
 
 # Convenience name for target.
-amcl_small_loop_crazy_driving_prg_indexed.bag: navigation/amcl/CMakeFiles/amcl_small_loop_crazy_driving_prg_indexed.bag.dir/rule
+amcl_willow-full.pgm: navigation/amcl/CMakeFiles/amcl_willow-full.pgm.dir/rule
 
-.PHONY : amcl_small_loop_crazy_driving_prg_indexed.bag
+.PHONY : amcl_willow-full.pgm
 
 # fast build rule for target.
-amcl_small_loop_crazy_driving_prg_indexed.bag/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_small_loop_crazy_driving_prg_indexed.bag.dir/build.make navigation/amcl/CMakeFiles/amcl_small_loop_crazy_driving_prg_indexed.bag.dir/build
-.PHONY : amcl_small_loop_crazy_driving_prg_indexed.bag/fast
-
-# Convenience name for target.
-navigation/amcl/CMakeFiles/amcl_texas_greenroom_loop_indexed.bag.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_texas_greenroom_loop_indexed.bag.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/amcl_texas_greenroom_loop_indexed.bag.dir/rule
-
-# Convenience name for target.
-amcl_texas_greenroom_loop_indexed.bag: navigation/amcl/CMakeFiles/amcl_texas_greenroom_loop_indexed.bag.dir/rule
-
-.PHONY : amcl_texas_greenroom_loop_indexed.bag
-
-# fast build rule for target.
-amcl_texas_greenroom_loop_indexed.bag/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_texas_greenroom_loop_indexed.bag.dir/build.make navigation/amcl/CMakeFiles/amcl_texas_greenroom_loop_indexed.bag.dir/build
-.PHONY : amcl_texas_greenroom_loop_indexed.bag/fast
-
-# Convenience name for target.
-navigation/amcl/CMakeFiles/amcl_texas_willow_hallway_loop_indexed.bag.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_texas_willow_hallway_loop_indexed.bag.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/amcl_texas_willow_hallway_loop_indexed.bag.dir/rule
-
-# Convenience name for target.
-amcl_texas_willow_hallway_loop_indexed.bag: navigation/amcl/CMakeFiles/amcl_texas_willow_hallway_loop_indexed.bag.dir/rule
-
-.PHONY : amcl_texas_willow_hallway_loop_indexed.bag
-
-# fast build rule for target.
-amcl_texas_willow_hallway_loop_indexed.bag/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_texas_willow_hallway_loop_indexed.bag.dir/build.make navigation/amcl/CMakeFiles/amcl_texas_willow_hallway_loop_indexed.bag.dir/build
-.PHONY : amcl_texas_willow_hallway_loop_indexed.bag/fast
-
-# Convenience name for target.
-navigation/amcl/CMakeFiles/amcl_small_loop_prf_indexed.bag.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_small_loop_prf_indexed.bag.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/amcl_small_loop_prf_indexed.bag.dir/rule
-
-# Convenience name for target.
-amcl_small_loop_prf_indexed.bag: navigation/amcl/CMakeFiles/amcl_small_loop_prf_indexed.bag.dir/rule
-
-.PHONY : amcl_small_loop_prf_indexed.bag
-
-# fast build rule for target.
-amcl_small_loop_prf_indexed.bag/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_small_loop_prf_indexed.bag.dir/build.make navigation/amcl/CMakeFiles/amcl_small_loop_prf_indexed.bag.dir/build
-.PHONY : amcl_small_loop_prf_indexed.bag/fast
-
-# Convenience name for target.
-navigation/amcl/CMakeFiles/run_tests_amcl_rostest.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/run_tests_amcl_rostest.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/run_tests_amcl_rostest.dir/rule
-
-# Convenience name for target.
-run_tests_amcl_rostest: navigation/amcl/CMakeFiles/run_tests_amcl_rostest.dir/rule
-
-.PHONY : run_tests_amcl_rostest
-
-# fast build rule for target.
-run_tests_amcl_rostest/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/run_tests_amcl_rostest.dir/build.make navigation/amcl/CMakeFiles/run_tests_amcl_rostest.dir/build
-.PHONY : run_tests_amcl_rostest/fast
-
-# Convenience name for target.
-navigation/amcl/CMakeFiles/clean_test_results_amcl.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/clean_test_results_amcl.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/clean_test_results_amcl.dir/rule
-
-# Convenience name for target.
-clean_test_results_amcl: navigation/amcl/CMakeFiles/clean_test_results_amcl.dir/rule
-
-.PHONY : clean_test_results_amcl
-
-# fast build rule for target.
-clean_test_results_amcl/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/clean_test_results_amcl.dir/build.make navigation/amcl/CMakeFiles/clean_test_results_amcl.dir/build
-.PHONY : clean_test_results_amcl/fast
-
-# Convenience name for target.
-navigation/amcl/CMakeFiles/amcl_rosie_localization_stage.bag.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/amcl_rosie_localization_stage.bag.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/amcl_rosie_localization_stage.bag.dir/rule
-
-# Convenience name for target.
-amcl_rosie_localization_stage.bag: navigation/amcl/CMakeFiles/amcl_rosie_localization_stage.bag.dir/rule
-
-.PHONY : amcl_rosie_localization_stage.bag
-
-# fast build rule for target.
-amcl_rosie_localization_stage.bag/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_rosie_localization_stage.bag.dir/build.make navigation/amcl/CMakeFiles/amcl_rosie_localization_stage.bag.dir/build
-.PHONY : amcl_rosie_localization_stage.bag/fast
+amcl_willow-full.pgm/fast:
+	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/amcl_willow-full.pgm.dir/build.make navigation/amcl/CMakeFiles/amcl_willow-full.pgm.dir/build
+.PHONY : amcl_willow-full.pgm/fast
 
 # Convenience name for target.
 navigation/amcl/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule:
@@ -826,21 +766,6 @@ _run_tests_amcl_rostest_test_set_initial_pose.xml: navigation/amcl/CMakeFiles/_r
 _run_tests_amcl_rostest_test_set_initial_pose.xml/fast:
 	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/_run_tests_amcl_rostest_test_set_initial_pose.xml.dir/build.make navigation/amcl/CMakeFiles/_run_tests_amcl_rostest_test_set_initial_pose.xml.dir/build
 .PHONY : _run_tests_amcl_rostest_test_set_initial_pose.xml/fast
-
-# Convenience name for target.
-navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_lisp.dir/rule:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_lisp.dir/rule
-.PHONY : navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-diagnostic_msgs_generate_messages_lisp: navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : diagnostic_msgs_generate_messages_lisp
-
-# fast build rule for target.
-diagnostic_msgs_generate_messages_lisp/fast:
-	cd /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build && $(MAKE) -f navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_lisp.dir/build.make navigation/amcl/CMakeFiles/diagnostic_msgs_generate_messages_lisp.dir/build
-.PHONY : diagnostic_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
 navigation/amcl/CMakeFiles/run_tests_amcl_rostest_test_small_loop_crazy_driving_prg.xml.dir/rule:
@@ -1449,11 +1374,12 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/strip"
-	@echo "... install/local"
-	@echo "... install"
-	@echo "... list_install_components"
-	@echo "... rebuild_cache"
-	@echo "... edit_cache"
+	@echo "... amcl_rosie_localization_stage.bag"
+	@echo "... amcl_texas_willow_hallway_loop_indexed.bag"
+	@echo "... clean_test_results_amcl"
+	@echo "... std_srvs_generate_messages_eus"
+	@echo "... amcl_texas_greenroom_loop_indexed.bag"
+	@echo "... amcl_small_loop_crazy_driving_prg_indexed.bag"
 	@echo "... amcl_global_localization_stage_indexed.bag"
 	@echo "... amcl_sensors"
 	@echo "... _run_tests_amcl_rostest_test_texas_willow_hallway_loop.xml"
@@ -1461,47 +1387,39 @@ help:
 	@echo "... amcl_map"
 	@echo "... run_tests_amcl_rostest_test_basic_localization_stage.xml"
 	@echo "... topic_tools_generate_messages_nodejs"
+	@echo "... rebuild_cache"
 	@echo "... topic_tools_generate_messages_lisp"
-	@echo "... std_srvs_generate_messages_py"
+	@echo "... dynamic_reconfigure_generate_messages_py"
 	@echo "... std_srvs_generate_messages_nodejs"
 	@echo "... run_tests_amcl_rostest_test_set_initial_pose_delayed.xml"
 	@echo "... _run_tests_amcl_rostest_test_global_localization_stage.xml"
-	@echo "... dynamic_reconfigure_generate_messages_py"
-	@echo "... diagnostic_msgs_generate_messages_eus"
-	@echo "... std_srvs_generate_messages_eus"
-	@echo "... test"
-	@echo "... amcl_willow-full.pgm"
+	@echo "... amcl_pf"
+	@echo "... dynamic_reconfigure_generate_messages_lisp"
+	@echo "... std_srvs_generate_messages_lisp"
+	@echo "... dynamic_reconfigure_generate_messages_eus"
+	@echo "... edit_cache"
 	@echo "... topic_tools_generate_messages_cpp"
 	@echo "... run_tests_amcl_rostest_test_global_localization_stage.xml"
 	@echo "... _run_tests_amcl_rostest_test_texas_greenroom_loop.xml"
 	@echo "... amcl_basic_localization_stage_indexed.bag"
 	@echo "... _run_tests_amcl_rostest_test_rosie_multilaser.xml"
-	@echo "... diagnostic_msgs_generate_messages_nodejs"
-	@echo "... diagnostic_msgs_generate_messages_py"
-	@echo "... amcl_pf"
-	@echo "... dynamic_reconfigure_generate_messages_lisp"
-	@echo "... std_srvs_generate_messages_lisp"
-	@echo "... dynamic_reconfigure_generate_messages_eus"
 	@echo "... amcl"
 	@echo "... dynamic_reconfigure_generate_messages_nodejs"
+	@echo "... run_tests_amcl_rostest"
+	@echo "... amcl_small_loop_prf_indexed.bag"
 	@echo "... amcl_gencfg"
 	@echo "... std_srvs_generate_messages_cpp"
-	@echo "... diagnostic_msgs_generate_messages_cpp"
-	@echo "... amcl_small_loop_crazy_driving_prg_indexed.bag"
-	@echo "... amcl_texas_greenroom_loop_indexed.bag"
-	@echo "... amcl_texas_willow_hallway_loop_indexed.bag"
-	@echo "... amcl_small_loop_prf_indexed.bag"
-	@echo "... run_tests_amcl_rostest"
-	@echo "... clean_test_results_amcl"
-	@echo "... amcl_rosie_localization_stage.bag"
+	@echo "... std_srvs_generate_messages_py"
+	@echo "... amcl_willow-full.pgm"
+	@echo "... test"
 	@echo "... dynamic_reconfigure_generate_messages_cpp"
 	@echo "... run_tests_amcl"
 	@echo "... _run_tests_amcl"
 	@echo "... run_tests_amcl_rostest_test_set_initial_pose.xml"
 	@echo "... _run_tests_amcl_rostest_test_set_initial_pose.xml"
-	@echo "... diagnostic_msgs_generate_messages_lisp"
 	@echo "... run_tests_amcl_rostest_test_small_loop_crazy_driving_prg.xml"
 	@echo "... _run_tests_amcl_rostest_test_basic_localization_stage.xml"
+	@echo "... install"
 	@echo "... topic_tools_generate_messages_eus"
 	@echo "... run_tests_amcl_rostest_test_small_loop_prf.xml"
 	@echo "... run_tests_amcl_rostest_test_texas_willow_hallway_loop.xml"
@@ -1513,6 +1431,8 @@ help:
 	@echo "... _run_tests_amcl_rostest_test_small_loop_crazy_driving_prg.xml"
 	@echo "... run_tests_amcl_rostest_test_texas_greenroom_loop.xml"
 	@echo "... run_tests_amcl_rostest_test_rosie_multilaser.xml"
+	@echo "... list_install_components"
+	@echo "... install/local"
 	@echo "... src/amcl/map/map.o"
 	@echo "... src/amcl/map/map.i"
 	@echo "... src/amcl/map/map.s"

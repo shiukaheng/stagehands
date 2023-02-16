@@ -1,0 +1,15 @@
+{
+    "name": "ROS Development Container",
+    "dockerComposeFile": ["../docker-compose.yaml"],
+    "service": "ros-dev", // Name of the service in docker-compose-dev.yml
+    "workspaceFolder": "/catkin_ws",
+    "shutdownAction": "none",
+    "customizations": {
+        // ROS extensions
+        "extensions": [
+            "ms-iot.vscode-ros",
+            "ms-iot.vscode-ros-remote",
+            "ms-vscode.cmake-tools"
+        ]
+    }   
+}

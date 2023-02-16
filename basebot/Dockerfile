@@ -1,0 +1,62 @@
+# Pull ROS noetic image from Docker Hub
+FROM ros:noetic-robot
+
+# Update git
+RUN apt-get update
+
+# READ: https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/
+
+# Turtlebot packages
+RUN apt-get install -y ros-noetic-dynamixel-sdk
+RUN apt-get install -y ros-noetic-turtlebot3-msgs
+RUN apt-get install -y ros-noetic-turtlebot3
+RUN apt-get install -y ros-noetic-turtlebot3-simulations
+RUN apt-get install -y ros-noetic-openslam-gmapping
+RUN apt-get install -y ros-noetic-slam-gmapping
+RUN apt-get install -y ros-noetic-navigation
+RUN apt-get install -y ros-noetic-geometry2
+RUN apt-get install -y ros-noetic-hector-slam
+
+# Nodejs
+RUN apt-get install -y nodejs npm
+
+# Development
+RUN apt-get install -y python3-catkin-tools
+RUN apt-get install -y nano
+RUN apt-get install -y git
+
+# Set the working directory to catkin_ws
+WORKDIR /catkin_ws/src
+
+# Copy .src files into the catkin_ws/src folder:
+COPY ./src/ .
+
+# Set the working directory to catkin_ws 
+WORKDIR /catkin_ws
+
+# Build the catkin workspace
+RUN /bin/bash -c "source /opt/ros/noetic/setup.bash; catkin build"
+
+# Add the underlay and overlay to the bashrc
+RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+RUN echo "source /catkin_ws/devel/setup.bash" >> ~/.bashrc
+
+# Set the environment variables
+ARG ROS_MASTER_HOSTNAME=localhost
+ARG ROS_MASTER_PORT=11311
+ARG TURTLEBOT3_MODEL=waffle_pi
+ENV ROS_MASTER_URI=http://${ROS_MASTER_HOSTNAME}:11311
+ENV ROS_HOSTNAME=${ROS_MASTER_HOSTNAME}
+ENV TURTLEBOT3_MODEL=${TURTLEBOT3_MODEL}
+
+# Go back to the default working directory
+WORKDIR /
+
+# Copy in the map directory
+COPY ./map/ ./map/
+
+# Expose the port for the ROS master
+EXPOSE 11311
+
+# Open a shell to use interactive commands
+# CMD ["/bin/bash"]

@@ -11,9 +11,6 @@ services:
       - /catkin_ws/build
       - /catkin_ws/logs
       - /catkin_ws/install
-      # WSL directories
-      - \\wsl$\Ubuntu\mnt\wslg\:/mnt/wslg/
-      - \\wsl$\Ubuntu\tmp\.X11-unix:/tmp/.X11-unix
       
     # Keep it open for development
     stdin_open: true

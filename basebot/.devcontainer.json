@@ -11,5 +11,17 @@
             "ms-iot.vscode-ros-remote",
             "ms-vscode.cmake-tools"
         ]
-    }   
+    },
+    "mounts": [
+        {
+            "source": "/mnt/wslg/",
+            "target": "/mnt/wslg/",
+            "type": "bind"
+        },
+        {
+            "source": "/tmp/.X11-unix",
+            "target": "/tmp/.X11-unix",
+            "type": "bind"
+        }
+    ]
 }

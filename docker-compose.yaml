@@ -10,6 +10,11 @@ services:
       - /catkin_ws/build
       - /catkin_ws/logs
       - /catkin_ws/install
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ~/.Xauthority:/root/.Xauthority
     # Keep it open for development
     stdin_open: true
     tty: true
+    network_mode: host
+    environment:
+      DISPLAY: ${DISPLAY}

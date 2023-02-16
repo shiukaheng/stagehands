@@ -24,7 +24,8 @@ RUN apt-get install -y nodejs npm
 RUN apt-get install -y python3-catkin-tools
 RUN apt-get install -y nano
 RUN apt-get install -y git
-
+RUN apt-get install -y x11-apps
+RUN apt-get install -y iputils-ping
 # Set the working directory to catkin_ws
 WORKDIR /catkin_ws/src
 
@@ -36,10 +37,6 @@ WORKDIR /catkin_ws
 
 # Build the catkin workspace
 RUN /bin/bash -c "source /opt/ros/noetic/setup.bash; catkin build"
-
-# Add the underlay and overlay to the bashrc
-RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
-RUN echo "source /catkin_ws/devel/setup.bash" >> ~/.bashrc
 
 # Set the environment variables
 ARG ROS_MASTER_HOSTNAME=localhost
@@ -58,5 +55,12 @@ COPY ./map/ ./map/
 # Expose the port for the ROS master
 EXPOSE 11311
 
-# Open a shell to use interactive commands
-# CMD ["/bin/bash"]
+## BELOW IS FOR DEVELOPMENT PURPOSES ONLY, PLEASE REMOVE FOR PRODUCTION ##
+# Copy the scripts directory into the container
+COPY ./scripts/ ./scripts/
+
+# Set the working directory to the scripts directory
+WORKDIR /scripts
+
+# Add the init script to the bashrc
+RUN echo "source /scripts/init.sh" >> ~/.bashrc

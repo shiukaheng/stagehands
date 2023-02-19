@@ -11,11 +11,16 @@ RUN apt-get install -y ros-noetic-dynamixel-sdk
 RUN apt-get install -y ros-noetic-turtlebot3-msgs
 RUN apt-get install -y ros-noetic-turtlebot3
 RUN apt-get install -y ros-noetic-turtlebot3-simulations
+RUN apt-get install -y ros-noetic-turtlebot3-gazebo
 RUN apt-get install -y ros-noetic-openslam-gmapping
 RUN apt-get install -y ros-noetic-slam-gmapping
 RUN apt-get install -y ros-noetic-navigation
 RUN apt-get install -y ros-noetic-geometry2
 RUN apt-get install -y ros-noetic-hector-slam
+RUN apt-get install -y ros-noetic-rqt
+RUN apt-get install -y ros-noetic-rqt-common-plugins
+RUN apt-get install -y ros-noetic-rqt-robot-plugins
+RUN apt-get install libgazebo11-dev
 
 # Nodejs
 RUN apt-get install -y nodejs npm

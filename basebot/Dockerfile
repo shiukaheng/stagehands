@@ -18,9 +18,10 @@ RUN apt-get install -y ros-noetic-navigation
 RUN apt-get install -y ros-noetic-geometry2
 RUN apt-get install -y ros-noetic-hector-slam
 RUN apt-get install -y ros-noetic-rqt
-RUN apt-get install -y ros-noetic-rqt-common-plugins
-RUN apt-get install -y ros-noetic-rqt-robot-plugins
-RUN apt-get install libgazebo11-dev
+# RUN apt-get install -y ros-noetic-rqt-common-plugins
+# RUN apt-get install -y ros-noetic-rqt-robot-plugins
+RUN apt-get install -y libgazebo11-dev
+RUN apt-get install -y python3-roslaunch
 
 # Nodejs
 RUN apt-get install -y nodejs npm

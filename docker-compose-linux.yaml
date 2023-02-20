@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  ros-dev:
+    build: ./basebot
+    container_name: basebot-dev-container
+    volumes:
+      - ./basebot/src:/catkin_ws/src
+      - ./basebot/map:/map
+      - ./basebot/scripts:/scripts
+      - /catkin_ws/devel
+      - /catkin_ws/build
+      - /catkin_ws/logs
+      - /catkin_ws/install
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - $XAUTHORITY:$XAUTHORITY
+      
+    environment:
+      - DISPLAY
+      - SDL_VIDEODRIVER=x11
+      - XAUTHORITY=/tmp/.docker.xauth
+      - QT_X11_NO_MITSHM=1
+    # Keep it open for development
+    stdin_open: true
+    tty: true
+    network_mode: host
+    privileged: true

@@ -1,1 +1,1 @@
-docker-compose -f docker-compose-unix.yaml up -d
+docker-compose -f docker-compose-wsl.yaml up -d

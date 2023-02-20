@@ -1,10 +1,10 @@
-import { Fragment, useState } from "react"
+import { Fragment, useContext, useState } from "react"
 import MicPanel from "./MicPanel"
 import PresetPanel from "./PresetPanel"
 
 function test(ComponentSelect: number) {
   if(ComponentSelect === 0) {
-    return (<PresetPanel />)
+    return (<PresetPanel/>)
   } else {
     return (<MicPanel/>)
   }
@@ -12,7 +12,7 @@ function test(ComponentSelect: number) {
 
 function SidePanel() {
   const [ComponentSelect, ComponentSwitch] = useState(1)
-  
+
   return (
     <Fragment>
     <div id="SidePanel" className="absolute inset-y-10 left-10 w-80 border-solid border-2 rounded-md p-5"> {/* Left side panel where a list of mics will be displayed */}

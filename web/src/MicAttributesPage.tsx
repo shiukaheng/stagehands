@@ -6,7 +6,7 @@ export default function MicAttributesPage() {
   const yValInputElemRef = useRef<HTMLInputElement>(null)
   const yValRangeElemRef = useRef<HTMLInputElement>(null)
   return (
-    <div className="absolute inset-y-10 left-10 w-70 h-auto border-red-200 border-2 rounded-md p-5 bg-red-300">
+    //<div className="absolute inset-y-10 left-10 w-70 h-auto border-red-200 border-2 rounded-md p-5 bg-red-300">
       <table 
         id="attributes"
         className="bg-gray-300 font-bold h-96 w-64 rounded p-2 ">
@@ -152,7 +152,7 @@ export default function MicAttributesPage() {
         </tr>
 
       </table>
-    </div> 
+    //</div> 
     
   )
 }

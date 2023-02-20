@@ -1,12 +1,12 @@
-import { Fragment, useState } from 'react'
+import { createContext, Fragment, useState } from 'react'
 // import reactLogo from './assets/react.svg'
 import './App.css'
 import { Stage } from './Stage'
 import SidePanel from './SidePanel'
 import React from 'react'
+export const presetButtons = createContext([])
 
 function App() {
-  const [buttons, setButtons] = useState([] as any[])
 
   return (
     <Fragment>

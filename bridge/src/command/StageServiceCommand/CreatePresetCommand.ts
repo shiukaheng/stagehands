@@ -1,6 +1,6 @@
-import { preset } from "../../../../schema/src/stage/stageState";
+import { preset } from "../../../../schema/dist";
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../../../schema/src/serverResponse"
+import { responseMessage } from "../../../../schema"
 import { ICommand } from "../ICommand";
 
 
@@ -20,6 +20,7 @@ export class CreatePresetCommand implements ICommand{
         }
         context.getStageState().presets.push(this.newPreset)
         return {
+            
             responseType:'success',
             message:`preset ${this.newPreset.name} created`
         } as responseMessage

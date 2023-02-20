@@ -1,6 +1,6 @@
-import { stageBoundary } from "../../../../schema/src/stage/stageState";
+import { stageBoundary } from "../../../../schema/dist";
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../../../schema/src/serverResponse"
+import { responseMessage } from "../../../../schema/dist"
 import { ICommand } from "../ICommand";
 
 

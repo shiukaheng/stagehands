@@ -1,6 +1,6 @@
-import { botPose, compositePose,botState} from "../../../../schema/src/bot/botState";
+import { botPose, compositePose,botState} from "../../../../schema/dist";
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../../../schema/src/serverResponse"
+import { responseMessage } from "../../../../schema/dist"
 import { ICommand } from "../ICommand";
 
 export class MoveBotToPoseCommand implements ICommand {
@@ -13,6 +13,8 @@ export class MoveBotToPoseCommand implements ICommand {
     }
     execute(context: Context): responseMessage {
         let tempBotState=context.getTargetBotState().find(botState =>botState.name ===this.botID)
+
+
         if (tempBotState ===undefined){
             return {
                 responseType:'error',
@@ -30,7 +32,9 @@ export class MoveBotToPoseCommand implements ICommand {
     
         //Might use mergediff
         tempBotState.pose=this.botPose
+
         return {
+            
             responseType:'success',
             message:`${this.botID} move to ${JSON.stringify(this.botPose)}`
         }

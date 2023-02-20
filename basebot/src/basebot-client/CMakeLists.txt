@@ -18,8 +18,7 @@ execute_process(COMMAND npm install
 )
 
 install(PROGRAMS
-   src/talker.js
-   src/listener.js
+   src/client.js
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

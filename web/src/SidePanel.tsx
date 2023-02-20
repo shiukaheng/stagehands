@@ -21,7 +21,7 @@ function SidePanel() {
 
   return (
     <Fragment>
-    <div id="SidePanel" className="absolute inset-y-10 left-10 w-80 border-solid border-2 rounded-md p-5"> {/* Left side panel where a list of mics will be displayed */}
+    <div id="SidePanel" className="h-full left-10 w-80 border-solid border-2 rounded-md p-5"> {/* Left side panel where a list of mics will be displayed */}
       {/* Preset Button */}
       <button
         id="PresetsButton"

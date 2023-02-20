@@ -1,15 +1,26 @@
 import { useRef, useState } from "react"
+import MicStand from "./MicStand"
 
-export default function MicAttributesPage() {
+export default function MicAttributesPage(micstand :MicStand) {
   const xValInputElemRef = useRef<HTMLInputElement>(null)
   const xValRangeElemRef = useRef<HTMLInputElement>(null)
   const yValInputElemRef = useRef<HTMLInputElement>(null)
   const yValRangeElemRef = useRef<HTMLInputElement>(null)
+  const angleinputElemRef = useRef<HTMLInputElement>(null)
+  const angleRangeElemRef = useRef<HTMLInputElement>(null)
   return (
-    //<div className="absolute inset-y-10 left-10 w-70 h-auto border-red-200 border-2 rounded-md p-5 bg-red-300">
+    <div className=" left-10 w-80 border-gray-200 border-2 rounded-md p-5 bg-white overflow-auto">
+      <div className="flex flex-row">
+
+        <button className="left-0 top-0 m-1 rounded-md bg-gray-100 p-1 hover:bg-slate-400 active:bg-slate-500 font-bold">
+          Back
+        </button>
+      </div>
+      
+      
       <table 
         id="attributes"
-        className="bg-gray-300 font-bold h-96 w-64 rounded p-2 ">
+        className="bg-gray-100 font-bold h-full w-full rounded p-2 bottom-0 ">
         
         <tr>
           <th>Name :</th>
@@ -17,8 +28,8 @@ export default function MicAttributesPage() {
             <input
               type="text"
               id="micName"
-              className="text-center mb-2 h-6 w-32"
-              defaultValue={"Mic 1"}
+              className="text-center mb-2 h-6 w-32 rounded-md"
+              defaultValue={micstand.id}
               size={11}></input>
           </td>
         </tr>
@@ -26,25 +37,22 @@ export default function MicAttributesPage() {
         <tr>
           <th>Status :</th>
           <td>
-            <select
+            <button
               id="micStatus"
-              className="rounded-none text-center mb-2 h-6 w-32">
-              <option value="active"> active </option>
-              <option value="out of power">out of power</option>
-            </select>
+              className="text-center mb-2 h-6 w-32 bg-white rounded-md">
+                active 
+            </button>
           </td>
         </tr>
 
         <tr>
           <th>Module :</th>
           <td>
-            <select
+            <button
               id="micModule"
-              className="mb-2 text-center h-6 w-32">
-              <option value="1">Module 1</option>
-              <option value="2">Module 2</option>
-              <option value="3">Module 3</option>
-            </select>
+              className="mb-2 text-center h-6 w-32 bg-white rounded-md">
+                Microphone
+            </button>
           </td>
         </tr>
 
@@ -55,11 +63,11 @@ export default function MicAttributesPage() {
               ref={xValInputElemRef}
               type={"number"}
               id={"micX"}
-              className={"text-center mb-2 h-6 w-32"}
+              className={"text-center mb-2 h-6 w-32 rounded-md"}
               min={0}
               max={100}
               
-              defaultValue={0}
+              defaultValue={micstand.x}
               onChange = {() => {
                 xValRangeElemRef.current!.value = xValInputElemRef.current!.value
               }}
@@ -69,7 +77,7 @@ export default function MicAttributesPage() {
         </tr>
 
         <tr>
-          <th>x bar :</th>
+          <th> </th>
           <td>
             <input 
               ref = {xValRangeElemRef}
@@ -78,7 +86,7 @@ export default function MicAttributesPage() {
               className = {"mb-2 h-6 w-32"}
               min = {0}
               max = {100}
-              defaultValue = {0}
+              defaultValue = {micstand.x}
               step = {1}
               onChange = {() => {
                 // When the range input is changed, useRef to get the input element
@@ -97,10 +105,10 @@ export default function MicAttributesPage() {
               ref = {yValInputElemRef}
               type={"number"}
               id={"micY"}
-              className={"text-center mb-2 h-6 w-32"}
+              className={"text-center mb-2 h-6 w-32 rounded-md"}
               min={0}
               max={100}
-              defaultValue={0}
+              defaultValue={micstand.y}
               onChange = {() => {
                 yValRangeElemRef.current!.value = yValInputElemRef.current!.value
               }}
@@ -111,7 +119,7 @@ export default function MicAttributesPage() {
         </tr>
 
         <tr>
-          <th>y bar :</th>
+          <th> </th>
           <td>
             <input 
               ref = {yValRangeElemRef}
@@ -120,7 +128,7 @@ export default function MicAttributesPage() {
               className = {"mb-2 h-6 w-32"}
               min = {0}
               max = {100}
-              defaultValue = {0}
+              defaultValue = {micstand.y}
               step = {1}
 
               onChange = {() => {
@@ -136,23 +144,55 @@ export default function MicAttributesPage() {
         <tr>
           <th>Angle :</th>
           <td>
-            <button className="mb-2 h-6 w-32 bg-slate-50 text-center">
-                30
-            </button>
+          <input 
+              ref = {angleinputElemRef}
+              type = {"number"}
+              id = {"AngleInput"}
+              className = {"mb-2 h-6 w-32 text-center rounded-md"}
+              min = {0}
+              max = {180}
+              defaultValue = {0}
+              step = {1}
+              onChange = {() => {
+                // When the range input is changed, useRef to get the input element
+                // and set the value of the input element to the value of the range input
+                angleRangeElemRef.current!.value = angleinputElemRef.current!.value
+              }}
+            ></input>
+          </td>
+        </tr>
+
+        <tr>
+          <th> </th>
+          <td>
+            <input 
+              ref = {angleRangeElemRef}
+              type = {"range"}
+              id = {"AngleRange"}
+              className = {"mb-2 h-6 w-32 "}
+              min = {0}
+              max = {180}
+              defaultValue = {0}
+              step = {1}
+
+              onChange = {() => {
+                angleinputElemRef.current!.value = angleRangeElemRef.current!.value
+              }}
+            ></input>
           </td>
         </tr>
 
         <tr>
           <th>Battery :</th>
           <td>
-            <button className="mb-2 h-6 w-32 bg-slate-50 text-center">
+            <button className="mb-2 h-6 w-32 bg-slate-50 text-center rounded-md">
                 30
             </button>
           </td>
         </tr>
 
       </table>
-    //</div> 
+    // </div> 
     
   )
 }

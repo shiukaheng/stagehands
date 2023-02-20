@@ -9,7 +9,7 @@ export default function MicAttributesPage(micstand :MicStand) {
   const angleinputElemRef = useRef<HTMLInputElement>(null)
   const angleRangeElemRef = useRef<HTMLInputElement>(null)
   return (
-    <div className=" left-10 w-80 border-gray-200 border-2 rounded-md p-5 bg-white overflow-auto">
+    <div className=" left-10 w-80 h-full border-gray-200 border-2 rounded-md p-5 bg-white overflow-auto">
       <div className="flex flex-row">
 
         <button className="left-0 top-0 m-1 rounded-md bg-gray-100 p-1 hover:bg-slate-400 active:bg-slate-500 font-bold">

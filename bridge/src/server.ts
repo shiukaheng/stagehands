@@ -11,6 +11,7 @@ const dummyCreatePresetSocket=io("http://localhost:3000");
 const dummyCreatePresetClient =  new TopicClient(dummyCreatePresetSocket);
 const socketIOServer = new Server(3000);
 const topicServer = new TopicServer(socketIOServer);
+const context = new Context();
 const controller = new Controller();
 const dummyPreset :preset= {
     name:"preset1",
@@ -18,11 +19,13 @@ const dummyPreset :preset= {
 }
 topicServer.srv(createPresetCommandService, (preset) => {
     const cP = new CreatePresetCommand(preset)
-    return cP.execute(preset)
+    return cP.execute(context)
 })
 
 dummyCreatePresetClient.req(createPresetCommandService,dummyPreset,dummyCreatePresetClient.serverID as string).then((response) =>{
-    const dummyCreatePresetCommand = new createPresetCommandService()
+    console.log(`dummyCreatePresetClient received response ${JSON.stringify(response)}`)
 }
 
-)
+).catch((error) => {
+       console.log(`dummyCreatePresetClient received error: ${error}`)
+   })

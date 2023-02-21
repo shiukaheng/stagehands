@@ -1,31 +1,32 @@
-import { AggregateBotState } from "../../../schema/src/bot/botState"
-import { presetRecallStateLiteralSchema, StageBoundary, StageState } from "../../../schema/src/stage/stageState";
+import { AggregateBotState } from "../../../schema/src/bot/botState";
+import {
+    presetRecallStateLiteralSchema,
+    StageBoundary,
+    StageState,
+} from "../../../schema/src/stage/stageState";
 import { Preset } from "../../../schema/src/stage/stageState";
 export class Context {
+    private currentBotState: AggregateBotState;
+    private targetBotState: AggregateBotState;
 
-    private currentBotState :AggregateBotState
-    private targetBotState :AggregateBotState
+    private stageState: StageState;
 
-
-    private stageState: StageState
-    
-
-    constructor(){
-        this.currentBotState = []
+    constructor() {
+        this.currentBotState = [];
         this.targetBotState = [];
         this.stageState = {
-            obstacles:[],
-            presets:[],
-            activePreset:"NoActivePreset",
-            presetRecallState:'idle' ,
-            boundary:null as any
-        }
+            obstacles: [],
+            presets: [],
+            activePreset: "NoActivePreset",
+            presetRecallState: "idle",
+            boundary: null as any,
+        };
     }
-    public getCurrentBotState() :AggregateBotState {
+    public getCurrentBotState(): AggregateBotState {
         return this.currentBotState;
     }
 
-    public setCurrentBotState(aggregatedBotState:AggregateBotState): void {
+    public setCurrentBotState(aggregatedBotState: AggregateBotState): void {
         this.currentBotState = aggregatedBotState;
     }
 
@@ -36,12 +37,11 @@ export class Context {
     public setStageState(stageState: StageState): void {
         this.stageState = stageState;
     }
-    public getTargetBotState() :AggregateBotState {
+    public getTargetBotState(): AggregateBotState {
         return this.targetBotState;
     }
 
-    public setTargetBotState(targetBotState :AggregateBotState): void {
+    public setTargetBotState(targetBotState: AggregateBotState): void {
         this.targetBotState = targetBotState;
     }
-
 }

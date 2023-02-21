@@ -12,6 +12,6 @@ topicServer.sub(botPoseTopic, (data) => {
     console.log(`Received bot pose: ${JSON.stringify(data)}`);
 });
 
-topicServer.getServerID().then((id)=>{
+topicServer.getServerID().then((id) => {
     console.log("Connected to server with ID: " + id);
 })

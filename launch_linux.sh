@@ -1,2 +1,3 @@
 xhost local:root
-docker-compose -f docker-compose-linux.yaml up -d
+sudo docker-compose -f docker-compose-linux.yaml up -d
+# If docker container not visible from VSCode / dev container extensions, make sure they are in the same context.

@@ -4,7 +4,7 @@ import { createPresetCommandService } from "./Channels/presetCommandService";
 import { CreatePresetCommand } from "./command/StageServiceCommand/CreatePresetCommand";
 import { Context } from "./controller/Context";
 import { TopicClient } from "webtopics";
-import { preset } from "../../schema";
+import { Preset } from "../../schema";
 import { io } from "socket.io-client"
 import { Controller } from "./controller/Controller";
 

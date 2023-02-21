@@ -1,5 +1,5 @@
-import { preset } from "../../../../schema/dist";
+import { Preset } from "../../../../schema/dist";
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../../../schema"
+import { ResponseMessage } from "../../../../schema"
 import { ICommand } from "../ICommand";
 

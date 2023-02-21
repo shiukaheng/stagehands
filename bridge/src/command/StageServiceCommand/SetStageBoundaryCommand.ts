@@ -1,15 +1,15 @@
-import { stageBoundary } from "../../../../schema/dist";
+import { StageBoundary } from "../../../../schema/dist";
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../../../schema/dist"
+import { ResponseMessage } from "../../../../schema/dist"
 import { ICommand } from "../ICommand";
 
 
 export class SetStageBoundaryCommand implements ICommand{
-    private stageBoundary:stageBoundary;
-    constructor(stageBoundary : stageBoundary){
+    private stageBoundary: StageBoundary;
+    constructor(stageBoundary : StageBoundary){
         this.stageBoundary = stageBoundary;
     }
-    execute(context: Context): responseMessage {
+    execute(context: Context): ResponseMessage {
 
         context.getStageState().boundary = this.stageBoundary;
         return{

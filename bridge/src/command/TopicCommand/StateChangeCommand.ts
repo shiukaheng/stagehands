@@ -1,5 +1,5 @@
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../../../schema";
+import { ResponseMessage } from "../../../../schema";
 import { ICommand } from "../ICommand";
 
 

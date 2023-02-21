@@ -1,5 +1,5 @@
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../../../schema/dist"
+import { ResponseMessage } from "../../../../schema/dist"
 import { ICommand } from "../ICommand";
 
 export class RecallPresetCommand implements ICommand{
@@ -8,7 +8,7 @@ export class RecallPresetCommand implements ICommand{
         this.recallingPresetID=recallingPresetID;
 
     }
-    execute(context: Context): responseMessage {
+    execute(context: Context): ResponseMessage {
         
         let tempPresetState = context.getStageState().presets.find(preset => preset.name ===this.recallingPresetID)
         if(tempPresetState ===undefined){

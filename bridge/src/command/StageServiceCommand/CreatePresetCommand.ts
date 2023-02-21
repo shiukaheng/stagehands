@@ -1,16 +1,16 @@
-import { preset } from "../../../../schema/dist";
+import { Preset } from "../../../../schema/dist";
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../../../schema"
+import { ResponseMessage } from "../../../../schema"
 import { ICommand } from "../ICommand";
 
 
 export class CreatePresetCommand implements ICommand{
-    private newPreset:preset;
-    constructor(newPreset : preset){
+    private newPreset: Preset;
+    constructor(newPreset : Preset){
         this.newPreset = newPreset;
     }
-    execute(context: Context): responseMessage {
-        let tempPresetState = context.getStageState().presets.find(preset => preset.name ===this.newPreset.name)
+    execute(context: Context): ResponseMessage {
+        let tempPresetState = context.getStageState().presets.find((preset: { name: string; }) => preset.name ===this.newPreset.name)
         if(tempPresetState !== undefined){
             return {
                 responseType:'error',
@@ -23,7 +23,7 @@ export class CreatePresetCommand implements ICommand{
             
             responseType:'success',
             message:`preset ${this.newPreset.name} created`
-        } as responseMessage
+        } as ResponseMessage
     }
     
 }

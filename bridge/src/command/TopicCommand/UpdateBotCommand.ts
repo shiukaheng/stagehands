@@ -1,9 +1,9 @@
 import { Context } from "../../controller/Context";
-import { botState } from "../../../../schema";
+import { BotState } from "../../../../schema";
 import { ICommand } from "../ICommand";
 export class UpdateBotCommand implements ICommand{
-    private botState:botState
-    constructor(newBotState : botState){
+    private botState:BotState
+    constructor(newBotState : BotState){
         this.botState = newBotState;
     }
     execute(context: Context): void | { responseData?: any; responseType: string; message: string; } {

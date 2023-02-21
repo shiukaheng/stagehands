@@ -1,18 +1,18 @@
-import { botPose, compositePose,botState} from "../../../../schema/dist";
+import { BotPose, CompositePose, BotState} from "../../../../schema/dist";
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../../../schema/dist"
+import { ResponseMessage } from "../../../../schema/dist"
 import { ICommand } from "../ICommand";
 
 export class MoveBotToPoseCommand implements ICommand {
-    private botPose:botPose;
+    private botPose:BotPose;
     private botID:string;
-    constructor(botID:string,botPose:botPose){
+    constructor(botID:string,botPose:BotPose){
         this.botID = botID
         this.botPose = botPose;
 
     }
-    execute(context: Context): responseMessage {
-        let tempBotState=context.getTargetBotState().find(botState =>botState.name ===this.botID)
+    execute(context: Context): ResponseMessage {
+        let tempBotState=context.getTargetBotState().find((botState: { name: string; }) =>botState.name ===this.botID)
 
 
         if (tempBotState ===undefined){

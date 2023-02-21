@@ -1,13 +1,13 @@
-import { aggregateBotState } from "../../../schema/src/bot/botState"
-import { presetRecallStateLiteralSchema, stageBoundary, stageState } from "../../../schema/src/stage/stageState";
-import { preset } from "../../../schema/src/stage/stageState";
+import { AggregateBotState } from "../../../schema/src/bot/botState"
+import { presetRecallStateLiteralSchema, StageBoundary, StageState } from "../../../schema/src/stage/stageState";
+import { Preset } from "../../../schema/src/stage/stageState";
 export class Context {
 
-    private currentBotState :aggregateBotState
-    private targetBotState :aggregateBotState
+    private currentBotState :AggregateBotState
+    private targetBotState :AggregateBotState
 
 
-    private stageState: stageState
+    private stageState: StageState
     
 
     constructor(){
@@ -21,26 +21,26 @@ export class Context {
             boundary:null as any
         }
     }
-    public getCurrentBotState() :aggregateBotState {
+    public getCurrentBotState() :AggregateBotState {
         return this.currentBotState;
     }
 
-    public setCurrentBotState(aggregatedBotState:aggregateBotState): void {
+    public setCurrentBotState(aggregatedBotState:AggregateBotState): void {
         this.currentBotState = aggregatedBotState;
     }
 
-    public getStageState(): stageState {
+    public getStageState(): StageState {
         return this.stageState;
     }
 
-    public setStageState(stageState: stageState): void {
+    public setStageState(stageState: StageState): void {
         this.stageState = stageState;
     }
-    public getTargetBotState() :aggregateBotState {
+    public getTargetBotState() :AggregateBotState {
         return this.targetBotState;
     }
 
-    public setTargetBotState(targetBotState :aggregateBotState): void {
+    public setTargetBotState(targetBotState :AggregateBotState): void {
         this.targetBotState = targetBotState;
     }
 

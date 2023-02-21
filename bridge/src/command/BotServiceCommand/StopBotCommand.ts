@@ -1,11 +1,11 @@
 import { Context } from "../../controller/Context";
-import { responseMessage } from "../../../../schema/dist"
+import { ResponseMessage } from "../../../../schema/dist"
 import { ICommand } from "../ICommand";
 
 export class StopBotCommand implements ICommand{
     private botID:string;
-    execute(context: Context): responseMessage {
-        let tempBotState=context.getTargetBotState().find(botState =>botState.name ===this.botID)
+    execute(context: Context): ResponseMessage {
+        let tempBotState=context.getTargetBotState().find((botState: { name: string; }) =>botState.name ===this.botID)
         if (tempBotState ===undefined){
             return {
                 responseType:'error',

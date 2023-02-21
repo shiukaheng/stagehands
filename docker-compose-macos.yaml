@@ -11,7 +11,8 @@ services:
       - /catkin_ws/build
       - /catkin_ws/logs
       - /catkin_ws/install
-      
+    environment:
+      - HOST_OS=macos
     # Keep it open for development
     stdin_open: true
     tty: true

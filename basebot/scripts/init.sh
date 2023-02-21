@@ -2,13 +2,17 @@ source /opt/ros/noetic/setup.bash
 source /catkin_ws/devel/setup.bash
 
 if [ -d "/mnt/wslg/distro" ]; then \
-    # export DISPLAY=:0; \
+    export DISPLAY=:0; \
     export WAYLAND_DISPLAY=wayland-0; \
     export XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir; \
     export PULSE_SERVER=unix:/mnt/wslg/PulseServer; \
 fi
 
-export DISPLAY=:0 # Hack, but works for now. VSCode dev containers somehow sets this to other values, which breaks RViz.
+# If HOST_OS is linux, then set DISPLAY to :0
+if [ "$HOST_OS" = "linux" ]; then
+    export DISPLAY=:0
+fi
+
 export PS1='\[\e[1;32m\]\u@\h:\[\e[1;34m\]\w\[\e[0m\]\$ '
 
 export TURTLEBOT_NAME=AGGRON

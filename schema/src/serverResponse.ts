@@ -5,4 +5,4 @@ export const responseMessageSchema=z.object({
     message:z.string(),
     responseData:z.any().optional()
 })
-export type responseMessage = z.infer<typeof responseMessageSchema>
+export type ResponseMessage = z.infer<typeof responseMessageSchema>

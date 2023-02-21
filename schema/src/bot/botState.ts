@@ -72,10 +72,10 @@ export const compositePoseSchema = z.object({
 
 export const aggregateBotStateSchema = botStateSchema.array()
 
-export type botState = z.infer<typeof botStateSchema>;
-export type aggregateBotState = z.infer<typeof aggregateBotStateSchema>;
-export type compositePose = z.infer<typeof compositePoseSchema>;
-export type botPose = z.infer<typeof botPoseSchema>;
-export type modulePose = z.infer<typeof modulePoseSchema>;
-export type obstacle = z.infer<typeof obstacleSchema>;
+export type BotState = z.infer<typeof botStateSchema>;
+export type AggregateBotState = z.infer<typeof aggregateBotStateSchema>;
+export type CompositePose = z.infer<typeof compositePoseSchema>;
+export type BotPose = z.infer<typeof botPoseSchema>;
+export type ModulePose = z.infer<typeof modulePoseSchema>;
+export type Obstacle = z.infer<typeof obstacleSchema>;
 export type LEDState = z.infer<typeof ledStateSchema>

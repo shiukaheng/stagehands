@@ -19,7 +19,7 @@ export const botCommandSchema = z.object({
     
 })
 
-export type targetBotIds = z.infer<typeof targetBotIdsSchema>;
-export type botCommandLiteral = z.infer<typeof botCommandLiteralSchema>;
-export type botCommandData = z.infer<typeof botCommandDataSchema>;
-export type botCommand = z.infer<typeof botCommandSchema>;
+export type TargetBotIds = z.infer<typeof targetBotIdsSchema>;
+export type BotCommandLiteral = z.infer<typeof botCommandLiteralSchema>;
+export type BotCommandData = z.infer<typeof botCommandDataSchema>;
+export type BotCommand = z.infer<typeof botCommandSchema>;

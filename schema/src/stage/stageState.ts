@@ -33,7 +33,7 @@ export const stageStateSchema = z.object({
 })
 
 
-export type stageState = z.infer<typeof stageStateSchema>;
-export type preset = z.infer<typeof presetSchema>;
-export type stageBoundary = z.infer<typeof stageBoundarySchema>;
-export type presetRecallStateLiteral = z.infer<typeof presetRecallStateLiteralSchema>;
+export type StageState = z.infer<typeof stageStateSchema>;
+export type Preset = z.infer<typeof presetSchema>;
+export type StageBoundary = z.infer<typeof stageBoundarySchema>;
+export type PresetRecallStateLiteral = z.infer<typeof presetRecallStateLiteralSchema>;

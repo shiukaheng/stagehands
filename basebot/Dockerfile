@@ -1,6 +1,6 @@
 # Pull ROS noetic image from Docker Hub
 FROM ros:noetic-robot
-# FROM osrf/ros:noetic-desktop-full
+# FROM osrf/ros:noetic-desktop-full - Maybe better alternative
 
 # Update git
 RUN apt-get update
@@ -38,6 +38,8 @@ RUN apt-get install -y iputils-ping
 RUN apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns mdns-scan
 
 RUN apt-get install -y wget
+RUN apt-get install -y dos2unix
+RUN apt-get install -y curl
 
 # Set the working directory to catkin_ws
 WORKDIR /catkin_ws/src

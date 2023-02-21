@@ -23,7 +23,7 @@ const controller = new Controller();
 // Create test preset
 const testPreset: Preset = {
     name: "preset1",
-    poses: [],
+    poses: []
 };
 
 // Set up createPresetCommandService
@@ -33,17 +33,22 @@ topicServer.srv(createPresetCommandService, (preset) => {
 });
 
 // Try requesting createPresetCommandService
-testCreatePresetClient
-    .req(
-        createPresetCommandService,
-        testPreset,
-        testCreatePresetClient.serverID as string
-    )
-    .then((response) => {
-        console.log(
-            `testCreatePresetClient received response ${JSON.stringify(response)}`
-        );
-    })
-    .catch((error) => {
-        console.log(`testCreatePresetClient received error: ${error}`);
-    });
+async function testRequest() {
+    const serverID = await testCreatePresetClient.getServerID() // Wait for serverID to be received
+    testCreatePresetClient
+        .req(
+            createPresetCommandService,
+            testPreset,
+            serverID
+        )
+        .then((response) => {
+            console.log(
+                `testCreatePresetClient received response ${JSON.stringify(response)}`
+            );
+        })
+        .catch((error) => {
+            console.log(`testCreatePresetClient received error: ${error}`);
+        });
+}
+
+testRequest();

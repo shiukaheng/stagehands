@@ -1,1 +1,1 @@
-docker-compose -f docker-compose-wslg.yaml up -d
+docker-compose -f docker-compose-wslg.yaml up -d --build

@@ -33,6 +33,12 @@ RUN apt-get install -y nano
 RUN apt-get install -y git
 RUN apt-get install -y x11-apps
 RUN apt-get install -y iputils-ping
+
+# For hostname resolution
+RUN apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns mdns-scan
+
+RUN apt-get install -y wget
+
 # Set the working directory to catkin_ws
 WORKDIR /catkin_ws/src
 

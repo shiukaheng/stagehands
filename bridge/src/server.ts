@@ -8,33 +8,42 @@ import { Preset } from "../../schema";
 import { io } from "socket.io-client";
 import { Controller } from "./controller/Controller";
 
-const dummyCreatePresetSocket = io("http://localhost:3000");
-const dummyCreatePresetClient = new TopicClient(dummyCreatePresetSocket);
+// Create test client
+const testCreatePresetSocket = io("http://localhost:3000");
+const testCreatePresetClient = new TopicClient(testCreatePresetSocket);
+
+// Create test server
 const socketIOServer = new Server(3000);
 const topicServer = new TopicServer(socketIOServer);
+
+// Create context and controller
 const context = new Context();
 const controller = new Controller();
-const dummyPreset: Preset = {
+
+// Create test preset
+const testPreset: Preset = {
     name: "preset1",
     poses: [],
 };
 
+// Set up createPresetCommandService
 topicServer.srv(createPresetCommandService, (preset) => {
     const cP = new CreatePresetCommand(preset);
     return cP.execute(context);
 });
 
-dummyCreatePresetClient
+// Try requesting createPresetCommandService
+testCreatePresetClient
     .req(
         createPresetCommandService,
-        dummyPreset,
-        dummyCreatePresetClient.serverID as string
+        testPreset,
+        testCreatePresetClient.serverID as string
     )
     .then((response) => {
         console.log(
-            `dummyCreatePresetClient received response ${JSON.stringify(response)}`
+            `testCreatePresetClient received response ${JSON.stringify(response)}`
         );
     })
     .catch((error) => {
-        console.log(`dummyCreatePresetClient received error: ${error}`);
+        console.log(`testCreatePresetClient received error: ${error}`);
     });

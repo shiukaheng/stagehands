@@ -4,3 +4,4 @@ export * from "./bot/botState";
 export * from "./stage/stageCommand";
 export * from "./stage/stageState";
 export * from "./serverResponse";
+export * from "./control/joystick";

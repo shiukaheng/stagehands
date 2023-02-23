@@ -1,5 +1,5 @@
 import { presetSchema } from "../../../schema";
-import { Preset } from "../../../schema/src/stage/stageState";
+import { Preset } from "../../../schema";
 import { createService } from "webtopics";
 import { responseMessageSchema } from "../../../schema/src/serverResponse";
 

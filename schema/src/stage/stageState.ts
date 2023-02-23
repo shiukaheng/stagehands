@@ -23,6 +23,5 @@ export const stageStateSchema = z.object({
 });
 
 export type StageState = z.infer<typeof stageStateSchema>;
-export type Preset = z.infer<typeof presetSchema>;
 export type StageBoundary = z.infer<typeof stageBoundarySchema>;
 

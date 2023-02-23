@@ -29,9 +29,9 @@ export class MoveBotToPoseCommand implements ICommand {
             };
         }
 
-        //Might use mergediff
+        
         tempBotState.pose = this.botPose;
-
+        
         return {
             responseType: "success",
             message: `${this.botID} move to ${JSON.stringify(this.botPose)}`,

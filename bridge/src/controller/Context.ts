@@ -3,14 +3,14 @@ import {
     presetRecallStateLiteralSchema,
     StageBoundary,
     StageState,
-} from "../../../schema/src/stage/stageState";
-import { Preset } from "../../../schema/src/stage/stageState";
+} from "../../../schema";
+import { Preset } from "../../../schema";
 export class Context {
     private currentBotState: AggregateBotState;
     private targetBotState: AggregateBotState;
-
     private stageState: StageState;
-
+    private botClientIDMap:Map<string,string>
+    private webClientIDMap:Map<string,string>
     constructor() {
         this.currentBotState = [];
         this.targetBotState = [];
@@ -21,6 +21,8 @@ export class Context {
             presetRecallState: "idle",
             boundary: null as any,
         };
+        this.botClientIDMap=new Map<string,string>();
+        this.webClientIDMap=new Map<string,string>();
     }
     public getCurrentBotState(): AggregateBotState {
         return this.currentBotState;

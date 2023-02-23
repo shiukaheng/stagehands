@@ -1,15 +1,21 @@
 import { createContext, Fragment, useState } from 'react'
-// import reactLogo from './assets/react.svg'
 import './App.css'
 import { Stage } from './Stage'
 import SidePanel from './SidePanel'
-import React from 'react'
-export const presetButtons = createContext([])
+import presetButtonsContext from './PresetButtonsContext'
+import MicAttributesPage from './MicAttributesPage'
+import componentSelectContext from './ComponentSwitchContext'
 
 function App() {
 
+  const [presetButtons, setPresetButtons] = useState([] as any[]);
+  const [componentSelect, setComponentSelect] = useState(0 as number);
+  const value1 = { presetButtons, setPresetButtons }; 
+  const value2 = {componentSelect, setComponentSelect };
+
   return (
-    <Fragment>
+    <presetButtonsContext.Provider value={value1}> {/* Giving preset button context to children components */}
+      <componentSelectContext.Provider value={value2}> {/* Giving component select context to children components */}
       <div className="flex h-screen overflow-hidden">
         <div className="w-1/3 h-5/6">
           <SidePanel />
@@ -18,7 +24,8 @@ function App() {
           <Stage />
         </div>
       </div>
-    </Fragment>
+      </componentSelectContext.Provider>
+    </presetButtonsContext.Provider>
   )
 }
 

@@ -1,8 +1,13 @@
+import { useContext } from "react";
+import componentSelectContext from "./ComponentSwitchContext";
+
 function generateMicPanelButton(buttons: any[]) {
+  const {componentSelect, setComponentSelect} = useContext(componentSelectContext);
   return buttons.concat(
     <button
       id={("MicButton" + buttons.length.toString())}
-      className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-32 w-64 rounded m-2">
+      className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-32 w-64 rounded m-2"
+      onClick={() => setComponentSelect(2)}>
         <div className="text-left indent-[10.5%]">
       Name: {("\xa0 Mic " + buttons.length.toString())}
       </div>

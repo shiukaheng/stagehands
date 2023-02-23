@@ -1,17 +1,23 @@
 import { Fragment, useContext, useState } from "react"
+import componentSelectContext from "./ComponentSwitchContext"
+import MicAttributesPage from "./MicAttributesPage"
 import MicPanel from "./MicPanel"
 import PresetPanel from "./PresetPanel"
 
-function test(ComponentSelect: number) {
+// simply switches the component that displays the main body of the side panel (these don't display the top two buttons)
+function ComponentToDisplay(ComponentSelect: number) {
   if(ComponentSelect === 0) {
     return (<PresetPanel/>)
-  } else {
+  } else if (ComponentSelect === 1){
     return (<MicPanel/>)
+  } else if (ComponentSelect === 2) {
+    return (<MicAttributesPage/>)
   }
 }
 
 function SidePanel() {
-  const [ComponentSelect, ComponentSwitch] = useState(1)
+  // const [ComponentSelect, ComponentSwitch] = useState(1) // simple hook for switching between the two main components of the side panel
+  const {componentSelect, setComponentSelect} = useContext(componentSelectContext);
 
   return (
     <Fragment>
@@ -20,17 +26,17 @@ function SidePanel() {
       <button
         id="PresetsButton"
         className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-10 w-28 rounded m-2"
-        onClick={() => ComponentSwitch(ComponentSelect=>0)}>
+        onClick={() => setComponentSelect(0)}>
         Presets
       </button>
       {/* Mics Button */}
       <button
-        id="PresetsButton"
+        id="MicsButton"
         className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-10 w-28 rounded m-2"
-        onClick={() => ComponentSwitch(ComponentSelect=>1)}>
+        onClick={() => setComponentSelect(1)}>
         Mics
       </button>
-      {test(ComponentSelect)}
+      {ComponentToDisplay(componentSelect)} {/* The main body of the side panel, displayed here, is determined through this fucntion */}
     </div>
     </Fragment>
   )

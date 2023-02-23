@@ -1,4 +1,5 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
+import componentSelectContext from './ComponentSwitchContext';
 import MicAttributesPage from './MicAttributesPage';
 
 class MicStand {
@@ -34,11 +35,13 @@ class MicStand {
   }
 
   button() {
+    const {componentSelect, setComponentSelect} = useContext(componentSelectContext);
     return (
     
     <button
       id={this.id}
-      className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-32 w-64 rounded m-2">
+      className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-32 w-64 rounded m-2"
+      onClick={() => setComponentSelect(2)}>
         <div className="text-left indent-[10.5%]">
       Name: {this.id}
       </div>

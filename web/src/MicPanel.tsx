@@ -1,6 +1,8 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import componentSelectContext from "./ComponentSwitchContext";
 import generateMicPanelButton from "./GenerateMicPanelButton"
 import GetMicStands from "./GetMicStands"
+import presetButtonsContext from "./PresetButtonsContext";
 
 
 function MicPanel () {

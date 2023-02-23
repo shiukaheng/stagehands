@@ -26,3 +26,11 @@ function build {
     catkin build
     source /catkin_ws/devel/setup.bash
 }
+
+function set_bot_name {
+    export TURTLEBOT_NAME=$1
+}
+
+function set_bot_model {
+    export TURTLEBOT3_MODEL=$1
+}

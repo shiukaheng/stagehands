@@ -22,7 +22,7 @@ export class Controller {
         command.execute(this.context);
     }
     
-
+    
 
     public get server(): TopicServer {
         return this._server;

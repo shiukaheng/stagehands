@@ -1,6 +1,6 @@
 import { TopicServer } from "webtopics";
 import { Server } from "socket.io";
-import { createPresetCommandService,updatePresetCommandService } from "./Channels/presetCommandService";
+import { createPresetCommandService,updatePresetCommandService } from "./Channels/presetCommandServiceChannel";
 import { CreatePresetCommand } from "./command/StageServiceCommand/CreatePresetCommand";
 import { UpdatePresetCommand } from "./command/StageServiceCommand/updatePresetCommand";
 import { Context } from "./controller/Context";

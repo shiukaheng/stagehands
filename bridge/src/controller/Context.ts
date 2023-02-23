@@ -39,11 +39,18 @@ export class Context {
     public setStageState(stageState: StageState): void {
         this.stageState = stageState;
     }
-    public getTargetBotState(): AggregateBotState {
-        return this.targetBotState;
+    public getbotClientIDMap(): Map<string,string>{
+        return this.botClientIDMap;
+    }
+    public getwebClientIDMap(): Map<string,string>{
+        return this.webClientIDMap;
     }
 
     public setTargetBotState(targetBotState: AggregateBotState): void {
         this.targetBotState = targetBotState;
     }
+    public getTargetBotState(): AggregateBotState {
+        return this.targetBotState;
+    }
+
 }

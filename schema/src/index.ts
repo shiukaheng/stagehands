@@ -1,5 +1,5 @@
 // Export everything from /bot/botCommand, /bot/botState, /stage/stageCommand, /stage/stageState
-export * from "./stage/stageCommand";
+export * from "./stage/StageCommand";
 export * from "./stage/stageState";
 export * from "./stage/obstacle"
 export * from "./stage/preset"

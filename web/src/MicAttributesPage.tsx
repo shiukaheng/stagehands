@@ -9,18 +9,20 @@ export default function MicAttributesPage(micstand :MicStand) {
   const angleinputElemRef = useRef<HTMLInputElement>(null)
   const angleRangeElemRef = useRef<HTMLInputElement>(null)
   return (
-    <div className=" left-10 w-80 h-full border-gray-200 border-2 rounded-md p-5 bg-white overflow-auto">
-      <div className="flex flex-row">
+    // <div className=" left-10 w-80 h-full border-gray-200 border-2 rounded-md p-5 bg-white overflow-auto">
+    //   <div className="flex flex-row">
 
-        <button className="left-0 top-0 m-1 rounded-md bg-gray-100 p-1 hover:bg-slate-400 active:bg-slate-500 font-bold">
-          Back
-        </button>
-      </div>
+    //     <button className="left-0 top-0 m-1 rounded-md bg-gray-100 p-1 hover:bg-slate-400 active:bg-slate-500 font-bold">
+    //       Back
+    //     </button>
+    //   </div>
       
-      
+    <div className="h-5/6 overflow-clip pt-5">
+      <div className="h-full w-full p-2 bg-gray-100 rounded-md">
+
       <table 
         id="attributes"
-        className="bg-gray-100 font-bold h-full w-full rounded p-2 bottom-0 ">
+        className=" font-bold h-full w-full rounded p-5 bottom-0 overflow-y-auto overflow-x-hidden">
         
         <tr>
           <th>Name :</th>
@@ -192,7 +194,8 @@ export default function MicAttributesPage(micstand :MicStand) {
         </tr>
 
       </table>
-    // </div> 
+      </div>
+    </div> 
     
   )
 }

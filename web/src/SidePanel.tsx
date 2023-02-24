@@ -11,7 +11,15 @@ function ComponentToDisplay(ComponentSelect: number) {
   } else if (ComponentSelect === 1){
     return (<MicPanel/>)
   } else if (ComponentSelect === 2) {
-    return (<MicAttributesPage/>)
+    return (<MicAttributesPage id={""} x={0} y={0} hovered={false} hover={function (hovered: boolean): void {
+      throw new Error("Function not implemented.")
+    } } clicked={false} click={function (clicked: boolean): void {
+      throw new Error("Function not implemented.")
+    } } render={function (): JSX.Element {
+      throw new Error("Function not implemented.")
+    } } button={function (): JSX.Element {
+      throw new Error("Function not implemented.")
+    } }/>)
   }
 }
 
@@ -36,7 +44,7 @@ function SidePanel() {
         onClick={() => setComponentSelect(1)}>
         Mics
       </button>
-      {ComponentToDisplay(componentSelect)} {/* The main body of the side panel, displayed here, is determined through this fucntion */}
+        {ComponentToDisplay(componentSelect)} {/* The main body of the side panel, displayed here, is determined through this fucntion */}
     </div>
     </Fragment>
   )

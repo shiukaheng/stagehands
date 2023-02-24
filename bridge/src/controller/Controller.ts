@@ -1,8 +1,11 @@
 import { Context } from "./context";
 import { ICommand } from "../command/ICommand";
-import { TopicServer } from "webtopics";
+import { JSONValue, TopicServer } from "webtopics";
 import { Server } from "socket.io";
-
+import { IServiceHandler } from "../command/IServiceHandler";
+import { Channel } from "webtopics";
+import { ServiceChannel } from "webtopics/dist/utils/Channel";
+import { ResponseMessage } from "../../../schema/src/serverResponse";
 export class Controller {
     private context: Context;
     private static controller:Controller;
@@ -21,8 +24,14 @@ export class Controller {
     public runCommand(command: ICommand): void {
         command.execute(this.context);
     }
-    
-    
+    public async runService(serviceChannel:ServiceChannel<any,JSONValue>,serviceHandler:(requestData:any,context:Context)=>Promise<ResponseMessage>):Promise<void>{
+        this.server.srv(serviceChannel, (req)=>{
+
+            let response = serviceHandler(req,this.context)
+            return response
+        }
+        )
+    }
 
     public get server(): TopicServer {
         return this._server;
@@ -32,3 +41,7 @@ export class Controller {
     }
     
 }
+function then(arg0: (response: any) => any): any {
+    throw new Error("Function not implemented.");
+}
+

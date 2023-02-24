@@ -1,30 +1,30 @@
 import { z } from "zod";
 
-export const ledRGBValueSchema = z.number().gte(0).lte(255).array().length(3);
+export const LEDRGBValueSchema = z.number().gte(0).lte(255).array().length(3);
 
-export const ledOverwriteModeLiteralsSchema = z.union([
+export const LEDOverwriteModeLiteralsSchema = z.union([
     z.literal("serverOverwrite"),
     z.literal("clientOverwrite"),
 ]);
 
-export const ledAnimationModeLiteralsSchema = z.union([
+export const LEDAnimationModeLiteralsSchema = z.union([
     z.literal("stable"),
     z.literal("Flashing"),
 ]);
 
-export const ledAnimationSchema = z.object({
-    animationMode: ledAnimationModeLiteralsSchema,
+export const LEDAnimationSchema = z.object({
+    animationMode: LEDAnimationModeLiteralsSchema,
     flashingFrequency: z.number().optional(),
 });
 
-export const ledStateSchema = z.object({
-    ledOverwriteMode: ledOverwriteModeLiteralsSchema,
-    rgbValue: ledRGBValueSchema,
-    ledAnimation: ledAnimationSchema,
+export const LEDStateSchema = z.object({
+    ledOverwriteMode: LEDOverwriteModeLiteralsSchema,
+    rgbValue: LEDRGBValueSchema,
+    ledAnimation: LEDAnimationSchema,
 });
 
-export type LEDRGBValue = z.infer<typeof ledRGBValueSchema>;
-export type LEDOverwriteMode = z.infer<typeof ledOverwriteModeLiteralsSchema>;
-export type LEDAnimationMode = z.infer<typeof ledAnimationModeLiteralsSchema>;
-export type LEDAnimation = z.infer<typeof ledAnimationSchema>;
-export type LEDState = z.infer<typeof ledStateSchema>;
+export type LEDRGBValue = z.infer<typeof LEDRGBValueSchema>;
+export type LEDOverwriteMode = z.infer<typeof LEDOverwriteModeLiteralsSchema>;
+export type LEDAnimationMode = z.infer<typeof LEDAnimationModeLiteralsSchema>;
+export type LEDAnimation = z.infer<typeof LEDAnimationSchema>;
+export type LEDState = z.infer<typeof LEDStateSchema>;

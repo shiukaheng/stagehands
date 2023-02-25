@@ -1,9 +1,7 @@
-import { createTopic, TopicServer } from "webtopics"
+import { TopicServer } from "webtopics"
 import { Server } from "socket.io"
-import { z } from "zod"
-
-const stageStateSchema = z.number();
-const stageTopic = createTopic("stage", stageStateSchema)
+import { liveFleetChannel, presetsChannel } from "./channels";
+import { FleetState } from "./schemas";
 
 const io = new Server(3000, {
     cors: {
@@ -12,10 +10,25 @@ const io = new Server(3000, {
 })
 
 const topicServer = new TopicServer(io)
-topicServer.pub(stageTopic, 0)
 
-// Increment the stage every 1 second
-setInterval(() => {
-    topicServer.pub(stageTopic, (topicServer.getTopicSync(stageTopic) ?? 0) + 1)
-    console.log("Incremented stage: ", topicServer.getTopicSync(stageTopic))
-}, 1000)
+// Initialize channels
+topicServer.initChannels([liveFleetChannel, presetsChannel])
+
+const fleetState: FleetState = {
+    "bot1": {
+        name: "bot1",
+        position: [0, 0, 0],
+        rotation: [0, 0, 0, 1]
+    },
+    "bot2": {
+        name: "bot2",
+        position: [0, 0, 0],
+        rotation: [0, 0, 0, 1]
+    }
+}
+
+const presetsState = {}
+
+// Set initial state
+topicServer.pub(liveFleetChannel, fleetState)
+topicServer.pub(presetsChannel, presetsState)

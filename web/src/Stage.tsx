@@ -4,7 +4,7 @@ import { StageScene } from './StageScene'
 
 export function Stage() {
   return (
-    <div className="flex items-center justify-center w-full inset-y-10 border-solid border-2 rounded-md overflow-auto">
+    <div className="flex items-center bg-white shadow-xl justify-center w-full inset-y-10 border-solid border-2 rounded-md overflow-auto">
       <Canvas camera={
         {
           position: [0, 10, 28],

@@ -1,18 +1,16 @@
 import { useContext, useState } from "react"
 import componentSelectContext from "./ComponentSwitchContext";
 import generateMicPanelButton from "./GenerateMicPanelButton"
-import GetMicStands from "./GetMicStands"
 import ModuleComponent from "./ModuleComponent";
 import presetButtonsContext from "./PresetButtonsContext";
 import { ServerContext } from "./ServerContext";
 
 
 function MicPanel () {
-    const micStands = GetMicStands();
     const provider = useContext(ServerContext);
 
     return (
-        <div className="h-full overflow-clip">
+        <div className="h-full overflow-clip bg-white">
             <div id="MiddleSection" className=" border-solid w-72 h-4/5 snap-center overflow-y-auto overflow-x-hidden">
                 {provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
                     <ModuleComponent module={value} key={key} />

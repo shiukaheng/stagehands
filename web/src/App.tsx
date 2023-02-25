@@ -20,7 +20,7 @@ function App() {
   const [url, setUrl] = useStickyState<string | null>(null, "url");
 
   return (
-    <ServerProvider url={url}>
+    <ServerProvider url={url} realServer={false}>
     <presetButtonsContext.Provider value={value1}> {/* Giving preset button context to children components */}
       <componentSelectContext.Provider value={value2}> {/* Giving component select context to children components */}
       <MenuBar setUrl={setUrl}/>

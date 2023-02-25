@@ -19,7 +19,7 @@ function MenuBar({setUrl}: {setUrl: (url: string) => void}) {
     }
 
     return (
-        <div className="flex flex-row space-x-96 w-full border-solid border-2 p-2 mb-10 rounded-md overflow-auto">
+        <div className="flex flex-row bg-white shadow-xl space-x-96 w-full border-solid border-2 p-2 mb-10 rounded-md overflow-auto">
             <Popup trigger={<button className="ml-10">Settings</button>} position="bottom left">
                 <div className='absolute bg-white rounded-md text-black p-10 border-solid border-2'>
                     <h2 className='pb-10'>Settings</h2>

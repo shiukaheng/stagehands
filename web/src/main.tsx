@@ -5,7 +5,5 @@ import './index.css'
 import { ServerProvider } from './ServerContext'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <ServerProvider>
         <App />
-    </ServerProvider>
 )

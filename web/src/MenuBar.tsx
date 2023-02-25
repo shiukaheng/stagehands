@@ -21,23 +21,23 @@ function MenuBar({setUrl}: {setUrl: (url: string) => void}) {
     return (
         <div className="flex flex-row space-x-96 w-full border-solid border-2 p-2 mb-10 rounded-md overflow-auto">
             <Popup trigger={<button className="ml-10">Settings</button>} position="bottom left">
-                <div className='absolute bg-slate-700 rounded-md text-white p-10'>
+                <div className='absolute bg-white rounded-md text-black p-10 border-solid border-2'>
                     <h2 className='pb-10'>Settings</h2>
                     <form onSubmit={handleSubmit}>
                         <label>
                             Server IP Address
                         </label>
-                        <input className="text-black rounded-md mb-10" type="text" name="ip" ref={ipRef} />
+                        <input className="text-black rounded-md border-solid border-2 mb-10" type="text" name="ip" ref={ipRef} />
 
                         <label>
                             Server Port
                         </label>
-                        <input className="text-black rounded-md mb-10" type="text" name="port" ref={portRef} />
+                        <input className="text-black rounded-md border-solid border-2 mb-10" type="text" name="port" ref={portRef} />
                         
                         <label>
                             Refresh Rate
                         </label>
-                        <input className="text-black rounded-md mb-10" type="text" name="refresh" ref={refreshRef} />
+                        <input className="text-black rounded-md border-solid border-2 mb-10" type="text" name="refresh" ref={refreshRef} />
 
                         <button type="submit">Connect</button>
                     </form>

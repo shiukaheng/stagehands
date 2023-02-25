@@ -7,6 +7,8 @@ import MicAttributesPage from './MicAttributesPage'
 import componentSelectContext from './ComponentSwitchContext'
 import MenuBar from './MenuBar'
 import { ServerProvider } from './ServerContext'
+import useStickyState from './utils/useStickyState';
+
 
 function App() {
 
@@ -15,7 +17,7 @@ function App() {
   const value1 = { presetButtons, setPresetButtons }; 
   const value2 = {componentSelect, setComponentSelect };
 
-  const [url, setUrl] = useState<string | null>(null);
+  const [url, setUrl] = useStickyState<string | null>(null, "url");
 
   return (
     <ServerProvider url={url}>

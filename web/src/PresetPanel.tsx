@@ -11,13 +11,13 @@ function doNothing() {
 
 // displays the preset panel which consists of a list of presets (MiddleSection div) and two buttons to create a new preset (BottomSection div)
 function PresetPanel() {
-    const presets = useContext(ServerContext);
+    const provider = useContext(ServerContext);
 
     return (
         <div className="overflow-clip h-full">
             <div id="MiddleSection" className="border-solid w-72 h-4/5 snap-center overflow-y-auto overflow-x-hidden">
                 {/* map the record by key and value pairs into the preset component, if presets is not null */}
-                {presets && Object.entries(presets).map(([key, value]) => (
+                {provider?.presets && Object.entries(provider.presets).map(([key, value]) => (
                     <Preset preset={value} key={key} />
                 ))}
             </div>

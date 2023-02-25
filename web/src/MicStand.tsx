@@ -23,7 +23,7 @@ class MicStand {
     return (
         <Fragment key={this.id}>
         <mesh
-        position={[this.x, this.y, 0.5]}
+        position={[this.x, 0.5, this.y]}
         scale={this.clicked ? 1.5 : 1}
         onClick={(event) => this.click(!this.clicked)}
         onPointerOver={(event) => this.hover(true)}

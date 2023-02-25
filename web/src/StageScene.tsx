@@ -13,10 +13,11 @@ export function StageScene() {
   // render the mic stands on the plane
   return (
     <Fragment>
-      <pointLight position={[0, 0, 100]} />
+      <pointLight position={[0, 100, 0]} />
+      <ambientLight intensity={0.3} />
       <mesh>
         <mesh>
-          <boxGeometry args={[20, 20, 0.1]} />
+          <boxGeometry args={[20, 0.1, 20]} />
           <meshStandardMaterial attach="material" color="slate"/>
         </mesh>
         {

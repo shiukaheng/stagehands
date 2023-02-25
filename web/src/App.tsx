@@ -17,7 +17,7 @@ function App() {
     <presetButtonsContext.Provider value={value1}> {/* Giving preset button context to children components */}
       <componentSelectContext.Provider value={value2}> {/* Giving component select context to children components */}
       <div className="flex h-screen overflow-hidden">
-        <div className="w-1/3 h-5/6">
+        <div className="w-1/3 h-5/6 pr-16">
           <SidePanel />
         </div>
         <div className="flex w-2/3 h-5/6">

@@ -51,6 +51,7 @@ class MicStand {
       <div className="text-left indent-[5%]">
       {'Module: \xa0 Microphone'}
       </div>
+      {/* onClick = {<MicAttributesPage/>} */}
     </button>
     );
   }

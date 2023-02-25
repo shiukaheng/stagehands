@@ -5,4 +5,4 @@ const presetButtonsContext = createContext({
     setPresetButtons: (input:any[]) => {input}
   })
 
-  export default presetButtonsContext
+export default presetButtonsContext

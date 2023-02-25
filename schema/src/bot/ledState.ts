@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const ledRGBValueSchema = z.number().gte(0).lte(255).array().length(3);
+export const ledRGBValueSchema = z.number().array().length(3);
 
 export const ledOverwriteModeLiteralsSchema = z.union([
     z.literal("serverOverwrite"),

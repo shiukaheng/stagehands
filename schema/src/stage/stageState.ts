@@ -9,10 +9,8 @@ import { presetRecallStateLiteralSchema,presetSchema } from "./preset";
 
 
 export const stageBoundarySchema = z.object({
-    polygonVerticeCoordinates: z.number().array().length(2).array(), // assuming stageBoundary would be polygon
+    polygonVertexCoordinates: z.number().array().length(2).array(), // assuming stageBoundary would be polygon
 });
-
-
 
 export const stageStateSchema = z.object({
     presets: presetSchema.array(),
@@ -24,4 +22,3 @@ export const stageStateSchema = z.object({
 
 export type StageState = z.infer<typeof stageStateSchema>;
 export type StageBoundary = z.infer<typeof stageBoundarySchema>;
-

@@ -10,5 +10,4 @@ export * from "./bot/batteryStatus"
 export * from "./bot/ledState"
 export * from "./bot/micStandPose"
 export * from "./bot/modulePose"
-
 export * from "./control/joystick";

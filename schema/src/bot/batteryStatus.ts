@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const batteryPercentageSchema = z.number().gte(0).lte(1)
+export const batteryPercentageSchema = z.number()
 export const batteryLevelLiteralsSchema = z.union([
     z.literal("low"),
     z.literal("medium"),

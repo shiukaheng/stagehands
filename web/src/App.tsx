@@ -6,6 +6,7 @@ import presetButtonsContext from './PresetButtonsContext'
 import MicAttributesPage from './MicAttributesPage'
 import componentSelectContext from './ComponentSwitchContext'
 import MenuBar from './MenuBar'
+import { ServerProvider } from './ServerContext'
 
 function App() {
 
@@ -14,10 +15,13 @@ function App() {
   const value1 = { presetButtons, setPresetButtons }; 
   const value2 = {componentSelect, setComponentSelect };
 
+  const [url, setUrl] = useState<string | null>(null);
+
   return (
+    <ServerProvider url={url}>
     <presetButtonsContext.Provider value={value1}> {/* Giving preset button context to children components */}
       <componentSelectContext.Provider value={value2}> {/* Giving component select context to children components */}
-      <MenuBar />
+      <MenuBar setUrl={setUrl}/>
       <div className="flex h-screen overflow-hidden">
         <div className="w-1/3 h-5/6 pr-16">
           <SidePanel />
@@ -28,6 +32,7 @@ function App() {
       </div>
       </componentSelectContext.Provider>
     </presetButtonsContext.Provider>
+    </ServerProvider>
   )
 }
 

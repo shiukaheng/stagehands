@@ -2,7 +2,7 @@ import React from 'react';
 import Popup from 'reactjs-popup';
 
 
-function MenuBar() {
+function MenuBar({setUrl}: {setUrl: (url: string) => void}) {
     const ipRef = React.useRef<HTMLInputElement>(null);
     const refreshRef = React.useRef<HTMLInputElement>(null);
     const portRef = React.useRef<HTMLInputElement>(null);
@@ -15,7 +15,7 @@ function MenuBar() {
         const refresh = refreshRef.current?.value;
         const port = portRef.current?.value;
 
-        alert(`Your IP address is ${ip} with port ${port} and your refresh rate is ${refresh}`)
+        setUrl(`http://${ip}:${port}`);
     }
 
     return (
@@ -39,7 +39,7 @@ function MenuBar() {
                         </label>
                         <input className="text-black rounded-md mb-10" type="text" name="refresh" ref={refreshRef} />
 
-                        <button type="submit">Submit</button>
+                        <button type="submit">Connect</button>
                     </form>
                 </div>
             </Popup>

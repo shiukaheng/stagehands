@@ -1,9 +1,5 @@
-import { AggregateBotState } from "../../../schema/src/bot/botState";
-import {
-    presetRecallStateLiteralSchema,
-    StageBoundary,
-    StageState,
-} from "../../../schema";
+import { AggregateBotState,presetRecallStateLiteralSchema,StageBoundary,StageState } from "@schema/dist";
+
 import { Preset } from "../../../schema";
 export class Context {
     private currentBotState: AggregateBotState;
@@ -12,11 +8,11 @@ export class Context {
     private botClientIDMap:Map<string,string>
     private webClientIDMap:Map<string,string>
     constructor() {
-        this.currentBotState = [];
-        this.targetBotState = [];
+        this.currentBotState ={};
+        this.targetBotState = {};
         this.stageState = {
             obstacles: [],
-            presets: [],
+            presets: {},
             activePreset: "NoActivePreset",
             presetRecallState: "idle",
             boundary: null as any,

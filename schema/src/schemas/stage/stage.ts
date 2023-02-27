@@ -4,7 +4,7 @@ import { stageBoundarySchema } from "./boundary";
 
 export const stageStateSchema = z.object({
     presets: z.record(presetSchema),
-    activePreset: z.string().describe("The ID of the active preset"),
+    activePreset: z.string().describe("The ID of the active preset").nullable(),
     presetRecallState: presetRecallStateLiteralSchema,
     boundary: stageBoundarySchema,
 });

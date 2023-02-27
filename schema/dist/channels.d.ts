@@ -3,7 +3,7 @@ export declare const fleetTopic: import("webtopics/dist/utils/Channel").TopicCha
     stopped: boolean;
     module: {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {
@@ -47,50 +47,27 @@ export declare const stageTopic: import("webtopics/dist/utils/Channel").TopicCha
     };
     presets: Record<string, {
         state: Record<string, {
-            stopped: boolean;
             module: {
-                type: "micStand" | "nullModule";
-                moduleState: {
+                type: string;
+                state: {
                     gripPosition: number;
                 } | null;
-                moduleModels: Record<string, {
-                    modelID: string;
-                    pose: {
-                        position: number[];
-                        quaternion: number[];
-                    };
-                }>;
-            };
-            name: string;
-            status: "error" | "stopped" | "idle" | "moving";
-            pose: {
-                position: number[];
-                quaternion: number[];
             };
             targetPose: {
                 position: number[];
                 quaternion: number[];
             };
-            ledState: {
-                systemOverride?: {
-                    rgbValue: number[];
-                    ledAnimation: {
-                        flashingFrequency?: number | undefined;
-                        animationMode: "constant" | "flashing";
-                    };
-                } | undefined;
-                base: {
-                    rgbValue: number[];
-                    ledAnimation: {
-                        flashingFrequency?: number | undefined;
-                        animationMode: "constant" | "flashing";
-                    };
+            baseLEDState: {
+                rgbValue: number[];
+                ledAnimation: {
+                    flashingFrequency?: number | undefined;
+                    animationMode: "constant" | "flashing";
                 };
             };
         }>;
         name: string;
     }>;
-    activePreset: string;
+    activePreset: string | null;
     presetRecallState: "error" | "idle" | "recalling";
 }>;
 export declare const recallBotStateService: import("webtopics/dist/utils/Channel").ServiceChannel<{
@@ -139,175 +116,226 @@ export type CreatePresetReturn = z.infer<typeof createPresetReturnSchema>;
 /**
  * Service to create a preset, returns the presetId
  */
-export declare const createPresetService: import("webtopics/dist/utils/Channel").ServiceChannel<Record<string, {
-    module: {
-        type: string;
-        state: {
-            gripPosition: number;
-        } | null;
-    };
-    targetPose: {
-        position: number[];
-        quaternion: number[];
-    };
-    baseLEDState: {
-        rgbValue: number[];
-        ledAnimation: {
-            flashingFrequency?: number | undefined;
-            animationMode: "constant" | "flashing";
+export declare const createPresetService: import("webtopics/dist/utils/Channel").ServiceChannel<{
+    state: Record<string, {
+        module: {
+            type: string;
+            state: {
+                gripPosition: number;
+            } | null;
         };
-    };
-}>, string>;
+        targetPose: {
+            position: number[];
+            quaternion: number[];
+        };
+        baseLEDState: {
+            rgbValue: number[];
+            ledAnimation: {
+                flashingFrequency?: number | undefined;
+                animationMode: "constant" | "flashing";
+            };
+        };
+    }>;
+    name: string;
+}, string>;
 export declare const updatePresetRequestSchema: z.ZodObject<{
     presetId: z.ZodString;
-    preset: z.ZodRecord<z.ZodString, z.ZodObject<{
-        targetPose: z.ZodObject<{
-            position: z.ZodArray<z.ZodNumber, "many">;
-            quaternion: z.ZodArray<z.ZodNumber, "many">;
-        }, "strip", z.ZodTypeAny, {
-            position: number[];
-            quaternion: number[];
-        }, {
-            position: number[];
-            quaternion: number[];
-        }>;
-        baseLEDState: z.ZodObject<{
-            rgbValue: z.ZodArray<z.ZodNumber, "many">;
-            ledAnimation: z.ZodObject<{
-                /**
-                 * Service to recall the state of the fleet
-                 */
-                animationMode: z.ZodUnion<[z.ZodLiteral<"constant">, z.ZodLiteral<"flashing">]>;
-                flashingFrequency: z.ZodOptional<z.ZodNumber>;
+    preset: z.ZodObject<{
+        name: z.ZodString;
+        state: z.ZodRecord<z.ZodString, z.ZodObject<{
+            targetPose: z.ZodObject<{
+                position: z.ZodArray<z.ZodNumber, "many">;
+                quaternion: z.ZodArray<z.ZodNumber, "many">;
             }, "strip", z.ZodTypeAny, {
-                flashingFrequency?: number | undefined;
-                animationMode: "constant" | "flashing";
+                position: number[];
+                quaternion: number[];
             }, {
-                flashingFrequency?: number | undefined;
-                animationMode: "constant" | "flashing";
+                position: number[];
+                quaternion: number[];
+            }>;
+            baseLEDState: z.ZodObject<{
+                rgbValue: z.ZodArray<z.ZodNumber, "many">;
+                ledAnimation: z.ZodObject<{
+                    animationMode: z.ZodUnion<[z.ZodLiteral<"constant">, z.ZodLiteral<"flashing">]>;
+                    flashingFrequency: z.ZodOptional<z.ZodNumber>;
+                }, "strip", z.ZodTypeAny, {
+                    flashingFrequency?: number | undefined;
+                    animationMode: "constant" | "flashing";
+                }, {
+                    flashingFrequency?: number | undefined;
+                    animationMode: "constant" | "flashing";
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                rgbValue: number[];
+                ledAnimation: {
+                    flashingFrequency?: number | undefined;
+                    animationMode: "constant" | "flashing";
+                };
+            }, {
+                rgbValue: number[];
+                ledAnimation: {
+                    flashingFrequency?: number | undefined;
+                    animationMode: "constant" | "flashing";
+                };
+            }>;
+            module: z.ZodEffects<z.ZodObject<{
+                type: z.ZodString;
+                state: z.ZodUnion<[z.ZodObject<{
+                    gripPosition: z.ZodNumber;
+                }, "strip", z.ZodTypeAny, {
+                    gripPosition: number;
+                }, {
+                    gripPosition: number;
+                }>, z.ZodNull]>;
+            }, "strip", z.ZodTypeAny, {
+                type: string;
+                state: {
+                    gripPosition: number;
+                } | null;
+            }, {
+                type: string;
+                state: {
+                    gripPosition: number;
+                } | null;
+            }>, {
+                type: string;
+                state: {
+                    gripPosition: number;
+                } | null;
+            }, {
+                type: string;
+                state: {
+                    gripPosition: number;
+                } | null;
             }>;
         }, "strip", z.ZodTypeAny, {
-            rgbValue: number[];
-            ledAnimation: {
-                flashingFrequency?: number | undefined;
-                animationMode: "constant" | "flashing";
+            module: {
+                type: string;
+                state: {
+                    gripPosition: number;
+                } | null;
+            };
+            targetPose: {
+                position: number[];
+                quaternion: number[];
+            };
+            baseLEDState: {
+                rgbValue: number[];
+                ledAnimation: {
+                    flashingFrequency?: number | undefined;
+                    animationMode: "constant" | "flashing";
+                };
             };
         }, {
-            rgbValue: number[];
-            ledAnimation: {
-                flashingFrequency?: number | undefined;
-                animationMode: "constant" | "flashing";
+            module: {
+                type: string;
+                state: {
+                    gripPosition: number;
+                } | null;
             };
-        }>;
-        module: z.ZodEffects<z.ZodObject<{
-            type: z.ZodString;
-            state: z.ZodUnion<[z.ZodObject<{
-                gripPosition: z.ZodNumber;
-            }, "strip", z.ZodTypeAny, {
-                gripPosition: number;
-            }, {
-                gripPosition: number;
-            }>, z.ZodNull]>;
-        }, "strip", z.ZodTypeAny, {
-            type: string;
-            state: {
-                gripPosition: number;
-            } | null;
-        }, {
-            type: string;
-            state: {
-                gripPosition: number;
-            } | null;
-        }>, {
-            type: string;
-            state: {
-                gripPosition: number;
-            } | null;
-        }, {
-            type: string;
-            state: {
-                gripPosition: number;
-            } | null;
-        }>;
+            targetPose: {
+                position: number[];
+                quaternion: number[];
+            };
+            baseLEDState: {
+                rgbValue: number[];
+                ledAnimation: {
+                    flashingFrequency?: number | undefined;
+                    animationMode: "constant" | "flashing";
+                };
+            };
+        }>>;
     }, "strip", z.ZodTypeAny, {
-        module: {
-            type: string;
-            state: {
-                gripPosition: number;
-            } | null;
-        };
-        targetPose: {
-            position: number[];
-            quaternion: number[];
-        };
-        baseLEDState: {
-            rgbValue: number[];
-            ledAnimation: {
-                flashingFrequency?: number | undefined;
-                animationMode: "constant" | "flashing";
+        state: Record<string, {
+            module: {
+                type: string;
+                state: {
+                    gripPosition: number;
+                } | null;
             };
-        };
+            targetPose: {
+                position: number[];
+                quaternion: number[];
+            };
+            baseLEDState: {
+                rgbValue: number[];
+                ledAnimation: {
+                    flashingFrequency?: number | undefined;
+                    animationMode: "constant" | "flashing";
+                };
+            };
+        }>;
+        name: string;
     }, {
-        module: {
-            type: string;
-            state: {
-                gripPosition: number;
-            } | null;
-        };
-        targetPose: {
-            position: number[];
-            quaternion: number[];
-        };
-        baseLEDState: {
-            rgbValue: number[];
-            ledAnimation: {
-                flashingFrequency?: number | undefined;
-                animationMode: "constant" | "flashing";
+        state: Record<string, {
+            module: {
+                type: string;
+                state: {
+                    gripPosition: number;
+                } | null;
             };
-        };
-    }>>;
+            targetPose: {
+                position: number[];
+                quaternion: number[];
+            };
+            baseLEDState: {
+                rgbValue: number[];
+                ledAnimation: {
+                    flashingFrequency?: number | undefined;
+                    animationMode: "constant" | "flashing";
+                };
+            };
+        }>;
+        name: string;
+    }>;
 }, "strip", z.ZodTypeAny, {
     presetId: string;
-    preset: Record<string, {
-        module: {
-            type: string;
-            state: {
-                gripPosition: number;
-            } | null;
-        };
-        targetPose: {
-            position: number[];
-            quaternion: number[];
-        };
-        baseLEDState: {
-            rgbValue: number[];
-            ledAnimation: {
-                flashingFrequency?: number | undefined;
-                animationMode: "constant" | "flashing";
+    preset: {
+        state: Record<string, {
+            module: {
+                type: string;
+                state: {
+                    gripPosition: number;
+                } | null;
             };
-        };
-    }>;
+            targetPose: {
+                position: number[];
+                quaternion: number[];
+            };
+            baseLEDState: {
+                rgbValue: number[];
+                ledAnimation: {
+                    flashingFrequency?: number | undefined;
+                    animationMode: "constant" | "flashing";
+                };
+            };
+        }>;
+        name: string;
+    };
 }, {
     presetId: string;
-    preset: Record<string, {
-        module: {
-            type: string;
-            state: {
-                gripPosition: number;
-            } | null;
-        };
-        targetPose: {
-            position: number[];
-            quaternion: number[];
-        };
-        baseLEDState: {
-            rgbValue: number[];
-            ledAnimation: {
-                flashingFrequency?: number | undefined;
-                animationMode: "constant" | "flashing";
+    preset: {
+        state: Record<string, {
+            module: {
+                type: string;
+                state: {
+                    gripPosition: number;
+                } | null;
             };
-        };
-    }>;
+            targetPose: {
+                position: number[];
+                quaternion: number[];
+            };
+            baseLEDState: {
+                rgbValue: number[];
+                ledAnimation: {
+                    flashingFrequency?: number | undefined;
+                    animationMode: "constant" | "flashing";
+                };
+            };
+        }>;
+        name: string;
+    };
 }>;
 export type UpdatePresetRequest = z.infer<typeof updatePresetRequestSchema>;
 /**
@@ -315,25 +343,28 @@ export type UpdatePresetRequest = z.infer<typeof updatePresetRequestSchema>;
  */
 export declare const updatePresetService: import("webtopics/dist/utils/Channel").ServiceChannel<{
     presetId: string;
-    preset: Record<string, {
-        module: {
-            type: string;
-            state: {
-                gripPosition: number;
-            } | null;
-        };
-        targetPose: {
-            position: number[];
-            quaternion: number[];
-        };
-        baseLEDState: {
-            rgbValue: number[];
-            ledAnimation: {
-                flashingFrequency?: number | undefined;
-                animationMode: "constant" | "flashing";
+    preset: {
+        state: Record<string, {
+            module: {
+                type: string;
+                state: {
+                    gripPosition: number;
+                } | null;
             };
-        };
-    }>;
+            targetPose: {
+                position: number[];
+                quaternion: number[];
+            };
+            baseLEDState: {
+                rgbValue: number[];
+                ledAnimation: {
+                    flashingFrequency?: number | undefined;
+                    animationMode: "constant" | "flashing";
+                };
+            };
+        }>;
+        name: string;
+    };
 }, void>;
 export declare const deletePresetRequestSchema: z.ZodString;
 export type DeletePresetRequest = z.infer<typeof deletePresetRequestSchema>;

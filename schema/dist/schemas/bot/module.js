@@ -28,12 +28,12 @@ exports.moduleModelsSchema = zod_1.z.record(zod_1.z.object({
 }));
 exports.moduleStateSchema = zod_1.z.object({
     type: exports.moduleTypeLiteralsSchema,
-    moduleState: exports.moduleDataSchema,
+    state: exports.moduleDataSchema,
     moduleModels: exports.moduleModelsSchema, // Models specific to the module
 }).refine((data) => {
     // Check that the module type matches the module state
     const moduleType = data.type;
-    const moduleState = data.moduleState;
+    const moduleState = data.state;
     const moduleDataSchema = exports.moduleTypeToDataSchema[moduleType];
     if (moduleDataSchema) {
         if (moduleDataSchema.safeParse(moduleState).success) {

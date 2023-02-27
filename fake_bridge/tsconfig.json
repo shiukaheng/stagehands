@@ -5,8 +5,12 @@
       "declaration": true,
       "outDir": "./dist",
       "strict": true,
+      "paths": {
+        "@schema/*": ["../schema/*"],
+      }
     },
     "include": [
-      "src/**/*"
+      "src/**/*",
+      "../schema/src/**/*"
     ]
   }

@@ -1,7 +1,7 @@
 import { TopicServer } from "webtopics"
 import { Server } from "socket.io"
-import { liveFleetChannel, presetsChannel } from "./channels";
-import { FleetState, Presets } from "./schemas";
+import { FleetState, Presets, liveFleetChannel, presetsChannel } from "@schema/dist"
+
 export class FakeBridgeServer {
     // Initialize variables
     private topicServer: TopicServer

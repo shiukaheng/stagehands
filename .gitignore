@@ -16,3 +16,4 @@ catkin_ws/devel
 .dependencies_installed
 node_modules/
 .DS_Store
+_schema/

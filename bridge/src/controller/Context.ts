@@ -1,9 +1,9 @@
-import { AggregateBotState,presetRecallStateLiteralSchema,StageBoundary,StageState } from "@schema/dist";
+import { FleetState,presetRecallStateLiteralSchema,StageBoundary,StageState } from "@schema/dist";
 
 import { Preset } from "../../../schema";
 export class Context {
-    private currentBotState: AggregateBotState;
-    private targetBotState: AggregateBotState;
+    private currentBotState: FleetState;
+    private targetBotState: FleetState;
     private stageState: StageState;
     private botClientIDMap:Map<string,string>
     private webClientIDMap:Map<string,string>
@@ -11,7 +11,6 @@ export class Context {
         this.currentBotState ={};
         this.targetBotState = {};
         this.stageState = {
-            obstacles: [],
             presets: {},
             activePreset: "NoActivePreset",
             presetRecallState: "idle",
@@ -20,11 +19,11 @@ export class Context {
         this.botClientIDMap=new Map<string,string>();
         this.webClientIDMap=new Map<string,string>();
     }
-    public getCurrentBotState(): AggregateBotState {
+    public getCurrentBotState(): FleetState {
         return this.currentBotState;
     }
 
-    public setCurrentBotState(aggregatedBotState: AggregateBotState): void {
+    public setCurrentBotState(aggregatedBotState: FleetState): void {
         this.currentBotState = aggregatedBotState;
     }
 
@@ -42,10 +41,10 @@ export class Context {
         return this.webClientIDMap;
     }
 
-    public setTargetBotState(targetBotState: AggregateBotState): void {
+    public setTargetBotState(targetBotState: FleetState): void {
         this.targetBotState = targetBotState;
     }
-    public getTargetBotState(): AggregateBotState {
+    public getTargetBotState(): FleetState {
         return this.targetBotState;
     }
 

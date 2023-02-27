@@ -13,7 +13,7 @@ export const stageBoundarySchema = z.object({
 });
 
 export const stageStateSchema = z.object({
-    presets: presetSchema.array(),
+    presets: z.record(presetSchema),
     activePreset: z.string().describe("The ID of the active preset"),
     presetRecallState: presetRecallStateLiteralSchema,
     boundary: stageBoundarySchema, //Maybe a prop#erty of the preset

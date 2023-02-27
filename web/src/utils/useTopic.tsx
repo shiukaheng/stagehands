@@ -15,18 +15,13 @@ export function useTopic<T extends JSONValue>(url: string | null = null, channel
   React.useEffect(() => {
     console.log(url, channel, initial.current);
     if (url !== null && channel !== null && !initial.current) {
-      console.log('initializing');
       initial.current = true;
       const socket = io(url);
-      console.log("socket", socket);
       const client = new TopicClient(socket);
       clientRef.current = client;
       client.sub(channel, (value) => {
-        console.log("value", value);
         setState(value);
       });
-      console.log("client", client);
-      console.log("stateValue", state);
     }
   }, [url, channel]);
   return state;

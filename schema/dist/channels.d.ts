@@ -1,5 +1,5 @@
 import { z } from "zod";
-export declare const fleetTopic: import("webtopics/dist/utils/Channel").TopicChannel<Record<string, {
+export declare const fleetTopic: import("webtopics").TopicChannel<Record<string, {
     stopped: boolean;
     module: {
         type: "micStand" | "nullModule";
@@ -41,7 +41,7 @@ export declare const fleetTopic: import("webtopics/dist/utils/Channel").TopicCha
         };
     };
 }>>;
-export declare const stageTopic: import("webtopics/dist/utils/Channel").TopicChannel<{
+export declare const stageTopic: import("webtopics").TopicChannel<{
     boundary: {
         polygonVertexCoordinates: number[][];
     };
@@ -70,7 +70,7 @@ export declare const stageTopic: import("webtopics/dist/utils/Channel").TopicCha
     activePreset: string | null;
     presetRecallState: "error" | "idle" | "recalling";
 }>;
-export declare const recallBotStateService: import("webtopics/dist/utils/Channel").ServiceChannel<{
+export declare const recallBotStateService: import("webtopics").ServiceChannel<{
     module: {
         type: string;
         state: {
@@ -92,7 +92,7 @@ export declare const recallBotStateService: import("webtopics/dist/utils/Channel
 /**
  * Service to recall the state of the fleet
  */
-export declare const recallFleetStateService: import("webtopics/dist/utils/Channel").ServiceChannel<Record<string, {
+export declare const recallFleetStateService: import("webtopics").ServiceChannel<Record<string, {
     module: {
         type: string;
         state: {
@@ -116,7 +116,7 @@ export type CreatePresetReturn = z.infer<typeof createPresetReturnSchema>;
 /**
  * Service to create a preset, returns the presetId
  */
-export declare const createPresetService: import("webtopics/dist/utils/Channel").ServiceChannel<{
+export declare const createPresetService: import("webtopics").ServiceChannel<{
     state: Record<string, {
         module: {
             type: string;
@@ -341,7 +341,7 @@ export type UpdatePresetRequest = z.infer<typeof updatePresetRequestSchema>;
 /**
  * Service to update a preset
  */
-export declare const updatePresetService: import("webtopics/dist/utils/Channel").ServiceChannel<{
+export declare const updatePresetService: import("webtopics").ServiceChannel<{
     presetId: string;
     preset: {
         state: Record<string, {
@@ -371,20 +371,20 @@ export type DeletePresetRequest = z.infer<typeof deletePresetRequestSchema>;
 /**
  * Service to delete a preset
  */
-export declare const deletePresetService: import("webtopics/dist/utils/Channel").ServiceChannel<string, void>;
+export declare const deletePresetService: import("webtopics").ServiceChannel<string, void>;
 /**
  * Service to stop all bots
  */
-export declare const emergencyStopService: import("webtopics/dist/utils/Channel").ServiceChannel<void, void>;
+export declare const emergencyStopService: import("webtopics").ServiceChannel<void, void>;
 /**
  * Service to clear the emergency stop
  */
-export declare const emergencyStopClearService: import("webtopics/dist/utils/Channel").ServiceChannel<void, void>;
+export declare const emergencyStopClearService: import("webtopics").ServiceChannel<void, void>;
 /**
  * Service to stop particular bot
  */
-export declare const stopBotService: import("webtopics/dist/utils/Channel").ServiceChannel<string, void>;
+export declare const stopBotService: import("webtopics").ServiceChannel<string, void>;
 /**
  * Service to clear the emergency stop for particular bot
  */
-export declare const stopBotClearService: import("webtopics/dist/utils/Channel").ServiceChannel<string, void>;
+export declare const stopBotClearService: import("webtopics").ServiceChannel<string, void>;

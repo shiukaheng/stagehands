@@ -6,7 +6,7 @@ import presetButtonsContext from './PresetButtonsContext'
 import MicAttributesPage from './MicAttributesPage'
 import componentSelectContext from './ComponentSwitchContext'
 import MenuBar from './MenuBar'
-import { ServerProvider } from './ServerContext'
+import { dummyContext, ServerProvider } from './ServerContext'
 import useStickyState from './utils/useStickyState';
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
   const [url, setUrl] = useStickyState<string | null>(null, "url");
 
   return (
-    <ServerProvider url={url} realServer={false}>
+    <ServerProvider url={url} dummyContext={dummyContext}>
     <presetButtonsContext.Provider value={value1}> {/* Giving preset button context to children components */}
       <componentSelectContext.Provider value={value2}> {/* Giving component select context to children components */}
       <MenuBar setUrl={setUrl}/>

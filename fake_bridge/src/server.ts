@@ -45,6 +45,5 @@ export class FakeBridgeServer {
             this.topicServer.pub(liveFleetChannel, this.fleetState)
             this.topicServer.pub(presetsChannel, this.presetsState)
         }, 1000)
-        
     }
 }

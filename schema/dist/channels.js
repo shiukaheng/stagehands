@@ -20,10 +20,10 @@ exports.createPresetReturnSchema = zod_1.z.string();
 /**
  * Service to create a preset, returns the presetId
  */
-exports.createPresetService = (0, webtopics_1.createService)("createPreset", schemas_1.recallFleetStateSchema, exports.createPresetReturnSchema);
+exports.createPresetService = (0, webtopics_1.createService)("createPreset", schemas_1.presetSchema, exports.createPresetReturnSchema);
 exports.updatePresetRequestSchema = zod_1.z.object({
     presetId: zod_1.z.string(),
-    preset: schemas_1.recallFleetStateSchema
+    preset: schemas_1.presetSchema
 });
 /**
  * Service to update a preset

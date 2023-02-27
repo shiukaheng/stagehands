@@ -108,7 +108,7 @@ export declare const botStateSchema: z.ZodObject<{
     status: z.ZodUnion<[z.ZodLiteral<"idle">, z.ZodLiteral<"moving">, z.ZodLiteral<"stopped">, z.ZodLiteral<"error">]>;
     module: z.ZodEffects<z.ZodObject<{
         type: z.ZodUnion<[z.ZodLiteral<"micStand">, z.ZodLiteral<"nullModule">]>;
-        moduleState: z.ZodUnion<[z.ZodObject<{
+        state: z.ZodUnion<[z.ZodObject<{
             gripPosition: z.ZodNumber;
         }, "strip", z.ZodTypeAny, {
             gripPosition: number;
@@ -142,7 +142,7 @@ export declare const botStateSchema: z.ZodObject<{
         }>>;
     }, "strip", z.ZodTypeAny, {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {
@@ -154,7 +154,7 @@ export declare const botStateSchema: z.ZodObject<{
         }>;
     }, {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {
@@ -166,7 +166,7 @@ export declare const botStateSchema: z.ZodObject<{
         }>;
     }>, {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {
@@ -178,7 +178,7 @@ export declare const botStateSchema: z.ZodObject<{
         }>;
     }, {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {
@@ -194,7 +194,7 @@ export declare const botStateSchema: z.ZodObject<{
     stopped: boolean;
     module: {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {
@@ -235,7 +235,7 @@ export declare const botStateSchema: z.ZodObject<{
     stopped: boolean;
     module: {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {
@@ -485,7 +485,7 @@ export declare const fleetStateSchema: z.ZodRecord<z.ZodString, z.ZodObject<{
     status: z.ZodUnion<[z.ZodLiteral<"idle">, z.ZodLiteral<"moving">, z.ZodLiteral<"stopped">, z.ZodLiteral<"error">]>;
     module: z.ZodEffects<z.ZodObject<{
         type: z.ZodUnion<[z.ZodLiteral<"micStand">, z.ZodLiteral<"nullModule">]>;
-        moduleState: z.ZodUnion<[z.ZodObject<{
+        state: z.ZodUnion<[z.ZodObject<{
             gripPosition: z.ZodNumber;
         }, "strip", z.ZodTypeAny, {
             gripPosition: number;
@@ -519,7 +519,7 @@ export declare const fleetStateSchema: z.ZodRecord<z.ZodString, z.ZodObject<{
         }>>;
     }, "strip", z.ZodTypeAny, {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {
@@ -531,7 +531,7 @@ export declare const fleetStateSchema: z.ZodRecord<z.ZodString, z.ZodObject<{
         }>;
     }, {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {
@@ -543,7 +543,7 @@ export declare const fleetStateSchema: z.ZodRecord<z.ZodString, z.ZodObject<{
         }>;
     }>, {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {
@@ -555,7 +555,7 @@ export declare const fleetStateSchema: z.ZodRecord<z.ZodString, z.ZodObject<{
         }>;
     }, {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {
@@ -571,7 +571,7 @@ export declare const fleetStateSchema: z.ZodRecord<z.ZodString, z.ZodObject<{
     stopped: boolean;
     module: {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {
@@ -612,7 +612,7 @@ export declare const fleetStateSchema: z.ZodRecord<z.ZodString, z.ZodObject<{
     stopped: boolean;
     module: {
         type: "micStand" | "nullModule";
-        moduleState: {
+        state: {
             gripPosition: number;
         } | null;
         moduleModels: Record<string, {

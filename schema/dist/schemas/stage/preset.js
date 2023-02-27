@@ -10,6 +10,6 @@ exports.presetRecallStateLiteralSchema = zod_1.z.union([
 ]);
 exports.presetSchema = zod_1.z.object({
     name: zod_1.z.string().describe("The name of the preset"),
-    state: bot_1.fleetStateSchema
+    state: bot_1.recallFleetStateSchema
 });
 exports.presetSetSchema = zod_1.z.record(exports.presetSchema);

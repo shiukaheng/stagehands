@@ -59,7 +59,7 @@ function getRecallBotState(botState) {
         baseLEDState: botState.ledState.base,
         module: {
             type: botState.module.type,
-            state: botState.module.moduleState
+            state: botState.module.state
         }
     };
 }

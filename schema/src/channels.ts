@@ -1,5 +1,5 @@
 import { createService, createTopic } from "webtopics";
-import { fleetStateSchema, recallBotStateSchema, recallFleetStateSchema, stageStateSchema } from "./schemas/schemas";
+import { fleetStateSchema, presetSchema, recallBotStateSchema, recallFleetStateSchema, stageStateSchema } from "./schemas/schemas";
 import { z } from "zod";
 
 // Topics
@@ -25,11 +25,11 @@ export type CreatePresetReturn = z.infer<typeof createPresetReturnSchema>
 /**
  * Service to create a preset, returns the presetId
  */
-export const createPresetService = createService("createPreset", recallFleetStateSchema, createPresetReturnSchema)
+export const createPresetService = createService("createPreset", presetSchema, createPresetReturnSchema)
 
 export const updatePresetRequestSchema = z.object({
     presetId: z.string(),
-    preset: recallFleetStateSchema
+    preset: presetSchema
 })
 export type UpdatePresetRequest = z.infer<typeof updatePresetRequestSchema>
 /**

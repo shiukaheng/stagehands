@@ -48,7 +48,7 @@ export declare const moduleModelsSchema: z.ZodRecord<z.ZodString, z.ZodObject<{
 export type ModuleModels = z.infer<typeof moduleModelsSchema>;
 export declare const moduleStateSchema: z.ZodEffects<z.ZodObject<{
     type: z.ZodUnion<[z.ZodLiteral<"micStand">, z.ZodLiteral<"nullModule">]>;
-    moduleState: z.ZodUnion<[z.ZodObject<{
+    state: z.ZodUnion<[z.ZodObject<{
         gripPosition: z.ZodNumber;
     }, "strip", z.ZodTypeAny, {
         gripPosition: number;
@@ -82,7 +82,7 @@ export declare const moduleStateSchema: z.ZodEffects<z.ZodObject<{
     }>>;
 }, "strip", z.ZodTypeAny, {
     type: "micStand" | "nullModule";
-    moduleState: {
+    state: {
         gripPosition: number;
     } | null;
     moduleModels: Record<string, {
@@ -94,7 +94,7 @@ export declare const moduleStateSchema: z.ZodEffects<z.ZodObject<{
     }>;
 }, {
     type: "micStand" | "nullModule";
-    moduleState: {
+    state: {
         gripPosition: number;
     } | null;
     moduleModels: Record<string, {
@@ -106,7 +106,7 @@ export declare const moduleStateSchema: z.ZodEffects<z.ZodObject<{
     }>;
 }>, {
     type: "micStand" | "nullModule";
-    moduleState: {
+    state: {
         gripPosition: number;
     } | null;
     moduleModels: Record<string, {
@@ -118,7 +118,7 @@ export declare const moduleStateSchema: z.ZodEffects<z.ZodObject<{
     }>;
 }, {
     type: "micStand" | "nullModule";
-    moduleState: {
+    state: {
         gripPosition: number;
     } | null;
     moduleModels: Record<string, {

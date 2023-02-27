@@ -6,7 +6,7 @@
       "outDir": "./dist",
       "strict": true,
       "paths": {
-        "@schema/*": ["../schema/*"],
+        "@schema/*": ["../schema/src/*"],
       }
     },
     "include": [

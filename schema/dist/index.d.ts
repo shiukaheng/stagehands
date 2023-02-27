@@ -1,2 +1,2 @@
-export * from "./schemas";
+export * from "./schemas/schemas";
 export * from "./channels";

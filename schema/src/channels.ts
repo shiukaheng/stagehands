@@ -3,7 +3,6 @@ import { fleetStateSchema, recallBotStateSchema, recallFleetStateSchema, stageSt
 import { z } from "zod";
 
 // Topics
-
 export const fleetTopic = createTopic("fleet", fleetStateSchema)
 export const stageTopic = createTopic("stage", stageStateSchema)
 

@@ -6,6 +6,7 @@ export const batteryLevelLiteralsSchema = z.union([
     z.literal("medium"),
     z.literal("high"),
 ]);
+
 export const batteryStatusSchema = z.object({
     batteryPercentage: batteryPercentageSchema,
     batteryLevel: batteryLevelLiteralsSchema,

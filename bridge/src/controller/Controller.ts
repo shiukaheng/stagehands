@@ -1,11 +1,11 @@
-import { Context } from "./context";
+import { Context } from "./Context";
 import { ICommand } from "../command/ICommand";
 import { JSONValue, TopicServer } from "webtopics";
 import { Server } from "socket.io";
 import { IServiceHandler } from "../command/IServiceHandler";
 import { Channel } from "webtopics";
 import { ServiceChannel } from "webtopics/dist/utils/Channel";
-import { ResponseMessage } from "../../../schema/src/serverResponse";
+import { ResponseMessage } from "@schema/dist";
 export class Controller {
     private context: Context;
     private static controller:Controller;

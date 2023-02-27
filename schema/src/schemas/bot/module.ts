@@ -24,7 +24,7 @@ export type ModuleModels = z.infer<typeof moduleModelsSchema>;
 
 export const moduleStateSchema = z.object({
     type: z.string(), // Type of module represented in string
-    moduleData: moduleDataSchema, // Data specific to the module
+    moduleState: moduleDataSchema, // State specific to the module
     moduleModels: moduleModelsSchema, // Models specific to the module
 });
 export type ModuleState = z.infer<typeof moduleStateSchema>;

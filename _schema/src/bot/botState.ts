@@ -1,7 +1,7 @@
 //Unsettled schema
 
 import { z } from "zod";
-import { ledStateSchema } from "./ledState";
+import { LEDStateSchema } from "./ledState";
 import { batteryStatusSchema } from "./batteryStatus";
 import { modulePoseSchema } from "./modulePose";
 import { moduleStateSchema } from "./modulePose";
@@ -25,7 +25,7 @@ export const botStateSchema = z.object({
     pose: botPoseSchema,
     obstacles: obstacleSchema.array(),
     batteryStatus: batteryStatusSchema,
-    ledState: ledStateSchema,
+    ledState: LEDStateSchema,
     status: robotStatusLiteralSchema,
     module: moduleStateSchema,
 });
@@ -34,7 +34,7 @@ export const compositePoseSchema = z.object({
     modulePose: modulePoseSchema,
 });
 
-export const aggregateBotStateSchema = botStateSchema.array();
+export const aggregateBotStateSchema = z.record(botStateSchema);
 
 export type BotState = z.infer<typeof botStateSchema>;
 export type AggregateBotState = z.infer<typeof aggregateBotStateSchema>;

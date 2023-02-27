@@ -218,3 +218,5 @@ tests/cases/user/axios-src/axios-src
 tests/cases/user/prettier/prettier
 .eslintcache
 *v8.log
+
+dist/

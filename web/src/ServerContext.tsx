@@ -2,8 +2,8 @@ import React from "react";
 import { io } from "socket.io-client";
 import { Channel, JSONValue, TopicClient } from "webtopics";
 import { TopicChannel } from "webtopics/dist/utils/Channel";
-import { presetsChannel, liveFleetChannel } from "./channels";
-import { Presets, FleetState, BotState } from "./schemas"
+import { presetsChannel, liveFleetChannel } from "@schema/channels";
+import { Presets, FleetState, BotState } from "@schema/schemas";
 
 /**
  * Interface that holds a preset and a fleet property

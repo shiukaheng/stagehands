@@ -9,7 +9,6 @@ import MenuBar from './MenuBar'
 import { ServerProvider } from './ServerContext'
 import useStickyState from './utils/useStickyState';
 
-
 function App() {
 
   const [presetButtons, setPresetButtons] = useState([] as any[]);

@@ -27,7 +27,7 @@ export function UpdatePresetServiceHandler(updatePresetRequest:UpdatePresetReque
 
 
  // Emergency stop
-export function emergencyStopServiceHandler(context:Context){
+export function EmergencyStopServiceHandler(context:Context){
     for (const botName in context.getTargetBotState) {
         context.getTargetBotState()[botName].stopped = true;
     }
@@ -35,14 +35,14 @@ export function emergencyStopServiceHandler(context:Context){
 
 
  // Clear emergency stop
-export function emergencyStopClearServiceHandler(context:Context){
+export function EmergencyStopClearServiceHandler(context:Context){
     for (const botName in context.getTargetBotState) {
         context.getTargetBotState()[botName].stopped = false;
     }
 }
 
 // Stop particular bot
-export function stopBotClearServiceHandler(botName:string,context:Context){
+export function StopBotClearServiceHandler(botName:string,context:Context){
 
     if (!context.getCurrentBotState().hasOwnProperty(botName)) {
         throw new Error(`Bot ${botName} does not exist`)

@@ -23,7 +23,7 @@ export function createNewBotState(state: Partial<BotState>): BotState {
         status: "idle",
         module: {
             type: "nullModule",
-            moduleState: null,
+            state: null,
             moduleModels: {}
         },
         stopped: false

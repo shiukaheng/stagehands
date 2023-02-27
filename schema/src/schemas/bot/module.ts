@@ -37,12 +37,12 @@ export type ModuleModels = z.infer<typeof moduleModelsSchema>;
 
 export const moduleStateSchema = z.object({
     type: moduleTypeLiteralsSchema, // Type of module represented in string
-    moduleState: moduleDataSchema, // State specific to the module
+    state: moduleDataSchema, // State specific to the module
     moduleModels: moduleModelsSchema, // Models specific to the module
 }).refine((data)=>{
     // Check that the module type matches the module state
     const moduleType = data.type;
-    const moduleState = data.moduleState;
+    const moduleState = data.state;
     const moduleDataSchema = moduleTypeToDataSchema[moduleType];
     if( moduleDataSchema ){
         if (moduleDataSchema.safeParse(moduleState).success) {

@@ -1,15 +1,14 @@
-import { BotPose, CompositePose, BotState } from "../../../../schema/dist";
-import { Context } from "../../controller/Context";
-import { ResponseMessage } from "../../../../schema/src/serverResponse";
-import { ICommand } from "../ICommand";
-import { IServiceHandler } from "../IServiceHandler";
-import { Controller } from "../../controller/Controller";
-import { moveBotToPoseCommandServiceChannel } from "../../Channels/moveBotToPoseServiceChannel";
-import{MoveBotToPoseRequest} from "../../../../schema/src/serverRequest/moveBotToPoseRequest"
-
-export async function MoveBotToPoseServiceHandler(moveBotToPoseRequest :MoveBotToPoseRequest,context:Context):Promise<ResponseMessage>{
-    const botID = moveBotToPoseRequest.botId;
-    const botPose =moveBotToPoseRequest.botPose;
+import { BotPose, CompositePose, BotState } from "@schema/dist";
+import { Context } from "../controller/Context";
+import { ResponseMessage } from "@schema/dist";
+import { ICommand } from "../command/ICommand";
+import { IServiceHandler } from "../command/IServiceHandler";
+import { Controller } from "../controller/Controller";
+import{MoveTargetBotToPoseRequest} from "@schema/dist"
+import { moveBotToPoseServiceChannel } from "@schema/dist";
+export async function MoveBotToPoseServiceHandler(moveTargetBotToPoseRequest :MoveTargetBotToPoseRequest,context:Context):Promise<ResponseMessage>{
+    const botID = moveTargetBotToPoseRequest.botId;
+    const botPose =moveTargetBotToPoseRequest.botPose;
     let tempBotState = context
             .getTargetBotState()
             .find((botState: { name: string }) => botState.name === botID);
@@ -44,9 +43,9 @@ export async function MoveBotToPoseServiceHandler(moveBotToPoseRequest :MoveBotT
         })
     }
     tempBotState.pose = botPose;
-
+    const moveBotToPoseRequest = {botPose:botPose}
     try{
-        const botResponse=await Controller.getInstance().server.req(moveBotToPoseCommandServiceChannel,tempClientId,botPose)
+        const botResponse=await Controller.getInstance().server.req(moveBotToPoseServiceChannel,tempClientId,moveBotToPoseRequest)
         if (botResponse.responseType==="error"){
             return new Promise((resolve,reject)=>{
                 resolve({

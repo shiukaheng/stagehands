@@ -1,11 +1,17 @@
 import React, { useCallback, useContext } from "react";
 import { io } from "socket.io-client";
-import { RequestType, ServiceChannel, ServiceResponseType, TopicClient } from "webtopics";
+import { RequestType, ServiceChannel, ServiceChannelCallback, ServiceResponseType, TopicClient } from "webtopics";
 import { TopicClientCacheContext } from "./TopicClientCacher";
 
 export type ServiceHook<T extends RequestType, U extends ServiceResponseType> = {
     ready: boolean;
     callback: (data: T, dest?: string) => Promise<U>;
+}
+
+// Extractor function, given a service channel, return a ServiceHook
+export type ServiceHookExtractor<T extends ServiceChannel<any, any>> = {
+    ready: boolean;
+    callback: ServiceChannelCallback<T>;
 }
 
 /**

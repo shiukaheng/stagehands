@@ -1,7 +1,7 @@
 import React from "react";
 import { stageTopic, fleetTopic, createPresetService, updatePresetService, deletePresetService, emergencyStopService, emergencyStopClearService, stopBotService, stopBotClearService } from "@schema/index";
-import { TopicType, useTopic } from "./utils/useTopic";
-import { CallbackOf, useService } from "./utils/useService";
+import { TopicHookExtractor, useTopic } from "./utils/useTopic";
+import { ServiceHookExtractor, useService } from "./utils/useService";
 import { ServiceChannel } from "webtopics/dist/utils/Channel";
 
 // /**
@@ -12,6 +12,9 @@ import { ServiceChannel } from "webtopics/dist/utils/Channel";
 // 	presets: Presets | null;
 // 	fleet: FleetState | null;
 // }
+
+// type wrapper for ready and ServiceChannelCallback
+
 
 /**
  * IServiceContext is an interface that holds the structure of the services
@@ -27,18 +30,26 @@ import { ServiceChannel } from "webtopics/dist/utils/Channel";
  * @returns IServiceContext
  */
 export interface IServiceContext {
-  createPreset:       CallbackOf<typeof createPresetService>;
-  updatePreset:       CallbackOf<typeof updatePresetService>;
-  deletePreset:       CallbackOf<typeof deletePresetService>;
-  emergencyStop:      CallbackOf<typeof emergencyStopService>;
-  emergencyStopClear: CallbackOf<typeof emergencyStopClearService>;
-  stopBot:            CallbackOf<typeof stopBotService>; 
-  stopBotClear:       CallbackOf<typeof stopBotClearService>;
+  createPreset:       ServiceHookExtractor<typeof createPresetService>;
+  updatePreset:       ServiceHookExtractor<typeof updatePresetService>;
+  deletePreset:       ServiceHookExtractor<typeof deletePresetService>;
+  emergencyStop:      ServiceHookExtractor<typeof emergencyStopService>;
+  emergencyStopClear: ServiceHookExtractor<typeof emergencyStopClearService>;
+  stopBot:            ServiceHookExtractor<typeof stopBotService>; 
+  stopBotClear:       ServiceHookExtractor<typeof stopBotClearService>;
 }
 
+/**
+ * ITopicContext is an interface that holds the structure of the topics
+ * 
+ * @param stage - stageTopic
+ * @param fleet - fleetTopic
+ * 
+ * @returns ITopicContext
+ */
 export interface ITopicContext {
-  stage: TopicType<typeof stageTopic>;
-  fleet: TopicType<typeof fleetTopic>;
+  stage: TopicHookExtractor<typeof stageTopic>;
+  fleet: TopicHookExtractor<typeof fleetTopic>;
 }
 
 /* Services */

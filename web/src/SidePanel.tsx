@@ -11,15 +11,7 @@ function ComponentToDisplay(ComponentSelect: number) {
   } else if (ComponentSelect === 1){
     return (<MicPanel/>)
   } else if (ComponentSelect === 2) {
-    return (<MicAttributesPage id={""} x={0} y={0} hovered={false} hover={function (hovered: boolean): void {
-      throw new Error("Function not implemented.")
-    } } clicked={false} click={function (clicked: boolean): void {
-      throw new Error("Function not implemented.")
-    } } render={function (): JSX.Element {
-      throw new Error("Function not implemented.")
-    } } button={function (): JSX.Element {
-      throw new Error("Function not implemented.")
-    } }/>)
+    return (null) // TODO add mic attributes page
   }
 }
 

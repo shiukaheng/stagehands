@@ -14,6 +14,7 @@ export function useTopic<T extends JSONValue>(url: string | null = null, channel
   React.useEffect(() => {
     console.log(url, channel, initial.current);
     if (url !== null && channel !== null && clientCache !== null && !initial.current) {
+      console.log(url, channel, initial.current, clientCache)
       initial.current = true;
       // Check if we already have a client for this URL
       let client = clientCache[url];

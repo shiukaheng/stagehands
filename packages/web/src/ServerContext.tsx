@@ -1,8 +1,8 @@
 import React from "react";
-import { stageTopic, fleetTopic, createPresetService, updatePresetService, deletePresetService, emergencyStopService, emergencyStopClearService, stopBotService, stopBotClearService } from "@schema/index";
-import { TopicHookExtractor, useTopic } from "./utils/useTopic";
+import { stageTopic, fleetTopic, createPresetService, updatePresetService, deletePresetService, emergencyStopService, emergencyStopClearService, stopBotService, stopBotClearService } from "schema";
+import { TopicHookExtractor, useThrottledTopic, useTopic } from "./utils/useTopic";
 import { ServiceHookExtractor, useService } from "./utils/useService";
-import { ServiceChannel } from "webtopics/dist/utils/Channel";
+import { ServiceChannel } from "webtopics";
 
 
 /**
@@ -68,8 +68,8 @@ export function ServiceProvider({url, children}: {url: string | null, children: 
 }
 
 export function TopicProvider({url, children}: {url: string | null, children: React.ReactNode | null}) {
-  const stage = useTopic(url, stageTopic);
-  const fleet = useTopic(url, fleetTopic);
+  const stage = useThrottledTopic(url, stageTopic, 30);
+  const fleet = useThrottledTopic(url, fleetTopic, 30);
 
   const topicProvider: ITopicContext = {
     stage,

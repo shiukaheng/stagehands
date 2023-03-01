@@ -16,13 +16,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "paths": {
-      "@schema/*": ["../schema/dist/*"],
-    }
   },
   "include": [
-    "src/**/*",
-    "../schema/dist/*"
+    "src/**/*"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

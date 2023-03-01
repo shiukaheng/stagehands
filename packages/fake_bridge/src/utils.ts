@@ -1,4 +1,4 @@
-import { BotState } from "@schema/index";
+import { BotState } from "schema";
 
 export function createNewBotState(state: Partial<BotState>): BotState {
     const base: BotState = {

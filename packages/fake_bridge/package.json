@@ -1,12 +1,14 @@
 {
-    "name": "fake-stagehands-backend",
+    "name": "fake_bridge",
     "version": "1.0.0",
     "description": "",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "exports": "./dist/index.js",
+    "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/runServer.ts",
+        "dev": "nodemon --exec node --experimental-specifier-resolution=node --loader ts-node/esm src/runServer.ts",
         "build": "rimraf ./build && tsc",
         "start": "npm run build && node ./build/index.js",
         "test-server": "nodemon --exec ts-node src/server.ts"
@@ -15,7 +17,6 @@
     "license": "ISC",
     "dependencies": {
         "@types/node": "^18.11.18",
-        "express": "^4.18.2",
         "nodemon": "^2.0.20",
         "rimraf": "^4.1.2",
         "socket.io": "^4.6.0",
@@ -26,7 +27,5 @@
         "webtopics": "^1.1.0",
         "zod": "3.20.6"
     },
-    "devDependencies": {
-        "tsconfig-paths": "^3.14.2"
-    }
+    "private": true
 }

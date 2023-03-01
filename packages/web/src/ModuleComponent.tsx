@@ -1,4 +1,4 @@
-import { BotState } from '@schema/index';
+import { BotState } from 'schema';
 import React, { useContext } from "react";
 import componentSelectContext from './ComponentSwitchContext';
 

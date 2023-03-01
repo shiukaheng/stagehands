@@ -1,6 +1,6 @@
 import { TopicServer } from "webtopics"
 import { Server } from "socket.io"
-import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService } from "@schema/index"
+import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService } from "schema"
 import { createNewBotState } from "./utils"
 import { z } from "zod"
 import { ServiceChannel } from "webtopics/dist/utils/Channel"
@@ -23,7 +23,7 @@ export class FakeBridgeServer {
     }
     private botVelocity = 0.1
     private botPoseTolerance = 0.01
-    private simulationFrameRate = 30
+    private simulationFrameRate = 60
 
     /**
      * Constructor for FakeBridgeServer
@@ -112,6 +112,18 @@ export class FakeBridgeServer {
                 this.fleetState[botName].stopped = true
             }
         })
+
+        // // Every 5 seconds, randomize each bot's target pose in x and z
+        // setInterval(() => {
+        //     // console.log("Randomizing target poses")
+        //     for (const botName in this.fleetState) {
+        //         const botState = this.fleetState[botName]
+        //         const targetPose = botState.targetPose
+        //         targetPose.position[0] = (Math.random() * 2 - 1) * 20
+        //         targetPose.position[2] = (Math.random() * 2 - 1) * 20
+        //     }
+        //     // console.log(this.fleetState)
+        // }, 5000)
     }
 
     private checkValidRecall(newFleetState: Record<string, { module: { type: string; state: { gripPosition: number } | null }; targetPose: { position: number[]; quaternion: number[] }; baseLEDState: { rgbValue: number[]; ledAnimation: { flashingFrequency?: number | undefined; animationMode: "constant" | "flashing" } } }>) {

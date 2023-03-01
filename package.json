@@ -1,7 +1,13 @@
 {
   "dependencies": {
+    "@types/node": "^18.11.18",
+    "ascii-art": "^2.8.5",
+    "chalk": "^4.1.2",
     "concurrently": "^7.6.0",
-    "fake-stagehands-backend": "^1.0.0"
+    "fake-stagehands-backend": "^1.0.0",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
   },
   "name": "stagehands",
   "description": "Stagehands Monorepo",
@@ -16,7 +22,8 @@
     "dev-fake_bridge": "cd packages/fake_bridge && npm run dev",
     "dev-bridge": "cd packages/bridge && npm run dev",
     "dev-web": "cd packages/web && npm run dev",
-    "dev-web-emu": "npm run build-schema && concurrently \"npm run dev-fake_bridge\" \"npm run dev-web\""
+    "dev-web-emu": "npm run build-schema && concurrently \"npm run dev-fake_bridge\" \"npm run dev-web\"",
+    "ros": "ts-node scripts/launch_ros.ts"
   },
   "repository": {
     "type": "git",

@@ -6,7 +6,7 @@ import { TopicClientCacheContext } from "./TopicClientCacher";
 
 
 export function useTopic<T extends JSONValue>(url: string | null = null, channel: TopicChannel<T> | null = null) {
-  const [state, setState] = React.useState<T | null>(null);
+  const [state, setState] = React.useState<T | undefined>(undefined);
   const clientRef = React.useRef<TopicClient>();
   const initial = React.useRef(false);
   const clientCache = useContext(TopicClientCacheContext)

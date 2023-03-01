@@ -1,5 +1,6 @@
 import { Fragment, useState, useContext } from 'react';
-import { ServerContext } from './ServerContext';
+import { TopicContext } from './ServerContext';
+
 import Module3DComponent from './Module3DComponent';
 
 /**
@@ -8,7 +9,7 @@ import Module3DComponent from './Module3DComponent';
  * @return Fragment with the lighting and plane for the stage
  */
 export function StageScene() {
-  const provider = useContext(ServerContext);
+  const provider = useContext(TopicContext);
 
   // render the mic stands on the plane
   return (
@@ -23,8 +24,8 @@ export function StageScene() {
           <meshStandardMaterial attach="material" color="slate"/>
         </mesh>
           { 
-          //    provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
-          //    <Module3DComponent module={value} key={key} />))
+              provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
+              <Module3DComponent module={value} key={key} />))
           }
       </mesh> 
     </Fragment>

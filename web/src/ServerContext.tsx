@@ -4,17 +4,6 @@ import { TopicHookExtractor, useTopic } from "./utils/useTopic";
 import { ServiceHookExtractor, useService } from "./utils/useService";
 import { ServiceChannel } from "webtopics/dist/utils/Channel";
 
-// /**
-//  * Interface that holds a preset and a fleet property
-//  * 
-//  */
-// export interface IServerContext {
-// 	presets: Presets | null;
-// 	fleet: FleetState | null;
-// }
-
-// type wrapper for ready and ServiceChannelCallback
-
 
 /**
  * IServiceContext is an interface that holds the structure of the services
@@ -23,9 +12,7 @@ import { ServiceChannel } from "webtopics/dist/utils/Channel";
  * @param updatePreset - updatePresetService
  * @param deletePreset - deletePresetService
  * @param emergencyStop - emergencyStopService
- * @param emergencyStopClear - emergencyStopClearService
- * @param stopBot - stopBotService
- * @param stopBotClear - stopBotClearService
+ * @param emergencyStopClear - emergencyStopClearService * @param stopBot - stopBotService * @param stopBotClear - stopBotClearService
  * 
  * @returns IServiceContext
  */
@@ -58,14 +45,14 @@ export const ServiceContext = React.createContext<IServiceContext | null>(null);
 /* Topics */
 export const TopicContext = React.createContext<ITopicContext | null>(null);
 
-export function ServiceProvider(url: string | null, children: React.ReactNode | null) {
-  const createPreset = useService(url, createPresetService);
-  const updatePreset = useService(url, updatePresetService);
-  const deletePreset = useService(url, deletePresetService);
-  const emergencyStop = useService(url, emergencyStopService);
-  const emergencyStopClear = useService(url, emergencyStopClearService);
-  const stopBot = useService(url, stopBotService);
-  const stopBotClear = useService(url, stopBotClearService);
+export function ServiceProvider({url, children}: {url: string | null, children: React.ReactNode | null}) {
+  const createPreset =        useService(url, createPresetService);
+  const updatePreset =        useService(url, updatePresetService);
+  const deletePreset =        useService(url, deletePresetService);
+  const emergencyStop =       useService(url, emergencyStopService);
+  const emergencyStopClear =  useService(url, emergencyStopClearService);
+  const stopBot =             useService(url, stopBotService);
+  const stopBotClear =        useService(url, stopBotClearService);
 
   const serviceProvider: IServiceContext = {
     createPreset,
@@ -80,25 +67,14 @@ export function ServiceProvider(url: string | null, children: React.ReactNode | 
   return <ServiceContext.Provider value={serviceProvider}>{children}</ServiceContext.Provider>;
 }
 
-// export const ServerContext = React.createContext<IServerContext | null>(null);
+export function TopicProvider({url, children}: {url: string | null, children: React.ReactNode | null}) {
+  const stage = useTopic(url, stageTopic);
+  const fleet = useTopic(url, fleetTopic);
 
-// interface IServerProviderArgs {
-// 	url: string | null;
-// 	defaultCtx?: IServerContext;
-// 	overrideCtx?: IServerContext;
-// 	children: React.ReactNode;
-// }
+  const topicProvider: ITopicContext = {
+    stage,
+    fleet,
+  };
 
-// export function ServerProvider ({ url, defaultCtx, overrideCtx, children }: IServerProviderArgs) {
-
-// 	const realPresets = useTopic(url, 
-// 	const realFleet = useTopic(url, liveFleetChannel);
-
-// 	const provider: IServerContext = {
-// 		presets,
-// 		fleet,
-// 	};
-
-
-// 	return <ServerContext.Provider value={provider}>{children}</ServerContext.Provider>;
-// }
+  return <TopicContext.Provider value={topicProvider}>{children}</TopicContext.Provider>;
+}

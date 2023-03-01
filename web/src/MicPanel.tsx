@@ -3,11 +3,11 @@ import componentSelectContext from "./ComponentSwitchContext";
 import generateMicPanelButton from "./GenerateMicPanelButton"
 import ModuleComponent from "./ModuleComponent";
 import presetButtonsContext from "./PresetButtonsContext";
-import { ServerContext } from "./ServerContext";
+import { TopicContext } from "./ServerContext";
 
 
 function MicPanel () {
-    const provider = useContext(ServerContext);
+    const provider = useContext(TopicContext);
 
     return (
         <div className="h-full overflow-clip bg-white">

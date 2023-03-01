@@ -16,7 +16,7 @@
     "dev-fake_bridge": "cd packages/fake_bridge && npm run dev",
     "dev-bridge": "cd packages/bridge && npm run dev",
     "dev-web": "cd packages/web && npm run dev",
-    "dev-emu": "npm run build-schema && concurrently \"npm run dev-fake_bridge\" \"npm run dev-web\""
+    "dev-web-emu": "npm run build-schema && concurrently \"npm run dev-fake_bridge\" \"npm run dev-web\""
   },
   "repository": {
     "type": "git",

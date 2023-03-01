@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useRef } from "react";
 import { TopicClient } from "webtopics";
 
 export interface ITopicClientCache {
@@ -8,8 +8,8 @@ export interface ITopicClientCache {
 export const TopicClientCacheContext = createContext<ITopicClientCache | null>(null);
 
 export function TopicClientCacher ({ children }: { children: React.ReactNode }) {
-    const cache = {};
-    return <TopicClientCacheContext.Provider value={cache}>
+    const cacheRef = useRef<ITopicClientCache>({});
+    return <TopicClientCacheContext.Provider value={cacheRef.current}>
         {children}
     </TopicClientCacheContext.Provider>;
 }

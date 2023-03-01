@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import generatePresetPanelButton from "./GeneratePresetPanelButton"
 import Preset from "./Preset";
 import presetButtonsContext from './PresetButtonsContext'
-import { ServerContext } from "./ServerContext";
+import { TopicContext } from "./ServerContext";
 
 // placeholder function for the open button
 function doNothing() {
@@ -11,13 +11,13 @@ function doNothing() {
 
 // displays the preset panel which consists of a list of presets (MiddleSection div) and two buttons to create a new preset (BottomSection div)
 function PresetPanel() {
-    const provider = useContext(ServerContext);
+    const topicProvider = useContext(TopicContext);
 
     return (
         <div className="overflow-clip h-full">
             <div id="MiddleSection" className="border-solid w-72 h-4/5 snap-center overflow-y-auto overflow-x-hidden">
                 {/* map the record by key and value pairs into the preset component, if presets is not null */}
-                {provider?.presets && Object.entries(provider.presets).map(([key, value]) => (
+                {topicProvider?.stage?.presets && Object.entries(topicProvider.stage.presets).map(([key, value]) => (
                     <Preset preset={value} key={key} />
                 ))}
             </div>

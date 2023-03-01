@@ -1,4 +1,4 @@
-import { BotState } from "fake-stagehands-backend";
+import { BotState } from '@schema/index';
 import React, { useContext } from "react";
 import componentSelectContext from './ComponentSwitchContext';
 

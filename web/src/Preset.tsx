@@ -1,5 +1,5 @@
 import React from 'react';
-import { Preset as PresetT } from '../../fake_bridge/dist';
+import { Preset as PresetT, BotState } from '@schema/index';
 import saveIcon from './assets/save-icon.svg'
 import editIcon from './assets/edit-icon.svg'
 import delIcon from './assets/delete-icon.svg'

@@ -1,5 +1,4 @@
 import { useRef, useState } from "react"
-import MicStand from "./MicStand"
 
 export default function MicAttributesPage(micstand :MicStand) {
   const xValInputElemRef = useRef<HTMLInputElement>(null)

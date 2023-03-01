@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react';
-import { BotState } from './schemas';
+import { BotState } from '@schema/index';
 
 function Module3DComponent({module}: {module: BotState}) {
 
@@ -9,7 +9,7 @@ function Module3DComponent({module}: {module: BotState}) {
     return (
         <Fragment key={module.name}>
             <mesh
-                position={[module.position[0], module.position[1], module.position[2]]}
+                position={[module.pose.position[0], module.pose.position[1], module.pose.position[2]]}
                 scale={clicked ? 1.5 : 1}
                 onClick={(event) => click(clicked)}
                 onPointerOver={(event) => hover(true)}

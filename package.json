@@ -10,9 +10,11 @@
   "scripts": {
     "build-schema": "cd packages/schema && npm run build",
     "build-fake_bridge": "cd packages/fake_bridge && npm run build",
+    "build-bridge": "cd packages/bridge && npm run build",
     "build-web": "cd packages/web && npm run build",
     "build": "npm run build-schema && npm run build-fake_bridge && npm run build-web",
     "dev-fake_bridge": "cd packages/fake_bridge && npm run dev",
+    "dev-bridge": "cd packages/bridge && npm run dev",
     "dev-web": "cd packages/web && npm run dev",
     "dev-emu": "npm run build-schema && concurrently \"npm run dev-fake_bridge\" \"npm run dev-web\""
   },

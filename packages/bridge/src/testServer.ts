@@ -1,7 +1,7 @@
 import { TopicServer, createTopic } from "webtopics"
 import { Server } from "socket.io";
 // import { botPoseSchema } from "../../schema/src/bot/botState";
-import { botPoseSchema } from "../../schema";
+import { botPoseSchema } from "schema";
 
 const botPoseTopic = createTopic("botPose", botPoseSchema);
 const socketIOServer = new Server(3000);

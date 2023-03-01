@@ -1,4 +1,4 @@
-import { BotPose, CompositePose, BotState } from "../../../../schema/dist";
+import { BotPose, CompositePose, BotState } from "schema";
 import { Context } from "../../controller/Context";
 import { ResponseMessage } from "../../../../schema/src/serverResponse";
 import { ICommand } from "../ICommand";

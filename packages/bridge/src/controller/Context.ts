@@ -1,6 +1,6 @@
-import { FleetState,presetRecallStateLiteralSchema,StageBoundary,StageState } from "@schema/dist";
+import { FleetState,presetRecallStateLiteralSchema,StageBoundary,StageState } from "schema";
 
-import { Preset } from "../../../schema";
+import { Preset } from "schema";
 export class Context {
     private currentBotState: FleetState;
     private targetBotState: FleetState;

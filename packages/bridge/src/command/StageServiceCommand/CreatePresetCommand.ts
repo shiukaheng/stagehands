@@ -1,6 +1,6 @@
-import { Preset } from "../../../../schema/dist";
+import { Preset } from "schema";
 import { Context } from "../../controller/Context";
-import { ResponseMessage } from "../../../../schema";
+import { ResponseMessage } from "schema";
 import { ICommand } from "../ICommand";
 
 export class CreatePresetCommand implements ICommand {

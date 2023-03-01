@@ -1,6 +1,6 @@
-import { StageBoundary } from "../../../../schema/dist";
+import { StageBoundary } from "schema";
 import { Context } from "../../controller/Context";
-import { ResponseMessage } from "../../../../schema/dist";
+import { ResponseMessage } from "schema";
 import { ICommand } from "../ICommand";
 
 export class SetStageBoundaryCommand implements ICommand {

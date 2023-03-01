@@ -1,4 +1,4 @@
-import { FleetState } from "@schema/dist";
+import { FleetState } from "schema";
 import { Context } from "../controller/Context";
 
 export function checkValidRecall(newFleetState: Record<string, { module: { type: string; state: { gripPosition: number } | null }; targetPose: { position: number[]; quaternion: number[] }; baseLEDState: { rgbValue: number[]; ledAnimation: { flashingFrequency?: number | undefined; animationMode: "constant" | "flashing" }}}>,context:Context):boolean {

@@ -1,6 +1,6 @@
-import { LEDState } from "../../../../schema/dist";
+import { LEDState } from "schema";
 import { Context } from "../../controller/Context";
-import { ResponseMessage } from "../../../../schema/dist";
+import { ResponseMessage } from "schema";
 import { ICommand } from "../ICommand";
 
 export class SetBotLEDCommand implements ICommand {

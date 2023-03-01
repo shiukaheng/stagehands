@@ -24,5 +24,6 @@
     "typescript": "^4.9.5",
     "webtopics": "^1.1.0",
     "zod": "^3.20.2"
-  }
+  },
+  "type": "module"
 }

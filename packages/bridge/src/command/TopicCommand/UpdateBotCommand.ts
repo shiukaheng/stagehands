@@ -1,5 +1,5 @@
 import { Context } from "../../controller/Context";
-import { BotState } from "../../../../schema";
+import { BotState } from "schema";
 import { ICommand } from "../ICommand";
 export class UpdateBotCommand implements ICommand {
     private botState: BotState;

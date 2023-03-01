@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { io } from "socket.io-client";
 import { JSONValue, TopicClient } from "webtopics";
-import { TopicChannel, TopicChannelData } from "webtopics/dist/utils/Channel";
+import { TopicChannel, TopicChannelData } from "webtopics"
 import { TopicClientCacheContext } from "./TopicClientCacher";
+import { useThrottle } from "react-use";
 
 
 export function useTopic<T extends JSONValue>(url: string | null = null, channel: TopicChannel<T> | null = null) {
@@ -32,6 +33,12 @@ export function useTopic<T extends JSONValue>(url: string | null = null, channel
     }
   }, [url, channel, clientCache]);
   return state;
+}
+
+export function useThrottledTopic<T extends JSONValue>(url: string | null = null, channel: TopicChannel<T> | null = null, throttleFreq: number = 30) {
+  const state = useTopic(url, channel);
+  const throttled = useThrottle(state, throttleFreq);
+  return throttled;
 }
 
 export type TopicHookExtractor<T extends TopicChannel<any>> = TopicChannelData<T> | undefined;

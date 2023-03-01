@@ -1,6 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { io } from "socket.io-client";
 import { RequestType, ServiceChannel, ServiceResponseType, TopicClient } from "webtopics";
+import { TopicClientCacheContext } from "./TopicClientCacher";
 
 export type ServiceHook<T extends RequestType, U extends ServiceResponseType> = {
     ready: boolean;
@@ -19,14 +20,23 @@ export function useService<T extends RequestType, U extends ServiceResponseType>
     const serverIDRef= React.useRef<string | null>(null);
     const readyRef = React.useRef(false);
     const [ready, setReady] = React.useState(false);
+    const clientCache = useContext(TopicClientCacheContext)
     React.useEffect(() => {
         console.log(url, channel, initial.current);
-        if (url !== null && channel !== null && !initial.current) {
+        if (url !== null && channel !== null && clientCache !== null && !initial.current) {
             console.log('initializing');
             initial.current = true;
-            const socket = io(url);
-            console.log("socket", socket);
-            const client = new TopicClient(socket);
+            // Check if we already have a client for this URL
+            let client = clientCache[url];
+            if (client === undefined) {
+                // Create a new client
+                const socket = io(url);
+                client = new TopicClient(socket);
+                clientCache[url] = client;
+                console.log(`Created new client for ${url}`);
+            } else {
+                console.log(`Using cached client for ${url}`);
+            }
             clientRef.current = client;
             client.getServerID().then((id) => {
                 serverIDRef.current = id;
@@ -34,7 +44,7 @@ export function useService<T extends RequestType, U extends ServiceResponseType>
                 setReady(true);
             });
         }
-    }, [url, channel]);
+    }, [url, channel, clientCache]);
     const callback = useCallback((data: T, dest?: string) => {
         if (clientRef.current === null) {
             throw new Error("Client not initialized");

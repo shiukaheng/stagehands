@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { io } from "socket.io-client";
 import { JSONValue, TopicClient } from "webtopics";
-import { TopicChannel } from "webtopics/dist/utils/Channel";
+import { TopicChannel, TopicChannelData } from "webtopics/dist/utils/Channel";
 import { TopicClientCacheContext } from "./TopicClientCacher";
 
 
@@ -33,3 +33,5 @@ export function useTopic<T extends JSONValue>(url: string | null = null, channel
   }, [url, channel, clientCache]);
   return state;
 }
+
+export type TopicHookExtractor<T extends TopicChannel<any>> = TopicChannelData<T> | undefined;

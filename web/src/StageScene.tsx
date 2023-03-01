@@ -23,8 +23,8 @@ export function StageScene() {
           <meshStandardMaterial attach="material" color="slate"/>
         </mesh>
           { 
-              provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
-              <Module3DComponent module={value} key={key} />))
+          //    provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
+          //    <Module3DComponent module={value} key={key} />))
           }
       </mesh> 
     </Fragment>

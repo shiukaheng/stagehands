@@ -6,7 +6,7 @@ import presetButtonsContext from './PresetButtonsContext'
 import MicAttributesPage from './MicAttributesPage'
 import componentSelectContext from './ComponentSwitchContext'
 import MenuBar from './MenuBar'
-import { ServerProvider } from './ServerContext'
+//import { ServerProvider } from './ServerContext'
 import useStickyState from './utils/useStickyState';
 
 function App() {

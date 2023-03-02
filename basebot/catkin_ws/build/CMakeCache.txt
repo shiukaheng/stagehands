@@ -14,6 +14,9 @@
 # EXTERNAL cache entries
 ########################
 
+//Path to a library.
+AMD_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libamd.so
+
 //Path to a file.
 ASSIMP_INCLUDE_DIRS:PATH=/usr/include
 
@@ -73,6 +76,9 @@ Boost_SYSTEM_LIBRARY_RELEASE:STRING=/usr/lib/x86_64-linux-gnu/libboost_system.so
 
 Boost_THREAD_LIBRARY_RELEASE:STRING=/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
 
+//Path to a library.
+CAMD_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libcamd.so
+
 //List of ';' separated packages to exclude
 CATKIN_BLACKLIST_PACKAGES:STRING=
 
@@ -97,6 +103,18 @@ CCD_INCLUDE_DIRS:PATH=/usr/include
 
 //Path to a library.
 CCD_LIBRARIES:FILEPATH=/usr/lib/x86_64-linux-gnu/libccd.so
+
+//Path to a library.
+CCOLAMD_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libccolamd.so
+
+//Path to a file.
+CHOLMOD_INCLUDE_DIR:PATH=/usr/include/suitesparse
+
+//Path to a library.
+CHOLMOD_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libcholmod.so
+
+//Path to a library.
+CHOLMOD_METIS_LIBRARY:FILEPATH=CHOLMOD_METIS_LIBRARY-NOTFOUND
 
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
@@ -356,8 +374,17 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Path to a library.
+COLAMD_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libcolamd.so
+
 //Path to a file.
 CPPZMQ_INCLUDE_DIRS:PATH=/usr/include
+
+//Path to a file.
+CSPARSE_INCLUDE_DIR:PATH=/usr/include/suitesparse
+
+//Path to a library.
+CSPARSE_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libcxsparse.so
 
 //Path to a file.
 CURL_INCLUDE_DIR:PATH=/usr/include/x86_64-linux-gnu
@@ -383,6 +410,9 @@ DOXYGEN_EXECUTABLE:FILEPATH=/usr/bin/doxygen
 //Doxygen found
 DOXYGEN_FOUND:BOOL=TRUE
 
+//Path to a file.
+EIGEN3_INCLUDE_DIR:PATH=/usr/include/eigen3
+
 //Path to a program.
 EMPY_EXECUTABLE:FILEPATH=EMPY_EXECUTABLE-NOTFOUND
 
@@ -391,6 +421,9 @@ EMPY_SCRIPT:STRING=/usr/lib/python3/dist-packages/em.py
 
 //The directory containing a CMake configuration file for Eigen3.
 Eigen3_DIR:PATH=/usr/lib/cmake/eigen3
+
+//Dependencies for the target
+ExplorationPlugins_LIB_DEPENDS:STATIC=general;RobotNavigator;general;MapInflationTool;general;RobotOperator;general;costmap_2d;general;layers;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/noetic/lib/liblaser_geometry.so;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libclass_loader.so;general;/usr/lib/x86_64-linux-gnu/libPocoFoundation.so;general;/usr/lib/x86_64-linux-gnu/libdl.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;tf2_ros;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;tf2;general;voxel_grid;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
 
 //Path to a file.
 FCL_INCLUDE_DIRS:PATH=/usr/include
@@ -446,6 +479,9 @@ LSB_FOUND:BOOL=TRUE
 
 //Path to a program.
 LSB_RELEASE_EXECUTABLE:FILEPATH=/usr/bin/lsb_release
+
+//Dependencies for the target
+MultiMapper_LIB_DEPENDS:STATIC=general;OpenKarto;general;SelfLocalizer;general;/opt/ros/noetic/lib/libtf.so;general;tf2_ros;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;tf2;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
 
 //Path to a program.
 NOSETESTS:FILEPATH=/usr/bin/nosetests3
@@ -687,6 +723,9 @@ OGRE_Volume_LIBRARY_REL:FILEPATH=/usr/lib/x86_64-linux-gnu/libOgreVolume.so
 //The directory containing a CMake configuration file for OpenCV.
 OpenCV_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/opencv4
 
+//Dependencies for the target
+OpenKarto_LIB_DEPENDS:STATIC=general;tbb;general;atomic;
+
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 
@@ -756,6 +795,12 @@ Qt5_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/Qt5
 //Path to a library.
 RT_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/librt.so
 
+//Dependencies for the target
+RobotNavigator_LIB_DEPENDS:STATIC=general;MapInflationTool;general;RobotOperator;general;costmap_2d;general;layers;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/noetic/lib/liblaser_geometry.so;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libclass_loader.so;general;/usr/lib/x86_64-linux-gnu/libPocoFoundation.so;general;/usr/lib/x86_64-linux-gnu/libdl.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;tf2_ros;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;tf2;general;voxel_grid;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
+
+//Dependencies for the target
+RobotOperator_LIB_DEPENDS:STATIC=general;costmap_2d;general;layers;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/noetic/lib/liblaser_geometry.so;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libclass_loader.so;general;/usr/lib/x86_64-linux-gnu/libPocoFoundation.so;general;/usr/lib/x86_64-linux-gnu/libdl.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;tf2_ros;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;tf2;general;voxel_grid;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
+
 //Path to a library.
 SDLMAIN_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libSDLmain.a
 
@@ -776,6 +821,9 @@ SETUPTOOLS_DEB_LAYOUT:BOOL=ON
 
 //Name of the computer/site where compile is being run
 SITE:STRING=ilbert.inf.ed.ac.uk
+
+//Path to a library.
+SUITESPARSECONFIG_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libsuitesparseconfig.so
 
 //The directory containing a CMake configuration file for Simbody.
 Simbody_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/simbody
@@ -1219,6 +1267,18 @@ interactive_markers_DIR:PATH=/opt/ros/noetic/share/interactive_markers/cmake
 //The directory containing a CMake configuration file for joint_state_publisher.
 joint_state_publisher_DIR:PATH=/opt/ros/noetic/share/joint_state_publisher/cmake
 
+//Value Computed by CMake
+joy_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation_2d/joystick_drivers/joy
+
+//Value Computed by CMake
+joy_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/joystick_drivers/joy
+
+//Value Computed by CMake
+joystick_drivers_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation_2d/joystick_drivers/joystick_drivers
+
+//Value Computed by CMake
+joystick_drivers_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/joystick_drivers/joystick_drivers
+
 //The directory containing a CMake configuration file for jsoncpp.
 jsoncpp_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/jsoncpp
 
@@ -1287,6 +1347,72 @@ move_slow_and_clear_LIB_DEPENDS:STATIC=general;Boost::thread;general;costmap_2d;
 
 //Value Computed by CMake
 move_slow_and_clear_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation/move_slow_and_clear
+
+//Value Computed by CMake
+nav2d_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation_2d/nav2d
+
+//Value Computed by CMake
+nav2d_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/nav2d
+
+//Value Computed by CMake
+nav2d_exploration_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation_2d/nav2d_exploration
+
+//Value Computed by CMake
+nav2d_exploration_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/nav2d_exploration
+
+//Value Computed by CMake
+nav2d_karto_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation_2d/nav2d_karto
+
+//Value Computed by CMake
+nav2d_karto_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/nav2d_karto
+
+//Value Computed by CMake
+nav2d_localizer_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation_2d/nav2d_localizer
+
+//The directory containing a CMake configuration file for nav2d_localizer.
+nav2d_localizer_DIR:PATH=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/share/nav2d_localizer/cmake
+
+//Value Computed by CMake
+nav2d_localizer_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/nav2d_localizer
+
+//Value Computed by CMake
+nav2d_msgs_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation_2d/nav2d_msgs
+
+//The directory containing a CMake configuration file for nav2d_msgs.
+nav2d_msgs_DIR:PATH=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/share/nav2d_msgs/cmake
+
+//Value Computed by CMake
+nav2d_msgs_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/nav2d_msgs
+
+//Value Computed by CMake
+nav2d_navigator_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation_2d/nav2d_navigator
+
+//The directory containing a CMake configuration file for nav2d_navigator.
+nav2d_navigator_DIR:PATH=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/share/nav2d_navigator/cmake
+
+//Value Computed by CMake
+nav2d_navigator_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/nav2d_navigator
+
+//Value Computed by CMake
+nav2d_operator_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation_2d/nav2d_operator
+
+//The directory containing a CMake configuration file for nav2d_operator.
+nav2d_operator_DIR:PATH=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel/share/nav2d_operator/cmake
+
+//Value Computed by CMake
+nav2d_operator_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/nav2d_operator
+
+//Value Computed by CMake
+nav2d_remote_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation_2d/nav2d_remote
+
+//Value Computed by CMake
+nav2d_remote_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/nav2d_remote
+
+//Value Computed by CMake
+nav2d_tutorials_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation_2d/nav2d_tutorials
+
+//Value Computed by CMake
+nav2d_tutorials_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/nav2d_tutorials
 
 //Value Computed by CMake
 nav_core_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation/nav_core
@@ -1376,6 +1502,12 @@ pkgcfg_lib_PC_CURL_curl:FILEPATH=/usr/lib/x86_64-linux-gnu/libcurl.so
 pkgcfg_lib_PC_FCL_fcl:FILEPATH=/usr/lib/x86_64-linux-gnu/libfcl.so
 
 //Path to a library.
+pkgcfg_lib_TBB_atomic:FILEPATH=pkgcfg_lib_TBB_atomic-NOTFOUND
+
+//Path to a library.
+pkgcfg_lib_TBB_tbb:FILEPATH=/usr/lib/x86_64-linux-gnu/libtbb.so
+
+//Path to a library.
 pkgcfg_lib_TINYXML2_tinyxml2:FILEPATH=/usr/lib/x86_64-linux-gnu/libtinyxml2.so
 
 //Path to a library.
@@ -1437,6 +1569,9 @@ rosgraph_msgs_DIR:PATH=/opt/ros/noetic/share/rosgraph_msgs/cmake
 
 //The directory containing a CMake configuration file for roslib.
 roslib_DIR:PATH=/opt/ros/noetic/share/roslib/cmake
+
+//The directory containing a CMake configuration file for roslint.
+roslint_DIR:PATH=/opt/ros/noetic/share/roslint/cmake
 
 //The directory containing a CMake configuration file for roslz4.
 roslz4_DIR:PATH=/opt/ros/noetic/share/roslz4/cmake
@@ -1512,6 +1647,12 @@ slam_gmapping_nodelet_LIB_DEPENDS:STATIC=general;/opt/ros/noetic/lib/libnodeletl
 
 //The directory containing a CMake configuration file for smclib.
 smclib_DIR:PATH=/opt/ros/noetic/share/smclib/cmake
+
+//Value Computed by CMake
+spacenav_node_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/navigation_2d/joystick_drivers/spacenav_node
+
+//Value Computed by CMake
+spacenav_node_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/joystick_drivers/spacenav_node
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/noetic/share/std_msgs/cmake
@@ -1930,7 +2071,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=68
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=79
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -1991,7 +2132,7 @@ CURL_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 CURL_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 DART_DEFINITIONS:INTERNAL=
 DART_INCLUDE_DIRS:INTERNAL=/usr/include
-DART_LIBRARIES:INTERNAL=dart;dart;dart;dart;dart
+DART_LIBRARIES:INTERNAL=dart;dart;dart;dart;dart;dart;dart;dart
 //Boost min version requirement
 DART_MIN_BOOST_VERSION:INTERNAL=1.58.0
 DART_dart_DEFINITIONS:INTERNAL=
@@ -2003,16 +2144,24 @@ DART_dart_LIBRARIES:INTERNAL=dart
 DL_INCLUDE_DIRS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: DL_LIBRARIES
 DL_LIBRARIES-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: EIGEN3_INCLUDE_DIR
+EIGEN3_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //Details about finding Boost
 FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake][cfound components: thread ][v1.71.0()]
 //Details about finding Bullet
 FIND_PACKAGE_MESSAGE_DETAILS_Bullet:INTERNAL=[/usr/lib/x86_64-linux-gnu/libBulletDynamics.so][/usr/lib/x86_64-linux-gnu/libBulletCollision.so][/usr/lib/x86_64-linux-gnu/libLinearMath.so][/usr/lib/x86_64-linux-gnu/libBulletSoftBody.so][/usr/include/bullet][v()]
+//Details about finding CHOLMOD
+FIND_PACKAGE_MESSAGE_DETAILS_CHOLMOD:INTERNAL=[/usr/include/suitesparse][/usr/lib/x86_64-linux-gnu/libcholmod.so;/usr/lib/x86_64-linux-gnu/libamd.so;/usr/lib/x86_64-linux-gnu/libcolamd.so;/usr/lib/x86_64-linux-gnu/libcamd.so;/usr/lib/x86_64-linux-gnu/libccolamd.so;/usr/lib/x86_64-linux-gnu/libsuitesparseconfig.so][v()]
+//Details about finding CSPARSE
+FIND_PACKAGE_MESSAGE_DETAILS_CSPARSE:INTERNAL=[/usr/include/suitesparse][/usr/lib/x86_64-linux-gnu/libcxsparse.so][v()]
 //Details about finding CURL
 FIND_PACKAGE_MESSAGE_DETAILS_CURL:INTERNAL=[/usr/lib/x86_64-linux-gnu/libcurl.so][/usr/include/x86_64-linux-gnu][c ][v7.68.0()]
 //Details about finding DART
-FIND_PACKAGE_MESSAGE_DETAILS_DART:INTERNAL=[/usr/include][dart;dart;dart;dart;dart][cfound components: dart ][v(6.6)]
+FIND_PACKAGE_MESSAGE_DETAILS_DART:INTERNAL=[/usr/include][dart;dart;dart;dart;dart;dart;dart;dart][cfound components: dart ][v(6.6)]
 //Details about finding DL
 FIND_PACKAGE_MESSAGE_DETAILS_DL:INTERNAL=[true][v()]
+//Details about finding Eigen3
+FIND_PACKAGE_MESSAGE_DETAILS_Eigen3:INTERNAL=[/usr/include/eigen3][TRUE][v(2.91.0)]
 //Details about finding JSONCPP
 FIND_PACKAGE_MESSAGE_DETAILS_JSONCPP:INTERNAL=[TRUE][v()]
 //Details about finding OpenCV
@@ -2077,6 +2226,8 @@ GTEST_MAIN_LIBRARY-ADVANCED:INTERNAL=1
 GTEST_MAIN_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //Have symbol drand48
 HAVE_DRAND48:INTERNAL=1
+//Have include linux/joystick.h
+HAVE_LINUX_JOYSTICK_H:INTERNAL=1
 //Have include sys/time.h
 HAVE_SYS_TIME_H:INTERNAL=1
 //Have include unistd.h
@@ -2490,6 +2641,41 @@ SDL_IMAGE_INCLUDE_DIR-ADVANCED:INTERNAL=1
 SDL_IMAGE_LIBRARY-ADVANCED:INTERNAL=1
 //Path to a library.
 SDL_LIBRARY_TEMP:INTERNAL=/usr/lib/x86_64-linux-gnu/libSDL.so
+TBB_CFLAGS:INTERNAL=
+TBB_CFLAGS_I:INTERNAL=
+TBB_CFLAGS_OTHER:INTERNAL=
+TBB_FOUND:INTERNAL=1
+TBB_INCLUDEDIR:INTERNAL=/usr/include
+TBB_INCLUDE_DIRS:INTERNAL=
+TBB_LDFLAGS:INTERNAL=-ltbb;-latomic
+TBB_LDFLAGS_OTHER:INTERNAL=
+TBB_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+TBB_LIBRARIES:INTERNAL=tbb;atomic
+TBB_LIBRARY_DIRS:INTERNAL=
+TBB_LIBS:INTERNAL=
+TBB_LIBS_L:INTERNAL=
+TBB_LIBS_OTHER:INTERNAL=
+TBB_LIBS_PATHS:INTERNAL=
+TBB_MODULE_NAME:INTERNAL=tbb
+TBB_PREFIX:INTERNAL=/usr
+TBB_STATIC_CFLAGS:INTERNAL=
+TBB_STATIC_CFLAGS_I:INTERNAL=
+TBB_STATIC_CFLAGS_OTHER:INTERNAL=
+TBB_STATIC_INCLUDE_DIRS:INTERNAL=
+TBB_STATIC_LDFLAGS:INTERNAL=-ltbb;-latomic
+TBB_STATIC_LDFLAGS_OTHER:INTERNAL=
+TBB_STATIC_LIBDIR:INTERNAL=
+TBB_STATIC_LIBRARIES:INTERNAL=tbb;atomic
+TBB_STATIC_LIBRARY_DIRS:INTERNAL=
+TBB_STATIC_LIBS:INTERNAL=
+TBB_STATIC_LIBS_L:INTERNAL=
+TBB_STATIC_LIBS_OTHER:INTERNAL=
+TBB_STATIC_LIBS_PATHS:INTERNAL=
+TBB_VERSION:INTERNAL=
+TBB_tbb_INCLUDEDIR:INTERNAL=
+TBB_tbb_LIBDIR:INTERNAL=
+TBB_tbb_PREFIX:INTERNAL=
+TBB_tbb_VERSION:INTERNAL=
 TINYXML2_CFLAGS:INTERNAL=
 TINYXML2_CFLAGS_I:INTERNAL=
 TINYXML2_CFLAGS_OTHER:INTERNAL=
@@ -2711,6 +2897,7 @@ __pkg_config_arguments_PC_ASSIMP:INTERNAL=assimp;QUIET
 __pkg_config_arguments_PC_CCD:INTERNAL=ccd;QUIET
 __pkg_config_arguments_PC_CURL:INTERNAL=QUIET;libcurl
 __pkg_config_arguments_PC_FCL:INTERNAL=fcl;QUIET
+__pkg_config_arguments_TBB:INTERNAL=tbb
 __pkg_config_arguments_TINYXML2:INTERNAL=tinyxml2
 __pkg_config_arguments_UUID:INTERNAL=uuid
 __pkg_config_arguments_YAML:INTERNAL=yaml-0.1
@@ -2725,6 +2912,7 @@ __pkg_config_checked_PC_ASSIMP:INTERNAL=1
 __pkg_config_checked_PC_CCD:INTERNAL=1
 __pkg_config_checked_PC_CURL:INTERNAL=1
 __pkg_config_checked_PC_FCL:INTERNAL=1
+__pkg_config_checked_TBB:INTERNAL=1
 __pkg_config_checked_TINYXML2:INTERNAL=1
 __pkg_config_checked_UUID:INTERNAL=1
 __pkg_config_checked_YAML:INTERNAL=1
@@ -2821,6 +3009,10 @@ pkgcfg_lib_PC_CCD_m-ADVANCED:INTERNAL=1
 pkgcfg_lib_PC_CURL_curl-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_PC_FCL_fcl
 pkgcfg_lib_PC_FCL_fcl-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_TBB_atomic
+pkgcfg_lib_TBB_atomic-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_TBB_tbb
+pkgcfg_lib_TBB_tbb-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_TINYXML2_tinyxml2
 pkgcfg_lib_TINYXML2_tinyxml2-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_UUID_uuid

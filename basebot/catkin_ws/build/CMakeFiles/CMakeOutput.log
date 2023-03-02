@@ -617,3 +617,17 @@ make[1]: Leaving directory '/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stageh
 
 
 
+Determining if files linux/joystick.h exist passed with the following output:
+Change Dir: /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_958a0/fast && /usr/bin/make -f CMakeFiles/cmTC_958a0.dir/build.make CMakeFiles/cmTC_958a0.dir/build
+make[1]: Entering directory '/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_958a0.dir/HAVE_LINUX_JOYSTICK_H.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_958a0.dir/HAVE_LINUX_JOYSTICK_H.c.o   -c /afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/CMakeFiles/CheckIncludeFiles/HAVE_LINUX_JOYSTICK_H.c
+Linking C executable cmTC_958a0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_958a0.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_958a0.dir/HAVE_LINUX_JOYSTICK_H.c.o  -o cmTC_958a0 
+make[1]: Leaving directory '/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/CMakeFiles/CMakeTmp'
+
+
+

@@ -62,11 +62,11 @@ art.font('StageHands', 'Doom', function(err, rendered){
     } else if (sys.os === "linux") {
         // Similar but using ./ros/launch_linux.sh and the default shell
         console.log(chalk.cyanBright("Launching in Linux mode..."));
-        launch = spawn('./ros/launch_linux.sh', { stdio: 'inherit' });
+        launch = spawn('bash', ['./launch_linux.sh'], { stdio: 'inherit', cwd: './ros' });
     } else if (sys.os === "darwin") {
         console.log(chalk.cyanBright("Launching in macOS mode..."));
-        console.log(chalk.redBright("Warning: macOS does not provide dbus, so some GUI applications like Gazebo may not work!"))
-        launch = spawn('./ros/launch_macos.sh', { stdio: 'inherit' });
+        console.log(chalk.redBright("Warning: macOS does not provide OpenGL, so some GUI applications like Gazebo may not work!"))
+        launch = spawn('bash', ['./launch_macos.sh'], { stdio: 'inherit', cwd: './ros' });
     } else {
         console.log(chalk.redBright("Unknown operating system!"));
         process.exit(1);

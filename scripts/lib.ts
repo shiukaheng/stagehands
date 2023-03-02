@@ -47,7 +47,6 @@ export function wslgInstalled(): boolean {
         execSync('wslg echo', { stdio: 'ignore' });
         return true;
     } catch (e) {
-        console.log(e);
         return false;
     }
 }

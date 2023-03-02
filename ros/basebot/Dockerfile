@@ -1,5 +1,4 @@
 # Pull ROS noetic image from Docker Hub
-# FROM ros:noetic-robot
 FROM osrf/ros:noetic-desktop-full
 
 # Update git

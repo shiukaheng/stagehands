@@ -4,6 +4,7 @@ services:
     build: ./basebot
     container_name: basebot-dev-container
     volumes:
+      - ./basebot/.vscode:/catkin_ws/.vscode
       - ./basebot/src:/catkin_ws/src
       - ./basebot/map:/map
       - ./basebot/scripts:/scripts

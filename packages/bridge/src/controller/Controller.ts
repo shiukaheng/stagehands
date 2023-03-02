@@ -4,16 +4,18 @@ import { JSONValue, TopicServer } from "webtopics";
 import { Server } from "socket.io";
 import { IServiceHandler } from "../command/IServiceHandler";
 import { Channel } from "webtopics";
-import { ServiceChannel } from "webtopics/dist/utils/Channel";
-
+import { ServiceChannel,TopicChannel } from "webtopics/dist/utils/Channel";
+import { selectTopic } from "src/topicSelector";
 export class Controller {
     private context: Context;
     private static controller:Controller;
     private _server: TopicServer;
 
-    constructor() {
+    constructor(port:number=3000) {
         this.context = new Context();
-        this._server = new TopicServer(new Server(3000))
+        this._server = new TopicServer(new Server(port))
+        console.log(`✅ bridge server running on port ${port}`);
+        
     }
     public static getInstance():Controller{
         if (this.controller===undefined){
@@ -24,7 +26,7 @@ export class Controller {
     public runCommand(command: ICommand): void {
         command.execute(this.context);
     }
-    public async runService(serviceChannel:ServiceChannel<any,JSONValue>,serviceHandler:(requestData:any,context:Context)=>any){
+    public async runService(serviceChannel:ServiceChannel<any,any>,serviceHandler:(requestData:any,context:Context)=>any){
         this.server.srv(serviceChannel, (req)=>
         {
             return serviceHandler(req,this.context);
@@ -32,6 +34,16 @@ export class Controller {
             
         }
     
+    public serverPub(topicChannel:TopicChannel<any>){
+        const topic = selectTopic(topicChannel,this.context);
+        this.server.pub(topicChannel,topic);
+    }
+    
+    public serverSub(topicChannel:TopicChannel<any>,topicHandler:(topicData:any,context:Context)=>void){
+        this.server.sub(topicChannel,(topic)=>{
+            topicHandler(topic,this.context);
+        })
+    }
 
     public get server(): TopicServer {
         return this._server;

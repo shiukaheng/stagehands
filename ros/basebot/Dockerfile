@@ -40,7 +40,9 @@ RUN apt-get install -y dos2unix
 RUN apt-get install -y curl
 
 # More ROS
-RUN apt-get install -y ros-noetic-
+RUN apt-get install -y ros-noetic-nav2d
+RUN apt-get install -y ros-noetic-stage-ros
+RUN apt-get install -y ros-noetic-joy
 
 # Set the working directory to catkin_ws
 WORKDIR /catkin_ws/src

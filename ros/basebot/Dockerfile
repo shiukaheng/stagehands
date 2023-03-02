@@ -35,10 +35,12 @@ RUN apt-get install -y iputils-ping
 
 # For hostname resolution
 RUN apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns mdns-scan
-
 RUN apt-get install -y wget
 RUN apt-get install -y dos2unix
 RUN apt-get install -y curl
+
+# More ROS
+RUN apt-get install -y ros-noetic-
 
 # Set the working directory to catkin_ws
 WORKDIR /catkin_ws/src
@@ -72,6 +74,7 @@ EXPOSE 11311
 ## BELOW IS FOR DEVELOPMENT PURPOSES ONLY, PLEASE REMOVE FOR PRODUCTION ##
 # Copy the scripts directory into the container
 COPY ./scripts/ ./scripts/
+RUN dos2unix /scripts/*
 
 # Set the working directory to the scripts directory
 WORKDIR /scripts

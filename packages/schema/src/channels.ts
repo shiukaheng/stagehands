@@ -6,8 +6,26 @@ import { z } from "zod";
 export const fleetTopic = createTopic("fleet", fleetStateSchema)
 export const stageTopic = createTopic("stage", stageStateSchema)
 
+
 // Bot services
 export const recallBotStateService = createService("recallState", recallBotStateSchema)
+
+/**
+ * Service for bot to stop
+ */
+export const stopService = createService("stop")
+
+/**
+ * Service for clear bot stop
+ */
+export const clearStopService = createService("clearStop")
+
+
+
+/**
+ * Service for bot to register its ID to the bridge
+ */
+export const botIDRegistrationService = createService("registerBotID",z.string(),z.string())
 
 // Bridge services
 
@@ -64,3 +82,5 @@ export const stopBotService = createService("stopBot", z.string())
  * Service to clear the emergency stop for particular bot
  */
 export const stopBotClearService = createService("stopBotClear", z.string())
+
+

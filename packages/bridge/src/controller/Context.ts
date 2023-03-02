@@ -6,7 +6,6 @@ export class Context {
     private targetBotState: FleetState;
     private stageState: StageState;
     private botClientIDMap:Map<string,string>
-    private webClientIDMap:Map<string,string>
     constructor() {
         this.currentBotState ={};
         this.targetBotState = {};
@@ -17,7 +16,7 @@ export class Context {
             boundary: null as any,
         };
         this.botClientIDMap=new Map<string,string>();
-        this.webClientIDMap=new Map<string,string>();
+
     }
     public getCurrentBotState(): FleetState {
         return this.currentBotState;
@@ -36,9 +35,6 @@ export class Context {
     }
     public getbotClientIDMap(): Map<string,string>{
         return this.botClientIDMap;
-    }
-    public getwebClientIDMap(): Map<string,string>{
-        return this.webClientIDMap;
     }
 
     public setTargetBotState(targetBotState: FleetState): void {

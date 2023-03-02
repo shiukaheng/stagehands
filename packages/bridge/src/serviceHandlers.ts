@@ -1,5 +1,5 @@
 import { Context } from "./controller/Context";
-import {UpdatePresetRequest, RecallFleetState, recallBotStateService } from "schema";
+import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService } from "schema";
 import { v4 } from "uuid"
 import { checkClientIDPresent, checkValidRecall } from "./utils/validationFunc";
 import { Controller } from "./controller/Controller";
@@ -28,28 +28,77 @@ export function UpdatePresetServiceHandler(updatePresetRequest:UpdatePresetReque
 
  // Emergency stop
 export function EmergencyStopServiceHandler(context:Context){
-    for (const botName in context.getTargetBotState) {
-        context.getTargetBotState()[botName].stopped = true;
+    const errors = [];
+    for (const botName in context.getTargetBotState()) {
+        try{
+            StopBotServiceHandler(botName,context);
+        }
+        catch(error){
+            errors.push(error);
+        }
     }
+    throw new AggregateError(errors);
 }
 
 
  // Clear emergency stop
 export function EmergencyStopClearServiceHandler(context:Context){
-    for (const botName in context.getTargetBotState) {
-        context.getTargetBotState()[botName].stopped = false;
+    const errors = [];
+    for (const botName in context.getTargetBotState()) {
+        try{
+            StopBotClearServiceHandler(botName,context);
+        }
+        catch(error){
+            errors.push(error);
+        }
     }
+    throw new AggregateError(errors);
 }
 
 // Stop particular bot
-export function StopBotClearServiceHandler(botName:string,context:Context){
-
+export async function StopBotServiceHandler(botName:string,context:Context){
     if (!context.getCurrentBotState().hasOwnProperty(botName)) {
         throw new Error(`Bot ${botName} does not exist`)
-    } else {
-        context.getTargetBotState()[botName].stopped = true
     }
+    try{
+        checkClientIDPresent(botName,context);
+        const botClientID = context.getbotClientIDMap().get(botName);
+        Controller.getInstance().server.req(stopService,botClientID as string)
+        .then(()=>{
+            context.getTargetBotState()[botName].stopped = true;
+        })
+        .catch((error)=>{
+            throw error;
+        })
+    }
+    catch(error){
+        throw error;
+    }
+    
 }
+
+// Clear bot stop
+export async function StopBotClearServiceHandler(botName:string,context:Context){
+    if (!context.getCurrentBotState().hasOwnProperty(botName)) {
+        throw new Error(`Bot ${botName} does not exist`)
+    }
+    try{
+        checkClientIDPresent(botName,context);
+        const botClientID = context.getbotClientIDMap().get(botName);
+        Controller.getInstance().server.req(clearStopService,botClientID as string)
+        .then(()=>{
+            context.getTargetBotState()[botName].stopped = false;
+        })
+        .catch((error)=>{
+            throw error;
+        })
+    }
+    catch(error){
+        throw error;
+    }
+    
+}
+
 // Recall fleet state
 export async function RecallFleetStateServiceHandler(recallFleetState:RecallFleetState,context:Context):Promise<void>{
     const botIDs = Object.keys(recallFleetState);

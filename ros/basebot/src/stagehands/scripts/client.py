@@ -1,32 +1,27 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import rospy
 from std_msgs.msg import String
+import math
 
-# Talker node
+# This replaces navigation_2d's remote_joy node
 
-def talker():
-    pub = rospy.Publisher('chatter', String, queue_size=10)
-    rospy.init_node('talker', anonymous=True)
-    rate = rospy.Rate(10) # 10hz
-    while not rospy.is_shutdown():
-        hello_str = "hello world %s" % rospy.get_time()
-        rospy.loginfo(hello_str)
-        pub.publish(hello_str)
-        rate.sleep()
+from sensor_msgs.msg import Joy
+from nav2d_operator.msg import cmd
 
-# Listener node
+class JoyToCmd:
+    def __init__(self):
+        self.cmd_pub = rospy.Publisher('cmd', cmd, queue_size=1)
+        self.joy_sub = rospy.Subscriber('joy', Joy, self.joy_callback)
 
-def callback(data):
-    rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
-    
-def listener():
-    rospy.init_node('listener', anonymous=True) # "anonymous" makes sure it is a unique name, otherwise nodes of the same name gets kicked off
-    rospy.Subscriber("chatter", String, callback)
-    rospy.spin() # spin() keeps python from exiting until this node is stopped
+    def joy_callback(self, data):
+        cmd_msg = cmd()
+        cmd_msg.Turn = -data.axes[0]
+        cmd_msg.Velocity = math.sqrt(data.axes[0]**2 + data.axes[1]**2) * math.copysign(1, data.axes[1])
+        cmd_msg.Mode = 0
+        self.cmd_pub.publish(cmd_msg)
 
 if __name__ == '__main__':
-    try:
-        talker()
-    except rospy.ROSInterruptException:
-        pass
+    rospy.init_node('joy_to_cmd')
+    joy_to_cmd = JoyToCmd()
+    rospy.spin()

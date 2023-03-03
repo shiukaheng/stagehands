@@ -1,8 +1,0 @@
-<launch>
-    <!-- Launch empty world -->
-    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_empty_world.launch"/>
-    <!-- Set time step -->
-    <!-- <node pkg="rostopic" type="rostopic" name="set_time_step" args="pub /gazebo/set_physics_properties gazebo_msgs/PhysicsProperties '{time_step: 0.001, max_update_rate: 1000.0}'" /> -->
-    <!-- Launch RViz -->
-    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find turtlebot3_gazebo)/rviz/turtlebot3_empty_world.rviz" />
-</launch>

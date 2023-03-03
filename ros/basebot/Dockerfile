@@ -48,7 +48,7 @@ RUN apt-get install -y ros-noetic-joy
 WORKDIR /catkin_ws/src
 
 # Copy .src files into the catkin_ws/src folder:
-COPY ./src/ .
+COPY ./ros/basebot/src/ .
 
 # Set the working directory to catkin_ws 
 WORKDIR /catkin_ws
@@ -68,14 +68,14 @@ ENV TURTLEBOT3_MODEL=${TURTLEBOT3_MODEL}
 WORKDIR /
 
 # Copy in the map directory
-COPY ./map/ ./map/
+COPY ./ros/basebot/map/ ./map/
 
 # Expose the port for the ROS master
 EXPOSE 11311
 
 ## BELOW IS FOR DEVELOPMENT PURPOSES ONLY, PLEASE REMOVE FOR PRODUCTION ##
 # Copy the scripts directory into the container
-COPY ./scripts/ ./scripts/
+COPY ./ros/basebot/scripts/ ./scripts/
 RUN dos2unix /scripts/*
 
 # Set the working directory to the scripts directory

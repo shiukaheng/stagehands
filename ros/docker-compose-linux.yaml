@@ -1,13 +1,16 @@
 version: "3.8"
 services:
   ros-dev:
-    build: ./basebot
+    # build: ./basebot
+    build:
+      context: ../
+      dockerfile: ./ros/basebot/Dockerfile
     container_name: basebot-dev-container
     volumes:
-      - ./basebot/.vscode:/catkin_ws/.vscode
-      - ./basebot/src:/catkin_ws/src
-      - ./basebot/map:/map
-      - ./basebot/scripts:/scripts
+      - ./ros/basebot/.vscode:/catkin_ws/.vscode
+      - ./ros/basebot/src:/catkin_ws/src
+      - ./ros/basebot/map:/map
+      - ./ros/basebot/scripts:/scripts
       - /catkin_ws/devel
       - /catkin_ws/build
       - /catkin_ws/logs

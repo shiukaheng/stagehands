@@ -207,7 +207,6 @@ include_directories(
 
 catkin_install_python(PROGRAMS 
   scripts/client.py
-  scripts/tf_listen.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

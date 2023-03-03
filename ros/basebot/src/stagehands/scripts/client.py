@@ -16,7 +16,7 @@ class JoyToCmd:
 
     def joy_callback(self, data):
         cmd_msg = cmd()
-        cmd_msg.Turn = -data.axes[0]
+        cmd_msg.Turn = -data.axes[0] 
         cmd_msg.Velocity = math.sqrt(data.axes[0]**2 + data.axes[1]**2) * math.copysign(1, data.axes[1])
         cmd_msg.Mode = 0
         self.cmd_pub.publish(cmd_msg)

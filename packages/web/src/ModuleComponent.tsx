@@ -14,7 +14,7 @@ function ModuleComponent({ module }: { module: BotState }) {
         <button
             id={module.name}
             className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-32 w-64 rounded m-2"
-            onClick={() => setComponentSelect(2)}>
+            onClick={() => setComponentSelect({type: "mic_attributes_page", bot :module})}>
             <div className="text-left indent-[10.5%]">
                 Name: {module.name}
             </div>

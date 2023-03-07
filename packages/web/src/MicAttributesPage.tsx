@@ -1,6 +1,10 @@
-import { useRef, useState } from "react"
+import { useRef, useState,useContext } from "react"
+import { TopicContext } from './ServerContext';
+import { BotState } from 'schema';
 
-export default function MicAttributesPage() {
+export default function MicAttributesPage(bot: BotState) {
+ const provider = useContext(TopicContext);
+ console.log(bot.pose.position)
  const xValInputElemRef = useRef<HTMLInputElement>(null)
  const xValRangeElemRef = useRef<HTMLInputElement>(null)
  const yValInputElemRef = useRef<HTMLInputElement>(null)
@@ -8,6 +12,7 @@ export default function MicAttributesPage() {
  const angleinputElemRef = useRef<HTMLInputElement>(null)
  const angleRangeElemRef = useRef<HTMLInputElement>(null)
  return (
+
    // <div className=" left-10 w-80 h-full border-gray-200 border-2 rounded-md p-5 bg-white overflow-auto">
    //   <div className="flex flex-row">
 
@@ -23,6 +28,7 @@ export default function MicAttributesPage() {
        id="attributes"
        className=" font-bold h-full w-full rounded p-5 bottom-0 overflow-y-auto overflow-x-hidden">
        
+       <tbody>
        <tr>
          <th>Name :</th>
          <td>
@@ -30,33 +36,39 @@ export default function MicAttributesPage() {
              type="text"
              id="micName"
              className="text-center mb-2 h-6 w-32 rounded-md"
-             defaultValue={"TODO"}
+             defaultValue={bot.name}
              size={11}></input>
          </td>
        </tr>
+       </tbody>
 
+       <tbody>
        <tr>
          <th>Status :</th>
          <td>
            <button
              id="micStatus"
              className="text-center mb-2 h-6 w-32 bg-white rounded-md">
-               active 
+               {bot.status} 
            </button>
          </td>
        </tr>
+       </tbody>
 
+        <tbody>
        <tr>
          <th>Module :</th>
          <td>
            <button
              id="micModule"
              className="mb-2 text-center h-6 w-32 bg-white rounded-md">
-               Microphone
+               {bot.module.type}
            </button>
          </td>
        </tr>
+       </tbody>
 
+        <tbody>
        <tr>
          <th>X :</th>
          <td>
@@ -68,7 +80,7 @@ export default function MicAttributesPage() {
              min={0}
              max={100}
              
-             defaultValue={1}
+             defaultValue={bot.pose.position.at(0)}
              onChange = {() => {
                xValRangeElemRef.current!.value = xValInputElemRef.current!.value
              }}
@@ -76,7 +88,9 @@ export default function MicAttributesPage() {
              ></input>
          </td>
        </tr>
+       </tbody>
 
+        <tbody>
        <tr>
          <th> </th>
          <td>
@@ -87,7 +101,7 @@ export default function MicAttributesPage() {
              className = {"mb-2 h-6 w-32"}
              min = {0}
              max = {100}
-             defaultValue = {1}
+             defaultValue = {bot.pose.position.at(0)}
              step = {1}
              onChange = {() => {
                // When the range input is changed, useRef to get the input element
@@ -97,7 +111,9 @@ export default function MicAttributesPage() {
            ></input>
          </td>
        </tr>
+       </tbody>
 
+        <tbody>
        <tr>
 
          <th>Y :</th>
@@ -109,7 +125,7 @@ export default function MicAttributesPage() {
              className={"text-center mb-2 h-6 w-32 rounded-md"}
              min={0}
              max={100}
-             defaultValue={1}
+             defaultValue={bot.pose.position.at(1)}
              onChange = {() => {
                yValRangeElemRef.current!.value = yValInputElemRef.current!.value
              }}
@@ -118,7 +134,9 @@ export default function MicAttributesPage() {
              ></input>
          </td>
        </tr>
+       </tbody>
 
+        <tbody>
        <tr>
          <th> </th>
          <td>
@@ -129,7 +147,7 @@ export default function MicAttributesPage() {
              className = {"mb-2 h-6 w-32"}
              min = {0}
              max = {100}
-             defaultValue = {1}
+             defaultValue = {bot.pose.position.at(1)}
              step = {1}
 
              onChange = {() => {
@@ -141,7 +159,9 @@ export default function MicAttributesPage() {
            ></input>
          </td>
        </tr>
+       </tbody>
 
+        <tbody>
        <tr>
          <th>Angle :</th>
          <td>
@@ -162,7 +182,9 @@ export default function MicAttributesPage() {
            ></input>
          </td>
        </tr>
+       </tbody>
 
+        <tbody>
        <tr>
          <th> </th>
          <td>
@@ -182,7 +204,9 @@ export default function MicAttributesPage() {
            ></input>
          </td>
        </tr>
+       </tbody>
 
+        <tbody>
        <tr>
          <th>Battery :</th>
          <td>
@@ -191,6 +215,7 @@ export default function MicAttributesPage() {
            </button>
          </td>
        </tr>
+       </tbody>
 
      </table>
      </div>

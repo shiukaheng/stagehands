@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import generatePresetPanelButton from "./GeneratePresetPanelButton"
 import Preset from "./Preset";
 import presetButtonsContext from './PresetButtonsContext'
-import { TopicContext } from "./ServerContext";
+import { ServiceContext, TopicContext } from "./ServerContext";
 
 // placeholder function for the open button
 function doNothing() {
@@ -12,13 +12,13 @@ function doNothing() {
 // displays the preset panel which consists of a list of presets (MiddleSection div) and two buttons to create a new preset (BottomSection div)
 function PresetPanel() {
     const topicProvider = useContext(TopicContext);
-
+    const ServiceProvider = useContext(ServiceContext);
     return (
         <div className="overflow-clip h-full">
             <div id="MiddleSection" className="border-solid w-72 h-4/5 snap-center overflow-y-auto overflow-x-hidden">
                 {/* map the record by key and value pairs into the preset component, if presets is not null */}
                 {topicProvider?.stage?.presets && Object.entries(topicProvider.stage.presets).map(([key, value]) => (
-                    <Preset preset={value} key={key} />
+                    <Preset preset={value} key={key} id={key}/>
                 ))}
             </div>
             <div id="BottomSection" className="flex">
@@ -29,6 +29,10 @@ function PresetPanel() {
                 Open</button>
                 <button
                     id="createButton" // For creating a new preset based on the current mic positions
+                    onClick={() => {
+                        console.log("Creating preset", ServiceProvider?.createPreset);
+                        ServiceProvider?.createPreset.callback({name: "Preset 1", state: {}})
+                    }}
                     className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-10 w-28 rounded m-2">
                 Create</button>
             </div>

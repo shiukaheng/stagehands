@@ -58,6 +58,8 @@ export class FakeBridgeServer {
                 bot.module.state = recallBotState.module.state
                 bot.ledState.base = recallBotState.baseLEDState
             }
+            this.ts.pub(fleetTopic, this.fleetState)
+            console.log("Recalled fleet state")
         })
 
         // Create preset
@@ -65,6 +67,8 @@ export class FakeBridgeServer {
             this.checkValidRecall(presetFleetState.state)
             const presetID = v4()
             this.stageState.presets[presetID] = presetFleetState
+            this.ts.pub(stageTopic, this.stageState)
+            console.log("Created preset", presetID)
             return presetID
         })
 
@@ -72,11 +76,16 @@ export class FakeBridgeServer {
         this.ts.srv(updatePresetService, (updatePresetRequest) => {
             this.checkValidRecall(updatePresetRequest.preset.state)
             this.stageState.presets[updatePresetRequest.presetId] = updatePresetRequest.preset
+            this.ts.pub(stageTopic, this.stageState)
+            console.log("Updated preset", updatePresetRequest.presetId)
         })
 
         // Delete preset
         this.ts.srv(deletePresetService, (presetID) => {
+            console.log("Deleting preset", presetID)
             delete this.stageState.presets[presetID]
+            this.ts.pub(stageTopic, this.stageState)
+            console.log("Deleted preset", presetID)
         })
 
         // Emergency stop
@@ -84,6 +93,8 @@ export class FakeBridgeServer {
             for (const botName in this.fleetState) {
                 this.fleetState[botName].stopped = true
             }
+            this.ts.pub(fleetTopic, this.fleetState)
+            console.log("Emergency stopped")
         })
 
         // Clear emergency stop
@@ -91,6 +102,8 @@ export class FakeBridgeServer {
             for (const botName in this.fleetState) {
                 this.fleetState[botName].stopped = false
             }
+            this.ts.pub(fleetTopic, this.fleetState)
+            console.log("Cleared emergency stop")
         })
 
         // Stop particular bot
@@ -101,6 +114,8 @@ export class FakeBridgeServer {
             } else {
                 this.fleetState[botName].stopped = true
             }
+            this.ts.pub(fleetTopic, this.fleetState)
+            console.log(`Stopped bot ${botName}`)
         })
 
         // Recall bot state
@@ -111,6 +126,8 @@ export class FakeBridgeServer {
             } else {
                 this.fleetState[botName].stopped = true
             }
+            this.ts.pub(fleetTopic, this.fleetState)
+            console.log(`Stopped bot ${botName}`)
         })
 
         // // Every 5 seconds, randomize each bot's target pose in x and z

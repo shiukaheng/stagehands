@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Preset as PresetT, BotState } from 'schema';
 import saveIcon from './assets/save-icon.svg'
 import editIcon from './assets/edit-icon.svg'
 import delIcon from './assets/delete-icon.svg'
 import { Tooltip } from "react-tooltip"
 import 'react-tooltip/dist/react-tooltip.css';
+import { ServiceContext, ServiceProvider } from './ServerContext';
 
 function doNothing() {
     return
 }
 
-function Preset({preset}: {preset: PresetT}) {
+function Preset({preset, id}: {preset: PresetT, id: string}) {
+    const ServiceProvider = useContext(ServiceContext);
     return (
-        <button
+        <div
         id={preset.name}
         className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-32 w-64 rounded m-2">
         <div>
@@ -42,13 +44,13 @@ function Preset({preset}: {preset: PresetT}) {
         <button
             id="DeleteButton"
             className="rounded-full border-solid border-red-500 border-2 m-2 p-1"
-            onClick={() => doNothing()} data-tooltip-id="delete-tooltip" data-tooltip-content="delete">
+            onClick={() => ServiceProvider?.deletePreset.callback(id)} data-tooltip-id="delete-tooltip" data-tooltip-content="delete">
             <img src={delIcon} style={{ height: 25, width: 25 }} className="fill-black" alt="save" />
             <Tooltip id="delete-tooltip" />
         </button>
         </div>
         </div>
-    </button>
+    </div>
     );
 }
 

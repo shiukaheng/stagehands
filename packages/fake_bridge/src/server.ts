@@ -35,7 +35,10 @@ export class FakeBridgeServer {
                 origin: "*",
             }
         })
-        this.ts = new TopicServer(this.io)
+        this.ts = new TopicServer(this.io, {
+            // logTopics: true,
+            // logServices: true,
+        })
         this.ts.pub(fleetTopic, this.fleetState)
         this.ts.pub(stageTopic, this.stageState)
         console.log(`✅ Fake bridge server running on port ${port}`)
@@ -44,6 +47,10 @@ export class FakeBridgeServer {
         const timer = setInterval(() => {
             this.update(1/this.simulationFrameRate)
         }, 1000/this.simulationFrameRate)
+
+        // this.ts.sub(stageTopic, (newStageState) => {
+        //     console.log("Changing stage state:", newStageState)
+        // })
 
         // Services
 
@@ -82,10 +89,9 @@ export class FakeBridgeServer {
 
         // Delete preset
         this.ts.srv(deletePresetService, (presetID) => {
-            console.log("Deleting preset", presetID)
-            delete this.stageState.presets[presetID]
-            this.ts.pub(stageTopic, this.stageState)
-            console.log("Deleted preset", presetID)
+            console.log("Deleting preset", presetID);
+            this.stageState.presets = Object.fromEntries(Object.entries(this.stageState.presets).filter(([id, _]) => id !== presetID))
+            this.ts.pub(stageTopic, this.stageState, true, true)
         })
 
         // Emergency stop

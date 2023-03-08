@@ -12,7 +12,7 @@ function doNothing() {
 }
 
 function Preset({preset, id}: {preset: PresetT, id: string}) {
-    const ServiceProvider = useContext(ServiceContext);
+    const services = useContext(ServiceContext);
     return (
         <div
         id={preset.name}
@@ -44,7 +44,7 @@ function Preset({preset, id}: {preset: PresetT, id: string}) {
         <button
             id="DeleteButton"
             className="rounded-full border-solid border-red-500 border-2 m-2 p-1"
-            onClick={() => ServiceProvider?.deletePreset.callback(id)} data-tooltip-id="delete-tooltip" data-tooltip-content="delete">
+            onClick={() => services?.deletePreset.callback(id)} data-tooltip-id="delete-tooltip" data-tooltip-content="delete">
             <img src={delIcon} style={{ height: 25, width: 25 }} className="fill-black" alt="save" />
             <Tooltip id="delete-tooltip" />
         </button>

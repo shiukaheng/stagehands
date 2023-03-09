@@ -1,7 +1,7 @@
 import { createContext, Fragment, useState } from 'react'
 import './App.css'
 import { Stage } from './Stage'
-import SidePanel from './SidePanel'
+import SidePanel, { PresetPanelSelection, SidePanelSelection } from './SidePanel'
 import presetButtonsContext from './PresetButtonsContext'
 import MicAttributesPage from './MicAttributesPage'
 import componentSelectContext from './ComponentSwitchContext'
@@ -13,7 +13,7 @@ import { TopicClientCacher } from './utils/TopicClientCacher'
 function App() {
 
   const [presetButtons, setPresetButtons] = useState([] as any[]);
-  const [componentSelect, setComponentSelect] = useState(0 as number);
+  const [componentSelect, setComponentSelect] = useState("preset_panel" as SidePanelSelection);
   const value1 = { presetButtons, setPresetButtons }; 
   const value2 = {componentSelect, setComponentSelect };
 

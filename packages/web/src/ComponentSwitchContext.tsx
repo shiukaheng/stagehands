@@ -1,9 +1,14 @@
 import { createContext } from "react"
 import { SidePanelSelection, PresetPanelSelection } from "./SidePanel"
 
-const componentSelectContext = createContext({
-    componentSelect: "preset_panel" as PresetPanelSelection,
-    setComponentSelect: (input:SidePanelSelection) => {input}
-  })
+export interface IComponentSelectContext {
+	componentSelect: SidePanelSelection
+	setComponentSelect: (input: SidePanelSelection) => void
+}
 
-  export default componentSelectContext
+const componentSelectContext = createContext<IComponentSelectContext>({
+	componentSelect: "preset_panel",
+	setComponentSelect: (input: SidePanelSelection) => { input }
+})
+
+export default componentSelectContext

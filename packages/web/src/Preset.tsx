@@ -37,7 +37,7 @@ function Preset({preset, id}: {preset: PresetT, id: string}) {
         <button
             id="EditButton"
             className="rounded-full border-solid border-slate-500 border-2 m-2 p-1"
-            onClick={() => doNothing()} data-tooltip-id="edit-tooltip" data-tooltip-content="view & edit">
+            onClick={() => services?.updatePreset.callback({presetId: id, preset: {name: "Updated Preset", state: {}}})} data-tooltip-id="edit-tooltip" data-tooltip-content="view & edit">
             <img src={editIcon} style={{ height: 25, width: 25 }} className="fill-black" alt="save" />
             <Tooltip id="edit-tooltip" />
         </button>

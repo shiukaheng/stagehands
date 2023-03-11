@@ -7,7 +7,7 @@ function generateMicPanelButton(buttons: any[]) {
     <button
       id={("MicButton" + buttons.length.toString())}
       className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-32 w-64 rounded m-2"
-      onClick={() => setComponentSelect(2)}>
+      onClick={() => setComponentSelect("preset_panel")}>
         <div className="text-left indent-[10.5%]">
       Name: {("\xa0 Mic " + buttons.length.toString())}
       </div>

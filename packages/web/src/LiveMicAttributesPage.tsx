@@ -4,7 +4,6 @@ import { BotState } from 'schema';
 
 export default function LiveMicAttributesPage({bot} : {bot: BotState}) {
  const provider = useContext(TopicContext);
- console.log(bot.pose.position)
  const xValInputElemRef = useRef<HTMLInputElement>(null)
  const xValRangeElemRef = useRef<HTMLInputElement>(null)
  const yValInputElemRef = useRef<HTMLInputElement>(null)
@@ -12,14 +11,6 @@ export default function LiveMicAttributesPage({bot} : {bot: BotState}) {
  const angleinputElemRef = useRef<HTMLInputElement>(null)
  const angleRangeElemRef = useRef<HTMLInputElement>(null)
  return (
-
-   // <div className=" left-10 w-80 h-full border-gray-200 border-2 rounded-md p-5 bg-white overflow-auto">
-   //   <div className="flex flex-row">
-
-   //     <button className="left-0 top-0 m-1 rounded-md bg-gray-100 p-1 hover:bg-slate-400 active:bg-slate-500 font-bold">
-   //       Back
-   //     </button>
-   //   </div>
      
    <div className="h-5/6 overflow-clip pt-5">
      <div className="h-full w-full p-2 bg-gray-100 rounded-md">

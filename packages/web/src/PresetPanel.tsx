@@ -41,8 +41,13 @@ function PresetPanel() {
                         }
 
                         console.log("Creating preset", ServiceProvider?.createPreset);
-                        ServiceProvider?.createPreset.callback({name: presetName,
-                        state: getRecallFleetState(topicProvider?.fleet as FleetState)})
+                        if (topicProvider?.fleet !== undefined) {
+                            ServiceProvider?.createPreset.callback({name: presetName,
+                                state: getRecallFleetState(topicProvider?.fleet)})
+                        }else {
+                            throw new Error("Fleet is undefined");
+                        }
+
                     }}
                     className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-10 w-28 rounded m-2">
                 Create</button>

@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Popup from 'reactjs-popup';
-
+import { emergencyStopService } from 'schema';
+import { ServiceProvider, ServiceContext } from './ServerContext';
 
 function MenuBar({setUrl}: {setUrl: (url: string) => void}) {
     const ipRef = React.useRef<HTMLInputElement>(null);
     const refreshRef = React.useRef<HTMLInputElement>(null);
     const portRef = React.useRef<HTMLInputElement>(null);
+
+    const serviceProvider = useContext(ServiceContext);
 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -44,7 +47,15 @@ function MenuBar({setUrl}: {setUrl: (url: string) => void}) {
                 </div>
             </Popup>
             <button>StageHand</button>
-            <button className="bg-red-600 text-white px-10">Stop</button>
+            <button onClick={() => {
+              serviceProvider?.emergencyStop.callback();
+              let resume = confirm("Resume?");
+              
+              if (resume) {
+                serviceProvider?.emergencyStopClear.callback();
+              }
+
+            }} className="bg-red-600 text-white px-10">Stop</button>
         </div>
     );    
 }

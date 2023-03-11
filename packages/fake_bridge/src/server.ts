@@ -1,6 +1,6 @@
 import { TopicServer } from "webtopics"
 import { Server } from "socket.io"
-import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService } from "schema"
+import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, runPresetService } from "schema"
 import { createNewBotState } from "./utils"
 import { z } from "zod"
 import { ServiceChannel } from "webtopics/dist/utils/Channel"
@@ -92,6 +92,18 @@ export class FakeBridgeServer {
             console.log("Deleting preset", presetID);
             this.stageState.presets = Object.fromEntries(Object.entries(this.stageState.presets).filter(([id, _]) => id !== presetID))
             this.ts.pub(stageTopic, this.stageState, true, true)
+        })
+
+        this.ts.srv(runPresetService, (presetID) => {
+            console.log("Running preset", presetID);
+            this.stageState.activePreset = presetID; 
+            const preset = this.stageState.presets[presetID];
+            
+            if (!preset) {
+                throw new Error("Preset does not exist")
+            }
+
+            this.ts.req(recallFleetStateService, this.ts.id, preset.state)
         })
 
         // Emergency stop

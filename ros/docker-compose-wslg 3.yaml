@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  ros-dev:
+    build:
+      context: ../
+      dockerfile: ./ros/basebot/Dockerfile
+    container_name: basebot-dev-container
+    volumes:
+      - ./ros/basebot/.vscode:/catkin_ws/.vscode
+      - ./ros/basebot/src:/catkin_ws/src
+      - ./ros/basebot/map:/map
+      - ./ros/basebot/scripts:/scripts
+      - /catkin_ws/devel
+      - /catkin_ws/build
+      - /catkin_ws/logs
+      - /catkin_ws/install
+      - \\wsl$\Ubuntu\mnt\wslg\:/mnt/wslg/
+      - \\wsl$\Ubuntu\tmp\.X11-unix:/tmp/.X11-unix
+    environment:
+      - HOST_OS=win_wslg
+    # Keep it open for development
+    stdin_open: true
+    tty: true
+    network_mode: host

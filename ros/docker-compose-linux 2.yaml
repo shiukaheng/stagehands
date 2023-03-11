@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+  ros-dev:
+    # build: ./basebot
+    build:
+      context: ../
+      dockerfile: ./ros/basebot/Dockerfile
+    container_name: basebot-dev-container
+    volumes:
+      - ./ros/basebot/.vscode:/catkin_ws/.vscode
+      - ./ros/basebot/src:/catkin_ws/src
+      - ./ros/basebot/map:/map
+      - ./ros/basebot/scripts:/scripts
+      - /catkin_ws/devel
+      - /catkin_ws/build
+      - /catkin_ws/logs
+      - /catkin_ws/install
+      - '/tmp/.X11-unix:/tmp/.X11-unix:rw'
+    devices:
+          - /dev/dri
+    environment:
+      - DISPLAY
+      - QT_X11_NO_MITSHM=1
+      - HOST_OS=linux
+    # Keep it open for development
+    stdin_open: true
+    tty: true
+    network_mode: host
+    privileged: true
+
+# services:
+#     ros-dev:
+#       build: ./basebot
+#       container_name: basebot-dev-container
+#       privileged: true
+#       network_mode: host
+#       devices:
+#           - /dev/dri
+#       environment:
+#           - DISPLAY
+#           - QT_X11_NO_MITSHM=1
+#       volumes:
+#           - '/tmp/.X11-unix:/tmp/.X11-unix:rw'
+#       tty: true
+#       stdin_open: true

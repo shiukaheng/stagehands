@@ -4,11 +4,40 @@ import generatePresetPanelButton from "./GeneratePresetPanelButton"
 import Preset from "./Preset";
 import presetButtonsContext from './PresetButtonsContext'
 import { ServiceContext, TopicContext } from "./ServerContext";
+import { Preset as PresetT } from "schema";
 
 // placeholder function for the open button
 function doNothing() {
     return
-  }
+}
+
+
+function openPreset() {
+    // open file picker 
+    const input = document.createElement('input');
+
+    let presetType: PresetT | null = null;
+      
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.click();
+    // read file
+    input.onchange = () => {
+        const file = input?.files[0];
+        const reader = new FileReader();
+        reader.readAsText(file, "UTF-8");
+        reader.onload = () => {
+            const preset: PresetT = JSON.parse(reader.result as string);
+            presetType = preset;
+        }
+
+    }
+
+    //const topicProvider = useContext(TopicContext);
+    //const ServiceProvider = useContext(ServiceContext);
+
+    //ServiceProvider?.createPreset.callback({name: "test", preset: presetType?.state});
+}
 
 // displays the preset panel which consists of a list of presets (MiddleSection div) and two buttons to create a new preset (BottomSection div)
 function PresetPanel() {
@@ -27,7 +56,9 @@ function PresetPanel() {
                 <button
                     id="openButton" // For opening a preset from file, currently it does nothing
                     className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-10 w-28 rounded m-2"
-                    onClick={() => doNothing()}>
+                    onClick={() => {
+                        openPreset();
+                    }}>
                 Open</button>
                 <button
                     id="createButton" // For creating a new preset based on the current mic positions

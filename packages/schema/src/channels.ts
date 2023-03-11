@@ -62,6 +62,11 @@ export type DeletePresetRequest = z.infer<typeof deletePresetRequestSchema>
  */
 export const deletePresetService = createService("deletePreset", deletePresetRequestSchema)
 
+/** 
+ * Service to run a preset
+ */
+export const runPresetService = createService("runPreset", z.string())
+
 // ===== Bot emergency stop =====
 /**
  * Service to stop all bots

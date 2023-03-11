@@ -1,21 +1,34 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import Popup from 'reactjs-popup';
 import { emergencyStopService } from 'schema';
 import { ServiceProvider, ServiceContext } from './ServerContext';
 
-function MenuBar({setUrl}: {setUrl: (url: string) => void}) {
+function MenuBar({url, setUrl}: {url: string | null, setUrl: (url: string) => void}) {
     const ipRef = React.useRef<HTMLInputElement>(null);
-    const refreshRef = React.useRef<HTMLInputElement>(null);
+    // const refreshRef = React.useRef<HTMLInputElement>(null);
     const portRef = React.useRef<HTMLInputElement>(null);
 
     const serviceProvider = useContext(ServiceContext);
+
+    const parsedUrl = useMemo(()=>{
+        if (url) {
+            const urlObj = new URL(url);
+            return {
+                hostname: urlObj.hostname,
+                port: urlObj.port
+            }
+        }
+        return undefined;
+    }, [url]);
+
+    console.log(url)
 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const ip = ipRef.current?.value;
-        const refresh = refreshRef.current?.value;
+        // const refresh = refreshRef.current?.value;
         const port = portRef.current?.value;
 
         setUrl(`http://${ip}:${port}`);
@@ -30,17 +43,17 @@ function MenuBar({setUrl}: {setUrl: (url: string) => void}) {
                         <label>
                             Server IP Address
                         </label>
-                        <input className="text-black rounded-md border-solid border-2 mb-10" type="text" name="ip" ref={ipRef} />
+                        <input className="text-black rounded-md border-solid border-2 mb-10" type="text" name="ip" ref={ipRef} defaultValue={parsedUrl?.hostname} />
 
                         <label>
                             Server Port
                         </label>
-                        <input className="text-black rounded-md border-solid border-2 mb-10" type="text" name="port" ref={portRef} />
+                        <input className="text-black rounded-md border-solid border-2 mb-10" type="text" name="port" ref={portRef} defaultValue={parsedUrl?.port} />
                         
-                        <label>
+                        {/* <label>
                             Refresh Rate
                         </label>
-                        <input className="text-black rounded-md border-solid border-2 mb-10" type="text" name="refresh" ref={refreshRef} />
+                        <input className="text-black rounded-md border-solid border-2 mb-10" type="text" name="refresh" ref={refreshRef} /> */}
 
                         <button type="submit">Connect</button>
                     </form>

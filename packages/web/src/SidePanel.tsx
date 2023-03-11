@@ -7,7 +7,11 @@ import PresetPanel from "./PresetPanel"
 import { BotState } from 'schema';
 
 export type PresetPanelSelection = "preset_panel"
-export type MicPanelSelection = "mic_panel"
+export type MicPanelSelection = {
+  type: "mic_panel"
+  presetID : string | null 
+}
+
 export type MicAttributesPageSelection = {
   type: "mic_attributes_page"
   bot: BotState
@@ -19,12 +23,12 @@ function ComponentToDisplay(ComponentSelect: SidePanelSelection) {
   if( ComponentSelect  === "preset_panel" ) {
     console.log("preset panel")
     return (<PresetPanel/>)
-  } else if (ComponentSelect === "mic_panel"){
+  } else if (ComponentSelect.type === "mic_panel"){
     console.log("mic panel")
-    return (<MicPanel/>)
+    return (<MicPanel presetID={ComponentSelect.presetID}/>)
   } else if (ComponentSelect.type === "mic_attributes_page") {
     
-    return (MicAttributesPage(ComponentSelect.bot)) // TODO add mic attributes page
+    return (<MicAttributesPage bot = {ComponentSelect.bot}/>) // TODO add mic attributes page
   }
 }
 
@@ -46,7 +50,7 @@ function SidePanel() {
       <button
         id="MicsButton"
         className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-10 w-28 rounded m-2"
-        onClick={() => setComponentSelect("mic_panel" as MicPanelSelection)}>
+        onClick={() => setComponentSelect({type :"mic_panel", presetID: null} as MicPanelSelection)}>
         Mics
       </button>
         {ComponentToDisplay(componentSelect)} {/* The main body of the side panel, displayed here, is determined through this fucntion */}

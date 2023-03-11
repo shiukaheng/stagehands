@@ -6,6 +6,7 @@ import delIcon from './assets/delete-icon.svg'
 import { Tooltip } from "react-tooltip"
 import 'react-tooltip/dist/react-tooltip.css';
 import { ServiceContext, ServiceProvider } from './ServerContext';
+import componentSelectContext from "./ComponentSwitchContext"
 
 function doNothing() {
     return
@@ -13,6 +14,7 @@ function doNothing() {
 
 function Preset({preset, id}: {preset: PresetT, id: string}) {
     const services = useContext(ServiceContext);
+    const { componentSelect, setComponentSelect } = useContext(componentSelectContext);
     return (
         <div
         id={preset.name}
@@ -30,14 +32,15 @@ function Preset({preset, id}: {preset: PresetT, id: string}) {
         <button
             id="SaveButton"
             className="rounded-full border-solid border-slate-500 border-2 m-2 p-1"
-            onClick={() => doNothing()} data-tooltip-id="save-tooltip" data-tooltip-content="save">
+            onClick={() => doNothing()} 
+            data-tooltip-id="save-tooltip" data-tooltip-content="save">
             <img src={saveIcon} style={{ height: 25, width: 25 }} className="fill-black" alt="save" />
             <Tooltip id="save-tooltip" />
         </button>
         <button
             id="EditButton"
             className="rounded-full border-solid border-slate-500 border-2 m-2 p-1"
-            onClick={() => doNothing()} data-tooltip-id="edit-tooltip" data-tooltip-content="view & edit">
+            onClick={() => (setComponentSelect({type :"mic_panel", presetID: id }))} data-tooltip-id="edit-tooltip" data-tooltip-content="view & edit">
             <img src={editIcon} style={{ height: 25, width: 25 }} className="fill-black" alt="save" />
             <Tooltip id="edit-tooltip" />
         </button>

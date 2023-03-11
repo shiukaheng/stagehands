@@ -6,8 +6,10 @@ import presetButtonsContext from "./PresetButtonsContext";
 import { TopicContext } from "./ServerContext";
 
 
-function MicPanel () {
+function MicPanel ({presetID} :{presetID : string | null}) {
     const provider = useContext(TopicContext);
+    const moduleComponents = presetID? provider?.stage?.presets[presetID] : provider?.fleet && Object.entries(provider.fleet)
+
 
     return (
         <div className="h-full overflow-clip bg-white">

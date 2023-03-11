@@ -2,7 +2,7 @@ import { useRef, useState,useContext } from "react"
 import { TopicContext } from './ServerContext';
 import { BotState } from 'schema';
 
-export default function MicAttributesPage(bot: BotState) {
+export default function MicAttributesPage({bot} : {bot: BotState}) {
  const provider = useContext(TopicContext);
  console.log(bot.pose.position)
  const xValInputElemRef = useRef<HTMLInputElement>(null)

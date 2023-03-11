@@ -5,10 +5,11 @@ export function selectTopic(topicChannel:TopicChannel<any>,context:Context):any{
     let topic:any;
     switch(typeof topicChannel){
         case typeof fleetTopic:
-            topic = context.getCurrentBotState;
+            
+            topic = context.getCurrentBotState();
             break;
         case typeof stageTopic:
-            topic = context.getStageState;
+            topic = context.getStageState();
             break;
         default:
             throw new Error("Topic not found")

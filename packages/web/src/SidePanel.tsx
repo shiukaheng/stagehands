@@ -16,6 +16,8 @@ export type MicPanelSelection = {
 export type PresetMicAttributesPageSelection = {
   type: "preset_mic_attributes_page"
   name : string | undefined
+  presetID : string
+  botID : string
   bot: RecallBotState
 }
 
@@ -38,7 +40,7 @@ function ComponentToDisplay(ComponentSelect: SidePanelSelection) {
     return (<MicPanel presetID={ComponentSelect.presetID}/>)
   } else if (ComponentSelect.type === "preset_mic_attributes_page") {
     console.log("preset mic attributes page")
-    return (<PresetMicAttributesPage bot = {ComponentSelect.bot} name = {ComponentSelect.name} />) // TODO add mic attributes page
+    return (<PresetMicAttributesPage bot = {ComponentSelect.bot} name = {ComponentSelect.name} presetID = {ComponentSelect.presetID} botID = {ComponentSelect.botID}/>) // TODO add mic attributes page
   } else if (ComponentSelect.type === "live_attributes_page") {
     console.log("live mic attributes page")
     return (<LiveMicAttributesPage bot = {ComponentSelect.bot}/>)

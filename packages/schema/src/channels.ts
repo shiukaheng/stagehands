@@ -1,6 +1,7 @@
 import { createService, createTopic } from "webtopics";
-import { fleetStateSchema, presetSchema, recallBotStateSchema, recallFleetStateSchema, stageStateSchema } from "./schemas/schemas";
+import { fleetStateSchema, ledStateSchema, presetSchema, recallBotStateSchema, recallFleetStateSchema, stageStateSchema } from "./schemas/schemas";
 import { z } from "zod";
+import { type } from "os";
 
 // Topics
 export const fleetTopic = createTopic("fleet", fleetStateSchema)
@@ -20,7 +21,15 @@ export const stopService = createService("stop")
  */
 export const clearStopService = createService("clearStop")
 
+/**
+ * Service for overwrite bot LED
+ */
+export const LEDOverwriteService = createService("LEDOverwrite",ledStateSchema)
 
+/**
+ * Service for clear bot LED overwrite
+ */
+export const restoreLEDService = createService("restoreLED") 
 
 /**
  * Service for bot to register its ID to the bridge
@@ -88,4 +97,30 @@ export const stopBotService = createService("stopBot", z.string())
  */
 export const stopBotClearService = createService("stopBotClear", z.string())
 
+// ===== LED overwrite =====
+/**
+ * Service to overwrite all bot's led
+ */
+
+export const overWriteLEDService = createService ("overWriteLED",ledStateSchema);
+
+/**
+ * Service to overwrite particular bot's led
+ */
+export const overWriteBotLEDRequestSchema = z.object({
+    botID:z.string(),
+    ledState: ledStateSchema
+})
+export type OverWriteBotLEDRequest = z.infer<typeof overWriteBotLEDRequestSchema>
+export const overWriteBotLEDService = createService ("overWriteBotLED",overWriteBotLEDRequestSchema);
+
+/**
+ * Service to clear particular bot's led overwrite
+ */
+export const clearBotLEDOverwriteService = createService ("clearBotLEDOverwrite",z.string())
+
+/**
+ * Service to clear bot's led overwrite
+ */
+export const clearLEDOverwriteService = createService ("clearLEDOverwrite")
 

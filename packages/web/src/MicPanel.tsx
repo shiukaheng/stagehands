@@ -10,8 +10,6 @@ import PresetModuleComponent from "./PresetModuleComponent";
 function MicPanel ({presetID} :{presetID : string | null}) {
     const provider = useContext(TopicContext);
     const presetIsNull = presetID === null
-    const aasd  = presetID? provider?.stage?.presets[presetID] : null
-    const moduleComponents = presetID? provider?.stage?.presets[presetID] : provider?.fleet && Object.entries(provider.fleet)
 
 
     return (
@@ -24,7 +22,7 @@ function MicPanel ({presetID} :{presetID : string | null}) {
                     ): (
                         console.log("presetModuleComponent"),
                         provider?.stage?.presets[presetID] && Object.entries(provider.stage.presets[presetID].state).map(([key, value]) => (
-                        <PresetModuleComponent module={value} key ={key} name={provider?.fleet?.[key]?.name}/>))
+                        <PresetModuleComponent recallBot={value} key ={key} name={provider?.fleet?.[key]?.name } presetID = {presetID} botID = {key}/>))
 
                     ) }
             </div>

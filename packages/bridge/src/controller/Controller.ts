@@ -1,13 +1,13 @@
 import { Context } from "./Context";
-import { ICommand } from "../command/ICommand";
 import { JSONValue, TopicServer } from "webtopics";
 import { Server } from "socket.io";
-import { IServiceHandler } from "../command/IServiceHandler";
 import { Channel } from "webtopics";
-import { ServiceChannel,TopicChannel } from "webtopics/dist/utils/Channel";
-import { selectTopic } from "src/topicSelector";
+import { ServiceChannel,TopicChannel } from "webtopics";
+import { selectTopic } from "../topicSelector";
 export class Controller {
     private context: Context;
+
+
     private static controller:Controller;
     private _server: TopicServer;
 
@@ -23,9 +23,7 @@ export class Controller {
         }
         return this.controller;
     }
-    public runCommand(command: ICommand): void {
-        command.execute(this.context);
-    }
+
     public async runService(serviceChannel:ServiceChannel<any,any>,serviceHandler:(requestData:any,context:Context)=>any){
         this.server.srv(serviceChannel, (req)=>
         {
@@ -50,6 +48,13 @@ export class Controller {
     }
     public set server(value: TopicServer) {
         this._server = value;
+    }
+    public getContext(): Context {
+        return this.context;
+    }
+
+    public setContext(context: Context): void {
+        this.context = context;
     }
     
 }

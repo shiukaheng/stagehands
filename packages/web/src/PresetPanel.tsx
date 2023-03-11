@@ -1,4 +1,5 @@
 import { useContext, useState } from "react"
+import { FleetState, getRecallFleetState} from "schema/dist/schemas/bot/bot";
 import generatePresetPanelButton from "./GeneratePresetPanelButton"
 import Preset from "./Preset";
 import presetButtonsContext from './PresetButtonsContext'
@@ -12,7 +13,8 @@ function doNothing() {
 // displays the preset panel which consists of a list of presets (MiddleSection div) and two buttons to create a new preset (BottomSection div)
 function PresetPanel() {
     const topicProvider = useContext(TopicContext);
-    const services = useContext(ServiceContext);
+    const ServiceProvider = useContext(ServiceContext);
+
     return (
         <div className="overflow-clip h-full">
             <div id="MiddleSection" className="border-solid w-72 h-4/5 snap-center overflow-y-auto overflow-x-hidden">
@@ -30,8 +32,17 @@ function PresetPanel() {
                 <button
                     id="createButton" // For creating a new preset based on the current mic positions
                     onClick={() => {
-                        console.log("Creating preset", services?.createPreset);
-                        services?.createPreset.callback({name: "Preset 1", state: {}})
+                        const name = prompt("Enter a name for the preset");
+                        
+                        let presetName = "Preset";
+
+                        if (name) {
+                            presetName = name;
+                        }
+
+                        console.log("Creating preset", ServiceProvider?.createPreset);
+                        ServiceProvider?.createPreset.callback({name: presetName,
+                        state: getRecallFleetState(topicProvider?.fleet as FleetState)})
                     }}
                     className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-10 w-28 rounded m-2">
                 Create</button>

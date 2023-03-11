@@ -1,32 +1,27 @@
-import { BotState } from 'schema';
+import { BotState, RecallBotState, RecallFleetState } from 'schema';
 import React, { useContext } from "react";
 import componentSelectContext from './ComponentSwitchContext';
 
-/**
- * Renders a module as a clickable button
- * 
- * @param module the module to be rendered
- * @returns 
- */
-function ModuleComponent({ module }: { module: BotState }) {
+function presetModuleComponent({ module: recallBot, name }: { module: RecallBotState, name: string | undefined}) {
     const { componentSelect, setComponentSelect } = useContext(componentSelectContext);
+
     return (
         <button
-            id={module.name}
+            id={name}
             className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-32 w-64 rounded m-2"
-            onClick={() => setComponentSelect({type: "mic_attributes_page", bot :module})}>
+            onClick={() => {
+                setComponentSelect({type: "preset_mic_attributes_page", bot :recallBot, name : name})
+            }}>
             <div className="text-left indent-[10.5%]">
-                Name: {module.name}
+                Name: {name}
             </div>
             <div className="text-left indent-5">
                 Status: <button id="micStatus" className="bg-green-500 text-green-500 font-bold rounded-none border-none h-6 w-32 m-2">.</button>
             </div>
             <div className="text-left indent-[5%]">
-                {'Module: \xa0 Microphone'}
+                Module :{recallBot.module.type}
             </div>
-            {/* onClick = {<MicAttributesPage/>} */}
         </button>
     );
 }
-
-export default ModuleComponent;
+export default presetModuleComponent;

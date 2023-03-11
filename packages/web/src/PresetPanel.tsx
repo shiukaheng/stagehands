@@ -32,8 +32,16 @@ function PresetPanel() {
                 <button
                     id="createButton" // For creating a new preset based on the current mic positions
                     onClick={() => {
+                        const name = prompt("Enter a name for the preset");
+                        
+                        let presetName = "Preset";
+
+                        if (name) {
+                            presetName = name;
+                        }
+
                         console.log("Creating preset", ServiceProvider?.createPreset);
-                        ServiceProvider?.createPreset.callback({name: "Preset 1", 
+                        ServiceProvider?.createPreset.callback({name: presetName,
                         state: getRecallFleetState(topicProvider?.fleet as FleetState)})
                     }}
                     className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-10 w-28 rounded m-2">

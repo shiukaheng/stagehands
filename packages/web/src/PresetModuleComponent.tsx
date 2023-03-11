@@ -19,7 +19,7 @@ function presetModuleComponent({ module: recallBot, name }: { module: RecallBotS
                 Status: <button id="micStatus" className="bg-green-500 text-green-500 font-bold rounded-none border-none h-6 w-32 m-2">.</button>
             </div>
             <div className="text-left indent-[5%]">
-                Module :{recallBot.module.type}
+                Preset Module :{recallBot.module.type}
             </div>
         </button>
     );

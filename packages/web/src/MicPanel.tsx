@@ -4,7 +4,7 @@ import generateMicPanelButton from "./GenerateMicPanelButton"
 import LiveModuleComponent from "./LiveModuleComponent";
 import presetButtonsContext from "./PresetButtonsContext";
 import { TopicContext } from "./ServerContext";
-import PresetModuleComponent from "./presetModuleComponent";
+import PresetModuleComponent from "./PresetModuleComponent";
 
 
 function MicPanel ({presetID} :{presetID : string | null}) {

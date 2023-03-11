@@ -24,7 +24,7 @@ function LiveModuleComponent({ module }: { module: BotState}) {
                 Status: <button id="micStatus" className="bg-green-500 text-green-500 font-bold rounded-none border-none h-6 w-32 m-2">.</button>
             </div>
             <div className="text-left indent-[5%]">
-                {module.module.type}
+                live Module :{module.module.type}
             </div>
             {/* onClick = {<MicAttributesPage/>} */}
         </button>

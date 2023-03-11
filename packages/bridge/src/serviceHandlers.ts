@@ -1,5 +1,5 @@
 import { Context } from "./controller/Context";
-import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService } from "schema";
+import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService } from "schema";
 import { v4 } from "uuid"
 import { checkClientIDPresent, checkValidRecall } from "./utils/validationFunc";
 import { Controller } from "./controller/Controller";
@@ -130,3 +130,83 @@ export async function RecallFleetStateServiceHandler(recallFleetState:RecallFlee
     }
     throw new AggregateError(errors);
 }
+
+
+//Overwrite particular bot LED
+
+export async function overWriteBotLEDServiceHandler(overWriteBotLEDRequest:OverWriteBotLEDRequest,context:Context){
+    const botID = overWriteBotLEDRequest.botID;
+    if (!context.getTargetBotState().hasOwnProperty(botID)) {
+        throw new Error(`Bot ${botID} does not exist`)
+    }
+    try{
+        checkClientIDPresent(botID,context);
+        const botClientID = context.getbotClientIDMap().get(botID);
+        Controller.getInstance().server.req(LEDOverwriteService,botClientID as string)
+        .then(()=>{
+            const bot = context.getTargetBotState()[botID];
+            bot.ledState.systemOverride = overWriteBotLEDRequest.ledState;
+        })
+        .catch((error)=>{
+            throw error;
+        })
+    }
+    catch(error){
+        throw error;
+    }
+}
+
+//Overwrite all bot LEDs
+export async function overWriteLEDServiceHandler(LEDState:LEDState,context:Context){
+    const errors = [];
+    for (const botID in context.getTargetBotState()) {
+        try{
+            const overWriteBotLEDRequest = {botID:botID,ledState:LEDState};
+            overWriteBotLEDServiceHandler(overWriteBotLEDRequest,context);
+        }
+        catch(error){
+            errors.push(error);
+        }
+    }
+    throw new AggregateError(errors);
+}
+
+//clear particular bot's LED overwrite
+
+export async function clearBotLEDOverwriteServiceHandler(botID:string,context:Context){
+    if (!context.getTargetBotState().hasOwnProperty(botID)) {
+        throw new Error(`Bot ${botID} does not exist`)
+    }
+    try{
+        checkClientIDPresent(botID,context);
+        const botClientID = context.getbotClientIDMap().get(botID);
+        Controller.getInstance().server.req(restoreLEDService,botClientID as string)
+        .then(()=>{
+            const bot = context.getTargetBotState()[botID];
+            bot.ledState.systemOverride = undefined;
+        })
+        .catch((error)=>{
+            throw error;
+        })
+    }
+    catch(error){
+        throw error;
+    }
+}
+
+//clear all bot's LED overwrite
+
+export async function clearLEDOverwriteServiceHandler(context:Context){
+    const errors = [];
+    for (const botID in context.getTargetBotState()) {
+        try{
+            clearBotLEDOverwriteServiceHandler(botID,context);
+        }
+        catch(error){
+            errors.push(error);
+        }
+    }
+    throw new AggregateError(errors);
+}
+
+

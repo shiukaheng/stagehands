@@ -1,6 +1,6 @@
 import { TopicServer } from "webtopics"
 import { Server } from "socket.io"
-import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, runPresetService } from "schema"
+import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, runPresetService, reorderPresetsService, Preset } from "schema"
 import { createNewBotState } from "./utils"
 import { z } from "zod"
 import { ServiceChannel } from "webtopics/dist/utils/Channel"
@@ -17,7 +17,7 @@ export class FakeBridgeServer {
         boundary: {
             polygonVertexCoordinates: []
         },
-        presets: {},
+        presets: [],
         activePreset: null,
         presetRecallState: "idle"
     }
@@ -73,7 +73,17 @@ export class FakeBridgeServer {
         this.ts.srv(createPresetService, (presetFleetState) => {
             this.checkValidRecall(presetFleetState.state)
             const presetID = v4()
-            this.stageState.presets[presetID] = presetFleetState
+            // this.stageState.presets.push({
+            //     id: presetID,
+            //     value: presetFleetState
+            // }) - BUG! This should work. Perhaps bug in webtopics that used shallow comparison where it should have used deep comparison?
+            this.stageState.presets = [
+                ...this.stageState.presets,
+                {
+                    id: presetID,
+                    value: presetFleetState
+                }
+            ]
             this.ts.pub(stageTopic, this.stageState)
             console.log("Created preset", presetID)
             return presetID
@@ -82,7 +92,12 @@ export class FakeBridgeServer {
         // Update preset
         this.ts.srv(updatePresetService, (updatePresetRequest) => {
             this.checkValidRecall(updatePresetRequest.preset.state)
-            this.stageState.presets[updatePresetRequest.presetId] = updatePresetRequest.preset
+            // this.stageState.presets[updatePresetRequest.presetId] = updatePresetRequest.preset
+            const presetIndex = this.stageState.presets.findIndex(preset => preset.id === updatePresetRequest.presetId)
+            if (presetIndex === -1) {
+                throw new Error("Preset does not exist")
+            }
+            this.stageState.presets[presetIndex].value = updatePresetRequest.preset
             this.ts.pub(stageTopic, this.stageState)
             console.log("Updated preset", updatePresetRequest.presetId)
         })
@@ -90,20 +105,44 @@ export class FakeBridgeServer {
         // Delete preset
         this.ts.srv(deletePresetService, (presetID) => {
             console.log("Deleting preset", presetID);
-            this.stageState.presets = Object.fromEntries(Object.entries(this.stageState.presets).filter(([id, _]) => id !== presetID))
+            // this.stageState.presets = Object.fromEntries(Object.entries(this.stageState.presets).filter(([id, _]) => id !== presetID))
+            this.stageState.presets = this.stageState.presets.filter(preset => preset.id !== presetID)
             this.ts.pub(stageTopic, this.stageState, true, true)
         })
 
+        // Running a preset
         this.ts.srv(runPresetService, (presetID) => {
             console.log("Running preset", presetID);
             this.stageState.activePreset = presetID; 
-            const preset = this.stageState.presets[presetID];
-            
+            // const preset = this.stageState.presets[presetID];
+            const preset = this.stageState.presets.find(preset => preset.id === presetID)
             if (!preset) {
                 throw new Error("Preset does not exist")
             }
+            this.ts.req(recallFleetStateService, this.ts.id, preset.value.state)
+        })
 
-            this.ts.req(recallFleetStateService, this.ts.id, preset.state)
+        // Reorder presets
+        this.ts.srv(reorderPresetsService, (presetIDs) => {
+            // Check if the list of prest IDs match the current list of presets using sets
+            const currentSet = new Set(this.stageState.presets.map(preset => preset.id))
+            if (presetIDs.length !== currentSet.size || !presetIDs.every(id => currentSet.has(id))) {
+                throw new Error("Invalid preset ID list")
+            } else {
+                // Reorder the presets
+                const newPresets: {id: string, value: Preset}[] = []
+                for (const id of presetIDs) {
+                    const preset = this.stageState.presets.find(preset => preset.id === id)
+                    if (preset) {
+                        newPresets.push(preset)
+                    } else {
+                        throw new Error("Preset does not exist")
+                    }
+                }
+                this.stageState.presets = newPresets
+                this.ts.pub(stageTopic, this.stageState)
+                console.log("Reordered presets")
+            }
         })
 
         // Emergency stop

@@ -71,6 +71,11 @@ export type DeletePresetRequest = z.infer<typeof deletePresetRequestSchema>
  */
 export const deletePresetService = createService("deletePreset", deletePresetRequestSchema)
 
+/**
+ * Service to reoder presets, takes an array of presetIds
+ */
+export const reorderPresetsService = createService("reorderPresets", z.array(z.string()))
+
 /** 
  * Service to run a preset
  */

@@ -14,7 +14,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
  return (
      
    <div className="h-5/6 overflow-clip pt-5">
-     <div className="h-full w-full p-2 bg-zinc-100 rounded-md">
+     <div className="h-full w-full p-2">
 
      <table 
        id="attributes"
@@ -27,40 +27,31 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
            <input
              type="text"
              id="micName"
-             className="text-center mb-2 h-6 w-32 rounded-md"
              defaultValue={bot.name}
              size={11}></input>
          </td>
        </tr>
-       </tbody>
 
-       <tbody>
        <tr>
          <th>Status :</th>
          <td>
            <button
-             id="micStatus"
-             className="text-center mb-2 h-6 w-32 bg-white rounded-md">
+             id="micStatus">
                {bot.status} 
            </button>
          </td>
        </tr>
-       </tbody>
 
-        <tbody>
        <tr>
          <th>Module :</th>
          <td>
            <button
-             id="micModule"
-             className="mb-2 text-center h-6 w-32 bg-white rounded-md">
+             id="micModule">
                {bot.module.type}
            </button>
          </td>
        </tr>
-       </tbody>
-
-        <tbody>
+   
        <tr>
          <th>X :</th>
          <td>
@@ -68,7 +59,6 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
              ref={xValInputElemRef}
              type={"number"}
              id={"micX"}
-             className={"text-center mb-2 h-6 w-32 rounded-md"}
              min={0}
              max={100}
              
@@ -80,9 +70,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
              ></input>
          </td>
        </tr>
-       </tbody>
-
-        <tbody>
+     
        <tr>
          <th> </th>
          <td>
@@ -90,7 +78,6 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
              ref = {xValRangeElemRef}
              type = {"range"}
              id = {"micXRange"}
-             className = {"mb-2 h-6 w-32"}
              min = {0}
              max = {100}
              defaultValue = {bot.pose.position.at(0)}
@@ -103,9 +90,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
            ></input>
          </td>
        </tr>
-       </tbody>
-
-        <tbody>
+       
        <tr>
 
          <th>Y :</th>
@@ -114,7 +99,6 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
              ref = {yValInputElemRef}
              type={"number"}
              id={"micY"}
-             className={"text-center mb-2 h-6 w-32 rounded-md"}
              min={0}
              max={100}
              defaultValue={bot.pose.position.at(1)}
@@ -126,9 +110,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
              ></input>
          </td>
        </tr>
-       </tbody>
-
-        <tbody>
+       
        <tr>
          <th> </th>
          <td>
@@ -136,7 +118,6 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
              ref = {yValRangeElemRef}
              type = {"range"}
              id = {"micXRange"}
-             className = {"mb-2 h-6 w-32"}
              min = {0}
              max = {100}
              defaultValue = {bot.pose.position.at(1)}
@@ -151,9 +132,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
            ></input>
          </td>
        </tr>
-       </tbody>
-
-        <tbody>
+     
        <tr>
          <th>Angle :</th>
          <td>
@@ -161,7 +140,6 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
              ref = {angleinputElemRef}
              type = {"number"}
              id = {"AngleInput"}
-             className = {"mb-2 h-6 w-32 text-center rounded-md"}
              min = {0}
              max = {180}
              defaultValue = {0}
@@ -174,9 +152,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
            ></input>
          </td>
        </tr>
-       </tbody>
-
-        <tbody>
+      
        <tr>
          <th> </th>
          <td>
@@ -184,7 +160,6 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
              ref = {angleRangeElemRef}
              type = {"range"}
              id = {"AngleRange"}
-             className = {"mb-2 h-6 w-32 "}
              min = {0}
              max = {180}
              defaultValue = {0}
@@ -196,13 +171,11 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
            ></input>
          </td>
        </tr>
-       </tbody>
-
-        <tbody>
+     
        <tr>
          <th>Battery :</th>
          <td>
-           <button className="mb-2 h-6 w-32 bg-zinc-50 text-center rounded-md">
+           <button>
                30
            </button>
          </td>

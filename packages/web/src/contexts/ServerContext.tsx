@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { stageTopic, fleetTopic, createPresetService, updatePresetService, deletePresetService, runPresetService, emergencyStopService, emergencyStopClearService, stopBotService, stopBotClearService } from "schema";
+import { stageTopic, fleetTopic, createPresetService, updatePresetService, deletePresetService, runPresetService, emergencyStopService, emergencyStopClearService, stopBotService, stopBotClearService, reorderPresetsService } from "schema";
 import { TopicHookExtractor, useThrottledTopic, useTopic } from "../utils/useTopic";
 import { ServiceHookExtractor, useService } from "../utils/useService";
 import { ServiceChannel } from "webtopics";
@@ -22,6 +22,7 @@ export interface IServiceContext {
 	updatePreset: ServiceHookExtractor<typeof updatePresetService>;
 	deletePreset: ServiceHookExtractor<typeof deletePresetService>;
 	runPreset: ServiceHookExtractor<typeof runPresetService>;
+	reorderPreset: ServiceHookExtractor<typeof reorderPresetsService>;
 	emergencyStop: ServiceHookExtractor<typeof emergencyStopService>;
 	emergencyStopClear: ServiceHookExtractor<typeof emergencyStopClearService>;
 	stopBot: ServiceHookExtractor<typeof stopBotService>;
@@ -52,6 +53,7 @@ export function ServiceProvider({ children }: { children: React.ReactNode | null
 	const createPreset = useService(serverUrl, createPresetService);
 	const updatePreset = useService(serverUrl, updatePresetService);
 	const deletePreset = useService(serverUrl, deletePresetService);
+	const reorderPreset = useService(serverUrl, reorderPresetsService);
 	const runPreset = useService(serverUrl, runPresetService);
 	const emergencyStop = useService(serverUrl, emergencyStopService);
 	const emergencyStopClear = useService(serverUrl, emergencyStopClearService);
@@ -62,6 +64,7 @@ export function ServiceProvider({ children }: { children: React.ReactNode | null
 		createPreset,
 		updatePreset,
 		deletePreset,
+		reorderPreset,
 		runPreset,
 		emergencyStop,
 		emergencyStopClear,

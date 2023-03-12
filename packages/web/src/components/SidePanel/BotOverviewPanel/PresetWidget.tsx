@@ -1,8 +1,9 @@
 import React, { useContext, useRef } from 'react';
 import { Preset as PresetT, BotState } from 'schema';
-import saveIcon from '../../../assets/save-icon.svg'
-import editIcon from '../../../assets/edit-icon.svg'
-import delIcon from '../../../assets/delete-icon.svg'
+// import saveIcon from '../../../assets/save-icon.svg'
+// import editIcon from '../../../assets/edit-icon.svg'
+// import delIcon from '../../../assets/delete-icon.svg'
+import { AiFillSave, AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { Tooltip } from "react-tooltip"
 import 'react-tooltip/dist/react-tooltip.css';
 import { ServiceContext, TopicContext } from '../../../contexts/ServerContext';
@@ -41,33 +42,36 @@ function PresetWidget({ preset, id }: { preset: PresetT, id: string }) {
 }
 
 function PresetOptionMenu({ preset, id, services, setComponentSelect }: { preset: PresetT, id: string, services: any, setComponentSelect: any }) {
-    return (<div className='flex flex-row'>
+    return (<div className='flex flex-row px-4'>
         {/* <button id="RunButton" className="rounded-full flex-grow" onClick={() => services?.runPreset.callback(id)} data-tooltip-id="run-tooltip" data-tooltip-content="run">
             Run
             <Tooltip id="run-tooltip" />
         </button> */}
         {/* <button id="SaveButton" className="rounded-full p-1" onClick={() => savePreset(preset)} data-tooltip-id="save-tooltip" data-tooltip-content="save">
-            <img src={saveIcon} style={{
-                height: 25,
-                width: 25
-            }}alt="save" />
+            // <img src={saveIcon} style={{
+            //     height: 25,
+            //     width: 25
+            // }}alt="save" />
+            <AiFillSave />
             <Tooltip id="save-tooltip" />
         </button> */}
         <button id="EditButton" className="rounded-full p-1" onClick={() => setComponentSelect({
             type: "mic_panel",
             presetID: id
-        })} data-tooltip-id="edit-tooltip" data-tooltip-content="view & edit">
-            <img src={editIcon} style={{
+        })} data-tooltip-id="edit-tooltip" data-tooltip-content="View & edit preset">
+            {/* <img src={editIcon} style={{
                 height: 25,
                 width: 25
-            }}  alt="save" />
+            }}  alt="save" /> */}
+            <AiFillEdit />
             <Tooltip id="edit-tooltip" />
         </button>
-        <button id="DeleteButton" className="rounded-full p-1" onClick={() => services?.deletePreset.callback(id)} data-tooltip-id="delete-tooltip" data-tooltip-content="delete">
-            <img src={delIcon} style={{
+        <button id="DeleteButton" className="rounded-full p-1" onClick={() => services?.deletePreset.callback(id)} data-tooltip-id="delete-tooltip" data-tooltip-content="Delete preset">
+            {/* <img src={delIcon} style={{
                 height: 25,
                 width: 25
-            }} alt="save" />
+            }} alt="save" /> */}
+            <AiFillDelete />
             <Tooltip id="delete-tooltip" />
         </button>
     </div>);

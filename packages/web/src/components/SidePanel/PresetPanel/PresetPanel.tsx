@@ -1,9 +1,9 @@
-import { ReactNode, useContext, useMemo } from "react"
+import { ReactNode, useCallback, useContext, useMemo } from "react"
 import { getRecallFleetState } from "schema/dist/schemas/bot/bot";
 import { ServiceContext, TopicContext } from "../../../contexts/ServerContext";
 import { Preset as PresetT } from "schema";
 import PresetWidget from "../BotOverviewPanel/PresetWidget";
-import { Reorder } from "framer-motion";
+import { AnimatePresence, Reorder } from "framer-motion";
 
 /**
  * Convenience function for opening a file dialog and reading the file
@@ -32,29 +32,34 @@ function openPreset() {
  */
 function PresetPanel() {
     const topicProvider = useContext(TopicContext);
-    const ServiceProvider = useContext(ServiceContext);
-    const entries = useMemo<[string, PresetT][]>(()=>{
-        if (topicProvider?.stage?.presets) {
-            return Object.entries(topicProvider.stage.presets)
-        } else {
-            return []
+    const serviceProvider = useContext(ServiceContext);
+    const reorder = useCallback((newPresets: { id: string, value: PresetT }[]) => {
+        console.log("Reordering", newPresets);
+        if (serviceProvider?.reorderPreset) {
+            serviceProvider.reorderPreset.callback(newPresets.map((preset) => preset.id));
         }
-    }, [topicProvider?.stage?.presets])
-
+    }, [serviceProvider?.reorderPreset]);
     return (
         <div className="overflow-clip w-full h-full">
-            <div id="MiddleSection" className="border-solid w-full h-4/5 snap-center overflow-y-auto overflow-x-hidden flex flex-col gap-4 p-4">
+            <div id="MiddleSection" className="w-full h-4/5 snap-center overflow-y-auto overflow-x-hidden flex flex-col gap-4 p-6">
                 {/* map the record by key and value pairs into the preset component, if presets is not null */}
                 {topicProvider?.stage?.presets && (
-                    <Reorder.Group axis="y" className="flex flex-col gap-4" values={entries} onReorder={(values) => {
+                    <Reorder.Group axis="y" className="flex flex-col gap-4" values={topicProvider.stage.presets} onReorder={(values) => {
                         console.log("Reordering", values);
+                        reorder(values);
                     }}>
-                        {entries.map(([key, value]) => (
-                            // <PresetWidget preset={value} key={key} id={key} />
-                            <Reorder.Item key={key} value={[key, value]}>
-                                <PresetWidget preset={value} key={key} id={key} />
-                            </Reorder.Item>
-                        ))}
+                        <AnimatePresence>
+                            {
+                                topicProvider.stage.presets.map((presetEntry, index) => (
+                                    <Reorder.Item key={presetEntry.id} value={presetEntry}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}>
+                                        <PresetWidget preset={presetEntry.value} key={presetEntry.id} id={presetEntry.id} />
+                                    </Reorder.Item>
+                                ))
+                            }
+                        </AnimatePresence>
                     </Reorder.Group>
                 )}
             </div>
@@ -77,9 +82,9 @@ function PresetPanel() {
                             presetName = name;
                         }
 
-                        console.log("Creating preset", ServiceProvider?.createPreset);
+                        console.log("Creating preset", serviceProvider?.createPreset);
                         if (topicProvider?.fleet !== undefined) {
-                            ServiceProvider?.createPreset.callback({
+                            serviceProvider?.createPreset.callback({
                                 name: presetName,
                                 state: getRecallFleetState(topicProvider?.fleet)
                             })

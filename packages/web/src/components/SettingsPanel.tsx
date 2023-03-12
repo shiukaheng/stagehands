@@ -14,16 +14,16 @@ export function SettingsPanel() {
         setServerUrl(`http://${ip}:${port}`);
     };
     return (
-        <div className='absolute bg-white rounded-md text-black p-10 border-solid border-2'>
+        <div className='absolute bg-white rounded-3xl text-black p-10 border-solid border-2'>
             <form onSubmit={handleSubmit}>
                 <label>
                     Server IP Address
                 </label>
-                <input className="text-black rounded-md border-solid border-2 mb-10" type="text" name="ip" ref={ipRef} defaultValue={parsedUrl?.hostname} />
+                <input className="text-black rounded-3xl border-solid border-2 mb-10" type="text" name="ip" ref={ipRef} defaultValue={parsedUrl?.hostname} />
                 <label>
                     Server Port
                 </label>
-                <input className="text-black rounded-md border-solid border-2 mb-10" type="text" name="port" ref={portRef} defaultValue={parsedUrl?.port} />
+                <input className="text-black rounded-3xl border-solid border-2 mb-10" type="text" name="port" ref={portRef} defaultValue={parsedUrl?.port} />
                 <button type="submit">Connect</button>
             </form>
         </div>

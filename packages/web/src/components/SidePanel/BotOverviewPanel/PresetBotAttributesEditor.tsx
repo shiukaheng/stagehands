@@ -1,4 +1,4 @@
-import { useRef, useState, useContext } from "react"
+import { useRef, useState, useContext, useMemo } from "react"
 import { BotState, Preset, RecallBotState } from 'schema';
 import _ from "lodash";
 import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
@@ -8,7 +8,13 @@ import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
  */
 export default function PresetBotAttributesEditor({ bot, name, presetID, botID }: { bot: RecallBotState, name: string | undefined, presetID: string, botID: string }) {
   const provider = useContext(TopicContext);
-  const preset = provider?.stage?.presets[presetID]
+  const preset = useMemo(() => {
+    if (provider === null) {
+        return null;
+    } else {
+        return provider?.stage?.presets.find((preset) => preset.id === presetID)?.value?.state || null;
+    }
+}, [presetID, provider?.stage?.presets])
   const services = useContext(ServiceContext);
   if (preset === undefined) {
     throw new Error("Preset not found")
@@ -22,8 +28,9 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
 
 
   return (
-    <div className="h-5/6 overflow-clip pt-5">
-      <div className="h-full w-full p-2 bg-zinc-100 rounded-md">
+    preset !== null ?
+    (<div className="h-5/6 overflow-clip pt-5">
+      <div className="h-full w-full p-2">
 
         <table
           id="attributes"
@@ -36,28 +43,22 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                 <input
                   type="text"
                   id="micName"
-                  className="text-center mb-2 h-6 w-32 rounded-md"
                   defaultValue={name}
                   size={11}>
                   </input>
               </td>
             </tr>
-          </tbody>
-
-          <tbody>
+         
             <tr>
               <th>Module :</th>
               <td>
                 <button
-                  id="micModule"
-                  className="mb-2 text-center h-6 w-32 bg-white rounded-md">
+                  id="micModule">
                   {bot.module.type}
                 </button>
               </td>
             </tr>
-          </tbody>
-
-          <tbody>
+          
             <tr>
               <th>X :</th>
               <td>
@@ -65,7 +66,6 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   ref={xValInputElemRef}
                   type={"number"}
                   id={"micX"}
-                  className={"text-center mb-2 h-6 w-32 rounded-md"}
                   min={0}
                   max={100}
 
@@ -84,9 +84,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                 ></input>
               </td>
             </tr>
-          </tbody>
-
-          <tbody>
+         
             <tr>
               <th> </th>
               <td>
@@ -94,7 +92,6 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   ref={xValRangeElemRef}
                   type={"range"}
                   id={"micXRange"}
-                  className={"mb-2 h-6 w-32"}
                   min={0}
                   max={100}
                   defaultValue={bot.targetPose.position.at(0)}
@@ -112,9 +109,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                 ></input>
               </td>
             </tr>
-          </tbody>
-
-          <tbody>
+        
             <tr>
 
               <th>Y :</th>
@@ -123,7 +118,6 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   ref={yValInputElemRef}
                   type={"number"}
                   id={"micY"}
-                  className={"text-center mb-2 h-6 w-32 rounded-md"}
                   min={0}
                   max={100}
                   defaultValue={bot.targetPose.position.at(1)}
@@ -140,9 +134,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                 ></input>
               </td>
             </tr>
-          </tbody>
-
-          <tbody>
+        
             <tr>
               <th> </th>
               <td>
@@ -150,7 +142,6 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   ref={yValRangeElemRef}
                   type={"range"}
                   id={"micXRange"}
-                  className={"mb-2 h-6 w-32"}
                   min={0}
                   max={100}
                   defaultValue={bot.targetPose.position.at(1)}
@@ -169,9 +160,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                 ></input>
               </td>
             </tr>
-          </tbody>
-
-          <tbody>
+         
             <tr>
               <th>Angle :</th>
               <td>
@@ -179,7 +168,6 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   ref={angleinputElemRef}
                   type={"number"}
                   id={"AngleInput"}
-                  className={"mb-2 h-6 w-32 text-center rounded-md"}
                   min={0}
                   max={180}
                   defaultValue={0} //TODO get angle from bot
@@ -195,9 +183,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                 ></input>
               </td>
             </tr>
-          </tbody>
-
-          <tbody>
+        
             <tr>
               <th> </th>
               <td>
@@ -205,7 +191,6 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   ref={angleRangeElemRef}
                   type={"range"}
                   id={"AngleRange"}
-                  className={"mb-2 h-6 w-32 "}
                   min={0}
                   max={180}
                   defaultValue={0}
@@ -224,7 +209,6 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
 
         </table>
       </div>
-    </div>
-
+    </div>) : null
   )
 }

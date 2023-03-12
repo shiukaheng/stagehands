@@ -74,6 +74,6 @@ if __name__ == "main":
     server()
 
     try:
-        talker()
+        publish_current_pose()
     except rospy.ROSInterruptException:
         pass

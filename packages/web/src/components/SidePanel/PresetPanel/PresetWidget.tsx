@@ -29,13 +29,15 @@ function PresetWidget({ preset, id }: { preset: PresetT, id: string }) {
     const services = useContext(ServiceContext);
     const { componentSelect, setComponentSelect } = useContext(componentSelectContext);
     return (
-        <div
-            id={preset.name}
-            className="font-bold box-border ui-shadow ui-highlight ui-div ui-hover-highlight-solid cursor-grab py-4">
-            <div>
-                {(preset.name)}
-                <br></br>
-                <PresetOptionMenu preset={preset} id={id} services={services} setComponentSelect={setComponentSelect}/>
+        <div className='scale-1 hover:scale-[1.02] transition-transform duration-200'>
+            <div
+                id={preset.name}
+                className="font-bold box-border ui-shadow ui-highlight ui-div ui-hover-highlight-solid cursor-grab py-4">
+                <div>
+                    {(preset.name)}
+                    <br></br>
+                    <PresetOptionMenu preset={preset} id={id} services={services} setComponentSelect={setComponentSelect}/>
+                </div>
             </div>
         </div>
     );

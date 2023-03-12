@@ -2,7 +2,7 @@ import { ReactNode, useCallback, useContext, useMemo } from "react"
 import { getRecallFleetState } from "schema/dist/schemas/bot/bot";
 import { ServiceContext, TopicContext } from "../../../contexts/ServerContext";
 import { Preset as PresetT } from "schema";
-import PresetWidget from "../BotOverviewPanel/PresetWidget";
+import PresetWidget from "./PresetWidget";
 import { AnimatePresence, Reorder } from "framer-motion";
 
 /**
@@ -34,7 +34,7 @@ function PresetPanel() {
     const topicProvider = useContext(TopicContext);
     const serviceProvider = useContext(ServiceContext);
     const reorder = useCallback((newPresets: { id: string, value: PresetT }[]) => {
-        console.log("Reordering", newPresets);
+        // console.log("Reordering", newPresets);
         if (serviceProvider?.reorderPreset) {
             serviceProvider.reorderPreset.callback(newPresets.map((preset) => preset.id));
         }

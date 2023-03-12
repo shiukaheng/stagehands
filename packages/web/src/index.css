@@ -84,7 +84,7 @@ body {
 }
 
 .ui-div {
-	@apply bg-white dark:bg-zinc-700 dark:text-white rounded-3xl overflow-hidden;
+	@apply bg-zinc-300 dark:bg-zinc-700 dark:text-white rounded-3xl overflow-hidden;
 }
 
 .ui-highlight {
@@ -100,11 +100,11 @@ body {
 }
 
 .ui-hover-highlight-solid {
-	@apply bg-white dark:bg-zinc-600 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-600 transition-colors;
+	@apply bg-zinc-300 dark:bg-zinc-600 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-600 transition-colors;
 }
 
-/* inputs of tbodies */
-tbody input {
+/* inputs of tbodies or form */
+tbody input, form input {
 	@apply text-center mb-2 h-6 w-32 rounded-3xl overflow-clip bg-transparent ui-shadow ui-highlight py-4;
 }
 
@@ -120,4 +120,10 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+/* Safari Canvas fix */
+/* Selector for any parent of canvas */
+.safari-canvas-overflow-fix {
+	transform: translate3d(0,0,0);
 }

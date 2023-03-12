@@ -40,7 +40,7 @@ function PresetPanel() {
         }
     }, [serviceProvider?.reorderPreset]);
     return (
-        <div className="overflow-clip w-full h-full">
+        <div className="overflow-clip w-full h-full safari-canvas-overflow-fix">
             <div id="MiddleSection" className="w-full h-4/5 snap-center overflow-y-auto overflow-x-hidden flex flex-col gap-4 p-6">
                 {/* map the record by key and value pairs into the preset component, if presets is not null */}
                 {topicProvider?.stage?.presets && (

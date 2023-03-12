@@ -3,7 +3,7 @@ import { BotState } from 'schema';
 import {Billboard, Text} from '@react-three/drei';
 import { LED } from './LED';
 
-function Module3DComponent({module}: {module: BotState}) {
+function Bot({module}: {module: BotState}) {
     const [hovered, hover] = useState(false);
     const [clicked, click] = useState(false);
 
@@ -32,4 +32,4 @@ function Module3DComponent({module}: {module: BotState}) {
     );
 }
 
-export default Module3DComponent;
+export default Bot;

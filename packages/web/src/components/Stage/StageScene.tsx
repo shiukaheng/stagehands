@@ -1,6 +1,6 @@
 import { Fragment, useState, useContext } from 'react';
 import { TopicContext } from '../../contexts/ServerContext';
-import Module3DComponent from './3d/Module3DComponent';
+import Bot from './3d/Bot';
 import { SpotLight, useDepthBuffer } from '@react-three/drei';
 
 /**
@@ -36,7 +36,7 @@ export function StageScene() {
         </mesh>
         {
           provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
-            <Module3DComponent module={value} key={key} />
+            <Bot module={value} key={key} />
           ))
         }
       </mesh>

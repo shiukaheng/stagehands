@@ -1,9 +1,10 @@
-import { useRef, useState,useContext } from "react"
-import { TopicContext } from './ServerContext';
+import { useRef } from "react"
 import { BotState } from 'schema';
 
-export default function LiveMicAttributesPage({bot} : {bot: BotState}) {
- const provider = useContext(TopicContext);
+/**
+ * Component for displaying and editing the live attributes of a bot
+ */
+export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
  const xValInputElemRef = useRef<HTMLInputElement>(null)
  const xValRangeElemRef = useRef<HTMLInputElement>(null)
  const yValInputElemRef = useRef<HTMLInputElement>(null)
@@ -13,7 +14,7 @@ export default function LiveMicAttributesPage({bot} : {bot: BotState}) {
  return (
      
    <div className="h-5/6 overflow-clip pt-5">
-     <div className="h-full w-full p-2 bg-gray-100 rounded-md">
+     <div className="h-full w-full p-2 bg-zinc-100 rounded-md">
 
      <table 
        id="attributes"
@@ -201,7 +202,7 @@ export default function LiveMicAttributesPage({bot} : {bot: BotState}) {
        <tr>
          <th>Battery :</th>
          <td>
-           <button className="mb-2 h-6 w-32 bg-slate-50 text-center rounded-md">
+           <button className="mb-2 h-6 w-32 bg-zinc-50 text-center rounded-md">
                30
            </button>
          </td>

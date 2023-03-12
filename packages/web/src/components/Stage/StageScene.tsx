@@ -1,7 +1,6 @@
 import { Fragment, useState, useContext } from 'react';
-import { TopicContext } from './ServerContext';
-
-import Module3DComponent from './Module3DComponent';
+import { TopicContext } from '../../contexts/ServerContext';
+import Module3DComponent from './3d/Module3DComponent';
 
 /**
  * StageScene

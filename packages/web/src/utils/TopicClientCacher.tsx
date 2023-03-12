@@ -7,6 +7,9 @@ export interface ITopicClientCache {
 
 export const TopicClientCacheContext = createContext<ITopicClientCache | null>(null);
 
+/**
+ * TopicClientCacher helps useTopic and useService reuse the same TopicClients if connecting to the same server
+ */
 export function TopicClientCacher ({ children }: { children: React.ReactNode }) {
     const cacheRef = useRef<ITopicClientCache>({});
     return <TopicClientCacheContext.Provider value={cacheRef.current}>

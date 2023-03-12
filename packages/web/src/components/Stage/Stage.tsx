@@ -4,12 +4,11 @@ import { StageScene } from './StageScene'
 
 export function Stage() {
   return (
-    <div className="flex items-center bg-white shadow-xl justify-center w-full inset-y-10 border-solid border-2 rounded-md overflow-auto">
-      <Canvas camera={
-        {
-          position: [0, 10, 28],
-          fov: 50
-        }
+    <div className="flex-grow m-8 ui-shadow ui-div ui-highlight">
+      <Canvas camera={{
+        position: [0, 10, 28],
+        fov: 50
+      }
       }>
         <OrbitControls />
         <StageScene />

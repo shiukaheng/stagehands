@@ -1,17 +1,16 @@
-import { BotState, RecallBotState, RecallFleetState } from 'schema';
-import React, { useContext } from "react";
-import componentSelectContext from './ComponentSwitchContext';
-import { ServiceContext } from './ServerContext';
+import { RecallBotState } from 'schema';
+import { useContext } from "react";
+import componentSelectContext from '../../../contexts/ComponentSwitchContext';
 
-function presetModuleComponent({ recallBot, name, presetID, botID }: { recallBot: RecallBotState, name: string | undefined, presetID: string, botID : string}) {
-    const { componentSelect, setComponentSelect } = useContext(componentSelectContext);
-    const services = useContext(ServiceContext);
-
-
+/**
+ * Widget representing the state of a particular bot in a preset
+ */
+function PresetBotWidget({ recallBot, name, presetID, botID }: { recallBot: RecallBotState, name: string | undefined, presetID: string, botID : string}) {
+    const { setComponentSelect } = useContext(componentSelectContext);
     return (
         <button
             id={name}
-            className="bg-gray-100 hover:bg-gray-200 font-bold box-border h-32 w-64 rounded m-2"
+            className="bg-zinc-100 hover:bg-zinc-200 font-bold box-border h-32 w-64 rounded m-2"
             onClick={() => {
                 setComponentSelect({type: "preset_mic_attributes_page", bot :recallBot, name : name, presetID : presetID, botID : botID})
             }}>
@@ -27,4 +26,4 @@ function presetModuleComponent({ recallBot, name, presetID, botID }: { recallBot
         </button>
     );
 }
-export default presetModuleComponent;
+export default PresetBotWidget;

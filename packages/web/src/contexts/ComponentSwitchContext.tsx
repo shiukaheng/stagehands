@@ -1,5 +1,5 @@
 import { createContext } from "react"
-import { SidePanelSelection, PresetPanelSelection } from "./SidePanel"
+import { SidePanelSelection } from "../components/SidePanel/PresetPanel/PresetPanelSelection"
 
 export interface IComponentSelectContext {
 	componentSelect: SidePanelSelection

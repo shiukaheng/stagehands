@@ -1,10 +1,12 @@
 import { useRef, useState, useContext } from "react"
-import { ServiceContext, TopicContext } from './ServerContext';
 import { BotState, Preset, RecallBotState } from 'schema';
 import _ from "lodash";
+import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
 
-
-export default function PresetMicAttributesPage({ bot, name, presetID, botID }: { bot: RecallBotState, name: string | undefined, presetID: string, botID: string }) {
+/**
+ * Component for displaying and editing the attributes of a bot in a preset
+ */
+export default function PresetBotAttributesEditor({ bot, name, presetID, botID }: { bot: RecallBotState, name: string | undefined, presetID: string, botID: string }) {
   const provider = useContext(TopicContext);
   const preset = provider?.stage?.presets[presetID]
   const services = useContext(ServiceContext);
@@ -21,7 +23,7 @@ export default function PresetMicAttributesPage({ bot, name, presetID, botID }: 
 
   return (
     <div className="h-5/6 overflow-clip pt-5">
-      <div className="h-full w-full p-2 bg-gray-100 rounded-md">
+      <div className="h-full w-full p-2 bg-zinc-100 rounded-md">
 
         <table
           id="attributes"

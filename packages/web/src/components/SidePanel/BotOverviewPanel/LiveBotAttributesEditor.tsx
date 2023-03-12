@@ -22,7 +22,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
        
        <tbody>
        <tr>
-         <th>Name :</th>
+         <th>Name</th>
          <td>
            <input
              type="text"
@@ -33,7 +33,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
        </tr>
 
        <tr>
-         <th>Status :</th>
+         <th>Status</th>
          <td>
            <button
              id="micStatus">
@@ -43,7 +43,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
        </tr>
 
        <tr>
-         <th>Module :</th>
+         <th>Module</th>
          <td>
            <button
              id="micModule">
@@ -53,7 +53,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
        </tr>
    
        <tr>
-         <th>X :</th>
+         <th>X</th>
          <td>
            <input 
              ref={xValInputElemRef}
@@ -93,7 +93,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
        
        <tr>
 
-         <th>Y :</th>
+         <th>Y</th>
          <td>
            <input
              ref = {yValInputElemRef}
@@ -134,7 +134,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
        </tr>
      
        <tr>
-         <th>Angle :</th>
+         <th>Angle</th>
          <td>
          <input 
              ref = {angleinputElemRef}
@@ -173,7 +173,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
        </tr>
      
        <tr>
-         <th>Battery :</th>
+         <th>Battery</th>
          <td>
            <button>
                30

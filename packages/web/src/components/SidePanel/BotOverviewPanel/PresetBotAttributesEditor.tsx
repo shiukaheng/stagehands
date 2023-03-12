@@ -38,7 +38,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
 
           <tbody>
             <tr>
-              <th>Name :</th>
+              <th>Name</th>
               <td>
                 <input
                   type="text"
@@ -50,7 +50,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
             </tr>
          
             <tr>
-              <th>Module :</th>
+              <th>Module</th>
               <td>
                 <button
                   id="micModule">
@@ -60,7 +60,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
             </tr>
           
             <tr>
-              <th>X :</th>
+              <th>X</th>
               <td>
                 <input
                   ref={xValInputElemRef}
@@ -112,7 +112,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
         
             <tr>
 
-              <th>Y :</th>
+              <th>Y</th>
               <td>
                 <input
                   ref={yValInputElemRef}
@@ -162,7 +162,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
             </tr>
          
             <tr>
-              <th>Angle :</th>
+              <th>Angle</th>
               <td>
                 <input
                   ref={angleinputElemRef}

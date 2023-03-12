@@ -40,8 +40,8 @@ function PresetPanel() {
         }
     }, [serviceProvider?.reorderPreset]);
     return (
-        <div className="overflow-clip w-full h-full safari-canvas-overflow-fix">
-            <div id="MiddleSection" className="w-full h-4/5 snap-center overflow-y-auto overflow-x-hidden flex flex-col gap-4 p-6">
+        <div className="overflow-hidden w-full flex-grow safari-canvas-overflow-fix flex flex-col">
+            <div id="MiddleSection" className="w-full snap-center flex flex-col gap-4 px-6 flex-grow overflow-y-auto">
                 {/* map the record by key and value pairs into the preset component, if presets is not null */}
                 {topicProvider?.stage?.presets && (
                     <Reorder.Group axis="y" className="flex flex-col gap-4" values={topicProvider.stage.presets} onReorder={(values) => {
@@ -63,25 +63,15 @@ function PresetPanel() {
                     </Reorder.Group>
                 )}
             </div>
-            <div id="BottomSection" className="flex flex-row gap-2">
-                <button
-                    id="openButton" // For opening a preset from file, currently it does nothing
-                    className="font-bold box-border h-10 w-28 flex-1"
-                    onClick={() => {
-                        openPreset();
-                    }}>
-                    Open</button>
+            <div id="BottomSection" className="flex flex-row gap-2 w-full">
                 <button
                     id="createButton" // For creating a new preset based on the current mic positions
                     onClick={() => {
                         const name = prompt("Enter a name for the preset");
-
                         let presetName = "Preset";
-
                         if (name) {
                             presetName = name;
                         }
-
                         console.log("Creating preset", serviceProvider?.createPreset);
                         if (topicProvider?.fleet !== undefined) {
                             serviceProvider?.createPreset.callback({
@@ -93,8 +83,8 @@ function PresetPanel() {
                         }
 
                     }}
-                    className="font-bold box-border h-10 w-28 flex-1">
-                    Create</button>
+                    className="font-bold box-border flex-shrink ui-div ui-highlight-solid ui-shadow m-6 p-4 w-full">
+                    Create a preset +</button>
             </div>
         </div>
     )

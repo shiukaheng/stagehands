@@ -1,8 +1,13 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  height: 100vh;
+  overflow: clip;
   text-align: center;
+  @apply p-8;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .logo {

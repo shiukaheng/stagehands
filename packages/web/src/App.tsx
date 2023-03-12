@@ -1,44 +1,20 @@
-import { createContext, Fragment, useState } from 'react'
 import './App.css'
-import { Stage } from './Stage'
-import SidePanel, { PresetPanelSelection, SidePanelSelection } from './SidePanel'
-import presetButtonsContext from './PresetButtonsContext'
-import LiveMicAttributesPage from './LiveMicAttributesPage'
-import componentSelectContext from './ComponentSwitchContext'
-import MenuBar from './MenuBar'
-import { ServiceProvider, TopicProvider } from './ServerContext'
-import useStickyState from './utils/useStickyState';
-import { TopicClientCacher } from './utils/TopicClientCacher'
+import SidePanel from './components/SidePanel/SidePanel'
+import MenuBar from './components/MenuBar'
+import { AppContexts } from './contexts/AppContexts'
+import { Stage } from './components/Stage/Stage'
 
 function App() {
-
-  const [presetButtons, setPresetButtons] = useState([] as any[]);
-  const [componentSelect, setComponentSelect] = useState("preset_panel" as SidePanelSelection);
-  const value1 = { presetButtons, setPresetButtons }; 
-  const value2 = {componentSelect, setComponentSelect };
-
-  const [url, setUrl] = useStickyState<string | null>(null, "url");
-
   return (
-    <TopicClientCacher>
-      <ServiceProvider url={url}>
-        <TopicProvider url={url}>
-          <presetButtonsContext.Provider value={value1}> {/* Giving preset button context to children components */}
-            <componentSelectContext.Provider value={value2}> {/* Giving component select context to children components */}
-              <MenuBar url={url} setUrl={setUrl} />
-              <div className="flex h-screen overflow-hidden">
-                <div className="w-1/3 h-5/6 pr-16">
-                  <SidePanel />
-                </div>
-                <div className="flex w-2/3 h-5/6">
-                  <Stage />
-                </div>
-              </div>
-            </componentSelectContext.Provider>
-          </presetButtonsContext.Provider>
-        </TopicProvider>
-      </ServiceProvider>
-    </TopicClientCacher>
+    <AppContexts> {/* This is the root component that holds all the contexts for the app */}
+      <div className='ui-div ui-shadow flex flex-col h-full'>
+        <MenuBar/>
+        <div className="flex h-full overflow-hidden flex-row">
+          <SidePanel /> {/* Side panel that displays either preset or bot panel */}
+          <Stage /> {/* Stage that displays the 3D scene */}
+        </div>
+      </div>
+    </AppContexts>
   )
 }
 

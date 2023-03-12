@@ -12,7 +12,7 @@ function MenuBar() {
                 <SettingsPanel/>
             </Popup>
             <div className='flex-grow font-bold text-lg'>
-                Stagehands Control Panel
+                Stagehands Console
             </div>
             <button onClick={() => {
                 serviceProvider?.emergencyStop.callback();

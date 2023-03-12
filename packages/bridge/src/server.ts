@@ -17,7 +17,7 @@ controller.serverPub(fleetTopic);
 //publish stage topic
 setInterval(()=>controller.serverPub(stageTopic),1000);
 //register new botClient with its botID
-//controller.serverSub(serverMetaChannel,newBotClientRegistrationHandler);
+controller.serverSub(serverMetaChannel,newBotClientRegistrationHandler);
 controller.serverSub(fleetTopic,fleetTopicHandler);
 
 
@@ -48,7 +48,7 @@ export class bridgeServer{
         //publish stage topic
         setInterval(()=>controller.serverPub(stageTopic),1000);
         //register new botClient with its botID
-        //controller.serverSub(serverMetaChannel,newBotClientRegistrationHandler);
+        controller.serverSub(serverMetaChannel,newBotClientRegistrationHandler);
         controller.serverSub(fleetTopic,fleetTopicHandler);
 
 

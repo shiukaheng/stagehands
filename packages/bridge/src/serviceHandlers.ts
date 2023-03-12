@@ -1,28 +1,28 @@
 import { Context } from "./controller/Context";
-import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService } from "schema";
+import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset } from "schema";
 import { v4 } from "uuid"
 import { checkClientIDPresent, checkValidRecall } from "./utils/validationFunc";
 import { Controller } from "./controller/Controller";
 
 
 //Create preset
-export function CreatePresetServiceHandler(presetFleetState:RecallFleetState,context:Context):boolean {
+export function CreatePresetServiceHandler(preset:Preset,context:Context):string {
 
-    checkValidRecall(presetFleetState,context);
+    checkValidRecall(preset.state,context);
     const presetID = v4();
-    context.getStageState().presets[presetID] = {name:presetID,state:presetFleetState}
-    return true;
+    context.getStageState().presets.push({id:presetID,value:preset});
+    return "created";
 }
 
  // Delete preset
 export function DeletePresetServiceHandler(presetID:string,context:Context):void {
-    delete context.getStageState().presets[presetID];
+    context.getStageState().presets.filter(preset=>preset.id!==presetID);
 }
 
    // Update preset
 export function UpdatePresetServiceHandler(updatePresetRequest:UpdatePresetRequest,context:Context):void {
     checkValidRecall(updatePresetRequest.preset.state,context);
-    context.getStageState().presets[updatePresetRequest.presetId] = updatePresetRequest.preset;
+    context.getStageState().presets.map(preset=>preset.id===updatePresetRequest.presetId ?updatePresetRequest.preset:preset);
 }
 
 

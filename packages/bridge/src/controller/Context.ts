@@ -11,7 +11,7 @@ export class Context {
         this.currentBotState ={};
         this.targetBotState = {};
         this.stageState = {
-            presets: {},
+            presets: [],
             activePreset: "NoActivePreset",
             presetRecallState: "idle",
             boundary: null as any,

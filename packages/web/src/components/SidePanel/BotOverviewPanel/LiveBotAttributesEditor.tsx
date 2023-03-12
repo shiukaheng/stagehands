@@ -13,7 +13,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
  const angleRangeElemRef = useRef<HTMLInputElement>(null)
  return (
      
-   <div className="h-5/6 overflow-clip pt-5">
+   <div className="h-full overflow-clip ">
      <div className="h-full w-full p-2">
 
      <table 
@@ -27,6 +27,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
            <input
              type="text"
              id="micName"
+             className="text-center"
              defaultValue={bot.name}
              size={11}></input>
          </td>
@@ -36,6 +37,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
          <th>Status</th>
          <td>
            <button
+             className="text-center mb-2 h-6 w-32 "
              id="micStatus">
                {bot.status} 
            </button>
@@ -46,7 +48,9 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
          <th>Module</th>
          <td>
            <button
+             className="text-center mb-2 h-6 w-32 "
              id="micModule">
+              
                {bot.module.type}
            </button>
          </td>
@@ -175,7 +179,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
        <tr>
          <th>Battery</th>
          <td>
-           <button>
+           <button className="text-center h-6 w-32">
                30
            </button>
          </td>

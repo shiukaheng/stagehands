@@ -4,7 +4,7 @@ import { StageScene } from './StageScene'
 
 export function Stage() {
   return (
-    <div className="flex-grow m-8 ui-shadow ui-div ui-highlight safari-canvas-overflow-fix">
+    <div className="flex-grow m-5 ui-shadow ui-div ui-highlight safari-canvas-overflow-fix">
       <Canvas
         shadows
         camera={{

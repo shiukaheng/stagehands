@@ -12,7 +12,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
     if (provider === null) {
         return null;
     } else {
-        return provider?.stage?.presets.find((preset) => preset.id === presetID)?.value?.state || null;
+        return provider?.stage?.presets.find((preset) => preset.id === presetID)?.value || null;
     }
 }, [presetID, provider?.stage?.presets])
   const services = useContext(ServiceContext);
@@ -53,7 +53,8 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
               <th>Module</th>
               <td>
                 <button
-                  id="micModule">
+                  id="micModule"
+                  className="text-center h-6 w-32">
                   {bot.module.type}
                 </button>
               </td>
@@ -75,7 +76,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                     preset.state[botID].targetPose.position[0] = parseInt(xValInputElemRef.current!.value)
                     _.debounce(function() {
                       services?.updatePreset.callback({ presetId: presetID, preset: preset });
-                    }, 1000)
+                    }, 100)
                     // Undercore_.debounce(update({ presetID: presetID, newPreset: preset }), 1000)
                     // Undercore_
 
@@ -103,7 +104,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                     preset.state[botID].targetPose.position[0] = parseInt(xValRangeElemRef.current!.value)
                     _.debounce(function() {
                       services?.updatePreset.callback({ presetId: presetID, preset: preset });
-                    }, 1000)
+                    }, 100)
 
                   }}
                 ></input>
@@ -126,7 +127,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                     preset.state[botID].targetPose.position[1] = parseInt(yValInputElemRef.current!.value)
                     _.debounce(function() {
                       services?.updatePreset.callback({ presetId: presetID, preset: preset });
-                    }, 1000)
+                    }, 100)
 
                   }}
 
@@ -152,7 +153,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                     preset.state[botID].targetPose.position[1] = parseInt(yValInputElemRef.current!.value)
                     _.debounce(function() {
                       services?.updatePreset.callback({ presetId: presetID, preset: preset });
-                    }, 1000)
+                    }, 100)
                   }}
                 // onChange = {() => {
                 //   document.getElementById("micX").innerText = document.getElementById("micXRange")
@@ -178,7 +179,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                     angleRangeElemRef.current!.value = angleinputElemRef.current!.value
                     _.debounce(function() {
                       services?.updatePreset.callback({ presetId: presetID, preset: preset });
-                    }, 1000)
+                    }, 100)
                   }}
                 ></input>
               </td>
@@ -200,7 +201,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                     angleinputElemRef.current!.value = angleRangeElemRef.current!.value
                     _.debounce(function() {
                       services?.updatePreset.callback({ presetId: presetID, preset: preset });
-                    }, 1000)
+                    }, 100)
                   }}
                 ></input>
               </td>

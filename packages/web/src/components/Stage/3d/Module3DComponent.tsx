@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import { BotState } from 'schema';
 import {Billboard, Text} from '@react-three/drei';
+import { LED } from './LED';
 
 function Module3DComponent({module}: {module: BotState}) {
     const [hovered, hover] = useState(false);
@@ -23,6 +24,7 @@ function Module3DComponent({module}: {module: BotState}) {
                 onPointerOut={(event) => hover(false)}>
                 <boxGeometry args={[1, 1, 1]} />
                 <meshStandardMaterial color={hovered ? 'black' : 'darkgray'} />
+                <LED ledState={module.ledState.base} position={[0, 0.7, 0]} intensity={5} distance={5} castShadow/>
             </mesh>
         </Fragment>
     );

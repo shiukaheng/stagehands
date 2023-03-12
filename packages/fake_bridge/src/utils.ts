@@ -1,5 +1,9 @@
 import { BotState } from "schema";
 
+function randomColor(): [number, number, number] {
+    return [Math.random(), Math.random(), Math.random()]
+}
+
 export function createNewBotState(state: Partial<BotState>): BotState {
     const base: BotState = {
         name: "Untitled bot",
@@ -13,7 +17,7 @@ export function createNewBotState(state: Partial<BotState>): BotState {
         },
         ledState: {
             base: {
-                rgbValue: [0, 0, 0],
+                rgbValue: randomColor(),
                 ledAnimation: {
                     animationMode: "constant",
                     flashingFrequency: 0

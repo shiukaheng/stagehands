@@ -2,7 +2,7 @@ import { PointLightProps, useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { BotLEDState, LEDState } from "schema";
 
-export function LED({ledState, ...props}: {ledState: LEDState, props: PointLightProps}) {
+export function LED({ledState, ...props}: {ledState: LEDState} & PointLightProps) {
 
     const lightRef = useRef<THREE.PointLight>(null);
     const ledStateRef = useRef<LEDState>(ledState);
@@ -10,6 +10,7 @@ export function LED({ledState, ...props}: {ledState: LEDState, props: PointLight
 
     useEffect(() => {
         // Copy the new state into the ref
+        console.log("LED", ledState);
         ledStateRef.current = ledState;
     }, [ledState]);
 

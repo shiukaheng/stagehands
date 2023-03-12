@@ -17,6 +17,8 @@ function Module3DComponent({module}: {module: BotState}) {
                 </Billboard>
             </group>
             <mesh
+                castShadow
+                receiveShadow
                 position={module.pose.position as [number, number, number]}
                 scale={clicked ? 1.5 : 1}
                 onClick={(event) => click(clicked)}

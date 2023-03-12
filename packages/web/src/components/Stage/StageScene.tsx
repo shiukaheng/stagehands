@@ -25,7 +25,7 @@ export function StageScene() {
         attenuation={20}
       />
       <fog attach="fog" args={['#222', 0, 100]} />
-      <ambientLight intensity={0.1} />
+      <ambientLight intensity={0.1} receiveShadow/>
       <mesh>
         <mesh
           position={[0, -0.5, 0]}

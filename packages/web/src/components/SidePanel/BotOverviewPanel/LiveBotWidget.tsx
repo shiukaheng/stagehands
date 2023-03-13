@@ -5,14 +5,14 @@ import componentSelectContext from '../../../contexts/ComponentSwitchContext';
 /**
  * Widget representing the live state of a bot
  */
-function LiveBotWidget({ botState }: { botState: BotState}) {
+function LiveBotWidget({ botState, botID }: { botState: BotState, botID: string}) {
     const { componentSelect, setComponentSelect } = useContext(componentSelectContext);
     return (
         <button
             id={botState.name}
             className="ui-shadow ui-highlight ui-div font-bold box-border h-32 w-64 rounded m-2 px-8"
             onClick={() => {
-                setComponentSelect({type: "live_attributes_page", bot :botState})
+                setComponentSelect({type: "live_attributes_page", bot :botState, botID : botID})
             }}>
             {/* <div className="text-left indent-[10.5%]">
                 Name: {botState.name}

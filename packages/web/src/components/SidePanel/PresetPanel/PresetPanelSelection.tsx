@@ -24,6 +24,7 @@ export type PresetMicAttributesPageSelection = {
 export type LiveAttributesPageSelection = {
 	type: "live_attributes_page";
 	bot: BotState;
+	botID: string;
 
 };
 
@@ -45,7 +46,7 @@ export function SidePanelSwitcher() {
 		return (<PresetBotAttributesEditor bot={componentSelect.bot} name={componentSelect.name} presetID={componentSelect.presetID} botID={componentSelect.botID} />); // TODO add mic attributes page
 	} else if (componentSelect.type === "live_attributes_page") {
 		console.log("live mic attributes page");
-		return (<LiveBotAttributesEditor bot={componentSelect.bot} />);
+		return (<LiveBotAttributesEditor bot={componentSelect.bot} botID = {componentSelect.botID} />);
 	} else {
 		return null;
 	}

@@ -3,7 +3,7 @@ import { Preset as PresetT, BotState } from 'schema';
 // import saveIcon from '../../../assets/save-icon.svg'
 // import editIcon from '../../../assets/edit-icon.svg'
 // import delIcon from '../../../assets/delete-icon.svg'
-import { AiFillSave, AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { AiFillSave, AiFillEdit, AiFillDelete, AiFillPlaySquare, AiFillPlayCircle, AiOutlinePlayCircle, AiTwotonePlayCircle, AiFillMoneyCollect, AiFillPayCircle, AiFillPicture } from "react-icons/ai";
 import { Tooltip } from "react-tooltip"
 import 'react-tooltip/dist/react-tooltip.css';
 import { ServiceContext, TopicContext } from '../../../contexts/ServerContext';
@@ -57,6 +57,10 @@ function PresetOptionMenu({ preset, id, services, setComponentSelect }: { preset
             <AiFillSave />
             <Tooltip id="save-tooltip" />
         </button> */}
+        <button id="RunButton" className="rounded-full p-1" onClick={() => services?.runPreset.callback(id)} data-tooltip-id="run-tooltip" data-tooltip-content="Run preset">
+          <AiFillPlayCircle />
+          <Tooltip id="run-tooltip" />
+        </button>
         <button id="EditButton" className="rounded-full p-1" onClick={() => setComponentSelect({
             type: "mic_panel",
             presetID: id

@@ -32,6 +32,7 @@ const testPreset1 :Preset= {
             module:{
                 type: "nullModule",
                 state: null,
+                
             }
 
     },
@@ -255,6 +256,10 @@ setTimeout(()=>{
     recallPreset2Test();
 },2000)
 
+setTimeout(()=>{
+    console.log(serverController.getContext().getCurrentBotState());
+    
+},2000)
 
 
 //Jest Test

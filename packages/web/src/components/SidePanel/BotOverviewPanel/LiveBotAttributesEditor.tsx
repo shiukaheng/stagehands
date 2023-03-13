@@ -180,7 +180,7 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
          <th>Battery</th>
          <td>
            <button className="text-center h-6 w-32">
-               30
+               30%
            </button>
          </td>
        </tr>

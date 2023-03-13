@@ -38,7 +38,7 @@ export function useTopic<T extends JSONValue>(url: string | null = null, channel
 
 export function useThrottledTopic<T extends JSONValue>(url: string | null = null, channel: TopicChannel<T> | null = null, throttleFreq: number = 30) {
   const state = useTopic(url, channel);
-  const throttled = useThrottle(state, throttleFreq);
+  const throttled = useThrottle(state, throttleFreq); // So it doesn't update too often
   return throttled;
 }
 

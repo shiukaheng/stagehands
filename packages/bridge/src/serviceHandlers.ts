@@ -1,5 +1,5 @@
 import { Context } from "./controller/Context";
-import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset } from "schema";
+import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic } from "schema";
 import { v4 } from "uuid"
 import { checkClientIDPresent, checkValidRecall } from "./utils/validationFunc";
 import { Controller } from "./controller/Controller";
@@ -11,18 +11,21 @@ export function CreatePresetServiceHandler(preset:Preset,context:Context):string
     checkValidRecall(preset.state,context);
     const presetID = v4();
     context.getStageState().presets.push({id:presetID,value:preset});
+    Controller.getInstance().server.pub(stageTopic,context.getStageState())
     return "created";
 }
 
  // Delete preset
 export function DeletePresetServiceHandler(presetID:string,context:Context):void {
     context.getStageState().presets.filter(preset=>preset.id!==presetID);
+    Controller.getInstance().server.pub(stageTopic,context.getStageState())
 }
 
    // Update preset
 export function UpdatePresetServiceHandler(updatePresetRequest:UpdatePresetRequest,context:Context):void {
     checkValidRecall(updatePresetRequest.preset.state,context);
     context.getStageState().presets.map(preset=>preset.id===updatePresetRequest.presetId ?updatePresetRequest.preset:preset);
+    Controller.getInstance().server.pub(stageTopic,context.getStageState())
 }
 
 
@@ -65,7 +68,7 @@ export async function StopBotServiceHandler(botName:string,context:Context){
         const botClientID = context.getbotClientIDMap().get(botName);
         Controller.getInstance().server.req(stopService,botClientID as string)
         .then(()=>{
-            context.getTargetBotState()[botName].stopped = true;
+            //context.getTargetBotState()[botName].stopped = true;
         })
         .catch((error)=>{
             throw error;
@@ -87,7 +90,7 @@ export async function StopBotClearServiceHandler(botName:string,context:Context)
         const botClientID = context.getbotClientIDMap().get(botName);
         Controller.getInstance().server.req(clearStopService,botClientID as string)
         .then(()=>{
-            context.getTargetBotState()[botName].stopped = false;
+            //context.getTargetBotState()[botName].stopped = false;
         })
         .catch((error)=>{
             throw error;
@@ -101,10 +104,8 @@ export async function StopBotClearServiceHandler(botName:string,context:Context)
 
 // Recall fleet state
 export async function RecallFleetStateServiceHandler(recallFleetState:RecallFleetState,context:Context):Promise<void>{
-    const botIDs = Object.keys(recallFleetState);
     const errors = [];
-    const botPromises=[];
-
+    
     for (const [botName, recallBotState] of Object.entries(recallFleetState)){
         let botClientId = context.getbotClientIDMap().get(botName);
         try{
@@ -112,22 +113,21 @@ export async function RecallFleetStateServiceHandler(recallFleetState:RecallFlee
             checkClientIDPresent(botName,context);
             Controller.getInstance().server.req(recallBotStateService ,botClientId as string,recallBotState)
             .then(()=>{
-                const bot = context.getTargetBotState()[botName];
-                bot.targetPose = recallBotState.targetPose;
-                bot.module.state = recallBotState.module.state;
-                bot.ledState.base = recallBotState.baseLEDState;
+                // const bot = context.getTargetBotState()[botName];
+                // bot.targetPose = recallBotState.targetPose;
+                // bot.module.state = recallBotState.module.state;
+                // bot.ledState.base = recallBotState.baseLEDState;
             })
             .catch((error)=>{
                 errors.push(error)
             })
-
         }
         catch(error){
             errors.push(error);
         }
         
-        
     }
+    
     throw new AggregateError(errors);
 }
 
@@ -207,6 +207,39 @@ export async function clearLEDOverwriteServiceHandler(context:Context){
         }
     }
     throw new AggregateError(errors);
+}
+
+//Run preset
+export function runPresetServiceHandler(presetID:string,context:Context){
+    const preset = context.getStageState().presets.find(preset => preset.id === presetID)
+    if (!preset) {
+        throw new Error("Preset does not exist")
+    }
+    context.getStageState().activePreset=presetID
+    RecallFleetStateServiceHandler(preset.value.state,context)
+    Controller.getInstance().server.pub(stageTopic,context.getStageState())
+}
+
+//Reorder preset
+export function reorderPresetsServiceHandler(presetIDs:string[],context:Context){
+    const currentSet = new Set(context.getStageState().presets.map(preset => preset.id))
+    if (presetIDs.length !== currentSet.size || !presetIDs.every(id => currentSet.has(id))) {
+        throw new Error("Invalid preset ID list")
+    } else {
+        // Reorder the presets
+        const newPresets: {id: string, value: Preset}[] = []
+        for (const id of presetIDs) {
+            const preset = context.getStageState().presets.find(preset => preset.id === id)
+            if (preset) {
+                newPresets.push(preset)
+            } else {
+                throw new Error("Preset does not exist")
+            }
+        }
+        context.getStageState().presets = newPresets
+        Controller.getInstance().server.pub(stageTopic,context.getStageState())
+        console.log("Reordered presets")
+}
 }
 
 

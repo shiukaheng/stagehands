@@ -1,7 +1,7 @@
 import {test,expect} from "@jest/globals"
 import { createPresetService, Preset } from "schema"
 import { io } from "socket.io-client";
-import { bridgeServer } from "src/server";
+import { bridgeServer } from "../server";
 import { TopicClient } from "webtopics";
 import { dummyBotClient } from "./utils/dummyBotClient";
 const server = new bridgeServer();

@@ -1,28 +1,9 @@
-#include "rbc.h"
+#include "rbc.h" // Robocock source code modified for position control
 #include <math.h>
 
 // Runs a PWM on pin 3 and measures the frequency on pin 2 using interrupts
 
-// Motor pins
-#define RPWM_PIN 5
-#define LPWM_PIN 6
-#define INT_PIN 9
-#define DIR_PIN 10 // HALL B
-
 SerialPositionalPIDClient* client;
-
-// PIDMotorConfig config = {
-//     6, // lpwm_pin
-//     5, // rpwm_pin
-//     9, // hall_a_pin
-//     10, // hall_b_pin
-//     64, // ppr
-//     1.0 / 30.0, // gear_ratio
-//     5, // smoothener_window_size
-//     0.1, // kp
-//     0.0, // ki
-//     0.0 // kd
-// };
 
 void isr() {
     client->isr();
@@ -31,11 +12,12 @@ void isr() {
 void setup() {
     Serial.begin(115200);
 
+    // Defining a config struct
     PIDMotorConfig config;
-    config.lpwm_pin = LPWM_PIN;
-    config.rpwm_pin = RPWM_PIN;
-    config.hall_a_pin = INT_PIN;
-    config.hall_b_pin = DIR_PIN;
+    config.lpwm_pin = 5;
+    config.rpwm_pin = 6;
+    config.hall_a_pin = 9;
+    config.hall_b_pin = 10;
     config.ppr = 64;
     config.gear_ratio = 1.0 / 30.0;
     config.smoothener_window_size = 5;
@@ -43,10 +25,14 @@ void setup() {
     config.ki = 0.0;
     config.kd = 0.0;
 
+    // Initializing the client (which includes PID logic, motor control, and serial communication)
     client = new SerialPositionalPIDClient(config);
+
+    // Attaches the interrupt to the pin to count the pulses (can't be done in the class constructor due to Arduino limitations)
     attachInterrupt(digitalPinToInterrupt(INT_PIN), isr, RISING);
 }
 
 void loop() {
+    // Run client logic
     client->update();
 }

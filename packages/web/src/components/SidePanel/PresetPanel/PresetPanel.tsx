@@ -43,6 +43,9 @@ function PresetPanel() {
         <div className="overflow-hidden w-full flex-grow safari-canvas-overflow-fix flex flex-col">
             <div id="MiddleSection" className="w-full snap-center flex flex-col gap-4 px-6 flex-grow overflow-y-auto">
                 {/* map the record by key and value pairs into the preset component, if presets is not null */}
+                <div className="text-lg font-bold mb-4 ui-div ui-shadow ui-highlight-extra mx-6 p-2">
+                📁 Presets
+                </div>
                 {topicProvider?.stage?.presets && (
                     <Reorder.Group axis="y" className="flex flex-col gap-4" values={topicProvider.stage.presets} onReorder={(values) => {
                         console.log("Reordering", values);

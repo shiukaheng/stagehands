@@ -48,9 +48,9 @@ export class FakeBridgeServer {
         //     this.update(1/this.simulationFrameRate)
         // }, 1000/this.simulationFrameRate)
 
-        this.ts.sub(stageTopic, (newStageState) => {
-            console.log("Changing stage state:", newStageState)
-        })
+        // this.ts.sub(stageTopic, (newStageState) => {
+        //     console.log("Changing stage state:", newStageState)
+        // })
 
         // Services
 

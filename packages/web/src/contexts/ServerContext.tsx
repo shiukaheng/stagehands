@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { stageTopic, fleetTopic, createPresetService, updatePresetService, deletePresetService, runPresetService, emergencyStopService, emergencyStopClearService, stopBotService, stopBotClearService, reorderPresetsService } from "schema";
+import { stageTopic, fleetTopic, createPresetService, updatePresetService, deletePresetService, runPresetService, emergencyStopService, emergencyStopClearService, stopBotService, stopBotClearService, reorderPresetsService, recallFleetStateService } from "schema";
 import { TopicHookExtractor, useThrottledTopic, useTopic } from "../utils/useTopic";
 import { ServiceHookExtractor, useService } from "../utils/useService";
 import { ServiceChannel } from "webtopics";
@@ -27,6 +27,7 @@ export interface IServiceContext {
 	emergencyStopClear: ServiceHookExtractor<typeof emergencyStopClearService>;
 	stopBot: ServiceHookExtractor<typeof stopBotService>;
 	stopBotClear: ServiceHookExtractor<typeof stopBotClearService>;
+	recallFleetState : ServiceHookExtractor<typeof recallFleetStateService>;
 }
 
 /**
@@ -59,6 +60,7 @@ export function ServiceProvider({ children }: { children: React.ReactNode | null
 	const emergencyStopClear = useService(serverUrl, emergencyStopClearService);
 	const stopBot = useService(serverUrl, stopBotService);
 	const stopBotClear = useService(serverUrl, stopBotClearService);
+	const recallFleetState = useService(serverUrl, recallFleetStateService);
 
 	const serviceProvider: IServiceContext = {
 		createPreset,
@@ -70,6 +72,7 @@ export function ServiceProvider({ children }: { children: React.ReactNode | null
 		emergencyStopClear,
 		stopBot,
 		stopBotClear,
+		recallFleetState,
 	};
 
 	return <ServiceContext.Provider value={serviceProvider}>{children}</ServiceContext.Provider>;

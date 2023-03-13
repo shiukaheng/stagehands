@@ -47,8 +47,9 @@ class PositionalPIDMotor {
         double _input;
         double _output;
         // Motor parameters
-        int _lpwm_pin; // Left pwm pin
-        int _rpwm_pin; // Right pwm pin
+        int _pwm_pin; // PWM pin
+        int _l_pin; // Left direction pin
+        int _r_pin; // Right direction pin
         int _hall_a_pin; // Meant to be attached to interrupt
         int _hall_b_pin; // Read in update function
         double _gear_ratio;

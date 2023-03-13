@@ -12,10 +12,12 @@ class RawMotor {
         /**
          * @brief Construct a new Raw Motor object, sets the pins to output
          * 
-         * @param lpwm_pin the left pwm pin
-         * @param rpwm_pin the right pwm pin
+         * @param pwm_pin the pin to control the motor speed
+         * @param l_pin the pin to control the left motor direction
+         * @param r_pin the pin to control the right motor direction
+         * @param smoothener_window_size the size of the window for the smoothener
          */
-        RawMotor(int lpwm_pin, int rpwm_pin, int smoothener_window_size = 5);
+        RawMotor(int pwm_pin, int lpwm_pin, int rpwm_pin, int smoothener_window_size = 5);
         ~RawMotor();
         /**
          * @brief Directly set the PWM value of the motor
@@ -36,8 +38,9 @@ class RawMotor {
         void update();
     private:
         Smoothener* _smoothener;
-        int _lpwm_pin;
-        int _rpwm_pin;
+        int _pwm_pin;
+        int _l_pin;
+        int _r_pin;
         int _target_pwm = 0;
         int _actual_pwm = 0;
         bool _use_smoothener = true;

@@ -1,8 +1,9 @@
 #pragma once
 
 struct MotorPinout {
-    int lpwm_pin;
-    int rpwm_pin;
+    int pwm_pin;
+    int l_pin;
+    int r_pin;
     int hall_a_pin;
     int hall_b_pin;
 };

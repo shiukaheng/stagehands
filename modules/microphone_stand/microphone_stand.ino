@@ -14,8 +14,9 @@ void setup() {
 
     // Defining a config struct
     PIDMotorConfig config;
-    config.lpwm_pin = 5;
-    config.rpwm_pin = 6;
+    config.pwm_pin = 11;
+    config.l_pin = 5;
+    config.r_pin = 6;
     config.hall_a_pin = 9;
     config.hall_b_pin = 10;
     config.ppr = 64;
@@ -29,7 +30,7 @@ void setup() {
     client = new SerialPositionalPIDClient(config);
 
     // Attaches the interrupt to the pin to count the pulses (can't be done in the class constructor due to Arduino limitations)
-    attachInterrupt(digitalPinToInterrupt(INT_PIN), isr, RISING);
+    attachInterrupt(digitalPinToInterrupt(config.hall_a_pin), isr, RISING);
 }
 
 void loop() {

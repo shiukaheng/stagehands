@@ -2,8 +2,9 @@
 
 PositionalPIDMotor::PositionalPIDMotor(PIDMotorConfig config) {
     // Set parameter variables
-    _lpwm_pin = config.lpwm_pin;
-    _rpwm_pin = config.rpwm_pin;
+    _pwm_pin = config.pwm_pin;
+    _l_pin = config.l_pin;
+    _r_pin = config.r_pin;
     _hall_a_pin = config.hall_a_pin;
     _hall_b_pin = config.hall_b_pin;
     _gear_ratio = config.gear_ratio;
@@ -17,7 +18,7 @@ PositionalPIDMotor::PositionalPIDMotor(PIDMotorConfig config) {
     // Initialize encoder
     _encoder = new PositionalEncoderReader(config.hall_a_pin, config.hall_b_pin, config.ppr, config.gear_ratio);
     // Initialize motor
-    _motor = new RawMotor(config.lpwm_pin, config.rpwm_pin, config.smoothener_window_size);
+    _motor = new RawMotor(config.pwm_pin, config.l_pin, config.r_pin, config.smoothener_window_size);
 }
 
 PositionalPIDMotor::~PositionalPIDMotor() {

@@ -44,7 +44,7 @@ function PresetWidget({ preset, id }: { preset: PresetT, id: string }) {
 }
 
 function PresetOptionMenu({ preset, id, services, setComponentSelect }: { preset: PresetT, id: string, services: any, setComponentSelect: any }) {
-    return (<div className='flex flex-row px-4'>
+    return (<div className='flex flex-row justify-center'>
         {/* <button id="RunButton" className="rounded-full flex-grow" onClick={() => services?.runPreset.callback(id)} data-tooltip-id="run-tooltip" data-tooltip-content="run">
             Run
             <Tooltip id="run-tooltip" />
@@ -57,11 +57,11 @@ function PresetOptionMenu({ preset, id, services, setComponentSelect }: { preset
             <AiFillSave />
             <Tooltip id="save-tooltip" />
         </button> */}
-        <button id="RunButton" className="rounded-full p-1" onClick={() => services?.runPreset.callback(id)} data-tooltip-id="run-tooltip" data-tooltip-content="Run preset">
-          <AiFillPlayCircle />
+        <button id="RunButton" className="rounded-full px-5 p-1" onClick={() => services?.runPreset.callback(id)} data-tooltip-id="run-tooltip" data-tooltip-content="Run preset">
+          <AiFillPlayCircle size={20} />
           <Tooltip id="run-tooltip" />
         </button>
-        <button id="EditButton" className="rounded-full p-1" onClick={() => setComponentSelect({
+        <button id="EditButton" className="rounded-full px-5 p-1" onClick={() => setComponentSelect({
             type: "mic_panel",
             presetID: id
         })} data-tooltip-id="edit-tooltip" data-tooltip-content="View & edit preset">
@@ -69,15 +69,15 @@ function PresetOptionMenu({ preset, id, services, setComponentSelect }: { preset
                 height: 25,
                 width: 25
             }}  alt="save" /> */}
-            <AiFillEdit />
+            <AiFillEdit size={20}/>
             <Tooltip id="edit-tooltip" />
         </button>
-        <button id="DeleteButton" className="rounded-full p-1" onClick={() => services?.deletePreset.callback(id)} data-tooltip-id="delete-tooltip" data-tooltip-content="Delete preset">
+        <button id="DeleteButton" className="rounded-full px-5 p-1" onClick={() => services?.deletePreset.callback(id)} data-tooltip-id="delete-tooltip" data-tooltip-content="Delete preset">
             {/* <img src={delIcon} style={{
                 height: 25,
                 width: 25
             }} alt="save" /> */}
-            <AiFillDelete />
+            <AiFillDelete size={20}/>
             <Tooltip id="delete-tooltip" />
         </button>
     </div>);

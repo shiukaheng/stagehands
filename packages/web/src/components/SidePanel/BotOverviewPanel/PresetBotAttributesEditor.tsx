@@ -34,7 +34,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
     _.debounce((id : string ,newPreset: Preset)=> {
       console.log("Updating preset")
       services?.updatePreset.callback({ presetId: id, preset: newPreset })
-    },5000,{"leading" : false, "trailing" : true, 'maxWait' : 5000}) 
+    },100,{"leading" : false, "trailing" : true, 'maxWait' : 100}) 
   , [services?.updatePreset])
 
   return (

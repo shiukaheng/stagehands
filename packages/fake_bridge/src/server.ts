@@ -44,9 +44,9 @@ export class FakeBridgeServer {
         console.log(`✅ Fake bridge server running on port ${port}`)
 
         // Run update loop
-        const timer = setInterval(() => {
-            this.update(1/this.simulationFrameRate)
-        }, 1000/this.simulationFrameRate)
+        // const timer = setInterval(() => {
+        //     this.update(1/this.simulationFrameRate)
+        // }, 1000/this.simulationFrameRate)
 
         this.ts.sub(stageTopic, (newStageState) => {
             console.log("Changing stage state:", newStageState)
@@ -97,11 +97,7 @@ export class FakeBridgeServer {
             if (presetIndex === -1) {
                 throw new Error("Preset does not exist")
             }
-            // this.stageState.presets[presetIndex].value = updatePresetRequest.preset
-            this.stageState.presets[presetIndex] = {
-                id: updatePresetRequest.presetId,
-                value: updatePresetRequest.preset
-            }
+            this.stageState.presets[presetIndex].value = updatePresetRequest.preset
             this.ts.pub(stageTopic, this.stageState)
             console.log("Updated preset", updatePresetRequest.presetId)
         })

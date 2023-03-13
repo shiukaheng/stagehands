@@ -7,6 +7,7 @@ import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
  * Component for displaying and editing the attributes of a bot in a preset
  */
 export default function PresetBotAttributesEditor({ bot, name, presetID, botID }: { bot: RecallBotState, name: string | undefined, presetID: string, botID: string }) {
+  console.log(bot)
   const provider = useContext(TopicContext);
   const preset = useMemo(() => {
     if (provider === null) {
@@ -27,8 +28,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
   const yValRangeElemRef = useRef<HTMLInputElement>(null)
   const angleinputElemRef = useRef<HTMLInputElement>(null)
   const angleRangeElemRef = useRef<HTMLInputElement>(null)
-
-  console.log(preset)
+  const [xValInput , setXValInput] = useState(preset?.state[botID].targetPose.position[0])
 
   const presetUpdate =  useCallback(
     _.debounce((id : string ,newPreset: Preset)=> {
@@ -80,12 +80,13 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   min={0}
                   max={100}
 
-                  defaultValue={bot.targetPose.position.at(0)}
+                  value={xValInput}
                   onChange={() => {
                     xValRangeElemRef.current!.value = xValInputElemRef.current!.value
                     preset.state[botID].targetPose.position[0] = parseInt(xValInputElemRef.current!.value)
 
                     presetUpdate(presetID, preset)
+                    setXValInput(preset.state[botID].targetPose.position[0])
                     console.log(preset.state[botID])
                     // Undercore_.debounce(update({ presetID: presetID, newPreset: preset }), 1000)
                     // Undercore_
@@ -105,7 +106,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   id={"micXRange"}
                   min={0}
                   max={100}
-                  defaultValue={bot.targetPose.position.at(0)}
+                  value={xValInput}
                   step={1}
                   onChange={() => {
                     // When the range input is changed, useRef to get the input element
@@ -113,6 +114,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                     xValInputElemRef.current!.value = xValRangeElemRef.current!.value
                     preset.state[botID].targetPose.position[0] = parseInt(xValRangeElemRef.current!.value)
                     presetUpdate(presetID, preset)
+                    setXValInput(preset.state[botID].targetPose.position[0])
 
                   }}
                 ></input>

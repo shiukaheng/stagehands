@@ -1,18 +1,35 @@
-import { useRef } from "react"
-import { BotState } from 'schema';
+import _ from "lodash";
+import { useCallback, useRef, useContext } from "react"
+import { BotState, FleetState, getRecallFleetState, RecallFleetState } from 'schema';
+import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
 
 /**
  * Component for displaying and editing the live attributes of a bot
  */
-export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
+export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, botID: string}) {
  const xValInputElemRef = useRef<HTMLInputElement>(null)
  const xValRangeElemRef = useRef<HTMLInputElement>(null)
  const yValInputElemRef = useRef<HTMLInputElement>(null)
  const yValRangeElemRef = useRef<HTMLInputElement>(null)
  const angleinputElemRef = useRef<HTMLInputElement>(null)
  const angleRangeElemRef = useRef<HTMLInputElement>(null)
+
+ const services = useContext(ServiceContext);
+ const provider = useContext(TopicContext);
+ if (provider === null) {
+   throw new Error("Provider not found")
+ }
+ const fleet = provider.fleet
+
+ const fleetUpdate =  useCallback(
+  _.debounce((newFleet: FleetState)=> {
+    console.log("Updating fleet")
+    services?.recallFleetState.callback(getRecallFleetState(newFleet))
+
+  },100,{"leading" : false, "trailing" : true, 'maxWait' : 100}) 
+, [services?.recallFleetState])
  return (
-     
+     fleet !== undefined? (
    <div className="h-full overflow-clip ">
      <div className="h-full w-full p-2">
 
@@ -69,6 +86,9 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
              defaultValue={bot.pose.position.at(0)}
              onChange = {() => {
                xValRangeElemRef.current!.value = xValInputElemRef.current!.value
+               fleet[botID].pose.position[0] = parseInt(xValInputElemRef.current!.value)
+
+               fleetUpdate(fleet)
              }}
              
              ></input>
@@ -90,6 +110,9 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
                // When the range input is changed, useRef to get the input element
                // and set the value of the input element to the value of the range input
                xValInputElemRef.current!.value = xValRangeElemRef.current!.value
+               fleet[botID].targetPose.position[0] = parseInt(xValRangeElemRef.current!.value)
+
+               fleetUpdate(fleet)
              }}
            ></input>
          </td>
@@ -108,6 +131,9 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
              defaultValue={bot.pose.position.at(1)}
              onChange = {() => {
                yValRangeElemRef.current!.value = yValInputElemRef.current!.value
+               fleet[botID].targetPose.position[2] = parseInt(yValInputElemRef.current!.value)
+
+               fleetUpdate(fleet)
              }}
              
              
@@ -129,6 +155,9 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
 
              onChange = {() => {
                yValInputElemRef.current!.value = yValRangeElemRef.current!.value
+               fleet[botID].targetPose.position[2] = parseInt(yValRangeElemRef.current!.value)
+
+               fleetUpdate(fleet)
              }}
              // onChange = {() => {
              //   document.getElementById("micX").innerText = document.getElementById("micXRange")
@@ -189,6 +218,6 @@ export default function LiveBotAttributesEditor({bot} : {bot: BotState}) {
      </table>
      </div>
    </div> 
-   
+     ) : null
  )
 }

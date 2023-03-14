@@ -7,7 +7,7 @@ import { rgbToHex } from "../../../utils/rgbToHex";
 /**
  * Component for displaying and editing the attributes of a bot in a preset
  */
-export default function PresetBotAttributesEditor({ name, presetID, botID }: { name: string | undefined, presetID: string, botID: string }) {
+export default function PresetBotAttributesEditor({ presetID, botID }: {presetID: string, botID: string }) {
   const provider = useContext(TopicContext);
   const services = useContext(ServiceContext);
   const [preset, setPreset] = useState<Preset | null>(provider?.stage?.presets.find((preset) => preset.id === presetID)?.value || null)
@@ -21,8 +21,7 @@ export default function PresetBotAttributesEditor({ name, presetID, botID }: { n
       services?.updatePreset.callback({ presetId: id, preset: newPreset })
       setPreset(newPreset)
       setBot(newPreset.state[botID])
-      console.log(preset)
-      console.log(bot)
+      // console.log(preset)
       
     },100,{"leading" : false, "trailing" : true, 'maxWait' : 100}) 
   , [services?.updatePreset])
@@ -49,8 +48,8 @@ export default function PresetBotAttributesEditor({ name, presetID, botID }: { n
   const ledColorElemRef = useRef<HTMLInputElement>(null)
   const ledAnimationElemRef = useRef<HTMLSelectElement>(null)
   const flashingFrequencyElemRef = useRef<HTMLInputElement>(null)
-  const [xValInput , setXValInput] = useState(preset?.state[botID].targetPose.position[0])
-  const [yValInput , setYValInput] = useState(preset?.state[botID].targetPose.position[1])
+  const [xValInput , setXValInput] = useState(bot?.targetPose.position[0])
+  const [yValInput , setYValInput] = useState(bot?.targetPose.position[1])
   const [ledAnimationInput , setLedAnimationInput] = useState(bot?.baseLEDState.ledAnimation.animationMode)
 
 
@@ -72,7 +71,7 @@ export default function PresetBotAttributesEditor({ name, presetID, botID }: { n
                 <input
                   type="text"
                   id="micName"
-                  defaultValue={name}
+                  defaultValue={bot.name}
                   readOnly = {true}
                   size={11}>
                   </input>

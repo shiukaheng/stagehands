@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { useCallback, useRef, useContext, useState } from "react"
 import { BotState, FleetState, getRecallFleetState, RecallFleetState } from 'schema';
+import { rgbToHex } from "../../../utils/rgbToHex";
 import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
 
 /**
@@ -15,6 +16,9 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
  const angleRangeElemRef = useRef<HTMLInputElement>(null)
  const nameInputElemRef = useRef<HTMLInputElement>(null)
  const ledColorElemRef = useRef<HTMLInputElement>(null)
+ const ledAnimationElemRef = useRef<HTMLSelectElement>(null)
+ const flashingFrequencyElemRef = useRef<HTMLInputElement>(null)
+ const [ledAnimationInput , setLedAnimationInput] = useState(bot.ledState.base.ledAnimation.animationMode)
 
  const services = useContext(ServiceContext);
  const provider = useContext(TopicContext);
@@ -26,6 +30,7 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
  const fleetUpdate =  useCallback(
   _.debounce((newFleet: FleetState)=> {
     console.log("Updating fleet")
+    console.log(newFleet)
     // console.log(newFleet)
     services?.recallFleetState.callback(getRecallFleetState(newFleet))
 
@@ -227,22 +232,67 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
          <td>
            <input 
            type = "color"
-           defaultValue={rgbToHex(fleet[botID].ledState.base.rgbValue)}
+           defaultValue={rgbToHex(fleet[botID].ledState.base.rgbValue.map((x)=>x*255))}
            id = "ledColor"
            ref = {ledColorElemRef}
            size = {15}
            
            onChange={()=>{
             const hex = ledColorElemRef.current!.value
-            const r = parseInt(hex.slice(1, 3), 16)
-            const g = parseInt(hex.slice(3, 5), 16)
-            const b = parseInt(hex.slice(5, 7), 16)
+            const r = parseInt(hex.slice(1, 3), 16)/255
+            const g = parseInt(hex.slice(3, 5), 16)/255
+            const b = parseInt(hex.slice(5, 7), 16)/255
             fleet[botID].ledState.base.rgbValue = [r,g,b]
+
             fleetUpdate(fleet)
            }}>
            </input>
          </td>
        </tr>
+
+       <tr>
+              <th> Led Animation</th>
+              <td>
+                <select 
+                  className=" ui-shadow ui-highlight ui-div h-6 w-32 text-center" 
+                  value={ledAnimationInput}
+                  ref = {ledAnimationElemRef}
+                  onChange={()=>{
+                    if(ledAnimationElemRef.current!.value === "constant"){
+                      fleet[botID].ledState.base.ledAnimation = {flashingFrequency : 0, animationMode : "constant" }
+                      setLedAnimationInput("constant")
+                    }else {
+                      fleet[botID].ledState.base.ledAnimation = {flashingFrequency : 5, animationMode : "flashing" }
+                      setLedAnimationInput("flashing")
+                    }
+                    fleetUpdate(fleet)
+                  }}> 
+                  <option value = "constant" className="bg-zinc-700">Constant</option>
+                  <option value = "flashing" className="bg-zinc-700" >Flashing</option>
+                  
+                </select>
+              </td>
+            </tr>
+
+       { ledAnimationInput  === "flashing" ? (
+            <tr>
+              <th> Flashing Frequency</th>
+              <td>
+                <input
+                  ref={flashingFrequencyElemRef}
+                  type={"number"}
+                  id={"flashingFrequency"}
+                  min={0} 
+                  max={10}
+                  defaultValue={fleet[botID].ledState.base.ledAnimation.flashingFrequency}
+                  onChange={() => {
+                    fleet[botID].ledState.base.ledAnimation.flashingFrequency= parseInt(flashingFrequencyElemRef.current!.value)
+                    fleetUpdate(fleet)
+                  }}
+                ></input>
+              </td>
+            </tr>
+            ) : null}
 
        </tbody>
 
@@ -252,9 +302,7 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
      ) : null
  )
 }
-function rgbToHex([r, g, b]: number[]) {
-  const componentToHex = (c: number) => {
-    const hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;}
-  return ("#" + componentToHex(r) + componentToHex(g) + componentToHex(b));
-}
+
+
+
+

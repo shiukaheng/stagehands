@@ -2,13 +2,16 @@ import { useRef, useState, useContext, useMemo, useCallback } from "react"
 import { BotState, Preset, RecallBotState } from 'schema';
 import _ from "lodash";
 import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
+import { rgbToHex } from "../../../utils/rgbToHex";
 
 /**
  * Component for displaying and editing the attributes of a bot in a preset
  */
-export default function PresetBotAttributesEditor({ bot, name, presetID, botID }: { bot: RecallBotState, name: string | undefined, presetID: string, botID: string }) {
+export default function PresetBotAttributesEditor({ name, presetID, botID }: { name: string | undefined, presetID: string, botID: string }) {
   const provider = useContext(TopicContext);
   const services = useContext(ServiceContext);
+  const [preset, setPreset] = useState<Preset | null>(provider?.stage?.presets.find((preset) => preset.id === presetID)?.value || null)
+  const [bot,setBot] = useState<RecallBotState | null>(provider?.stage?.presets.find((preset) => preset.id === presetID)?.value.state[botID] || null)
 
   const presetUpdate =  useCallback(
     _.debounce((id : string ,newPreset: Preset)=> {
@@ -16,18 +19,23 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
       
       // console.log(newPreset)
       services?.updatePreset.callback({ presetId: id, preset: newPreset })
+      setPreset(newPreset)
+      setBot(newPreset.state[botID])
+      console.log(preset)
+      console.log(bot)
+      
     },100,{"leading" : false, "trailing" : true, 'maxWait' : 100}) 
   , [services?.updatePreset])
 
-  const preset = useMemo(() => {
-    if (provider === null) {
-        console.log("Provider not found")
-        return null;
-    } else {
-        console.log("Finding preset")
-        return provider?.stage?.presets.find((preset) => preset.id === presetID)?.value || null;
-    }
-}, [presetID, provider?.stage?.presets.find((preset) => preset.id === presetID)?.value.state[botID]])
+//   const preset = useMemo(() => {
+//     if (provider === null) {
+//         console.log("Provider not found")
+//         return null;
+//     } else {
+//         console.log("Finding preset")
+//         return provider?.stage?.presets.find((preset) => preset.id === presetID)?.value || null;
+//     }
+// }, [presetID, provider?.stage?.presets.find((preset) => preset.id === presetID)?.value.state[botID]])
   if (preset === undefined) {
     throw new Error("Preset not found")
   }
@@ -42,11 +50,14 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
   const ledAnimationElemRef = useRef<HTMLSelectElement>(null)
   const flashingFrequencyElemRef = useRef<HTMLInputElement>(null)
   const [xValInput , setXValInput] = useState(preset?.state[botID].targetPose.position[0])
+  const [yValInput , setYValInput] = useState(preset?.state[botID].targetPose.position[1])
+  const [ledAnimationInput , setLedAnimationInput] = useState(bot?.baseLEDState.ledAnimation.animationMode)
+
 
 
 
   return (
-    preset !== null ?
+    preset !== null && bot != null ?
     (<div className="h-5/6 overflow-clip pt-5">
       <div className="h-full w-full p-2 overflow-y-auto">
 
@@ -140,11 +151,12 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   id={"micY"}
                   min={0}
                   max={100}
-                  defaultValue={bot.targetPose.position.at(1)}
+                  value={yValInput}
                   onChange={() => {
                     yValRangeElemRef.current!.value = yValInputElemRef.current!.value
                     preset.state[botID].targetPose.position[1] = parseInt(yValInputElemRef.current!.value)
                     presetUpdate(presetID, preset)
+                    setYValInput(preset.state[botID].targetPose.position[1])
                   }}
                 ></input>
               </td>
@@ -159,13 +171,14 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   id={"micXRange"}
                   min={0}
                   max={100}
-                  defaultValue={bot.targetPose.position.at(1)}
+                  value={yValInput}
                   step={1}
 
                   onChange={() => {
                     yValInputElemRef.current!.value = yValRangeElemRef.current!.value
                     preset.state[botID].targetPose.position[1] = parseInt(yValInputElemRef.current!.value)
                     presetUpdate(presetID, preset)
+                    setYValInput(preset.state[botID].targetPose.position[1])
                   }}
                 // onChange = {() => {
                 //   document.getElementById("micX").innerText = document.getElementById("micXRange")
@@ -220,16 +233,16 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
               <td>
                 <input 
                   type = "color"
-                  defaultValue={rgbToHex(bot.baseLEDState.rgbValue)}
+                  defaultValue={rgbToHex(bot.baseLEDState.rgbValue.map((x)=>x*255))}
                   id = "ledColor"
                   ref = {ledColorElemRef}
                   size = {15}
            
                   onChange={()=>{
                     const hex = ledColorElemRef.current!.value
-                    const r = parseInt(hex.slice(1, 3), 16)
-                    const g = parseInt(hex.slice(3, 5), 16)
-                    const b = parseInt(hex.slice(5, 7), 16)
+                    const r = parseInt(hex.slice(1, 3), 16)/255
+                    const g = parseInt(hex.slice(3, 5), 16)/255
+                    const b = parseInt(hex.slice(5, 7), 16)/255
                     preset.state[botID].baseLEDState.rgbValue = [r, g, b]
                     presetUpdate(presetID, preset)
                   }}>
@@ -242,24 +255,28 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
               <td>
                 <select 
                   className=" ui-shadow ui-highlight ui-div h-6 w-32 text-center" 
-                  defaultValue={bot.baseLEDState.ledAnimation.animationMode}
+                  value={ledAnimationInput}
                   ref = {ledAnimationElemRef}
                   onChange={()=>{
                     if(ledAnimationElemRef.current!.value === "constant"){
                       preset.state[botID].baseLEDState.ledAnimation = {flashingFrequency : 0, animationMode : "constant" }
+                      setLedAnimationInput("constant")
                     }else {
                       preset.state[botID].baseLEDState.ledAnimation = {flashingFrequency : 5, animationMode : "flashing" }
+                      setLedAnimationInput("flashing")
                     }
                     presetUpdate(presetID, preset)
+
+                    console.log(ledAnimationInput)
                   }}> 
                   <option value = "constant" className="bg-zinc-700">Constant</option>
-                  <option value = "falshing" className="bg-zinc-700" >Flashing</option>
+                  <option value = "flashing" className="bg-zinc-700" >Flashing</option>
                   
                 </select>
               </td>
             </tr>
 
-            {bot.baseLEDState.ledAnimation.animationMode  === "flashing" ? (
+            { ledAnimationInput  === "flashing" ? (
             <tr>
               <th> Flashing Frequency</th>
               <td>
@@ -278,6 +295,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
               </td>
             </tr>
             ) : null}
+            
 
           </tbody>
         </table>
@@ -287,9 +305,3 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
 }
 
 // pass a list of number as parameter
-function rgbToHex([r, g, b]: number[]) {
-  const componentToHex = (c: number) => {
-    const hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;}
-  return ("#" + componentToHex(r) + componentToHex(g) + componentToHex(b));
-}

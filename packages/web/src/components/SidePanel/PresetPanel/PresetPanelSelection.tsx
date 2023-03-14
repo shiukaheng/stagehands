@@ -43,7 +43,7 @@ export function SidePanelSwitcher() {
 		return (<BotOverviewPanel presetID={componentSelect.presetID} />);
 	} else if (componentSelect.type === "preset_mic_attributes_page") {
 		console.log("preset mic attributes page");
-		return (<PresetBotAttributesEditor bot={componentSelect.bot} name={componentSelect.name} presetID={componentSelect.presetID} botID={componentSelect.botID} />); // TODO add mic attributes page
+		return (<PresetBotAttributesEditor name={componentSelect.name} presetID={componentSelect.presetID} botID={componentSelect.botID} />); // TODO add mic attributes page
 	} else if (componentSelect.type === "live_attributes_page") {
 		console.log("live mic attributes page");
 		return (<LiveBotAttributesEditor bot={componentSelect.bot} botID = {componentSelect.botID} />);

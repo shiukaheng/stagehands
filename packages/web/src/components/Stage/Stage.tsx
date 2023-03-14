@@ -31,9 +31,12 @@ export function Stage() {
         <StageContext.Provider value={{ setCursor }}>
         <color attach="background" args={['#222']} />
         <OrbitControls
-          minDistance={3}
-          maxDistance={30}
+          minDistance={1}
+          maxDistance={7}
         />
+        <spotLight position={[5, 5, 5]} penumbra={1} intensity={0.1}/>
+        <spotLight position={[-5, 5, 5]} penumbra={1} intensity={0.1}/>
+        <spotLight position={[5, 5, -5]} penumbra={1} intensity={0.1}/>
         <StageScene />
         </StageContext.Provider>
       </Canvas>

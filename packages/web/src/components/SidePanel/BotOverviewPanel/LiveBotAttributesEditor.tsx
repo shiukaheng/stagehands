@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useCallback, useRef, useContext } from "react"
+import { useCallback, useRef, useContext, useState } from "react"
 import { BotState, FleetState, getRecallFleetState, RecallFleetState } from 'schema';
 import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
 
@@ -13,6 +13,8 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
  const yValRangeElemRef = useRef<HTMLInputElement>(null)
  const angleinputElemRef = useRef<HTMLInputElement>(null)
  const angleRangeElemRef = useRef<HTMLInputElement>(null)
+ const nameInputElemRef = useRef<HTMLInputElement>(null)
+ const ledColorElemRef = useRef<HTMLInputElement>(null)
 
  const services = useContext(ServiceContext);
  const provider = useContext(TopicContext);
@@ -24,6 +26,7 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
  const fleetUpdate =  useCallback(
   _.debounce((newFleet: FleetState)=> {
     console.log("Updating fleet")
+    // console.log(newFleet)
     services?.recallFleetState.callback(getRecallFleetState(newFleet))
 
   },100,{"leading" : false, "trailing" : true, 'maxWait' : 100}) 
@@ -31,7 +34,7 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
  return (
      fleet !== undefined? (
    <div className="h-full overflow-clip ">
-     <div className="h-full w-full p-2">
+     <div className="h-full w-full p-2 overflow-y-auto">
 
      <table 
        id="attributes"
@@ -44,9 +47,14 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
            <input
              type="text"
              id="micName"
+             ref = {nameInputElemRef}
              className="text-center"
              defaultValue={bot.name}
-             size={11}></input>
+             size={11}
+             onChange = {()=>{
+              fleet[botID].name = nameInputElemRef.current!.value
+              fleetUpdate(fleet)
+              }} ></input>
          </td>
        </tr>
 
@@ -86,7 +94,7 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
              defaultValue={bot.pose.position.at(0)}
              onChange = {() => {
                xValRangeElemRef.current!.value = xValInputElemRef.current!.value
-               fleet[botID].pose.position[0] = parseInt(xValInputElemRef.current!.value)
+               fleet[botID].targetPose.position[0] = parseInt(xValInputElemRef.current!.value)
 
                fleetUpdate(fleet)
              }}
@@ -205,7 +213,7 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
          </td>
        </tr>
      
-       <tr>
+       <tr >
          <th>Battery</th>
          <td>
            <button className="text-center h-6 w-32">
@@ -213,6 +221,29 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
            </button>
          </td>
        </tr>
+
+       <tr>
+         <th>LED </th>
+         <td>
+           <input 
+           type = "color"
+           defaultValue={rgbToHex(fleet[botID].ledState.base.rgbValue)}
+           id = "ledColor"
+           ref = {ledColorElemRef}
+           size = {15}
+           
+           onChange={()=>{
+            const hex = ledColorElemRef.current!.value
+            const r = parseInt(hex.slice(1, 3), 16)
+            const g = parseInt(hex.slice(3, 5), 16)
+            const b = parseInt(hex.slice(5, 7), 16)
+            fleet[botID].ledState.base.rgbValue = [r,g,b]
+            fleetUpdate(fleet)
+           }}>
+           </input>
+         </td>
+       </tr>
+
        </tbody>
 
      </table>
@@ -220,4 +251,10 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
    </div> 
      ) : null
  )
+}
+function rgbToHex([r, g, b]: number[]) {
+  const componentToHex = (c: number) => {
+    const hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;}
+  return ("#" + componentToHex(r) + componentToHex(g) + componentToHex(b));
 }

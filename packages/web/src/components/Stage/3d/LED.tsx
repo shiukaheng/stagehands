@@ -10,7 +10,7 @@ export function LED({ledState, ...props}: {ledState: LEDState} & PointLightProps
 
     useEffect(() => {
         // Copy the new state into the ref
-        console.log("LED", ledState);
+        // console.log("LED", ledState);
         ledStateRef.current = ledState;
     }, [ledState]);
 

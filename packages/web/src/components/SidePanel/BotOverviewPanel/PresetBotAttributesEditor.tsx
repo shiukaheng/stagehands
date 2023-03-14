@@ -1,4 +1,4 @@
-import { useRef, useState, useContext, useMemo } from "react"
+import { useRef, useState, useContext, useMemo, useCallback } from "react"
 import { BotState, Preset, RecallBotState } from 'schema';
 import _ from "lodash";
 import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
@@ -7,14 +7,17 @@ import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
  * Component for displaying and editing the attributes of a bot in a preset
  */
 export default function PresetBotAttributesEditor({ bot, name, presetID, botID }: { bot: RecallBotState, name: string | undefined, presetID: string, botID: string }) {
+  console.log(bot)
   const provider = useContext(TopicContext);
   const preset = useMemo(() => {
     if (provider === null) {
         return null;
     } else {
+        console.log("Finding preset")
         return provider?.stage?.presets.find((preset) => preset.id === presetID)?.value || null;
     }
-}, [presetID, provider?.stage?.presets])
+}, [presetID, provider?.stage?.presets.find((preset) => preset.id === presetID)?.value.state[botID]])
+
   const services = useContext(ServiceContext);
   if (preset === undefined) {
     throw new Error("Preset not found")
@@ -25,7 +28,14 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
   const yValRangeElemRef = useRef<HTMLInputElement>(null)
   const angleinputElemRef = useRef<HTMLInputElement>(null)
   const angleRangeElemRef = useRef<HTMLInputElement>(null)
+  const [xValInput , setXValInput] = useState(preset?.state[botID].targetPose.position[0])
 
+  const presetUpdate =  useCallback(
+    _.debounce((id : string ,newPreset: Preset)=> {
+      console.log("Updating preset")
+      services?.updatePreset.callback({ presetId: id, preset: newPreset })
+    },100,{"leading" : false, "trailing" : true, 'maxWait' : 100}) 
+  , [services?.updatePreset])
 
   return (
     preset !== null ?
@@ -70,13 +80,14 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   min={0}
                   max={100}
 
-                  defaultValue={bot.targetPose.position.at(0)}
+                  value={xValInput}
                   onChange={() => {
                     xValRangeElemRef.current!.value = xValInputElemRef.current!.value
                     preset.state[botID].targetPose.position[0] = parseInt(xValInputElemRef.current!.value)
-                    _.debounce(function() {
-                      services?.updatePreset.callback({ presetId: presetID, preset: preset });
-                    }, 100)
+
+                    presetUpdate(presetID, preset)
+                    setXValInput(preset.state[botID].targetPose.position[0])
+                    console.log(preset.state[botID])
                     // Undercore_.debounce(update({ presetID: presetID, newPreset: preset }), 1000)
                     // Undercore_
 
@@ -95,16 +106,15 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   id={"micXRange"}
                   min={0}
                   max={100}
-                  defaultValue={bot.targetPose.position.at(0)}
+                  value={xValInput}
                   step={1}
                   onChange={() => {
                     // When the range input is changed, useRef to get the input element
                     // and set the value of the input element to the value of the range input
                     xValInputElemRef.current!.value = xValRangeElemRef.current!.value
                     preset.state[botID].targetPose.position[0] = parseInt(xValRangeElemRef.current!.value)
-                    _.debounce(function() {
-                      services?.updatePreset.callback({ presetId: presetID, preset: preset });
-                    }, 100)
+                    presetUpdate(presetID, preset)
+                    setXValInput(preset.state[botID].targetPose.position[0])
 
                   }}
                 ></input>
@@ -125,13 +135,8 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   onChange={() => {
                     yValRangeElemRef.current!.value = yValInputElemRef.current!.value
                     preset.state[botID].targetPose.position[1] = parseInt(yValInputElemRef.current!.value)
-                    _.debounce(function() {
-                      services?.updatePreset.callback({ presetId: presetID, preset: preset });
-                    }, 100)
-
+                    presetUpdate(presetID, preset)
                   }}
-
-
                 ></input>
               </td>
             </tr>
@@ -151,9 +156,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   onChange={() => {
                     yValInputElemRef.current!.value = yValRangeElemRef.current!.value
                     preset.state[botID].targetPose.position[1] = parseInt(yValInputElemRef.current!.value)
-                    _.debounce(function() {
-                      services?.updatePreset.callback({ presetId: presetID, preset: preset });
-                    }, 100)
+                    presetUpdate(presetID, preset)
                   }}
                 // onChange = {() => {
                 //   document.getElementById("micX").innerText = document.getElementById("micXRange")
@@ -177,9 +180,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                     // When the range input is changed, useRef to get the input element
                     // and set the value of the input element to the value of the range input
                     angleRangeElemRef.current!.value = angleinputElemRef.current!.value
-                    _.debounce(function() {
-                      services?.updatePreset.callback({ presetId: presetID, preset: preset });
-                    }, 100)
+                    presetUpdate(presetID, preset)
                   }}
                 ></input>
               </td>
@@ -199,9 +200,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
 
                   onChange={() => {
                     angleinputElemRef.current!.value = angleRangeElemRef.current!.value
-                    _.debounce(function() {
-                      services?.updatePreset.callback({ presetId: presetID, preset: preset });
-                    }, 100)
+                    presetUpdate(presetID, preset)
                   }}
                 ></input>
               </td>

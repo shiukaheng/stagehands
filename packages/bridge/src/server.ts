@@ -1,77 +1,49 @@
 import { serverMetaChannel, TopicServer } from "webtopics"
 import { Server } from "socket.io"
-import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, stopBotService } from "schema"
+import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, stopBotService, reorderPresetsService, runPresetService, registerBotClientIDService } from "schema"
 import { z } from "zod"
 import { ServiceChannel } from "webtopics/dist/utils/Channel"
 import { v4 } from "uuid"
 import { Controller } from "./controller/Controller"
-import { CreatePresetServiceHandler, DeletePresetServiceHandler, EmergencyStopClearServiceHandler, EmergencyStopServiceHandler, RecallFleetStateServiceHandler, StopBotClearServiceHandler, StopBotServiceHandler, UpdatePresetServiceHandler } from "./serviceHandlers"
-import { fleetTopicHandler, newBotClientRegistrationHandler } from "./topicHandler"
-
-
-
-const controller:Controller=Controller.getInstance();
-//publish fleet topic
-controller.serverPub(fleetTopic);
-
-//publish stage topic
-setInterval(()=>controller.serverPub(stageTopic),1000);
-//register new botClient with its botID
-controller.serverSub(serverMetaChannel,newBotClientRegistrationHandler);
-controller.serverSub(fleetTopic,fleetTopicHandler);
-
-
-//create preset service
-controller.runService(createPresetService,CreatePresetServiceHandler);
-//update preset service
-controller.runService(updatePresetService,UpdatePresetServiceHandler);
-//delete preset service
-controller.runService(deletePresetService,DeletePresetServiceHandler);
-//emergency stop service
-controller.runService(emergencyStopService,EmergencyStopServiceHandler);
-//emergency stop clear service
-controller.runService(emergencyStopClearService,EmergencyStopClearServiceHandler);
-//stop particular bot service
-controller.runService(stopBotService,StopBotServiceHandler);
-//clear particular bot stop service
-controller.runService(stopBotClearService,StopBotClearServiceHandler);
-//recall fleet state service
-controller.runService(recallFleetStateService,RecallFleetStateServiceHandler);
+import { CreatePresetServiceHandler, DeletePresetServiceHandler, EmergencyStopClearServiceHandler, EmergencyStopServiceHandler, RecallFleetStateServiceHandler, registerBotClientIDServiceHandler, reorderPresetsServiceHandler, runPresetServiceHandler, StopBotClearServiceHandler, StopBotServiceHandler, UpdatePresetServiceHandler } from "./serviceHandlers"
+import { fleetTopicHandler } from "./topicHandler"
 
 
 export class bridgeServer{
+    private controller:Controller;
     constructor(){
-        const controller:Controller=Controller.getInstance();
+        this.controller =  new Controller(3000);
         //publish fleet topic
-        controller.serverPub(fleetTopic);
-
-        //publish stage topic
-        setInterval(()=>controller.serverPub(stageTopic),1000);
+        //controller.serverPub(fleetTopic);
         //register new botClient with its botID
-        controller.serverSub(serverMetaChannel,newBotClientRegistrationHandler);
-        controller.serverSub(fleetTopic,fleetTopicHandler);
-
-
+        //controller.serverSub(serverMetaChannel,newBotClientRegistrationHandler);
+        this.controller.serverSub(fleetTopic,fleetTopicHandler);
+        //register bot client ID
+        this.controller.runService(registerBotClientIDService,registerBotClientIDServiceHandler);
         //create preset service
-        controller.runService(createPresetService,CreatePresetServiceHandler);
+        this.controller.runService(createPresetService,CreatePresetServiceHandler);
         //update preset service
-        controller.runService(updatePresetService,UpdatePresetServiceHandler);
+        this.controller.runService(updatePresetService,UpdatePresetServiceHandler);
         //delete preset service
-        controller.runService(deletePresetService,DeletePresetServiceHandler);
+        this.controller.runService(deletePresetService,DeletePresetServiceHandler);
         //emergency stop service
-        controller.runService(emergencyStopService,EmergencyStopServiceHandler);
+        this.controller.runService(emergencyStopService,EmergencyStopServiceHandler);
         //emergency stop clear service
-        controller.runService(emergencyStopClearService,EmergencyStopClearServiceHandler);
+        this.controller.runService(emergencyStopClearService,EmergencyStopClearServiceHandler);
         //stop particular bot service
-        controller.runService(stopBotService,StopBotServiceHandler);
+        this.controller.runService(stopBotService,StopBotServiceHandler);
         //clear particular bot stop service
-        controller.runService(stopBotClearService,StopBotClearServiceHandler);
+        this.controller.runService(stopBotClearService,StopBotClearServiceHandler);
         //recall fleet state service
-        controller.runService(recallFleetStateService,RecallFleetStateServiceHandler);
+        this.controller.runService(recallFleetStateService,RecallFleetStateServiceHandler);
+        //Reorder presets service
+        this.controller.runService(reorderPresetsService,reorderPresetsServiceHandler);
+        //Run preset service
+        this.controller.runService(runPresetService,runPresetServiceHandler);
     }
 
     public getController(){
-        return controller;
+        return this.controller;
     }
 }
 

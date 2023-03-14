@@ -8,7 +8,7 @@ export class Controller {
     private context: Context;
 
 
-    private static controller:Controller;
+
     private _server: TopicServer;
 
     constructor(port:number=3000) {
@@ -17,19 +17,13 @@ export class Controller {
         console.log(`✅ bridge server running on port ${port}`);
         
     }
-    public static getInstance():Controller{
-        if (this.controller===undefined){
-            this.controller=new Controller();
-        }
-        return this.controller;
-    }
 
-    public async runService(serviceChannel:ServiceChannel<any,any>,serviceHandler:(requestData:any,context:Context)=>any){
+
+    public async runService(serviceChannel:ServiceChannel<any,any>,serviceHandler:(requestData:any,context:Context,server:TopicServer)=>any){
         this.server.srv(serviceChannel, (req)=>
         {
-            return serviceHandler(req,this.context);
-        })
-            
+            return serviceHandler(req,this.context,this._server);
+        })   
         }
     
     public serverPub(topicChannel:TopicChannel<any>){

@@ -2,14 +2,14 @@ import {bridgeServer} from "../server";
 import { io } from "socket.io-client";
 import { TopicServer, createTopic,TopicClient } from "webtopics"
 import { botIDRegistrationService, createPresetService, deletePresetService, fleetTopic, Preset, recallBotStateSchema, recallBotStateService, recallFleetStateService, updatePresetService } from "schema";
-import { dummyBot } from "./utils/dummyBot";
+import { dummyBotClient } from "./utils/dummyBotClient";
 import {expect,test} from "@jest/globals";
 import isEqual from "lodash";
 const server = new bridgeServer();
 const serverController = server.getController();
 const dummyWebClient = new TopicClient(io("http://localhost:3000"))
-const dummyBot1 = new dummyBot("1");
-const dummyBot2 = new dummyBot("2");
+const dummyBot1 = new dummyBotClient("1");
+const dummyBot2 = new dummyBotClient("2");
 const dummyBot1Client = new TopicClient(io("http://localhost:3000"))
 const dummyBot2Client = new TopicClient(io("http://localhost:3000"))
 
@@ -32,6 +32,7 @@ const testPreset1 :Preset= {
             module:{
                 type: "nullModule",
                 state: null,
+                
             }
 
     },
@@ -164,8 +165,8 @@ function botRecallStateService(){
 }
 
 function pubFleetState() {
-    dummyBot1Client.pub(fleetTopic,{"1":dummyBot1.getBotState()});
-    dummyBot2Client.pub(fleetTopic,{"2":dummyBot2.getBotState()});
+    dummyBot1Client.pub(fleetTopic,{"1":dummyBot1.getCurrentBotState()});
+    dummyBot2Client.pub(fleetTopic,{"2":dummyBot2.getCurrentBotState()});
     
 
 }
@@ -255,14 +256,18 @@ setTimeout(()=>{
     recallPreset2Test();
 },2000)
 
+setTimeout(()=>{
+    console.log(serverController.getContext().getCurrentBotState());
+    
+},2000)
 
 
 //Jest Test
 
 // test("create preset1", (done)=>{
-
+    
 //     console.log("webClient send request to create preset1");
-//     dummyWebClient.req(createPresetService,serverID,testPreset1);
+//     dummyWebClient.req(createPresetService,"serverID",testPreset1);
 
 //     setTimeout(()=>{
 //         const context = serverController.getContext();

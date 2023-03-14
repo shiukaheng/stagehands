@@ -61,6 +61,7 @@ export class FakeBridgeServer {
             // Update the fleet state
             for (const [botName, recallBotState] of Object.entries(newFleetState)) {
                 const bot = this.fleetState[botName]
+                bot.name = recallBotState.name
                 bot.targetPose = recallBotState.targetPose
                 bot.module.state = recallBotState.module.state
                 bot.ledState.base = recallBotState.baseLEDState

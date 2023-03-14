@@ -7,40 +7,48 @@ import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
  * Component for displaying and editing the attributes of a bot in a preset
  */
 export default function PresetBotAttributesEditor({ bot, name, presetID, botID }: { bot: RecallBotState, name: string | undefined, presetID: string, botID: string }) {
-  console.log(bot)
   const provider = useContext(TopicContext);
+  const services = useContext(ServiceContext);
+
+  const presetUpdate =  useCallback(
+    _.debounce((id : string ,newPreset: Preset)=> {
+      console.log("Updating preset")
+      
+      // console.log(newPreset)
+      services?.updatePreset.callback({ presetId: id, preset: newPreset })
+    },100,{"leading" : false, "trailing" : true, 'maxWait' : 100}) 
+  , [services?.updatePreset])
+
   const preset = useMemo(() => {
     if (provider === null) {
+        console.log("Provider not found")
         return null;
     } else {
         console.log("Finding preset")
         return provider?.stage?.presets.find((preset) => preset.id === presetID)?.value || null;
     }
 }, [presetID, provider?.stage?.presets.find((preset) => preset.id === presetID)?.value.state[botID]])
-
-  const services = useContext(ServiceContext);
   if (preset === undefined) {
     throw new Error("Preset not found")
   }
+
   const xValInputElemRef = useRef<HTMLInputElement>(null)
   const xValRangeElemRef = useRef<HTMLInputElement>(null)
   const yValInputElemRef = useRef<HTMLInputElement>(null)
   const yValRangeElemRef = useRef<HTMLInputElement>(null)
   const angleinputElemRef = useRef<HTMLInputElement>(null)
   const angleRangeElemRef = useRef<HTMLInputElement>(null)
+  const ledColorElemRef = useRef<HTMLInputElement>(null)
+  const ledAnimationElemRef = useRef<HTMLSelectElement>(null)
+  const flashingFrequencyElemRef = useRef<HTMLInputElement>(null)
   const [xValInput , setXValInput] = useState(preset?.state[botID].targetPose.position[0])
 
-  const presetUpdate =  useCallback(
-    _.debounce((id : string ,newPreset: Preset)=> {
-      console.log("Updating preset")
-      services?.updatePreset.callback({ presetId: id, preset: newPreset })
-    },100,{"leading" : false, "trailing" : true, 'maxWait' : 100}) 
-  , [services?.updatePreset])
+
 
   return (
     preset !== null ?
     (<div className="h-5/6 overflow-clip pt-5">
-      <div className="h-full w-full p-2">
+      <div className="h-full w-full p-2 overflow-y-auto">
 
         <table
           id="attributes"
@@ -54,6 +62,7 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                   type="text"
                   id="micName"
                   defaultValue={name}
+                  readOnly = {true}
                   size={11}>
                   </input>
               </td>
@@ -205,10 +214,82 @@ export default function PresetBotAttributesEditor({ bot, name, presetID, botID }
                 ></input>
               </td>
             </tr>
-          </tbody>
 
+            <tr>
+              <th>LED </th>
+              <td>
+                <input 
+                  type = "color"
+                  defaultValue={rgbToHex(bot.baseLEDState.rgbValue)}
+                  id = "ledColor"
+                  ref = {ledColorElemRef}
+                  size = {15}
+           
+                  onChange={()=>{
+                    const hex = ledColorElemRef.current!.value
+                    const r = parseInt(hex.slice(1, 3), 16)
+                    const g = parseInt(hex.slice(3, 5), 16)
+                    const b = parseInt(hex.slice(5, 7), 16)
+                    preset.state[botID].baseLEDState.rgbValue = [r, g, b]
+                    presetUpdate(presetID, preset)
+                  }}>
+                </input>
+              </td>
+            </tr>
+
+            <tr>
+              <th> Led Animation</th>
+              <td>
+                <select 
+                  className=" ui-shadow ui-highlight ui-div h-6 w-32 text-center" 
+                  defaultValue={bot.baseLEDState.ledAnimation.animationMode}
+                  ref = {ledAnimationElemRef}
+                  onChange={()=>{
+                    if(ledAnimationElemRef.current!.value === "constant"){
+                      preset.state[botID].baseLEDState.ledAnimation = {flashingFrequency : 0, animationMode : "constant" }
+                    }else {
+                      preset.state[botID].baseLEDState.ledAnimation = {flashingFrequency : 5, animationMode : "flashing" }
+                    }
+                    presetUpdate(presetID, preset)
+                  }}> 
+                  <option value = "constant" className="bg-zinc-700">Constant</option>
+                  <option value = "falshing" className="bg-zinc-700" >Flashing</option>
+                  
+                </select>
+              </td>
+            </tr>
+
+            {bot.baseLEDState.ledAnimation.animationMode  === "flashing" ? (
+            <tr>
+              <th> Flashing Frequency</th>
+              <td>
+                <input
+                  ref={flashingFrequencyElemRef}
+                  type={"number"}
+                  id={"flashingFrequency"}
+                  min={0} 
+                  max={10}
+                  defaultValue={bot.baseLEDState.ledAnimation.flashingFrequency}
+                  onChange={() => {
+                    preset.state[botID].baseLEDState.ledAnimation.flashingFrequency = parseInt(flashingFrequencyElemRef.current!.value)
+                    presetUpdate(presetID, preset)
+                  }}
+                ></input>
+              </td>
+            </tr>
+            ) : null}
+
+          </tbody>
         </table>
       </div>
     </div>) : null
   )
+}
+
+// pass a list of number as parameter
+function rgbToHex([r, g, b]: number[]) {
+  const componentToHex = (c: number) => {
+    const hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;}
+  return ("#" + componentToHex(r) + componentToHex(g) + componentToHex(b));
 }

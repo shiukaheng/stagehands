@@ -28,6 +28,7 @@ export type BotState = z.infer<typeof botStateSchema>;
 
 // Bits of the bot state that can be recalled
 export const recallBotStateSchema = z.object({
+    name : z.string(),
     targetPose: poseSchema, // The robot will move back to this pose
     baseLEDState: ledStateSchema, // The robot will set its base LED state to this
     module: z.object({
@@ -62,6 +63,7 @@ export type RecallFleetState = z.infer<typeof recallFleetStateSchema>;
  */
 export function getRecallBotState(botState: BotState): RecallBotState {
     return {
+        name : botState.name,
         targetPose: botState.targetPose,
         baseLEDState: botState.ledState.base,
         module: {

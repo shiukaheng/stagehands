@@ -50,7 +50,7 @@ export default function PresetBotAttributesEditor({ name, presetID, botID }: { n
   const ledAnimationElemRef = useRef<HTMLSelectElement>(null)
   const flashingFrequencyElemRef = useRef<HTMLInputElement>(null)
   const [xValInput , setXValInput] = useState(preset?.state[botID].targetPose.position[0])
-  const [yValInput , setYValInput] = useState(preset?.state[botID].targetPose.position[1])
+  const [yValInput , setYValInput] = useState(preset?.state[botID].targetPose.position[2])
   const [ledAnimationInput , setLedAnimationInput] = useState(bot?.baseLEDState.ledAnimation.animationMode)
 
 
@@ -154,9 +154,9 @@ export default function PresetBotAttributesEditor({ name, presetID, botID }: { n
                   value={yValInput}
                   onChange={() => {
                     yValRangeElemRef.current!.value = yValInputElemRef.current!.value
-                    preset.state[botID].targetPose.position[1] = parseInt(yValInputElemRef.current!.value)
+                    preset.state[botID].targetPose.position[2] = parseInt(yValInputElemRef.current!.value)
                     presetUpdate(presetID, preset)
-                    setYValInput(preset.state[botID].targetPose.position[1])
+                    setYValInput(preset.state[botID].targetPose.position[2])
                   }}
                 ></input>
               </td>
@@ -176,9 +176,9 @@ export default function PresetBotAttributesEditor({ name, presetID, botID }: { n
 
                   onChange={() => {
                     yValInputElemRef.current!.value = yValRangeElemRef.current!.value
-                    preset.state[botID].targetPose.position[1] = parseInt(yValInputElemRef.current!.value)
+                    preset.state[botID].targetPose.position[2] = parseInt(yValInputElemRef.current!.value)
                     presetUpdate(presetID, preset)
-                    setYValInput(preset.state[botID].targetPose.position[1])
+                    setYValInput(preset.state[botID].targetPose.position[2])
                   }}
                 // onChange = {() => {
                 //   document.getElementById("micX").innerText = document.getElementById("micXRange")

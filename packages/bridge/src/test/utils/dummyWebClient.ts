@@ -7,18 +7,21 @@ export class dummyWebClient{
     private webClient:TopicClient;
 
     
-    constructor(port:number=3000){
+    constructor (port:number=3000){
         this.webClient =new TopicClient(io(`http://localhost:${port}`))
         this.stageState={
             presets: [],
             activePreset: "NoActivePreset",
             presetRecallState: "idle",
-            boundary: null as any,
+            boundary: {
+                polygonVertexCoordinates: []
+            },
         }
 
     }
-    public  topicSub() {
+    public topicSub() {
         this.webClient.sub(stageTopic,(stageState)=>{
+
             this.stageState = stageState;
         })
     }

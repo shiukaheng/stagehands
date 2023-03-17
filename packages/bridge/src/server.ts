@@ -1,11 +1,11 @@
 import { serverMetaChannel, TopicServer } from "webtopics"
 import { Server } from "socket.io"
-import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, stopBotService, reorderPresetsService, runPresetService, registerBotClientIDService } from "schema"
+import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, stopBotService, reorderPresetsService, runPresetService, registerBotClientIDService, overWriteBotLEDService, clearBotLEDOverwriteService, overWriteLEDService, clearLEDOverwriteService } from "schema"
 import { z } from "zod"
 import { ServiceChannel } from "webtopics/dist/utils/Channel"
 import { v4 } from "uuid"
 import { Controller } from "./controller/Controller"
-import { CreatePresetServiceHandler, DeletePresetServiceHandler, EmergencyStopClearServiceHandler, EmergencyStopServiceHandler, RecallFleetStateServiceHandler, registerBotClientIDServiceHandler, reorderPresetsServiceHandler, runPresetServiceHandler, StopBotClearServiceHandler, StopBotServiceHandler, UpdatePresetServiceHandler } from "./serviceHandlers"
+import { clearBotLEDOverwriteServiceHandler, clearLEDOverwriteServiceHandler, CreatePresetServiceHandler, DeletePresetServiceHandler, EmergencyStopClearServiceHandler, EmergencyStopServiceHandler, overWriteBotLEDServiceHandler, overWriteLEDServiceHandler, RecallFleetStateServiceHandler, registerBotClientIDServiceHandler, reorderPresetsServiceHandler, runPresetServiceHandler, StopBotClearServiceHandler, StopBotServiceHandler, UpdatePresetServiceHandler } from "./serviceHandlers"
 import { fleetTopicHandler } from "./topicHandler"
 
 
@@ -14,7 +14,7 @@ export class bridgeServer{
     constructor(){
         this.controller =  new Controller(3000);
         //publish fleet topic
-        //controller.serverPub(fleetTopic);
+        this.controller.serverPub(stageTopic);
         //register new botClient with its botID
         //controller.serverSub(serverMetaChannel,newBotClientRegistrationHandler);
         this.controller.serverSub(fleetTopic,fleetTopicHandler);
@@ -40,6 +40,14 @@ export class bridgeServer{
         this.controller.runService(reorderPresetsService,reorderPresetsServiceHandler);
         //Run preset service
         this.controller.runService(runPresetService,runPresetServiceHandler);
+        //overwrite Bot LED Service
+        this.controller.runService(overWriteBotLEDService,overWriteBotLEDServiceHandler);
+        //clear bot's led overwrite service
+        this.controller.runService(clearBotLEDOverwriteService,clearBotLEDOverwriteServiceHandler);
+        //overwrite all bot's led service
+        this.controller.runService(overWriteLEDService,overWriteLEDServiceHandler);
+        //clear all bot's led overwrite service
+        this.controller.runService(clearLEDOverwriteService,clearLEDOverwriteServiceHandler);
     }
 
     public getController(){

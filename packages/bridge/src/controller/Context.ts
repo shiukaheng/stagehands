@@ -14,7 +14,9 @@ export class Context {
             presets: [],
             activePreset: "NoActivePreset",
             presetRecallState: "idle",
-            boundary: null as any,
+            boundary: {
+                polygonVertexCoordinates: []
+            },
         };
         this.botClientIDMap=new Map<string,string>();
         this.clientBotIDMap=new Map<string,string>();

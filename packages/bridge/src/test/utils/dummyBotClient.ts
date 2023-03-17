@@ -5,6 +5,9 @@ import cloneDeep from 'lodash/cloneDeep'
 export class dummyBotClient{
     private currentBotState:BotState;
     private targetBotState:BotState;
+
+    
+
     private botClient:TopicClient;
 
     
@@ -45,10 +48,10 @@ export class dummyBotClient{
         this.currentBotState.pose=pose;
     }
     public runBotServices(){
-        this.botClient.srv(botIDRegistrationService,(req)=>{
-            console.log("botIDRegistrationService running");
-            return this.currentBotState.name;
-        })
+        // this.botClient.srv(botIDRegistrationService,(req)=>{
+        //     console.log("botIDRegistrationService running");
+        //     return this.currentBotState.name;
+        // })
         this.botClient.srv(recallBotStateService, (req)=>
         {
            this.targetBotState.targetPose = req.targetPose;
@@ -56,29 +59,31 @@ export class dummyBotClient{
            this.targetBotState.ledState.base=req.baseLEDState;
 
         })   
-        // this.botClient.srv(stopService,(req)=>{
-        //     console.log("stopService running");
-            
-        //     this.targetBotState.stopped=true;
-        // })
+        this.botClient.srv(stopService,(req)=>{
+            this.targetBotState.stopped=true;
+        })
 
-        // this.botClient.srv(clearStopService,(req)=>{
-        //     this.targetBotState.stopped=false;
-        // })
+        this.botClient.srv(clearStopService,(req)=>{
+            this.targetBotState.stopped=false;
+        })
 
-        // this.botClient.srv(LEDOverwriteService,(req)=>{
-        //     this.targetBotState.ledState.systemOverride=req;
-        // })
+        this.botClient.srv(LEDOverwriteService,(req)=>{
+            this.targetBotState.ledState.systemOverride=req;
+        })
 
-        // this.botClient.srv(restoreLEDService,(req)=>{
-        //     this.targetBotState.ledState.systemOverride=undefined;
-        // })
+        this.botClient.srv(restoreLEDService,(req)=>{
+            this.targetBotState.ledState.systemOverride=undefined;
+        })
         
         
         }
     
     public topicPub(){
         const botID = this.targetBotState.name;
+        // console.log("topic publish");
+        // console.log({[botID]:this.currentBotState});
+        
+        
         this.botClient.pub(fleetTopic,{[botID]:this.currentBotState})
     }
     public async registerID(){
@@ -115,5 +120,11 @@ export class dummyBotClient{
     public setBotClient(botClient: TopicClient): void {
         this.botClient = botClient;
     }
+    public getTargetBotState(): BotState {
+        return this.targetBotState;
+    }
 
+    public setTargetBotState(targetBotState: BotState): void {
+        this.targetBotState = targetBotState;
+    }
 }

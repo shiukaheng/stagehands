@@ -1,5 +1,5 @@
 import { Context } from "./Context";
-import { JSONValue, TopicServer } from "webtopics";
+import { JSONValue, RequestType, ServiceResponseType, TopicServer } from "webtopics";
 import { Server } from "socket.io";
 import { Channel } from "webtopics";
 import { ServiceChannel,TopicChannel } from "webtopics";
@@ -19,7 +19,8 @@ export class Controller {
     }
 
 
-    public async runService(serviceChannel:ServiceChannel<any,any>,serviceHandler:(requestData:any,context:Context,server:TopicServer)=>any){
+    public async runService<T extends RequestType,U extends ServiceResponseType>(serviceChannel:ServiceChannel<any,any>,serviceHandler:(requestData:any,context:Context,server:TopicServer)=>any){
+        
         this.server.srv(serviceChannel, (req)=>
         {
             return serviceHandler(req,this.context,this._server);

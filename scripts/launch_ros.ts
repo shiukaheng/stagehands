@@ -1,10 +1,11 @@
+// @ts-ignore - No types for ascii-art
 import chalk = require("chalk");
 import { ChildProcess, spawn } from "child_process";
 import { dockerInstalled, getOS, getWindowsXServer, launchVcxsrv, wslInstalled, wslVersion } from "./lib";
 const art = require('ascii-art');
 
 // Print the ascii art
-art.font('StageHands', 'Doom', function(err, rendered){
+art.font('StageHands', 'Doom', function(err: any, rendered: any){
     console.log(
         chalk.magentaBright.bold(rendered)
     );

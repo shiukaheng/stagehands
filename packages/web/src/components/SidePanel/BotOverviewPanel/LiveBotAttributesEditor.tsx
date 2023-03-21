@@ -3,6 +3,7 @@ import { useCallback, useRef, useContext, useState } from "react"
 import { BotState, FleetState, getRecallFleetState, RecallFleetState } from 'schema';
 import { rgbToHex } from "../../../utils/rgbToHex";
 import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
+import { hexTorgb } from "../../../utils/hexTorgb";
 
 /**
  * Component for displaying and editing the live attributes of a bot
@@ -251,10 +252,8 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
            
            onChange={()=>{
             const hex = ledColorElemRef.current!.value
-            const r = parseInt(hex.slice(1, 3), 16)/255
-            const g = parseInt(hex.slice(3, 5), 16)/255
-            const b = parseInt(hex.slice(5, 7), 16)/255
-            fleet[botID].ledState.base.rgbValue = [r,g,b]
+            
+            fleet[botID].ledState.base.rgbValue = hexTorgb(hex)
 
             fleetUpdate(fleet)
            }}>

@@ -4,7 +4,7 @@ import rosnodejs from 'rosnodejs';
 const stagehands_ros_msgs = rosnodejs.require('stagehands_ros').msg;
 import { TopicClient } from "webtopics";
 import io from "socket.io-client";
-import channels from "./schemas/channels.js";
+import { fleetTopic } from "schema";
 
 function pose_listener() {
     rosnodejs.initNode('interface').then((nodeHandle) => {
@@ -44,6 +44,4 @@ function pose_listener() {
     });
 }
 
-if (require.main == module) {
-    pose_listener();
-}
+pose_listener()

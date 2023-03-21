@@ -1540,6 +1540,12 @@ pkgcfg_lib_bullet_LinearMath:FILEPATH=/usr/lib/x86_64-linux-gnu/libLinearMath.so
 //The directory containing a CMake configuration file for pluginlib.
 pluginlib_DIR:PATH=/opt/ros/noetic/share/pluginlib/cmake
 
+//Value Computed by CMake
+ros_autonomous_slam_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/ros_autonomous_slam
+
+//Value Computed by CMake
+ros_autonomous_slam_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/ros_autonomous_slam
+
 //The directory containing a CMake configuration file for rosbag.
 rosbag_DIR:PATH=/opt/ros/noetic/share/rosbag/cmake
 
@@ -1653,6 +1659,24 @@ spacenav_node_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/st
 
 //Value Computed by CMake
 spacenav_node_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/joystick_drivers/spacenav_node
+
+//Value Computed by CMake
+stagehands_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/stagehands
+
+//Value Computed by CMake
+stagehands_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/stagehands
+
+//Value Computed by CMake
+stagehands_custom_nodes_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/custom_nodes
+
+//Value Computed by CMake
+stagehands_custom_nodes_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/custom_nodes
+
+//Value Computed by CMake
+stagehands_ros_BINARY_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/build/stagehands_ros
+
+//Value Computed by CMake
+stagehands_ros_SOURCE_DIR:STATIC=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/stagehands_ros
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/noetic/share/std_msgs/cmake
@@ -2071,7 +2095,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=79
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=81
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -2132,7 +2156,7 @@ CURL_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 CURL_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 DART_DEFINITIONS:INTERNAL=
 DART_INCLUDE_DIRS:INTERNAL=/usr/include
-DART_LIBRARIES:INTERNAL=dart;dart;dart;dart;dart;dart;dart;dart
+DART_LIBRARIES:INTERNAL=dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart
 //Boost min version requirement
 DART_MIN_BOOST_VERSION:INTERNAL=1.58.0
 DART_dart_DEFINITIONS:INTERNAL=
@@ -2157,7 +2181,7 @@ FIND_PACKAGE_MESSAGE_DETAILS_CSPARSE:INTERNAL=[/usr/include/suitesparse][/usr/li
 //Details about finding CURL
 FIND_PACKAGE_MESSAGE_DETAILS_CURL:INTERNAL=[/usr/lib/x86_64-linux-gnu/libcurl.so][/usr/include/x86_64-linux-gnu][c ][v7.68.0()]
 //Details about finding DART
-FIND_PACKAGE_MESSAGE_DETAILS_DART:INTERNAL=[/usr/include][dart;dart;dart;dart;dart;dart;dart;dart][cfound components: dart ][v(6.6)]
+FIND_PACKAGE_MESSAGE_DETAILS_DART:INTERNAL=[/usr/include][dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart][cfound components: dart ][v(6.6)]
 //Details about finding DL
 FIND_PACKAGE_MESSAGE_DETAILS_DL:INTERNAL=[true][v()]
 //Details about finding Eigen3

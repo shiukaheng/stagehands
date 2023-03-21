@@ -81,8 +81,7 @@ int NearestFrontierPlanner::findExplorationTarget(GridMap* map, unsigned int sta
 		return EXPL_TARGET_SET;
 	}else
 	{
-		if(cellCount > 50) // get fucked kasperski why's it 50 you big bitch
-		//if(cellCount > 200)
+		if(cellCount > 50)
 			return EXPL_FINISHED;
 		else
 			return EXPL_FAILED;

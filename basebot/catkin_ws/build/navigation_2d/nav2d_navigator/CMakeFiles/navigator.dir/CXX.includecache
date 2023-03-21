@@ -840,12 +840,6 @@ set
 map
 -
 
-/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/navigation_2d/nav2d_navigator/src/navigator.cpp
-ros/ros.h
--
-nav2d_navigator/RobotNavigator.h
--
-
 /opt/ros/noetic/include/actionlib/action_definition.h
 
 /opt/ros/noetic/include/actionlib/decl.h

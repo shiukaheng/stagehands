@@ -96,12 +96,19 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
              min={0}
              max={100}
              
-             defaultValue={bot.pose.position.at(0)}
+             defaultValue={bot.targetPose.position.at(0)}
              onChange = {() => {
-               xValRangeElemRef.current!.value = xValInputElemRef.current!.value
-               fleet[botID].targetPose.position[0] = parseInt(xValInputElemRef.current!.value)
+               const xVal = parseInt(xValInputElemRef.current!.value)
+               if( xVal <= 100 && xVal >= 0){
+                xValRangeElemRef.current!.value = xValInputElemRef.current!.value
+                fleet[botID].targetPose.position[0] = xVal
+                fleetUpdate(fleet)
+               }else{ 
+                alert ("X value must be between 0 and 100")
+                console.log(bot)
+                xValInputElemRef.current!.value = xValRangeElemRef.current!.value}
+               
 
-               fleetUpdate(fleet)
              }}
              
              ></input>
@@ -117,7 +124,7 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
              id = {"micXRange"}
              min = {0}
              max = {100}
-             defaultValue = {bot.pose.position.at(0)}
+             defaultValue = {bot.targetPose.position.at(0)!}
              step = {1}
              onChange = {() => {
                // When the range input is changed, useRef to get the input element
@@ -141,13 +148,18 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
              id={"micY"}
              min={0}
              max={100}
-             defaultValue={bot.pose.position.at(1)}
+             defaultValue={bot.targetPose.position.at(2)!}
              onChange = {() => {
+
+              const yVal = parseInt(yValInputElemRef.current!.value)
+              if( yVal <= 100 && yVal >= 0){
                yValRangeElemRef.current!.value = yValInputElemRef.current!.value
                fleet[botID].targetPose.position[2] = parseInt(yValInputElemRef.current!.value)
-
                fleetUpdate(fleet)
-             }}
+             } else{
+                alert ("Y value must be between 0 and 100")
+                yValInputElemRef.current!.value = yValRangeElemRef.current!.value
+            }}}
              
              
              ></input>
@@ -163,7 +175,7 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
              id = {"micXRange"}
              min = {0}
              max = {100}
-             defaultValue = {bot.pose.position.at(1)}
+             defaultValue = {bot.targetPose.position.at(2)!}
              step = {1}
 
              onChange = {() => {

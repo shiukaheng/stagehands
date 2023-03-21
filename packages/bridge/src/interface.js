@@ -3,6 +3,7 @@
 const rosnodejs = require('rosnodejs');
 const stagehands_ros_msgs = rosnodejs.require('stagehands_ros').msg;
 const stagehands_ros_srv = rosnodejs.require('stagehands_ros').srv;
+const server = require('bridgeServer');
 
 function pose_listener() {
     rosnodejs.initNode('interface').then((nodeHandle) => {

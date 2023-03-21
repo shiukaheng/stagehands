@@ -1,0 +1,8 @@
+prefix=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/install
+
+Name: stagehands_custom_nodes
+Description: Description of stagehands_custom_nodes
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

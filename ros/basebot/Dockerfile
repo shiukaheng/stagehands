@@ -23,9 +23,6 @@ RUN apt-get install -y ros-noetic-rqt
 RUN apt-get install -y libgazebo11-dev
 RUN apt-get install -y python3-roslaunch
 
-# Nodejs
-RUN apt-get install -y nodejs npm
-
 # Development
 RUN apt-get install -y python3-catkin-tools
 RUN apt-get install -y nano
@@ -39,6 +36,15 @@ RUN apt-get install -y wget
 RUN apt-get install -y dos2unix
 RUN apt-get install -y curl
 
+# Install latest version of NodeJS
+RUN echo "Installing latest version of NodeJS"
+RUN /bin/bash -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash"
+
+# Add the "~/.nvm" directory to the PATH
+ENV NVM_DIR=/root/.nvm
+# Install the latest version of NodeJS
+RUN /bin/bash -c "source $NVM_DIR/nvm.sh; nvm install node"
+
 # More ROS
 RUN apt-get install -y ros-noetic-nav2d
 RUN apt-get install -y ros-noetic-stage-ros
@@ -49,6 +55,14 @@ WORKDIR /catkin_ws/src
 
 # Copy .src files into the catkin_ws/src folder:
 COPY ./ros/basebot/src/ .
+
+# Copy stagehands javascript codebase into the catkin_ws/src folder:
+COPY ../packages ./stagehands-js/packages
+COPY ../package.json ./stagehands-js
+COPY ../package-lock.json ./stagehands-js
+
+# Build the npm workspace
+RUN /bin/bash -c "source ${NVM_DIR}/nvm.sh; cd stagehands-js; npm install; npm run build-schema"
 
 # Set the working directory to catkin_ws 
 WORKDIR /catkin_ws
@@ -80,6 +94,9 @@ RUN dos2unix /scripts/*
 
 # Set the working directory to the scripts directory
 WORKDIR /scripts
+
+# Add dos2unix of init.sh to .bashrc
+RUN echo "dos2unix /scripts/init.sh" >> ~/.bashrc
 
 # Add the init script to the bashrc
 RUN echo "source /scripts/init.sh" >> ~/.bashrc

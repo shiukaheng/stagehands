@@ -11,6 +11,9 @@ services:
       - ./basebot/src:/catkin_ws/src
       - ./basebot/map:/map
       - ./basebot/scripts:/scripts
+      - ../packages:/catkin_ws/src/stagehands-js/packages
+      - ../package.json:/catkin_ws/src/stagehands-js/package.json
+      - ../package-lock.json:/catkin_ws/src/stagehands-js/package-lock.json
       - /catkin_ws/devel
       - /catkin_ws/build
       - /catkin_ws/logs

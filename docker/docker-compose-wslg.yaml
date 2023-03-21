@@ -3,7 +3,7 @@ services:
   ros-dev:
     build:
       context: ../
-      dockerfile: ./ros/basebot/Dockerfile
+      dockerfile: ./docker/basebot/Dockerfile
     container_name: basebot-dev-container
     volumes:
       - ./basebot/.vscode:/catkin_ws/.vscode

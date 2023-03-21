@@ -1,8 +1,0 @@
-prefix=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel
-
-Name: nav2d_tutorials
-Description: Description of nav2d_tutorials
-Version: 0.4.3
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -55,19 +55,19 @@ art.font('StageHands', 'Doom', function(err: any, rendered: any){
     if (sys.os === "win32" && sys.winX === "wslg") {
         console.log(chalk.cyanBright("Launching in WSLg mode..."));
         // Run the windows batch file ./ros/launch_wslg.bat using cmd /c
-        launch = spawn('cmd', ['/c', 'launch_wslg.bat'], { stdio: 'inherit', cwd: './ros' });
+        launch = spawn('cmd', ['/c', 'launch_wslg.bat'], { stdio: 'inherit', cwd: './docker' });
     } else if (sys.os === "win32") {
         console.log(chalk.cyanBright("Launching in WSL mode..."));
         // Similar but launch_wsl.bat
-        launch = spawn('cmd', ['/c', 'launch_wsl.bat'], { stdio: 'inherit', cwd: './ros' });
+        launch = spawn('cmd', ['/c', 'launch_wsl.bat'], { stdio: 'inherit', cwd: './docker' });
     } else if (sys.os === "linux") {
         // Similar but using ./ros/launch_linux.sh and the default shell
         console.log(chalk.cyanBright("Launching in Linux mode..."));
-        launch = spawn('bash', ['./launch_linux.sh'], { stdio: 'inherit', cwd: './ros' });
+        launch = spawn('bash', ['./launch_linux.sh'], { stdio: 'inherit', cwd: './docker' });
     } else if (sys.os === "darwin") {
         console.log(chalk.cyanBright("Launching in macOS mode..."));
         console.log(chalk.redBright("Warning: macOS does not provide OpenGL, so some GUI applications like Gazebo may not work!"))
-        launch = spawn('bash', ['./launch_macos.sh'], { stdio: 'inherit', cwd: './ros' });
+        launch = spawn('bash', ['./launch_macos.sh'], { stdio: 'inherit', cwd: './docker' });
     } else {
         console.log(chalk.redBright("Unknown operating system!"));
         process.exit(1);

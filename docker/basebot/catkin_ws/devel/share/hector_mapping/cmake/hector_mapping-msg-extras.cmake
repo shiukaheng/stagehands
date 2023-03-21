@@ -1,2 +1,0 @@
-set(hector_mapping_MESSAGE_FILES "/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/hector_slam/hector_mapping/msg/HectorDebugInfo.msg;/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/hector_slam/hector_mapping/msg/HectorIterData.msg")
-set(hector_mapping_SERVICE_FILES "/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/src/hector_slam/hector_mapping/srv/ResetMapping.srv")

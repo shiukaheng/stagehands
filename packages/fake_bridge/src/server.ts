@@ -120,6 +120,9 @@ export class FakeBridgeServer {
             if (!preset) {
                 throw new Error("Preset does not exist")
             }
+            // preset?.value?.state && Object.entries(preset?.value?.state).map(([key, value]) => (
+            //     preset.value.state[key].name = this.fleetState[key].name
+            // ))
             this.ts.req(recallFleetStateService, this.ts.id, preset.value.state)
         })
 

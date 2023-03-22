@@ -13,10 +13,11 @@ from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
 def set_serial_port():
-    available_ports = [p.device for p in list(serial.tools.list_ports.comports()) if 'Arduino' in p.description]
-    global ser
-    ser = serial.Serial(available_ports[0], 115200)
-    print(available_ports[0])
+    available_ports = [(device, name, desc) for (device, name, desc) in list(serial.tools.list_ports.comports())]# if 'Arduino' in p.description]
+    print(available_ports)
+    # global ser
+    # ser = serial.Serial(available_ports[0], 115200)
+    # print(available_ports[0])
 
 def set_target_pose(req):
     # Create an action client called "move_base" with action definition file "MoveBaseAction"
@@ -74,11 +75,11 @@ def publish_current_pose():
 
             pub.publish(pose)
 
-            print('pose:')
-            print(pose)
+            #print('pose:')
+            #print(pose)
             
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-            print('unable to publish pose')
+            #print('unable to publish pose')
             continue
 
         rate.sleep()

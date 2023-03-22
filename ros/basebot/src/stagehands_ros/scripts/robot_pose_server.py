@@ -5,10 +5,13 @@ import rospy
 import math
 import tf
 import actionlib
+import serial
 
 from stagehands_ros.srv import setTargetPose,setTargetPoseResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+
+ser = serial.Serial('PORTNAME', 9600)
 
 def set_target_pose(req):
     # Create an action client called "move_base" with action definition file "MoveBaseAction"
@@ -27,6 +30,9 @@ def set_target_pose(req):
    
     goal.target_pose.pose.orientation.z = math.sin(req.thetaPos/2)
     goal.target_pose.pose.orientation.w = math.cos(req.thetaPos/2)
+
+    # probs not how this works but lol
+    ser.write(req.micHeight)
 
     # Sends the goal to the action server.
     client.send_goal(goal)
@@ -58,6 +64,9 @@ def publish_current_pose():
             pose.xPos = trans[0]
             pose.yPos = trans[1]
             pose.rotationQuaternion = rot
+
+            # again, probs not how this works but lol, lmao, rofl even
+            pose.currentMicHeight = ser.read()
 
             pub.publish(pose)
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):

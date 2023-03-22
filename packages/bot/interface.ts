@@ -1,16 +1,33 @@
-'use strict';
-
 import rosnodejs from 'rosnodejs';
-const stagehands_ros_msgs = rosnodejs.require('stagehands_ros').msg;
-const stagehands_ros_srvs = rosnodejs.require('stagehands_ros').srv;
 import { TopicClient } from "webtopics";
 import io from "socket.io-client";
-import { fleetTopic, recallBotStateService } from "schema";
+import { fleetTopic, ModuleState, recallBotStateService, BotState, RecallBotState } from "schema";
+import NodeHandle from 'rosnodejs/dist/lib/NodeHandle';
+
+/*
+Message type for currentPose:
+    string robot_id
+    float64 xPos
+    float64 yPos
+    float64[] rotationQuaternion
+    float64 currentMicHeight
+*/
+
+type ROSPose = {
+    robot_id: string,
+    xPos: number,
+    yPos: number,
+    rotationQuaternion: number[],
+    currentMicHeight: number
+}
+
+const current_pose = (rosnodejs.require('stagehands_ros').msg).robotCurrentPose ;
+const target_pose_service = (rosnodejs.require('stagehands_ros').srv).setTargetPose;
 
 // instantiate ros node named 'interface'
 rosnodejs.initNode('interface').then((nodeHandle) => {
     // create a TopicClient for the main server
-    let client = new TopicClient(io("http://192.168.0.44:3000"));
+    let client = new TopicClient(io("http://127.0.0.1:3000"));
 
     console.log("Connecting to server...")
     client.getServerID().then((id) => {
@@ -22,12 +39,13 @@ rosnodejs.initNode('interface').then((nodeHandle) => {
 
     // create WebTopics service to send bot to required position
     target_pose_executor(client, nodeHandle)
-}
-)
+})
+
 // publishes the bot's current state to the ui stuff
-function pose_listener(client, nodeHandle) {
+function pose_listener(client: TopicClient, nodeHandle: NodeHandle) {
     // subscribe to robot_current_pose ROS topic and receive message containing robot's current position
-    let sub = nodeHandle.subscribe('robot_current_pose', stagehands_ros_msgs.robotCurrentPose, (data) => {
+    let mod: ModuleState;
+    let sub = nodeHandle.subscribe('robot_current_pose', current_pose, (data:ROSPose) => {
         // check if a mic module is actually connected (although this is a potential thing to watch out for:
         // the python ros node actually publishing on this topic stores the mic height as NONE if there
         // isn't a module attached)
@@ -36,7 +54,8 @@ function pose_listener(client, nodeHandle) {
                 type: "micStand",
                 state: {
                     gripPosition: data.currentMicHeight
-                }
+                },
+                moduleModels:{}
             }
         }
         else {
@@ -48,7 +67,8 @@ function pose_listener(client, nodeHandle) {
         }
 
         // define... schema? json thing? containing bot current location
-        let x = {
+        let x: BotState
+        x = {
             name: "alice",
             pose: {
                 position: [data.xPos, data.yPos, 0],
@@ -72,7 +92,9 @@ function pose_listener(client, nodeHandle) {
             stopped: false
         }
         // publish to fleet topic
-        client.pub(fleetTopic, x)
+        client.pub(fleetTopic, {
+            [client.id]: x
+        })
         console.log("im publishing", data)
     });
 }
@@ -80,16 +102,20 @@ function pose_listener(client, nodeHandle) {
 // function that takes a """""""recall""""""" bot state schema as input and executes it on the robbit
 function target_pose_executor(client, nodeHandle) {
     // creates a service
-    client.srv(recallBotStateService, (data) => {
+    client.srv(recallBotStateService, (data:RecallBotState) => {
         // service client for ROS service to set robot's target pose
-        let serviceClient = nodeHandle.serviceClient('set_target_pose', stagehands_ros_srvs.setTargetPose)
+        let serviceClient = nodeHandle.serviceClient('set_target_pose', target_pose_service)
 
         // set values in request object based on input schema
-        let requestedPose = new stagehands_ros_srvs.setTargetPose.Request();
+        let requestedPose = new target_pose_service.Request();
         requestedPose.xPos = data.targetPose.position[0]
         requestedPose.yPos = data.targetPose.position[1]
         requestedPose.rotationQuaternion = data.targetPose.quaternion
-        requestedPose.micHeight = data.module.state.gripPosition
+        
+        if (data.module.state != null) {
+            requestedPose.micHeight = data.module.state.gripPosition
+        }
+        else { requestedPose.micHeight = null }
         
         // call ROS service to move the robbit
         serviceClient.call(requestedPose).then((resp) => {console.log(resp);})

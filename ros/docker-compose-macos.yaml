@@ -23,3 +23,6 @@ services:
     stdin_open: true
     tty: true
     network_mode: host
+    ports:
+      - "3000:3000"
+      - "11311:11311"

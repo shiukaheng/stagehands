@@ -71,7 +71,7 @@ WORKDIR /catkin_ws
 RUN /bin/bash -c "source /opt/ros/noetic/setup.bash; catkin build"
 
 # Set the environment variables
-ARG ROS_MASTER_HOSTNAME=localhost
+ARG ROS_MASTER_HOSTNAME=docker-desktop
 ARG ROS_MASTER_PORT=11311
 ARG TURTLEBOT3_MODEL=waffle_pi
 ENV ROS_MASTER_URI=http://${ROS_MASTER_HOSTNAME}:11311
@@ -94,9 +94,6 @@ RUN dos2unix /scripts/*
 
 # Set the working directory to the scripts directory
 WORKDIR /scripts
-
-# Add dos2unix of init.sh to .bashrc
-RUN echo "dos2unix /scripts/init.sh" >> ~/.bashrc
 
 # Add the init script to the bashrc
 RUN echo "source /scripts/init.sh" >> ~/.bashrc

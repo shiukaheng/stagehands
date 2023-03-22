@@ -30,6 +30,9 @@ services:
     tty: true
     network_mode: host
     privileged: true
+    ports:
+      - "3000:3000"
+      - "11311:11311"
 
 # services:
 #     ros-dev:

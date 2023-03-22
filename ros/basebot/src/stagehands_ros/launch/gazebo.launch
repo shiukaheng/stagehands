@@ -1,7 +1,7 @@
 <launch>
 	<!-- Some general parameters -->
 	<param name="use_sim_time" value="true" />
-	<rosparam file="$(find nav2d_tutorials)/param/ros_turtlebot.yaml"/>
+	<!-- rosparam file="$(find nav2d_tutorials)/param/ros_turtlebot.yaml"/ -->
 
 	<!-- Turtlebot3 -->
     <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>

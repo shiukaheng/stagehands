@@ -48,10 +48,14 @@ export class bridgeServer{
         this.controller.runService(overWriteLEDService,overWriteLEDServiceHandler);
         //clear all bot's led overwrite service
         this.controller.runService(clearLEDOverwriteService,clearLEDOverwriteServiceHandler);
+        this.controller.server.sub(serverMetaChannel,(data)=>{
+            console.log(data);
+            
+        })
     }
 
     public getController(){
         return this.controller;
     }
 }
-
+const server =new bridgeServer();

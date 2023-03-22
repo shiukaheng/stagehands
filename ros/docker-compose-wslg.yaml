@@ -25,3 +25,8 @@ services:
     stdin_open: true
     tty: true
     network_mode: host
+    # Expose external port 3000 to internal port 3000
+    # Expose internal port 11311 to external port 11311
+    ports:
+      - "3000:3000"
+      - "11311:11311"

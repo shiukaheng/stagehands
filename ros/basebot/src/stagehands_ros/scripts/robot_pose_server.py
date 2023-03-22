@@ -12,12 +12,13 @@ from stagehands_ros.srv import setTargetPose,setTargetPoseResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
-def set_serial_port():
-    available_ports = [(device, name, desc) for (device, name, desc) in list(serial.tools.list_ports.comports())]# if 'Arduino' in p.description]
-    print(available_ports)
-    # global ser
-    # ser = serial.Serial(available_ports[0], 115200)
-    # print(available_ports[0])
+# def set_serial_port():
+#     available_ports = [p.device for p in list(serial.tools.list_ports.comports())]# if 'Arduino' in p.description]
+#     print(list(serial.tools.list_ports.comports()))
+#     # global ser
+#     # ser = serial.Serial(available_ports[0], 115200)
+#     # print(available_ports[0])
+ser = serial.Serial('/dev/ttyACM0', 115200)
 
 def set_target_pose(req):
     # Create an action client called "move_base" with action definition file "MoveBaseAction"
@@ -90,7 +91,7 @@ def server():
 
 if __name__ == '__main__':
     print('starting')
-    set_serial_port()
+    # set_serial_port()
     rospy.init_node('robot_position_server')
     print('node running')
     server()
@@ -102,4 +103,4 @@ if __name__ == '__main__':
 
     rospy.spin()
 
-    ser.close()
+    # ser.close()

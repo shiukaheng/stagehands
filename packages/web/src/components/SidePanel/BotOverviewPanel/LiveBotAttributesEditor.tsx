@@ -106,7 +106,6 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
                 fleetUpdate(fleet)
                }else{ 
                 alert ("X value must be between 0 and 100")
-                console.log(bot)
                 xValInputElemRef.current!.value = xValRangeElemRef.current!.value}
                
 
@@ -293,7 +292,7 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
                   ref={flashingFrequencyElemRef}
                   type={"number"}
                   id={"flashingFrequency"}
-                  min={0} 
+                  min={1} 
                   max={10}
                   defaultValue={fleet[botID].ledState.base.ledAnimation.flashingFrequency}
                   onChange={() => {

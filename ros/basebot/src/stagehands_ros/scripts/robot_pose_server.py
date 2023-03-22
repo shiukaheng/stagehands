@@ -6,12 +6,16 @@ import math
 import tf
 import actionlib
 import serial
+import serial.tools.list_ports
 
 from stagehands_ros.srv import setTargetPose,setTargetPoseResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
-ser = serial.Serial('PORTNAME', 9600)
+def set_serial_port():
+    available_ports = [p.device for p in list(serial.tools.list_ports.comports()) if 'Arduino' in p.description]
+    global ser
+    ser = serial.Serial(available_ports[0], 115200)
 
 def set_target_pose(req):
     # Create an action client called "move_base" with action definition file "MoveBaseAction"
@@ -81,6 +85,7 @@ def server():
 
 if __name__ == '__main__':
     print('starting')
+    set_serial_port()
     rospy.init_node('robot_position_server')
     print('runnign')
     server()
@@ -91,3 +96,5 @@ if __name__ == '__main__':
         pass
 
     rospy.spin()
+
+    ser.close()

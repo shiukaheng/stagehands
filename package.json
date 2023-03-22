@@ -24,7 +24,7 @@
     "dev-web": "cd packages/web && npm run dev",
     "dev-web-emu": "npm run build-schema && concurrently \"npm run dev-fake_bridge\" \"npm run dev-web\"",
     "ros": "ts-node scripts/launch_ros.ts",
-    "bridge-test":"node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "bridge-test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "dev-bot": "cd packages/bot && npm run dev"
   },
   "repository": {

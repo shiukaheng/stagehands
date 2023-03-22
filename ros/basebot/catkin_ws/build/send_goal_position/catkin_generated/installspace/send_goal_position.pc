@@ -1,8 +1,0 @@
-prefix=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/install
-
-Name: send_goal_position
-Description: Description of send_goal_position
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

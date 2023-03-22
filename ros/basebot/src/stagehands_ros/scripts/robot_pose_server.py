@@ -61,26 +61,26 @@ def publish_current_pose():
     rate = rospy.Rate(10)
     print('publishuh publishin')
 
+    pose = robotCurrentPose()
     while not rospy.is_shutdown():
         try:
             (trans, rot) = listener.lookupTransform('/map', '/base_link', rospy.Time(0))
 
-            # investigate whether this is in fact the correct format
-            pose = robotCurrentPose()
             pose.xPos = trans[0]
             pose.yPos = trans[1]
             pose.rotationQuaternion = rot
 
             # again, probs not how this works but lol, lmao, rofl even
-            pose.currentMicHeight = ser.read()
+            pose.currentMicHeight = float(ser.read_until().decode('utf-8').rstrip("\r\n"))
 
             pub.publish(pose)
 
             #print('pose:')
             #print(pose)
             
-        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-            #print('unable to publish pose')
+        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException, ValueError):
+            print('unable to publish updated pose')
+            pub.publish(pose)
             continue
 
         rate.sleep()
@@ -92,9 +92,17 @@ def server():
 if __name__ == '__main__':
     print('starting')
     # set_serial_port()
-    rospy.init_node('robot_position_server')
-    print('node running')
-    server()
+    #ser.write(700)
+    # print('thing sent')
+
+    # i = 0
+    # while(i <= 10000):
+    #     #print(int(ser.read_until().decode('utf-8').rstrip("\r\n")))
+    #     print(ser.read_until().replace(b'\r\n', b'')) #.decode('utf-8'))
+    #     i += 1
+    # rospy.init_node('robot_position_server')
+    # print('node running')
+    # server()
 
     try:
         publish_current_pose()
@@ -103,4 +111,4 @@ if __name__ == '__main__':
 
     rospy.spin()
 
-    # ser.close()
+    ser.close()

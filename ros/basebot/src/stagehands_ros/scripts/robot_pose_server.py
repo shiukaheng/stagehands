@@ -18,7 +18,12 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 #     # global ser
 #     # ser = serial.Serial(available_ports[0], 115200)
 #     # print(available_ports[0])
-ser = serial.Serial('/dev/ttyACM0', 115200)
+bool micModuleExists = True
+try:
+    ser = serial.Serial('/dev/ttyACM0', 115200)
+except serial.SerialException:
+    micModuleExists = False
+
 
 def set_target_pose(req):
     # Create an action client called "move_base" with action definition file "MoveBaseAction"
@@ -35,11 +40,12 @@ def set_target_pose(req):
     goal.target_pose.pose.position.x = req.xPos
     goal.target_pose.pose.position.y = req.yPos
    
-    goal.target_pose.pose.orientation.z = math.sin(req.thetaPos/2)
-    goal.target_pose.pose.orientation.w = math.cos(req.thetaPos/2)
+    # goal.target_pose.pose.orientation.z = math.sin(req.thetaPos/2)
+    # goal.target_pose.pose.orientation.w = math.cos(req.thetaPos/2)
+    goal.target_pose.pose.orientation = req.rotationQuaternion
 
     # probs not how this works but lol
-    ser.write(req.micHeight)
+    if micModuleExists: ser.write(req.micHeight)
 
     # Sends the goal to the action server.
     client.send_goal(goal)
@@ -71,7 +77,8 @@ def publish_current_pose():
             pose.rotationQuaternion = rot
 
             # again, probs not how this works but lol, lmao, rofl even
-            pose.currentMicHeight = float(ser.read_until().decode('utf-8').rstrip("\r\n"))
+            if (micModuleExists): pose.currentMicHeight = float(ser.read_until().decode('utf-8').rstrip("\r\n"))
+            else: pose.currentMicHeight = None
 
             pub.publish(pose)
 

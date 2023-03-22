@@ -3,6 +3,7 @@ import { BotState, Preset, RecallBotState } from 'schema';
 import _ from "lodash";
 import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
 import { rgbToHex } from "../../../utils/rgbToHex";
+import { hexTorgb } from "../../../utils/hexTorgb";
 
 /**
  * Component for displaying and editing the attributes of a bot in a preset
@@ -101,11 +102,18 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
 
                   value={xValInput}
                   onChange={() => {
-                    xValRangeElemRef.current!.value = xValInputElemRef.current!.value
-                    preset.state[botID].targetPose.position[0] = parseInt(xValInputElemRef.current!.value)
+                    const xVal = parseInt(xValInputElemRef.current!.value)
+                    if( xVal <= 100 && xVal >= 0){
+                      xValRangeElemRef.current!.value = xValInputElemRef.current!.value
+                      preset.state[botID].targetPose.position[0] = parseInt(xValInputElemRef.current!.value)
+  
+                      presetUpdate(presetID, preset)
+                      setXValInput(preset.state[botID].targetPose.position[0])
+                    } else {
+                      alert ("X value must be between 0 and 100")
+                      xValInputElemRef.current!.value = xValRangeElemRef.current!.value
+                    }
 
-                    presetUpdate(presetID, preset)
-                    setXValInput(preset.state[botID].targetPose.position[0])
                     console.log(preset.state[botID])
                     // Undercore_.debounce(update({ presetID: presetID, newPreset: preset }), 1000)
                     // Undercore_
@@ -152,10 +160,16 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
                   max={100}
                   value={yValInput}
                   onChange={() => {
-                    yValRangeElemRef.current!.value = yValInputElemRef.current!.value
-                    preset.state[botID].targetPose.position[2] = parseInt(yValInputElemRef.current!.value)
-                    presetUpdate(presetID, preset)
-                    setYValInput(preset.state[botID].targetPose.position[2])
+                    const yVal = parseInt(yValInputElemRef.current!.value)
+                    if( yVal <= 100 && yVal >= 0){
+                      yValRangeElemRef.current!.value = yValInputElemRef.current!.value
+                      preset.state[botID].targetPose.position[2] = parseInt(yValInputElemRef.current!.value)
+                      presetUpdate(presetID, preset)
+                      setYValInput(preset.state[botID].targetPose.position[2])
+                    } else{
+                      alert ("Y value must be between 0 and 100")
+                      yValInputElemRef.current!.value = yValRangeElemRef.current!.value
+                      }
                   }}
                 ></input>
               </td>
@@ -239,10 +253,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
            
                   onChange={()=>{
                     const hex = ledColorElemRef.current!.value
-                    const r = parseInt(hex.slice(1, 3), 16)/255
-                    const g = parseInt(hex.slice(3, 5), 16)/255
-                    const b = parseInt(hex.slice(5, 7), 16)/255
-                    preset.state[botID].baseLEDState.rgbValue = [r, g, b]
+                    preset.state[botID].baseLEDState.rgbValue = hexTorgb(hex)
                     presetUpdate(presetID, preset)
                   }}>
                 </input>
@@ -283,7 +294,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
                   ref={flashingFrequencyElemRef}
                   type={"number"}
                   id={"flashingFrequency"}
-                  min={0} 
+                  min={1} 
                   max={10}
                   defaultValue={bot.baseLEDState.ledAnimation.flashingFrequency}
                   onChange={() => {

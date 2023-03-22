@@ -19,17 +19,18 @@ export function LED({ledState, ...props}: {ledState: LEDState} & PointLightProps
         if (lightRef.current) {
             // Wrap around cycleRef in range [0, 1]
             if (ledStateRef.current?.ledAnimation?.flashingFrequency) {
-                cycleRef.current = (cycleRef.current + delta / ledStateRef.current?.ledAnimation?.flashingFrequency) % 1;
+                cycleRef.current = (cycleRef.current + delta * 0.5* ledStateRef.current?.ledAnimation?.flashingFrequency) % 1;
             }
             // Get the current state
-            const displayColor = ledStateRef.current.rgbValue as [number, number, number];
+            const displayColor = structuredClone(ledStateRef.current.rgbValue as [number, number, number]);
             if (ledStateRef.current?.ledAnimation?.animationMode === "flashing") {
                 // Apply the animation
-                const intensity = Math.sin(cycleRef.current * Math.PI * 2);
+                const intensity = Math.abs(Math.sin(cycleRef.current * Math.PI * 2));
                 displayColor[0] *= intensity;
                 displayColor[1] *= intensity;
                 displayColor[2] *= intensity;
             }
+            // console.log("LED", cycleRef.current)
             // Apply the color
             lightRef.current.color.setRGB(displayColor[0], displayColor[1], displayColor[2]);
         }

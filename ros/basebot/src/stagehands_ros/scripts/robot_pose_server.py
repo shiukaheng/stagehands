@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from __future__ import print_function
 
 import rospy
@@ -70,6 +71,7 @@ def server():
     print('suhvuh runnign')
 
 if __name__ == '__main__':
+    print('starting')
     rospy.init_node('robot_position_server')
     print('runnign')
     server()

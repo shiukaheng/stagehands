@@ -16,6 +16,7 @@ def set_serial_port():
     available_ports = [p.device for p in list(serial.tools.list_ports.comports()) if 'Arduino' in p.description]
     global ser
     ser = serial.Serial(available_ports[0], 115200)
+    print(available_ports[0])
 
 def set_target_pose(req):
     # Create an action client called "move_base" with action definition file "MoveBaseAction"
@@ -61,7 +62,6 @@ def publish_current_pose():
     while not rospy.is_shutdown():
         try:
             (trans, rot) = listener.lookupTransform('/map', '/base_link', rospy.Time(0))
-            print('publishing da pose babey!!!!1!11')
 
             # investigate whether this is in fact the correct format
             pose = robotCurrentPose()
@@ -73,21 +73,25 @@ def publish_current_pose():
             pose.currentMicHeight = ser.read()
 
             pub.publish(pose)
+
+            print('pose:')
+            print(pose)
+            
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-            print('oopsie whoopsie i did a fucky wucky')
+            print('unable to publish pose')
             continue
 
         rate.sleep()
 
 def server():
     s = rospy.Service('set_target_pose', setTargetPose, set_target_pose)
-    print('suhvuh runnign')
+    print('action server running')
 
 if __name__ == '__main__':
     print('starting')
     set_serial_port()
     rospy.init_node('robot_position_server')
-    print('runnign')
+    print('node running')
     server()
 
     try:

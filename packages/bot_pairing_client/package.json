@@ -1,0 +1,40 @@
+{
+  "name": "bot_pairing_client",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": "./dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --exec node --experimental-specifier-resolution=node --loader ts-node/esm src/index.ts",
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && node ./build/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.21.0",
+    "@types/multicast-dns": "^7.2.1",
+    "@types/node": "^18.11.18",
+    "lodash": "^4.17.21",
+    "multicast-dns": "^7.2.5",
+    "nodemon": "^2.0.20",
+    "rimraf": "^4.1.2",
+    "rosnodejs": "^3.1.0",
+    "socket.io": "^4.6.0",
+    "socket.io-client": "^4.6.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5",
+    "uuid": "^9.0.0",
+    "uuid-readable": "^0.0.2",
+    "webtopics": "^1.1.0",
+    "zod": "3.20.6"
+  },
+  "private": true,
+  "description": "",
+  "devDependencies": {
+    "@types/uuid-readable": "^0.0.1"
+  }
+}

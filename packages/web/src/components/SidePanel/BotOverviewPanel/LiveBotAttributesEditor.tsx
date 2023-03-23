@@ -296,8 +296,13 @@ export default function LiveBotAttributesEditor({bot, botID} : {bot: BotState, b
                   max={10}
                   defaultValue={fleet[botID].ledState.base.ledAnimation.flashingFrequency}
                   onChange={() => {
-                    fleet[botID].ledState.base.ledAnimation.flashingFrequency= parseInt(flashingFrequencyElemRef.current!.value)
-                    fleetUpdate(fleet)
+                    if(parseInt(flashingFrequencyElemRef.current!.value) > 10 || parseInt(flashingFrequencyElemRef.current!.value) < 1){
+                      alert("Flashing frequency must be between 1 and 10")
+                      flashingFrequencyElemRef.current!.value = fleet[botID].ledState.base.ledAnimation.flashingFrequency?.toString()!
+                    }else{
+                      fleet[botID].ledState.base.ledAnimation.flashingFrequency= parseInt(flashingFrequencyElemRef.current!.value)
+                      fleetUpdate(fleet)
+                    }
                   }}
                 ></input>
               </td>

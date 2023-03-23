@@ -230,9 +230,14 @@ export class FakeBridgeServer {
                 const botPose = botState.pose;
                 const posDiff = [targetPose.position[0] - botPose.position[0], targetPose.position[1] - botPose.position[1], targetPose.position[2] - botPose.position[2]];
                 const posDiffMag = Math.sqrt(posDiff[0] ** 2 + posDiff[1] ** 2 + posDiff[2] ** 2);
+                const posDirection = posDiff.map((val)=>{
+                    if(Math.abs(val)<this.botPoseTolerance){return 0}else{
+                    if(val<0){return -1}else{
+                        return 1
+                    }}})
                 if (posDiffMag > this.botPoseTolerance) {
                     // Move the bot
-                    const newPos = [botPose.position[0] + posDiff[0] * this.botVelocity * dt, botPose.position[1] + posDiff[1] * this.botVelocity * dt, botPose.position[2] + posDiff[2] * this.botVelocity * dt];
+                    const newPos = [botPose.position[0] + posDirection[0]* 20 *this.botVelocity * dt, botPose.position[1] , botPose.position[2] + posDirection[2]*20* this.botVelocity * dt];
                     this.fleetState[botName].pose.position = newPos;
                     this.fleetState[botName].status = "moving"
                 } else {

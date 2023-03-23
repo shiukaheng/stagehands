@@ -298,8 +298,13 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
                   max={10}
                   defaultValue={bot.baseLEDState.ledAnimation.flashingFrequency}
                   onChange={() => {
+                    if (parseInt(flashingFrequencyElemRef.current!.value) > 10 || parseInt(flashingFrequencyElemRef.current!.value) < 1){
+                      alert("Flashing frequency must be between 1 and 10")
+                      flashingFrequencyElemRef.current!.value = preset.state[botID].baseLEDState.ledAnimation.flashingFrequency?.toString()!
+                    } else{
                     preset.state[botID].baseLEDState.ledAnimation.flashingFrequency = parseInt(flashingFrequencyElemRef.current!.value)
                     presetUpdate(presetID, preset)
+                    }
                   }}
                 ></input>
               </td>

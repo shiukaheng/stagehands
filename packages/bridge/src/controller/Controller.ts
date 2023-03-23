@@ -15,10 +15,12 @@ export class Controller {
 
 
     private _server: TopicServer;
-
+    private bridgePort;
     constructor(port:number=3000) {
         this.context = new Context();
-        this._server = new TopicServer(new Server(port, {cors: {origin: "*"}}), {logTopicValidationErrors: false, logTopics: false});
+        //this._server = new TopicServer(new Server(port, {cors: {origin: "*"}}), { logTopics: false});
+        this._server = new TopicServer(new Server(port))
+        this.bridgePort = port;
         console.log(`✅ bridge server running on port ${port}`);
     }
 
@@ -61,11 +63,11 @@ export class Controller {
                 server.getDnsMap().forEach(async (key,value)=>{
                     if(this.context.getcurrentdnsMap().get(key)===undefined){
                         const port = server.getdnsPortMap().get(key)
+                        console.log(`Connecting to botClient with ip:${value} and port:${port}`);
+                        
                         const socket =io(value+":"+port?.toString())
                         const pairingCLient = new TopicClient(socket)
                         
-                        //pairingCLient.req()
-                        console.log(`${key} connected`);
                         const currentIps =retrieveIps();
                         const botNetworkPortion =getNetworkPortion(value)
                         let bridgeIp:string;
@@ -73,7 +75,7 @@ export class Controller {
                             if(botNetworkPortion===getNetworkPortion(ip)){
                                 bridgeIp = ip
                                 const serverID = await pairingCLient.getServerID()
-                                pairingCLient.req(botParingService,serverID,{bridgeIp:bridgeIp,bridgePort:"3000"})
+                                pairingCLient.req(botParingService,serverID,{bridgeIp:bridgeIp,bridgePort:this.bridgePort})
                                 .then(()=>{
                                     console.log(key+"connected");
                                     
@@ -84,12 +86,10 @@ export class Controller {
                                 break;
                             }
                         }
-                        
-                       
                         this.context.getcurrentdnsMap().set(key,value)
+                        console.log(`${key} connected`);
                     }
-                })
-                
+                }) 
             },5000)
         },500)
         

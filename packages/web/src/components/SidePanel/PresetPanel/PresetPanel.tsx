@@ -41,8 +41,10 @@ function PresetPanel() {
     }, [serviceProvider?.reorderPreset]);
     return (
         <div className="overflow-hidden w-full flex-grow safari-canvas-overflow-fix flex flex-col">
-            <div className="text-lg mx-6 font-bold mb-4 ui-div ui-shadow ui-highlight-extra p-2">
-              📁 Presets
+            <div>
+                <div className="text-lg mx-6 font-bold mb-4 ui-div ui-shadow ui-highlight-extra p-2 mt-2">
+                    📁 Presets
+                </div>
             </div>
             <div id="MiddleSection" className="w-full snap-center flex flex-col gap-4 px-6 flex-grow overflow-y-auto">
                 {/* map the record by key and value pairs into the preset component, if presets is not null */}
@@ -55,9 +57,9 @@ function PresetPanel() {
                             {
                                 topicProvider.stage.presets.map((presetEntry, index) => (
                                     <Reorder.Item key={presetEntry.id} value={presetEntry}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}>
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}>
                                         <PresetWidget preset={presetEntry.value} key={presetEntry.id} id={presetEntry.id} />
                                     </Reorder.Item>
                                 ))

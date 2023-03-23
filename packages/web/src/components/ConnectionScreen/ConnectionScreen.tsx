@@ -1,8 +1,11 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { createContext, useCallback, useRef } from 'react';
-import { StageScene } from './Stage/StageScene';
+import { StageScene } from '../Stage/StageScene';
 import { AiFillPlayCircle, AiOutlineArrowLeft } from 'react-icons/ai';
+import {FaArrowLeft} from 'react-icons/fa';
+import BackButton from './BackButton';
+import AvailableBotsPanel from './AvailableBotsPanel';
 
 export type cursorOverride = 'default' | 'pointer' | 'grab' | 'grabbing';
 export interface IPreviewContext {
@@ -21,36 +24,12 @@ export function ConnectionScreen() {
   }, [canvasRef]);
     return (
       <div>
-      <div className="relative h-20 w-full">
-        <button
-            id={"backButton"}
-            className="left-0 top-0 ui-shadow ui-highlight ui-div font-bold box-border h-16 w-20 rounded m-2 px-8" // Could change colour here depending on connection status
-            onClick={() => {console.log("Connection button clicked")}}> {/* onClick to connect? */}
-                <AiOutlineArrowLeft size={20} />⬅←
-            </button>
+      <div className="flex relative h-20 w-4/5 flex-row">
+        <BackButton />
+            <div className="absolute top-1/4 left-1/2 text-center font-bold text-4xl">Connect Bots</div> {/* title of page */}
           </div>
-          <div className="relative h-40 w-28">
-            <div className="inset-x-0 top-0">
-            test
-            </div>
-            </div>
-          
-        <div className="flex h-full overflow-hidden flex-row">
-        {/* side panel start */}
-        <div id="SidePanel" className="min-w-[300px] m-5 overflow-clip ui-div ui-shadow ui-highlight flex flex-col">
-        <div id="MiddleSection" className=" border-solid h-full snap-center overflow-y-auto overflow-x-hidden">
-        <div className="text-lg font-bold mb-4 ui-div ui-shadow ui-highlight-extra mx-6 p-2 m-5">
-            Available Bots
-            </div>
-            <button
-            id={"nameOfBot"}
-            className="ui-shadow ui-highlight ui-div font-bold box-border h-20 w-64 rounded m-2 px-8" // Could change colour here depending on connection status
-            onClick={() => {console.log("Connection button clicked")}}> {/* onClick to connect? */}
-                Alice
-            </button>
-            </div>
-        </div>
-        {/* side panel end */}
+        <div className="flex overflow-hidden flex-row">
+        <AvailableBotsPanel />
         <div className="w-full flex-col overflow-visible"> {/* div for canvas and below details */}
           {/* canvas start */}
         <div className="m-5 h-4/5 ui-shadow ui-div ui-highlight safari-canvas-overflow-fix">
@@ -74,11 +53,12 @@ export function ConnectionScreen() {
         <StageScene />
         </PreviewContext.Provider>
       </Canvas>
-      
+      {/* canvas end */}
+      {/* below canvas details start */}
         </div>
-        <div className="m-5 h-28 ui-shadow ui-div ui-highlight p-2 font-bold">Name</div>
+        <div className="m-5 h-28 ui-shadow ui-div ui-highlight p-2 font-bold">Name</div> {/* selected bot info goes here */}
         </div>
-        {/* canvas end */}
+      {/* below canvas details end */}
         
         </div></div>
     )

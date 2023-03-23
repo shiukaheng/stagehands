@@ -10,7 +10,7 @@ function LiveBotWidget({ botState, botID }: { botState: BotState, botID: string}
     return (
         <button
             id={botState.name}
-            className="ui-shadow ui-highlight ui-div font-bold box-border h-32 w-64 rounded m-2 px-8"
+            className="ui-shadow ui-highlight ui-div snap-center font-bold box-border h-32 w-64 rounded px-8"
             onClick={() => {
                 setComponentSelect({type: "live_attributes_page", bot :botState, botID : botID})
             }}>

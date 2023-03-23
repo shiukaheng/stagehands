@@ -12,6 +12,9 @@ export class FakeBridgeServer {
     private io: Server
     private fleetState: FleetState = {
         "1": createNewBotState({name: "Alice"}),
+        "2" : createNewBotState({name: "Bob"}),
+        "3" : createNewBotState({name: "Charlie"}),
+        "4" : createNewBotState({name: "Daisy"}),
     }
     private stageState: StageState = {
         boundary: {

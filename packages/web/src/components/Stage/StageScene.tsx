@@ -2,6 +2,7 @@ import { Fragment, useState, useContext } from 'react';
 import { TopicContext } from '../../contexts/ServerContext';
 import Bot from './3d/Bot';
 import { SpotLight, useDepthBuffer } from '@react-three/drei';
+import BotTargetPose from './3d/BotTargetPose';
 
 /**
  * StageScene
@@ -35,8 +36,14 @@ export function StageScene() {
       </mesh>
       {
         provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
+          <Fragment>
           <Bot module={value} key={key} />
+          <BotTargetPose module={value} key={key} />
+          </Fragment>
         ))
+        // provider?.stage?.presets[1] && Object.entries(provider.stage.presets[1].value.state).map(([key, value]) => (
+        //   <Bot module={value} key={key} />
+        // ))
       }
     </Fragment>
   )

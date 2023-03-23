@@ -10,7 +10,7 @@ function PresetBotWidget({ recallBot, name, presetID, botID }: { recallBot: Reca
     return (
         <button
             id={name}
-            className="ui-shadow ui-highlight ui-div font-bold box-border h-32 w-64 rounded m-2 p-4"
+            className="ui-shadow ui-highlight ui-div font-bold box-border h-32 w-64 rounded p-4"
             onClick={() => {
                 setComponentSelect({type: "preset_mic_attributes_page", bot :recallBot, name : name, presetID : presetID, botID : botID})
             }}>

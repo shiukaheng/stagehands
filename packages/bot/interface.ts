@@ -27,7 +27,7 @@ const target_pose_service = (rosnodejs.require('stagehands_ros').srv).setTargetP
 // instantiate ros node named 'interface'
 rosnodejs.initNode('interface').then((nodeHandle) => {
     // create a TopicClient for the main server
-    let client = new TopicClient(io("http://127.0.0.1:3000"));
+    let client = new TopicClient(io("http://192.168.0.37:3000"), {logTopics: true});
 
     console.log("Connecting to server...")
     client.getServerID().then((id) => {
@@ -95,12 +95,12 @@ function pose_listener(client: TopicClient, nodeHandle: NodeHandle) {
         client.pub(fleetTopic, {
             [client.id]: x
         })
-        console.log("im publishing", data)
+        // console.log("im publishing", x)
     });
 }
 
 // function that takes a """""""recall""""""" bot state schema as input and executes it on the robbit
-function target_pose_executor(client, nodeHandle) {
+function target_pose_executor(client: TopicClient, nodeHandle: NodeHandle) {
     // creates a service
     client.srv(recallBotStateService, (data:RecallBotState) => {
         // service client for ROS service to set robot's target pose
@@ -118,6 +118,6 @@ function target_pose_executor(client, nodeHandle) {
         else { requestedPose.micHeight = null }
         
         // call ROS service to move the robbit
-        serviceClient.call(requestedPose).then((resp) => {console.log(resp);})
+        serviceClient.call(requestedPose).then((resp:string) => {console.log(resp);})
     })
 }

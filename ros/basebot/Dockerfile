@@ -2,6 +2,7 @@
 FROM osrf/ros:noetic-desktop-full
 
 # Update git
+RUN sed -i 's/archive.ubuntu.com/uk.archive.ubuntu.com/g' /etc/apt/sources.list
 RUN apt-get update
 
 # READ: https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/
@@ -34,8 +35,8 @@ RUN apt-get install -y iputils-ping
 RUN apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns mdns-scan
 RUN apt-get install -y wget
 RUN apt-get install -y dos2unix
+# Change apt sources to use the UK mirror
 RUN apt-get install -y curl
-
 # Install latest version of NodeJS
 RUN echo "Installing latest version of NodeJS"
 RUN /bin/bash -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash"

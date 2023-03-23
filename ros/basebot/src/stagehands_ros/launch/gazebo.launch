@@ -3,6 +3,10 @@
 	<param name="use_sim_time" value="true" />
 	<!-- rosparam file="$(find nav2d_tutorials)/param/ros_turtlebot.yaml"/ -->
 
+    <!-- Limiting simulation accuracy -->
+    <param name="/gazebo/physics/max_step_size" value="0.01" />
+	<param name="/gazebo/physics/real_time_factor" value="0.5" />
+
 	<!-- Turtlebot3 -->
     <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
     <arg name="map_file" default="$(find stagehands_ros)/maps/gazebomap.yaml"/>

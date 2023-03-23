@@ -13,9 +13,8 @@ export class Controller {
 
     constructor(port:number=3000) {
         this.context = new Context();
-        this._server = new TopicServer(new Server(port))
+        this._server = new TopicServer(new Server(port, {cors: {origin: "*"}}), {logTopicValidationErrors: false, logTopics: false});
         console.log(`✅ bridge server running on port ${port}`);
-        
     }
 
 

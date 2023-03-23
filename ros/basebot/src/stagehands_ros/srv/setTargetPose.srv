@@ -3,7 +3,7 @@ float64 yPos
 float64[] rotationQuaternion
 float64 micHeight
 string ledAnimation
-int[] ledRGBColour
+int64[] ledRGBColour
 float64 flashFrequency
 ---
 string response

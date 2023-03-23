@@ -5,13 +5,11 @@ import rospy
 import tf
 import actionlib
 import serial
-import serial.tools.list_ports
-import time
 
 from stagehands_ros.srv import setTargetPose,setTargetPoseResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
-from led_strip_handler import GroveWS2813RgbStrip
+# from led_strip_handler import GroveWS2813RgbStrip
 from rpi_ws281x import PixelStrip, Color
 
 # LED strip configuration
@@ -20,20 +18,20 @@ LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
 LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 
-from grove import helper
-from grove.helper import helper
-helper.root_check()
+# from grove import helper
+# from grove.helper import helper
+# helper.root_check()
 
-from grove.helper import SlotHelper
-sh = SlotHelper(SlotHelper.PWM)
-pin = sh.argv2pin(" [led-count]")
+# from grove.helper import SlotHelper
+# sh = SlotHelper(SlotHelper.PWM)
+# pin = sh.argv2pin(" [led-count]")
 
-# import sys
-count = 30
-# if len(sys.argv) >= 3:
-#     count = int(sys.argv[2])
+# # import sys
+# count = 30
+# # if len(sys.argv) >= 3:
+# #     count = int(sys.argv[2])
 
-strip = GroveWS2813RgbStrip(pin, count)
+# strip = GroveWS2813RgbStrip(pin, count)
 
 micModuleExists = True
 try:
@@ -46,13 +44,15 @@ def set_target_pose(req):
     (red, green, blue) = req.ledRGBColour
     ledColour = Color(red, green, blue)
     if (req.ledAnimation== "constant"):
-        strip.light_all_leds(ledColour)
-        print('constant')
+        # strip.light_all_leds(ledColour)
+        # print('LED animation is constant')
+        rospy.loginfo('LED animation is constant')
     elif (req.ledAnimation == "flashing"):
-        strip.flashing_leds(ledColour, req.flashFrequency)
-        print('flashing')
-        print()
-    print(ledColour)
+        # strip.flashing_leds(ledColour, req.flashFrequency)
+        # print('flashing')
+        rospy.loginfo('LED animation is flashing')
+    # print(ledColour)
+    rospy.loginfo(ledColour)
 
     # Create an action client called "move_base" with action definition file "MoveBaseAction"
     client = actionlib.SimpleActionClient('move_base',MoveBaseAction)

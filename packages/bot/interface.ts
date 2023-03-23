@@ -119,6 +119,8 @@ function target_pose_executor(client: TopicClient, nodeHandle: NodeHandle) {
             requestedPose.micHeight = data.module.state.gripPosition
         }
         else { requestedPose.micHeight = null }
+
+        console.log(data)
         
         // call ROS service to move the robbit
         serviceClient.call(requestedPose).then((resp:string) => {console.log(resp);})

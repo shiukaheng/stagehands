@@ -1,21 +1,18 @@
 import { Fragment, useContext, useState } from 'react';
-import { BotState } from 'schema';
+import { BotState, RecallBotState } from 'schema';
 import {Billboard, Text} from '@react-three/drei';
 import { LED } from './LED';
 import { StageContext } from '../Stage';
 
 const height = 0.15;
 
-function Bot({module}: {module: BotState}) {
-    const [hovered, hover] = useState(false);
-    const [clicked, click] = useState(false);
-    const {setCursor} = useContext(StageContext);
-    // console.log("hi from live")
-    const bodyPose = [module.pose.position[0], module.pose.position[1] + height / 2 + 0.01, module.pose.position[2]] as [number, number, number];
+function Bot({module}: {module: RecallBotState}) {
+    const bodyPose = [module.targetPose.position[0], module.targetPose.position[1] + height / 2 + 0.01, module.targetPose.position[2]] as [number, number, number];
+    console.log("hi")
     return (
         <Fragment key={module.name}>
             {/* Label */}
-            <group position={module.pose.position as [number, number, number]}>
+            <group position={module.targetPose.position as [number, number, number]}>
                 <Billboard position={[0,1.5,0]}>
                     <Text color="white" fontSize={0.5} position={[0, 0, 0]}>
                         {module.name}
@@ -27,20 +24,12 @@ function Bot({module}: {module: BotState}) {
                 castShadow
                 receiveShadow
                 position={bodyPose}
-                scale={clicked ? 1.5 : 1}
-                onClick={(event) => click(clicked)}
-                onPointerOver={(event) => {
-                    hover(true);
-                    setCursor('grab');
-                }}
-                onPointerOut={(event) => {
-                    hover(false)
-                    setCursor('default');
-                }}>
+                scale={1}>
+
                 <boxGeometry args={[0.26, height, 0.26]} />
                 {/* Black matte plastic */}
                 <meshPhysicalMaterial color="gray" roughness={0.5} metalness={0.5} />
-                <LED ledState={module.ledState.base} position={[0,0.005,0]} intensity={5} distance={5} castShadow/>
+                <LED ledState={module.baseLEDState} position={[0,0.005,0]} intensity={5} distance={5} castShadow/>
                 <mesh position={[0.135,0-height/2+0.0325-0.01,0.075]} rotation={[0,0,Math.PI/2]}>
                     {/* Rubber wheels, less shiny */}
                     <cylinderGeometry args={[0.0325, 0.0325, 0.017, 32]} />

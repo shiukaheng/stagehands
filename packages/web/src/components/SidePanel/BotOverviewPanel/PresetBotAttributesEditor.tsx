@@ -16,12 +16,13 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
 
   const presetUpdate =  useCallback(
     _.debounce((id : string ,newPreset: Preset)=> {
-      console.log("Updating preset")
+      // console.log("Updating preset", provider?.stage?.presets.find((preset) => preset.id === presetID)?.value.state[botID])
       
       // console.log(newPreset)
       services?.updatePreset.callback({ presetId: id, preset: newPreset })
       setPreset(newPreset)
       setBot(newPreset.state[botID])
+
       // console.log(preset)
       
     },100,{"leading" : false, "trailing" : true, 'maxWait' : 100}) 
@@ -114,7 +115,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
                       xValInputElemRef.current!.value = xValRangeElemRef.current!.value
                     }
 
-                    console.log(preset.state[botID])
+                    // console.log(preset.state[botID])
                     // Undercore_.debounce(update({ presetID: presetID, newPreset: preset }), 1000)
                     // Undercore_
 

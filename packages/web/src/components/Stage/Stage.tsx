@@ -1,7 +1,8 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { StageScene } from './StageScene'
-import { createContext, useCallback, useRef } from 'react';
+import { createContext, useCallback, useContext, useRef } from 'react';
+import { TopicContext } from '../../contexts/ServerContext';
 
 export type cursorOverride = 'default' | 'pointer' | 'grab' | 'grabbing';
 export interface IStageContext {
@@ -12,6 +13,8 @@ export const StageContext = createContext<IStageContext>({
 });
 
 export function Stage() {
+  const provider = useContext(TopicContext);
+  console.log("provider is", provider);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const setCursor = useCallback((cursor: cursorOverride) => {
     if (canvasRef.current && cursor !== null) {

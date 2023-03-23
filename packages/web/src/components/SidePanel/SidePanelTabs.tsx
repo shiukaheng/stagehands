@@ -12,7 +12,7 @@ export function SidePanelTabs() {
     className= {"rounded flex-1 p-4 cursor-pointer " + style[0]} 
     onClick={() => {
       setStyle(["ui-highlight-extra",""])
-      setComponentSelect(("preset_panel" as PresetPanelSelection))
+      setComponentSelect(({type :"preset_panel"} as PresetPanelSelection))
       }}>
       Presets
     </div>

@@ -7,7 +7,6 @@ import { Vector3 } from 'three/src/math/Vector3';
 import THREE from 'three';
 
 const height = 0.15;
-const botPoseTolerance = 0.01
 
 function Bot({module}: {module: BotState}) {
     const TargetBodyPose = [module.targetPose.position[0], module.targetPose.position[1] + height / 2 + 0.01, module.targetPose.position[2]] as [number, number, number];
@@ -15,6 +14,7 @@ function Bot({module}: {module: BotState}) {
     const bodyPose = [module.pose.position[0], module.pose.position[1] + height / 2 + 0.01, module.pose.position[2]] as [number, number, number];
     const posDiff = [TargetBodyPose[0]-bodyPose[0],TargetBodyPose[1]-bodyPose[1],TargetBodyPose[2]-bodyPose [2]]
     const posDiffMag = Math.sqrt(posDiff[0] ** 2 + posDiff[1] ** 2 + posDiff[2] ** 2);
+    // console.log("hi from taget")
     
     return (
         arrived? null:(

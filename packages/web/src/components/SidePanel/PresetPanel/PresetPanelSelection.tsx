@@ -7,7 +7,8 @@ import LiveBotAttributesEditor from "../BotOverviewPanel/LiveBotAttributesEditor
 import PresetBotAttributesEditor from "../BotOverviewPanel/PresetBotAttributesEditor";
 
 
-export type PresetPanelSelection = "preset_panel";
+export type PresetPanelSelection = {
+	type: "preset_panel"};
 export type MicPanelSelection = {
 	type: "mic_panel";
 	presetID: string | null;
@@ -35,7 +36,7 @@ export type SidePanelSelection = PresetPanelSelection | MicPanelSelection | Pres
  */
 export function SidePanelSwitcher() {
 	const { componentSelect } = useContext(componentSelectContext);
-	if (componentSelect === "preset_panel") {
+	if (componentSelect.type === "preset_panel") {
 		console.log("preset panel");
 		return (<PresetPanel />);
 	} else if (componentSelect.type === "mic_panel") {

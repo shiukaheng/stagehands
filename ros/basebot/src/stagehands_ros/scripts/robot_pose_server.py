@@ -18,18 +18,17 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 #     # global ser
 #     # ser = serial.Serial(available_ports[0], 115200)
 #     # print(available_ports[0])
-bool micModuleExists = True
+micModuleExists = True
 try:
     ser = serial.Serial('/dev/ttyACM0', 115200)
 except serial.SerialException:
     micModuleExists = False
 
-
 def set_target_pose(req):
     # Create an action client called "move_base" with action definition file "MoveBaseAction"
     client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
  
-    # Waits until the action server has started up and started listening for goals.
+    # Waits until the action action_server has started up and started listening for goals.
     client.wait_for_server()
 
     # Creates a new goal with the MoveBaseGoal constructor
@@ -47,14 +46,14 @@ def set_target_pose(req):
     # probs not how this works but lol
     if micModuleExists: ser.write(req.micHeight)
 
-    # Sends the goal to the action server.
+    # Sends the goal to the action action_server.
     client.send_goal(goal)
-    # Waits for the server to finish performing the action.
+    # Waits for the action_server to finish performing the action.
     wait = client.wait_for_result()
     # If the result doesn't arrive, assume the Server is not available
     if not wait:
-        rospy.logerr("Action server not available!")
-        rospy.signal_shutdown("Action server not available!")
+        rospy.logerr("Action action_server not available!")
+        rospy.signal_shutdown("Action action_server not available!")
     else:
     # Result of executing the action
         return setTargetPoseResponse(str(client.get_result()))
@@ -65,7 +64,6 @@ def publish_current_pose():
     listener = tf.TransformListener()
 
     rate = rospy.Rate(10)
-    print('publishuh publishin')
 
     pose = robotCurrentPose()
     while not rospy.is_shutdown():
@@ -78,12 +76,12 @@ def publish_current_pose():
 
             # again, probs not how this works but lol, lmao, rofl even
             if (micModuleExists): pose.currentMicHeight = float(ser.read_until().decode('utf-8').rstrip("\r\n"))
-            else: pose.currentMicHeight = None
+            else: pose.currentMicHeight = -1
 
             pub.publish(pose)
 
-            #print('pose:')
-            #print(pose)
+            print('pose:')
+            print(pose)
             
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException, ValueError):
             print('unable to publish updated pose')
@@ -92,9 +90,9 @@ def publish_current_pose():
 
         rate.sleep()
 
-def server():
+def action_server():
     s = rospy.Service('set_target_pose', setTargetPose, set_target_pose)
-    print('action server running')
+    print('action action_server running')
 
 if __name__ == '__main__':
     print('starting')
@@ -107,9 +105,9 @@ if __name__ == '__main__':
     #     #print(int(ser.read_until().decode('utf-8').rstrip("\r\n")))
     #     print(ser.read_until().replace(b'\r\n', b'')) #.decode('utf-8'))
     #     i += 1
-    # rospy.init_node('robot_position_server')
-    # print('node running')
-    # server()
+    rospy.init_node('robot_position_server')
+    print('node running')
+    action_server()
 
     try:
         publish_current_pose()

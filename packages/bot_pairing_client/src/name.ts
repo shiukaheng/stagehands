@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid"
 // Get async fs
 import fs from "fs/promises"
 import path from "path"
+import os from "os"
 
 /**
  * Generate a random memorable name
@@ -17,9 +18,9 @@ function generateName(): string {
 	return capitalized.slice(0, 4).join("");
 }
 
-async function readName(cachePath:string="~/name.json"): Promise<string | null> {
+async function readName(cachePath?:string): Promise<string | null> {
 	// Check if file exists
-	const resolvedPath = path.resolve(cachePath);
+	const resolvedPath = cachePath ? path.resolve(cachePath) : path.resolve(os.homedir(), "name.json");
 	let file: string;
 	try {
 		file = await fs.readFile(resolvedPath, "utf-8");
@@ -34,9 +35,9 @@ async function readName(cachePath:string="~/name.json"): Promise<string | null> 
 	}
 }
 
-async function writeName(name: string, cachePath:string="~/name.json"): Promise<void> {
+async function writeName(name: string, cachePath?:string): Promise<void> {
 	// Resolve path
-	const resolvedPath = path.resolve(cachePath);
+	const resolvedPath = cachePath ? path.resolve(cachePath) : path.resolve(os.homedir(), "name.json");
 	// Write file and overwrite if it exists
 	try {
 		await fs.writeFile(resolvedPath, JSON.stringify(name), { flag: "w" });
@@ -50,7 +51,7 @@ async function writeName(name: string, cachePath:string="~/name.json"): Promise<
  * Get the device's name, which is cached on a json file
  * @returns The device's name
  */
-export async function getName(cachePath:string="~/name.json"): Promise<string> {
+export async function getName(cachePath?:string): Promise<string> {
 	// Read name from cache
 	const name = await readName(cachePath);
 	// If it exists, return it

@@ -86,7 +86,7 @@ export class PairingServer {
                 } else if (answer.type === 'SRV') {
                     this.dnsMap.set(answer.data.target, answer.data.target);
                     console.log('📡 Found a stagehands_pairing service:', answer.data.target, answer.data.target);
-                } else if (answer.type === 'PTR') {
+                } else if (answer.type === 'PTR' && answer.name !== '_stagehands_pairing._tcp.local') {
                     this.updatePointerMap(answer.name, answer.data);
                     console.log('📡 Found a pointer:', answer.data, answer.name);
                 }
@@ -103,6 +103,7 @@ export class PairingServer {
         });
         console.log('Sent a discovery packet');
     }
+    addDevices(dev)
 }
 
 const client = new PairingClient();

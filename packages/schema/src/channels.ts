@@ -8,6 +8,12 @@ export const fleetTopic = createTopic("fleet", fleetStateSchema)
 export const stageTopic = createTopic("stage", stageStateSchema)
 
 
+//Bot paring service
+export const botPairingRequestSchema = z.object({
+    bridgeIp:z.string(),
+    bridgePort:z.string()
+})
+export const botParingService = createService("botPairingService",botPairingRequestSchema)
 // Bot services
 export const recallBotStateService = createService("recallState", recallBotStateSchema)
 

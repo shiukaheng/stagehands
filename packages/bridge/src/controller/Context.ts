@@ -7,9 +7,12 @@ export class Context {
     private stageState: StageState;
     private botClientIDMap:Map<string,string>
     private clientBotIDMap:Map<string,string>
+    private currentdnsMap:Map<string,string>
+
     constructor() {
         this.currentBotState ={};
         this.targetBotState = {};
+        this.currentdnsMap=new Map<string,string>;
         this.stageState = {
             presets: [],
             activePreset: "NoActivePreset",
@@ -51,6 +54,10 @@ export class Context {
     public getTargetBotState(): FleetState {
         return this.targetBotState;
     }
+    public getcurrentdnsMap():Map<string,string>{
+        return this.currentdnsMap;
+    }
+    
     
 
 }

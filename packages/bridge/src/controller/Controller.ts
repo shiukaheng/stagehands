@@ -1,9 +1,14 @@
 import { Context } from "./Context";
 import { JSONValue, RequestType, ServiceResponseType, TopicServer } from "webtopics";
 import { Server } from "socket.io";
+import { io } from "socket.io-client";
 import { Channel } from "webtopics";
-import { ServiceChannel,TopicChannel } from "webtopics";
-import { selectTopic } from "../topicSelector";
+import { ServiceChannel,TopicChannel,TopicClient } from "webtopics";
+import { selectTopic } from "../topicSelector"
+import {PairingServer} from "../../../bot_pairing_client/src/index"
+import { values } from "lodash";
+import{retrieveIps,getNetworkPortion} from"../utils/ipRetrival"
+import { botParingService } from "schema";
 export class Controller {
     private context: Context;
 
@@ -36,6 +41,59 @@ export class Controller {
             topicHandler(topic,this.context);
         })
     }
+    public runParingService(){
+        let server:PairingServer
+        setTimeout(() => {
+            server = new PairingServer();
+            server.startDiscoverListener();
+            server.sendDiscoveryPacket();
+        }, 100);
+
+        setTimeout(()=>{
+            setInterval(()=>{
+
+                this.context.getcurrentdnsMap().forEach((key,value)=>{
+                    if(server.getDnsMap().get(key)===undefined){
+                        console.log(`${key} disconnnected`);
+                        this.context.getcurrentdnsMap().delete(key)
+                    }
+                })
+                server.getDnsMap().forEach(async (key,value)=>{
+                    if(this.context.getcurrentdnsMap().get(key)===undefined){
+                        const port = server.getdnsPortMap().get(key)
+                        const socket =io(value+":"+port?.toString())
+                        const pairingCLient = new TopicClient(socket)
+                        
+                        //pairingCLient.req()
+                        console.log(`${key} connected`);
+                        const currentIps =retrieveIps();
+                        const botNetworkPortion =getNetworkPortion(value)
+                        let bridgeIp:string;
+                        for(const ip of currentIps){
+                            if(botNetworkPortion===getNetworkPortion(ip)){
+                                bridgeIp = ip
+                                const serverID = await pairingCLient.getServerID()
+                                pairingCLient.req(botParingService,serverID,{bridgeIp:bridgeIp,bridgePort:"3000"})
+                                .then(()=>{
+                                    console.log(key+"connected");
+                                    
+                                })
+                                .catch((error)=>{
+                                    throw error
+                                })
+                                break;
+                            }
+                        }
+                        
+                       
+                        this.context.getcurrentdnsMap().set(key,value)
+                    }
+                })
+                
+            },5000)
+        },500)
+        
+    }
 
     public get server(): TopicServer {
         return this._server;
@@ -50,6 +108,7 @@ export class Controller {
     public setContext(context: Context): void {
         this.context = context;
     }
+    
     
 }
 function then(arg0: (response: any) => any): any {

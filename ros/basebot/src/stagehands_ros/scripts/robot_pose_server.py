@@ -11,6 +11,7 @@ import time
 from stagehands_ros.srv import setTargetPose,setTargetPoseResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+from led_strip_handler import GroveWS2813RgbStrip
 from rpi_ws281x import PixelStrip, Color
 
 # LED strip configuration
@@ -18,39 +19,6 @@ LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
 LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
 LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
-
-class GroveWS2813RgbStrip(PixelStrip):
-    '''
-    Wrapper Class for Grove - WS2813 RGB LED Strip Waterproof - XXX LED/m
-
-    Args:
-        pin(int)  : 12, 18 for RPi
-        count(int): strip LEDs count
-        brightness(int): optional, set to 0 for darkest and 255 for brightest, default 255
-    '''
-    def __init__(self, pin, count, brightness = None):
-        ws2812_pins = { 12:0, 13:1, 18:0, 19:1}
-        if not pin in ws2812_pins.keys():
-            print("OneLedTypedWs2812: pin {} could not used with WS2812".format(pin))
-            return
-        channel = ws2812_pins.get(pin)
-
-        if brightness is None:
-            brightness = LED_BRIGHTNESS
-
-        # Create PixelStrip object with appropriate configuration.
-        super(GroveWS2813RgbStrip, self).__init__(
-            count,
-            pin,
-            LED_FREQ_HZ,
-            LED_DMA,
-            LED_INVERT,
-            brightness,
-            channel
-        )
-
-        # Intialize the library (must be called once before other functions).
-        self.begin()
 
 from grove import helper
 from grove.helper import helper
@@ -60,7 +28,7 @@ from grove.helper import SlotHelper
 sh = SlotHelper(SlotHelper.PWM)
 pin = sh.argv2pin(" [led-count]")
 
-import sys
+# import sys
 count = 30
 # if len(sys.argv) >= 3:
 #     count = int(sys.argv[2])
@@ -73,35 +41,18 @@ try:
 except serial.SerialException:
     micModuleExists = False
 
-# light every single led up
-def light_all_leds(strip, color):
-    for i in range(strip.numPixels()):
-        strip.setPixelColor(i, color)
-    strip.show()
-
-# set leds to flash (although this obviously stops after a while)
-def flashing_leds(strip, color, frequency):
-    for i in range(10):
-        for i in range(strip.numPixels()):
-            strip.setPixelColor(i, color)
-            strip.show()
-
-        time.sleep(1/frequency)
-
-        for i in range(strip.numPixels()):
-            strip.setPixelColour(i, Color(0, 0, 0))
-            strip.show()
-        time.sleep(1/frequency)
-
 def set_target_pose(req):
     # set the led strip to the colour and animation routine specified in the request
     (red, green, blue) = req.ledRGBColour
+    ledColour = Color(red, green, blue)
     if (req.ledAnimation== "constant"):
-        light_all_leds(strip, Color(red, green, blue))
+        strip.light_all_leds(ledColour)
         print('constant')
     elif (req.ledAnimation == "flashing"):
-        flashing_leds(strip, Color(red, green, blue), req.flashFrequency)
+        strip.flashing_leds(ledColour, req.flashFrequency)
         print('flashing')
+        print()
+    print(ledColour)
 
     # Create an action client called "move_base" with action definition file "MoveBaseAction"
     client = actionlib.SimpleActionClient('move_base',MoveBaseAction)

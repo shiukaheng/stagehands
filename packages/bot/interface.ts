@@ -111,6 +111,9 @@ function target_pose_executor(client: TopicClient, nodeHandle: NodeHandle) {
         requestedPose.xPos = data.targetPose.position[0]
         requestedPose.yPos = data.targetPose.position[1]
         requestedPose.rotationQuaternion = data.targetPose.quaternion
+        requestedPose.ledRGBColour = data.baseLEDState.rgbValue
+        requestedPose.ledAnimation = data.baseLEDState.ledAnimation.animationMode
+        requestedPose.flashFrequency = data.baseLEDState.ledAnimation.flashingFrequency
         
         if (data.module.state != null) {
             requestedPose.micHeight = data.module.state.gripPosition

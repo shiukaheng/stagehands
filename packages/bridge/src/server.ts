@@ -50,10 +50,10 @@ export class bridgeServer{
         this.controller.runService(clearLEDOverwriteService,clearLEDOverwriteServiceHandler);
         
         this.controller.runParingService();
-        this.controller.server.sub(serverMetaChannel,(data)=>{
-            console.log(data);
+        // this.controller.server.sub(serverMetaChannel,(data)=>{
+        //     console.log(data);
             
-        })
+        // })
     }
 
     public getController(){

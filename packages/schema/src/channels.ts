@@ -11,7 +11,7 @@ export const stageTopic = createTopic("stage", stageStateSchema)
 //Bot paring service
 export const botPairingRequestSchema = z.object({
     bridgeIp:z.string(),
-    bridgePort:z.string()
+    bridgePort:z.number()
 })
 export const botParingService = createService("botPairingService",botPairingRequestSchema)
 // Bot services

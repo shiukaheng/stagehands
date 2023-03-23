@@ -1,17 +1,14 @@
-import makeMdns from "multicast-dns"
+import makeMdns from "multicast-dns";
 import { getName } from "./name";
-
 // Get IP address of the device on the local network 
 let mdns = makeMdns();
 function getMdns() {
     return mdns;
 }
-
-
 export class PairingClient {
-    private mdns: makeMdns.MulticastDNS;
-    private name: string | null;
-    private ip: string = "172.0.0.1"
+    mdns;
+    name;
+    ip = "172.0.0.1";
     constructor() {
         this.name = null;
         this.mdns = getMdns();
@@ -26,24 +23,24 @@ export class PairingClient {
                 console.log('✅ Got a query for stagehands_pairing service');
                 this.mdns.respond({
                     answers: [{
-                        name: '_stagehands_pairing._tcp.local.',
-                        type: 'PTR',
-                        data: `${this.name} Pairing Service._stagehands_pairing._tcp.local.`
-                    }, {
-                        name: `${this.name} Pairing Service._stagehands_pairing._tcp.local.`,
-                        type: 'SRV',
-                        data: {
-                            port: 3535,
-                            weight: 0,
-                            priority: 0,
-                            target: `${this.name}-stagehands.local`
-                        }
-                    }, {
-                        name: `${this.name}-stagehands.local`,
-                        type: 'A',
-                        ttl: 300,
-                        data: this.ip
-                    }]
+                            name: '_stagehands_pairing._tcp.local.',
+                            type: 'PTR',
+                            data: `${this.name} Pairing Service._stagehands_pairing._tcp.local.`
+                        }, {
+                            name: `${this.name} Pairing Service._stagehands_pairing._tcp.local.`,
+                            type: 'SRV',
+                            data: {
+                                port: 3535,
+                                weight: 0,
+                                priority: 0,
+                                target: `${this.name}-stagehands.local`
+                            }
+                        }, {
+                            name: `${this.name}-stagehands.local`,
+                            type: 'A',
+                            ttl: 300,
+                            data: this.ip
+                        }]
                 });
             }
         });
@@ -53,36 +50,33 @@ export class PairingClient {
         this.mdns.destroy();
     }
 }
-
 export class PairingServer {
-    private mdns: makeMdns.MulticastDNS;
-
+    mdns;
     /**
      * Getter $mdns
      * @return {makeMdns.MulticastDNS}
      */
-	
-    private dnsMap: Map<string, string> = new Map();
-    private pointerMap: Map<string, string[]> = new Map();
-    private dnsPortMap:Map<string,number> = new Map();
+    dnsMap = new Map();
+    pointerMap = new Map();
+    dnsPortMap = new Map();
     constructor() {
         this.mdns = getMdns();
     }
-    public getDnsMap(): Map<string, string>{
-		return this.dnsMap;
-
+    getDnsMap() {
+        return this.dnsMap;
     }
-    public getdnsPortMap():Map<string,number>{
-        return this.dnsPortMap
+    getdnsPortMap() {
+        return this.dnsPortMap;
     }
-    updatePointerMap(key: string, value: string) {
+    updatePointerMap(key, value) {
         if (this.pointerMap.has(key)) {
             const values = this.pointerMap.get(key);
             if (values) {
                 values.push(value);
                 this.pointerMap.set(key, values);
             }
-        } else {
+        }
+        else {
             this.pointerMap.set(key, [value]);
         }
     }
@@ -97,11 +91,13 @@ export class PairingServer {
                 if (answer.type === 'A') {
                     this.dnsMap.set(answer.name, answer.data);
                     console.log('📡 Found a device:', answer.name, answer.data);
-                } else if (answer.type === 'SRV') {
+                }
+                else if (answer.type === 'SRV') {
                     this.dnsMap.set(answer.data.target, answer.data.target);
-                    this.dnsPortMap.set(answer.data.target,answer.data.port);
+                    this.dnsPortMap.set(answer.data.target, answer.data.port);
                     console.log('📡 Found a stagehands_pairing service:', answer.data.target, answer.data.target);
-                } else if (answer.type === 'PTR' && answer.name !== '_stagehands_pairing._tcp.local') {
+                }
+                else if (answer.type === 'PTR' && answer.name !== '_stagehands_pairing._tcp.local') {
                     this.updatePointerMap(answer.name, answer.data);
                     console.log('📡 Found a pointer:', answer.data, answer.name);
                 }
@@ -112,21 +108,17 @@ export class PairingServer {
         // Send a discovery packet
         this.mdns.query({
             questions: [{
-                type: 'PTR',
-                name: '_stagehands_pairing._tcp.local'
-            }]
+                    type: 'PTR',
+                    name: '_stagehands_pairing._tcp.local'
+                }]
         });
         console.log('Sent a discovery packet');
     }
-    //addDevices(dev)
 }
-
 const client = new PairingClient();
 client.startAdvertise();
-
 setTimeout(() => {
     const server = new PairingServer();
     server.startDiscoverListener();
     server.sendDiscoveryPacket();
 }, 100);
-

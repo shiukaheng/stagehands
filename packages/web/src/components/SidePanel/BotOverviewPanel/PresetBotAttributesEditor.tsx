@@ -1,5 +1,5 @@
 import { useRef, useState, useContext, useMemo, useCallback } from "react"
-import { BotState, Preset, RecallBotState } from 'schema';
+import { BotState, FleetState, getRecallFleetState, Preset, RecallBotState } from 'schema';
 import _ from "lodash";
 import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
 import { rgbToHex } from "../../../utils/rgbToHex";
@@ -11,8 +11,8 @@ import { hexTorgb } from "../../../utils/hexTorgb";
 export default function PresetBotAttributesEditor({ presetID, botID }: {presetID: string, botID: string }) {
   const provider = useContext(TopicContext);
   const services = useContext(ServiceContext);
-  const [preset, setPreset] = useState<Preset | null>(provider?.stage?.presets.find((preset) => preset.id === presetID)?.value || null)
-  const [bot,setBot] = useState<RecallBotState | null>(provider?.stage?.presets.find((preset) => preset.id === presetID)?.value.state[botID] || null)
+  const preset = provider?.stage?.presets.find((preset) => preset.id === presetID)?.value 
+  const bot = provider?.stage?.presets.find((preset) => preset.id === presetID)?.value.state[botID]
 
   const presetUpdate =  useCallback(
     _.debounce((id : string ,newPreset: Preset)=> {
@@ -20,8 +20,8 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
       
       // console.log(newPreset)
       services?.updatePreset.callback({ presetId: id, preset: newPreset })
-      setPreset(newPreset)
-      setBot(newPreset.state[botID])
+
+      // services?.recallFleetState.callback(getRecallFleetState(provider?.fleet as FleetState))
 
       // console.log(preset)
       
@@ -50,8 +50,6 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
   const ledColorElemRef = useRef<HTMLInputElement>(null)
   const ledAnimationElemRef = useRef<HTMLSelectElement>(null)
   const flashingFrequencyElemRef = useRef<HTMLInputElement>(null)
-  const [xValInput , setXValInput] = useState(bot?.targetPose.position[0])
-  const [yValInput , setYValInput] = useState(bot?.targetPose.position[2])
   const [ledAnimationInput , setLedAnimationInput] = useState(bot?.baseLEDState.ledAnimation.animationMode)
 
 
@@ -101,15 +99,17 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
                   min={0}
                   max={100}
 
-                  value={xValInput}
+                  defaultValue={bot?.targetPose.position[0]}
                   onChange={() => {
                     const xVal = parseInt(xValInputElemRef.current!.value)
                     if( xVal <= 100 && xVal >= 0){
                       xValRangeElemRef.current!.value = xValInputElemRef.current!.value
                       preset.state[botID].targetPose.position[0] = parseInt(xValInputElemRef.current!.value)
-  
+                      // if(provider !== null && provider.fleet !== undefined){
+                      //   provider.fleet[botID].targetPose.position[0] +=1
+                      //   console.log("???")
+                      // }
                       presetUpdate(presetID, preset)
-                      setXValInput(preset.state[botID].targetPose.position[0])
                     } else {
                       alert ("X value must be between 0 and 100")
                       xValInputElemRef.current!.value = xValRangeElemRef.current!.value
@@ -134,7 +134,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
                   id={"micXRange"}
                   min={0}
                   max={100}
-                  value={xValInput}
+                  defaultValue={bot?.targetPose.position[0]}
                   step={1}
                   onChange={() => {
                     // When the range input is changed, useRef to get the input element
@@ -142,7 +142,6 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
                     xValInputElemRef.current!.value = xValRangeElemRef.current!.value
                     preset.state[botID].targetPose.position[0] = parseInt(xValRangeElemRef.current!.value)
                     presetUpdate(presetID, preset)
-                    setXValInput(preset.state[botID].targetPose.position[0])
 
                   }}
                 ></input>
@@ -159,14 +158,14 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
                   id={"micY"}
                   min={0}
                   max={100}
-                  value={yValInput}
+                  defaultValue={bot?.targetPose.position[2]}
                   onChange={() => {
                     const yVal = parseInt(yValInputElemRef.current!.value)
                     if( yVal <= 100 && yVal >= 0){
                       yValRangeElemRef.current!.value = yValInputElemRef.current!.value
                       preset.state[botID].targetPose.position[2] = parseInt(yValInputElemRef.current!.value)
                       presetUpdate(presetID, preset)
-                      setYValInput(preset.state[botID].targetPose.position[2])
+
                     } else{
                       alert ("Y value must be between 0 and 100")
                       yValInputElemRef.current!.value = yValRangeElemRef.current!.value
@@ -185,14 +184,13 @@ export default function PresetBotAttributesEditor({ presetID, botID }: {presetID
                   id={"micXRange"}
                   min={0}
                   max={100}
-                  value={yValInput}
+                  defaultValue={bot?.targetPose.position[2]}
                   step={1}
 
                   onChange={() => {
                     yValInputElemRef.current!.value = yValRangeElemRef.current!.value
                     preset.state[botID].targetPose.position[2] = parseInt(yValInputElemRef.current!.value)
                     presetUpdate(presetID, preset)
-                    setYValInput(preset.state[botID].targetPose.position[2])
                   }}
                 // onChange = {() => {
                 //   document.getElementById("micX").innerText = document.getElementById("micXRange")

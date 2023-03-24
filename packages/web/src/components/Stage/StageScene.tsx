@@ -25,8 +25,6 @@ export function StageScene() {
   } else {
     current = undefined;
   }
-  console.log(componentSelect)
-  console.log("rerendering stage scene")
 
 
   // render the mic stands on the plane

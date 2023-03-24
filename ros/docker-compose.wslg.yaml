@@ -1,0 +1,7 @@
+services:
+  ros-dev:
+    volumes:
+      - \\wsl$\Ubuntu\mnt\wslg\:/mnt/wslg/
+      - \\wsl$\Ubuntu\tmp\.X11-unix:/tmp/.X11-unix
+    environment:
+      - HOST_OS=win_wslg

@@ -1,0 +1,4 @@
+services:
+  ros-dev:
+    environment:
+      - HOST_OS=macos

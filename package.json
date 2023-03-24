@@ -24,8 +24,15 @@
     "dev-web": "cd packages/web && npm run dev",
     "dev-web-emu": "npm run build-schema && concurrently \"npm run dev-fake_bridge\" \"npm run dev-web\"",
     "ros": "ts-node scripts/launch_ros.ts",
+    "ros-prebuild-prod": "cd ros && docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml build && docker push shiukaheng/stagehands:prod",
+    "ros-prebuild-dev": "cd ros && docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml build && docker push shiukaheng/stagehands:dev",
+    "ros-pull-prod": "cd ros && docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml pull",
+    "ros-pull-dev": "cd ros && docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml pull",
     "bridge-test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "dev-bot": "cd packages/bot && npm run dev"
+    "dev-bot": "cd packages/bot && npm run dev",
+    "build-bot": "cd packages/bot && npm run build",
+    "dev-bot-pairing": "cd packages/bot_pairing && npm run dev",
+    "build-bot-pairing": "cd packages/bot_pairing && npm run build"
   },
   "repository": {
     "type": "git",

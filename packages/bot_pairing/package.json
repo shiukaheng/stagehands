@@ -1,5 +1,5 @@
 {
-  "name": "bot_pairing_client",
+  "name": "bot_pairing",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

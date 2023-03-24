@@ -23,6 +23,11 @@ RUN apt-get install -y ros-noetic-rqt
 # RUN apt-get install -y ros-noetic-rqt-robot-plugins
 RUN apt-get install -y libgazebo11-dev
 RUN apt-get install -y python3-roslaunch
+RUN apt-get install -y ros-noetic-rosserial-python
+RUN apt-get install -y ros-noetic-hls-lfcd-lds-driver
+RUN apt-get install -y ros-noetic-nav2d
+RUN apt-get install -y ros-noetic-stage-ros
+RUN apt-get install -y ros-noetic-joy
 
 # Development
 RUN apt-get install -y python3-catkin-tools
@@ -46,11 +51,6 @@ ENV NVM_DIR=/root/.nvm
 # Install the latest version of NodeJS
 RUN /bin/bash -c "source $NVM_DIR/nvm.sh; nvm install node"
 
-# More ROS
-RUN apt-get install -y ros-noetic-nav2d
-RUN apt-get install -y ros-noetic-stage-ros
-RUN apt-get install -y ros-noetic-joy
-
 # Set the working directory to catkin_ws
 WORKDIR /catkin_ws/src
 
@@ -71,6 +71,9 @@ WORKDIR /catkin_ws
 # Build the catkin workspace
 RUN /bin/bash -c "source /opt/ros/noetic/setup.bash; catkin build"
 
+# Setup USB permissions
+RUN /bin/bash -c "source /opt/ros/noetic/setup.bash; rosrun turtlebot3_bringup create_udev_rules"
+
 # Set the environment variables
 ARG ROS_MASTER_HOSTNAME=docker-desktop
 ARG ROS_MASTER_PORT=11311
@@ -78,6 +81,7 @@ ARG TURTLEBOT3_MODEL=waffle_pi
 ENV ROS_MASTER_URI=http://${ROS_MASTER_HOSTNAME}:11311
 ENV ROS_HOSTNAME=${ROS_MASTER_HOSTNAME}
 ENV TURTLEBOT3_MODEL=${TURTLEBOT3_MODEL}
+ENV LDS_MODEL=LDS-01
 
 # Go back to the default working directory
 WORKDIR /

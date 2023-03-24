@@ -1,5 +1,5 @@
 # Pull ROS noetic image from Docker Hub
-FROM osrf/ros:noetic-desktop-full
+FROM ros:noetic-perception-focal
 
 # Update git
 RUN sed -i 's/archive.ubuntu.com/uk.archive.ubuntu.com/g' /etc/apt/sources.list

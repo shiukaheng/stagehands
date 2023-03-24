@@ -5,14 +5,13 @@ import { io } from "socket.io-client";
 import { Channel } from "webtopics";
 import { ServiceChannel, TopicChannel, TopicClient } from "webtopics";
 import { selectTopic } from "../topicSelector"
-import { PairingServer } from "../../../bot_pairing/src/index"
+import { PairingServer } from "../../../bot/src/discovery"
 import { values } from "lodash";
 import { retrieveIps, getNetworkPortion } from "../utils/ipRetrival"
 import { botParingService } from "schema";
-import { Socket } from "dgram";
+import{Listener} from "../../../bot/src/discovery"
 export class Controller {
     private context: Context;
-
     private _server: TopicServer;
     private bridgePort;
     constructor(port: number = 3000) {
@@ -53,6 +52,15 @@ export class Controller {
         setTimeout(() => {
             setInterval(() => {
                 server.sendDiscoveryPacket();
+                server.subBots((availableBots)=>{
+                    for(const botName of availableBots.keys()){
+                        if(this.context.getBotConnectionState().find((BCS)=>BCS.domainName===botName)===undefined){
+                            this.context.getBotConnectionState().push({domainName:botName,connectionStatus:"disconnected"})
+                        }
+                    }
+                })
+                console.log(this.context.getBotConnectionState());
+                
             }, 2000)
         }, 500)
 

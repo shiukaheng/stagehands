@@ -73,7 +73,7 @@ type Service = {
     port: number,
 }
 
-type Listener = (new_clients: Map<string, TopicClient>) => void
+export type Listener = (new_clients: Map<string, TopicClient>) => void
 
 type Unsubscriber = () => void
 

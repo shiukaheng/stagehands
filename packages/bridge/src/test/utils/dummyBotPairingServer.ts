@@ -1,4 +1,4 @@
-import { PairingClient } from "../../../../bot_pairing/src";
+import { PairingClient } from "../../../../bot/src/discovery";
 import { Server } from "socket.io";
 import { TopicServer } from "webtopics";
 import { botParingService } from "schema";

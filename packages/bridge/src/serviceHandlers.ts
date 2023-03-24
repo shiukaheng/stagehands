@@ -118,12 +118,12 @@ export async function StopBotClearServiceHandler(botName:string,context:Context,
 export async function RecallFleetStateServiceHandler(recallFleetState:RecallFleetState,context:Context,server:TopicServer){
     const errors = [];
     
-    for (const [botName, recallBotState] of Object.entries(recallFleetState)){
-        let botClientId = context.getbotClientIDMap().get(botName);
+    for (const [botID, recallBotState] of Object.entries(recallFleetState)){
+        //let botClientId = context.getbotClientIDMap().get(botName);
         try{
             checkValidRecall(recallFleetState,context)
-            checkClientIDPresent(botName,context);
-            server.req(recallBotStateService ,botClientId as string,recallBotState)
+            //checkClientIDPresent(botName,context);
+            server.req(recallBotStateService ,botID as string,recallBotState)
             .then(()=>{
                 // const bot = context.getTargetBotState()[botName];
                 // bot.targetPose = recallBotState.targetPose;

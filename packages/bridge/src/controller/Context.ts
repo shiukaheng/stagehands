@@ -12,37 +12,12 @@ export class Context {
     private targetBotState: FleetState;
     private stageState: StageState;
     private botClientIDMap:Map<string,string>
-    private domainnameTopicClientMap:Map<string,TopicClient>
-    private domainnameIpMap:Map<string,string>
-
-    public getDomainnameIpMap(): Map<string,string> {
-        return this.domainnameIpMap;
-    }
-
-    public setDomainnameIpMap(domainnameIpMap: Map<string,string>): void {
-        this.domainnameIpMap = domainnameIpMap;
-    }
-
-
-    public getDomainnameTopicClientMap(): Map<string,TopicClient> {
-        return this.domainnameTopicClientMap;
-    }
-
-    public setDomainnameTopicClientMap(domainnameTopicClientMap: Map<string,TopicClient>): void {
-        this.domainnameTopicClientMap = domainnameTopicClientMap;
-    }
-
-    private domainNameConnectionState:DomainNameConnectionState[]
-
-    
-
+    private botConnectionState:DomainNameConnectionState[]
 
     constructor() {
         this.currentBotState ={};
         this.targetBotState = {};
-        this.domainNameConnectionState=[]
-        this.domainnameIpMap=new Map<string,string>
-        this.domainnameTopicClientMap=new Map<string,TopicClient>;
+        this.botConnectionState=[]
         this.stageState = {
             presets: [],
             activePreset: "NoActivePreset",
@@ -81,12 +56,12 @@ export class Context {
         return this.targetBotState;
     }
 
-    public getdomainNameConnectionState(): DomainNameConnectionState[] {
-        return this.domainNameConnectionState;
+    public getBotConnectionState(): DomainNameConnectionState[] {
+        return this.botConnectionState;
     }
 
-    public setdomainNameConnectionState(domainNameList: DomainNameConnectionState[]): void {
-        this.domainNameConnectionState = domainNameList;
+    public setBotConnectionState(domainNameList: DomainNameConnectionState[]): void {
+        this.botConnectionState = domainNameList;
     }
     
 

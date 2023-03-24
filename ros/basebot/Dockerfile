@@ -36,6 +36,10 @@ RUN apt-get install -y git
 RUN apt-get install -y x11-apps
 RUN apt-get install -y iputils-ping
 
+RUN apt-get install -y net-tools
+RUN apt-get install -y python3-pip
+RUN pip install pyserial rpi_ws281x
+
 # For hostname resolution
 RUN apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns mdns-scan
 RUN apt-get install -y wget
@@ -72,7 +76,7 @@ WORKDIR /catkin_ws
 RUN /bin/bash -c "source /opt/ros/noetic/setup.bash; catkin build"
 
 # Setup USB permissions
-RUN /bin/bash -c "source /opt/ros/noetic/setup.bash; rosrun turtlebot3_bringup create_udev_rules"
+# RUN /bin/bash -c "source /opt/ros/noetic/setup.bash; rosrun turtlebot3_bringup create_udev_rules"
 
 # Set the environment variables
 ARG ROS_MASTER_HOSTNAME=docker-desktop

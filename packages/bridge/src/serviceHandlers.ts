@@ -71,14 +71,14 @@ export function EmergencyStopClearServiceHandler(requestData:undefined,context:C
 }
 
 // Stop particular bot
-export async function StopBotServiceHandler(botName:string,context:Context,server:TopicServer){
-    if (!context.getCurrentBotState().hasOwnProperty(botName)) {
-        throw new Error(`Bot ${botName} does not exist`)
+export async function StopBotServiceHandler(botID:string,context:Context,server:TopicServer){
+    if (!context.getCurrentBotState().hasOwnProperty(botID)) {
+        throw new Error(`Bot ${botID} does not exist`)
     }
     try{
-        checkClientIDPresent(botName,context);
-        const botClientID = context.getbotClientIDMap().get(botName);
-        server.req(stopService,botClientID as string)
+        //checkClientIDPresent(botName,context);
+        //const botClientID = context.getbotClientIDMap().get(botName);
+        server.req(stopService,botID as string)
         .then(()=>{
             //context.getTargetBotState()[botName].stopped = true;
         })
@@ -93,14 +93,14 @@ export async function StopBotServiceHandler(botName:string,context:Context,serve
 }
 
 // Clear bot stop
-export async function StopBotClearServiceHandler(botName:string,context:Context,server:TopicServer){
-    if (!context.getCurrentBotState().hasOwnProperty(botName)) {
-        throw new Error(`Bot ${botName} does not exist`)
+export async function StopBotClearServiceHandler(botID:string,context:Context,server:TopicServer){
+    if (!context.getCurrentBotState().hasOwnProperty(botID)) {
+        throw new Error(`Bot ${botID} does not exist`)
     }
     try{
-        checkClientIDPresent(botName,context);
-        const botClientID = context.getbotClientIDMap().get(botName);
-        server.req(clearStopService,botClientID as string)
+        //checkClientIDPresent(botID,context);
+        //const botClientID = context.getbotClientIDMap().get(botID);
+        server.req(clearStopService,botID as string)
         .then(()=>{
             //context.getTargetBotState()[botName].stopped = false;
         })
@@ -154,9 +154,9 @@ export async function overWriteBotLEDServiceHandler(overWriteBotLEDRequest:OverW
         throw new Error(`Bot ${botID} does not exist`)
     }
     try{
-        checkClientIDPresent(botID,context);
-        const botClientID = context.getbotClientIDMap().get(botID);
-        server.req(LEDOverwriteService,botClientID as string,overWriteBotLEDRequest.ledState)
+        //checkClientIDPresent(botID,context);
+        //const botClientID = context.getbotClientIDMap().get(botID);
+        server.req(LEDOverwriteService,botID as string,overWriteBotLEDRequest.ledState)
         .then(()=>{
             // const bot = context.getCurrentBotState()[botID];
             // bot.ledState.systemOverride = overWriteBotLEDRequest.ledState;
@@ -192,9 +192,9 @@ export async function clearBotLEDOverwriteServiceHandler(botID:string,context:Co
         throw new Error(`Bot ${botID} does not exist`)
     }
     try{
-        checkClientIDPresent(botID,context);
-        const botClientID = context.getbotClientIDMap().get(botID);
-        server.req(restoreLEDService,botClientID as string)
+        //checkClientIDPresent(botID,context);
+        //const botClientID = context.getbotClientIDMap().get(botID);
+        server.req(restoreLEDService,botID as string)
         .then(()=>{
             // const bot = context.getCurrentBotState()[botID];
             // bot.ledState.systemOverride = undefined;

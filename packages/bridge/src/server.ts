@@ -1,6 +1,6 @@
 import { serverMetaChannel, TopicServer } from "webtopics"
 import { Server } from "socket.io"
-import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, stopBotService, reorderPresetsService, runPresetService, registerBotClientIDService, overWriteBotLEDService, clearBotLEDOverwriteService, overWriteLEDService, clearLEDOverwriteService } from "schema"
+import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, stopBotService, reorderPresetsService, runPresetService, overWriteBotLEDService, clearBotLEDOverwriteService, overWriteLEDService, clearLEDOverwriteService } from "schema"
 import { z } from "zod"
 import { ServiceChannel } from "webtopics/dist/utils/Channel"
 import { v4 } from "uuid"
@@ -49,7 +49,7 @@ export class bridgeServer{
         //clear all bot's led overwrite service
         this.controller.runService(clearLEDOverwriteService,clearLEDOverwriteServiceHandler);
         
-        this.controller.runParingService();
+        //this.controller.runParingService();
         // this.controller.server.sub(serverMetaChannel,(data)=>{
         //     console.log(data);
             

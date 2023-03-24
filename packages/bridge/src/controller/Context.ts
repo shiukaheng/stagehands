@@ -1,18 +1,15 @@
 import { type } from "os";
-import { FleetState,presetRecallStateLiteralSchema,StageBoundary,StageState } from "schema";
+import { FleetState,presetRecallStateLiteralSchema,StageBoundary,StageState,BotConnectionStatus } from "schema";
 
 import { Preset } from "schema";
 import { TopicClient } from "webtopics";
-export type DomainNameConnectionState ={
-    domainName:string,
-    connectionStatus:"connected"|"disconnected"
-}
+
 export class Context {
     private currentBotState: FleetState;
     private targetBotState: FleetState;
     private stageState: StageState;
     //private botClientIDMap:Map<string,string>
-    private botConnectionState:DomainNameConnectionState[]
+    private botConnectionState:BotConnectionStatus[]
 
     constructor() {
         this.currentBotState ={};
@@ -56,11 +53,11 @@ export class Context {
         return this.targetBotState;
     }
 
-    public getBotConnectionState(): DomainNameConnectionState[] {
+    public getBotConnectionState(): BotConnectionStatus[] {
         return this.botConnectionState;
     }
 
-    public setBotConnectionState(domainNameList: DomainNameConnectionState[]): void {
+    public setBotConnectionState(domainNameList: BotConnectionStatus[]): void {
         this.botConnectionState = domainNameList;
     }
     

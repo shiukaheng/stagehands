@@ -1,5 +1,5 @@
 import { Context } from "./controller/Context";
-import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, RegisterBotClientIDRequest, CreatePresetReturn } from "schema";
+import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn,BotConnectionStatus } from "schema";
 import { v4 } from "uuid"
 import { checkValidRecall } from "./utils/ValidationFunc";
 import { Controller } from "./controller/Controller";
@@ -247,7 +247,7 @@ export function reorderPresetsServiceHandler(presetIDs:string[],context:Context,
             if (preset) {
                 newPresets.push(preset)
             } else {
-                throw new Error("Preset does not exist")
+            throw new Error("Preset does not exist")
             }
         }
         context.getStageState().presets = newPresets
@@ -256,7 +256,9 @@ export function reorderPresetsServiceHandler(presetIDs:string[],context:Context,
 }
 
 }
-//export function 
+export function connectBotServiceHandler(botName:string,context:Context,server:TopicServer){
+    
+}
 //register bot clientID
 // export function registerBotClientIDServiceHandler(registerBotClientIDRequest:RegisterBotClientIDRequest,context:Context){
 //     context.getbotClientIDMap().set(registerBotClientIDRequest.botID,registerBotClientIDRequest.clientID);

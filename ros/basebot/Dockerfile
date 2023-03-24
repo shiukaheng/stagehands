@@ -31,6 +31,10 @@ RUN apt-get install -y git
 RUN apt-get install -y x11-apps
 RUN apt-get install -y iputils-ping
 
+RUN apt-get install -y net-tools
+RUN apt-get install -y pip
+RUN pip install rpi_ws281x pyserial
+
 # For hostname resolution
 RUN apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns mdns-scan
 RUN apt-get install -y wget

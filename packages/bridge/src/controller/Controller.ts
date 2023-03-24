@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { Channel } from "webtopics";
 import { ServiceChannel,TopicChannel,TopicClient } from "webtopics";
 import { selectTopic } from "../topicSelector"
-import {PairingServer} from "../../../bot_pairing_client/src/index"
+import {PairingServer} from "../../../bot_pairing/src/index"
 import { values } from "lodash";
 import{retrieveIps,getNetworkPortion} from"../utils/ipRetrival"
 import { botParingService } from "schema";
@@ -49,34 +49,51 @@ export class Controller {
         setTimeout(() => {
             server = new PairingServer();
             server.startDiscoverListener();
-            server.sendDiscoveryPacket();
         }, 100);
 
         setTimeout(()=>{
             setInterval(()=>{
+                server.sendDiscoveryPacket();
                 console.log("all domain name");
                 
                 console.log(this.context.getdomainNameConnectionState());
                 
                 server.getDnsMap().forEach(async (ip,domainName)=>{
-                    console.log(domainName);
+                    //console.log(domainName);
                     
                     let socket:any;
                     let pairingCLient:TopicClient;
                     const dN=Array.from(this.context.getDomainnameIpMap().keys()).find((d)=>d===domainName)
                     console.log(domainName);
                     const port = server.getdnsPortMap().get(domainName)
-                    console.log(`Connecting to botClient with ip:${ip} and port:${port}`);
+                    //console.log(`Connecting to botClient with ip:${ip} and port:${port}`);
                     const socketInput="http://"+ip+":"+port?.toString()
+                    console.log(server.getdnsPortMap());
+                    
+                    
                     if(dN===undefined){
                         socket =io("http://"+ip+":"+port?.toString())
+                        console.log("http://"+ip+":"+port?.toString());
+                        
                         pairingCLient = new TopicClient(socket)
-                        this.context.getDomainnameTopicClientMap().set(domainName,pairingCLient)
-                        this.context.getDomainnameIpMap().set(domainName,socketInput)
+                        pairingCLient.getServerID()
+                        .then((serverID)=>{
+                            this.context.getDomainnameTopicClientMap().set(domainName,pairingCLient)
+                            this.context.getDomainnameIpMap().set(domainName,socketInput)
+                            this.context.getdomainNameConnectionState().push({domainName:domainName,connectionStatus:"disconnected"})
+                        })
+                        .catch((error)=>{
+                            console.log(error);
+                            
+                        })
+                        
                         
                     }
                     else{
+
                         if(this.context.getDomainnameIpMap().get(domainName)!==socketInput){
+                            console.log("socketInput change");
+                            
                             socket =io("http://"+ip+":"+port?.toString())
                             pairingCLient = new TopicClient(socket)
                             this.context.getDomainnameTopicClientMap().set(domainName,pairingCLient)
@@ -87,11 +104,20 @@ export class Controller {
                     const currentIps =retrieveIps();
                     const botNetworkPortion =getNetworkPortion(ip)
 
-                    for(const ip of currentIps){
+                    for(const bridgeIp of currentIps){
                         const dC = this.context.getdomainNameConnectionState().find((d)=>d.domainName===domainName)
-                        if(botNetworkPortion===getNetworkPortion(ip)){
+                        console.log(getNetworkPortion(bridgeIp));
+                        console.log(botNetworkPortion);
+                        
+                        
+                        if(botNetworkPortion===getNetworkPortion(bridgeIp)){
+                            console.log("establishing");
+                            
                             pairingCLient.getServerID()
                             .then((serverID)=>{
+                                console.log("retrive serverId successful");
+                                console.log(dC);
+                                
                                 if(dC===undefined){
                                     this.context.getdomainNameConnectionState().push({domainName:domainName,connectionStatus:"disconnected"})
                                 }
@@ -112,11 +138,13 @@ export class Controller {
                                 
                             })
                             .catch((error)=>{
-                                console.log(error);
+                                console.log(domainName+" not reachable");
+                                
+                                //console.log(error);
                                 
                                 if(dC!==undefined){
                                     console.log(dC.domainName+" disconnected");
-                                    const newState = this.context.getdomainNameConnectionState().filter((d)=>d.domainName===domainName)
+                                    let newState = this.context.getdomainNameConnectionState().filter((d)=>d.domainName===domainName)
                                     this.context.setdomainNameConnectionState(newState)
                                 }
 

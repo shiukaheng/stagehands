@@ -17,6 +17,7 @@ function BotOverviewPanel({ presetID }: { presetID: string | null }) {
         }
     }, [presetID, provider?.stage?.presets])
     return (
+        <div>
         <div id="MiddleSection" className=" border-solid h-full snap-center overflow-y-auto overflow-x-hidden">
             {presetIsNull ?
                 (
@@ -42,6 +43,13 @@ function BotOverviewPanel({ presetID }: { presetID: string | null }) {
                         <PresetBotWidget recallBot={value} key={key} name={provider?.fleet?.[key]?.name} presetID={presetID} botID={key} />))
                 )
             }
+        </div>
+        <div className="inset-x-0 bottom-0">
+            <button
+            className="font-bold box-border flex-shrink ui-div ui-highlight-solid ui-shadow m-6 p-4 w-full">
+                Connect Bots +
+            </button>
+        </div>
         </div>
     )
 }

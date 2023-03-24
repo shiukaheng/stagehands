@@ -1,0 +1,3 @@
+services:
+  ros-dev:
+    image: stagehands:prod

@@ -5,6 +5,7 @@ import componentSelectContext from "../../../contexts/ComponentSwitchContext";
 import BotOverviewPanel from "../BotOverviewPanel/BotOverviewPanel";
 import LiveBotAttributesEditor from "../BotOverviewPanel/LiveBotAttributesEditor";
 import PresetBotAttributesEditor from "../BotOverviewPanel/PresetBotAttributesEditor";
+import { RunningpresetPanel } from "../RunningPresetPanel";
 
 
 export type PresetPanelSelection = {
@@ -29,7 +30,12 @@ export type LiveAttributesPageSelection = {
 
 };
 
-export type SidePanelSelection = PresetPanelSelection | MicPanelSelection | PresetMicAttributesPageSelection | LiveAttributesPageSelection;
+export type RunningPresetSelction = {
+	type: "running_preset";
+	presetIndex: number;
+}
+
+export type SidePanelSelection = PresetPanelSelection | MicPanelSelection | PresetMicAttributesPageSelection | LiveAttributesPageSelection | RunningPresetSelction;
 
 /**
  * Switches the component that displays the main body of the side panel
@@ -48,7 +54,11 @@ export function SidePanelSwitcher() {
 	} else if (componentSelect.type === "live_attributes_page") {
 		console.log("live mic attributes page");
 		return (<LiveBotAttributesEditor bot={componentSelect.bot} botID = {componentSelect.botID} />);
-	} else {
+	} else if ( componentSelect.type === "running_preset") {
+		console.log("running preset");
+		return (<RunningpresetPanel presetIndex={componentSelect.presetIndex}/>);
+
+	}else {
 		return null;
 	}
 }

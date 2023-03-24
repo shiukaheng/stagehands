@@ -32,7 +32,8 @@
     "dev-bot": "cd packages/bot && npm run dev",
     "build-bot": "cd packages/bot && npm run build",
     "dev-bot-pairing": "cd packages/bot_pairing && npm run dev",
-    "build-bot-pairing": "cd packages/bot_pairing && npm run build"
+    "build-bot-pairing": "cd packages/bot_pairing && npm run build",
+    "wtf": "cd packages/wtf && npm run wtf"
   },
   "repository": {
     "type": "git",

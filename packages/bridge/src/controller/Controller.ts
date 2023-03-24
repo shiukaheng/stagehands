@@ -71,36 +71,27 @@ export class Controller {
                     console.log(server.getdnsPortMap());
                     
                     
-                    if(dN===undefined){
-                        socket =io("http://"+ip+":"+port?.toString())
-                        console.log("http://"+ip+":"+port?.toString());
-                        
+                    if(dN===undefined||this.context.getDomainnameIpMap().get(domainName)!==socketInput){
+                        socket =io(socketInput)
+                        console.log(socketInput);
                         pairingCLient = new TopicClient(socket)
-                        pairingCLient.getServerID()
-                        .then((serverID)=>{
-                            this.context.getDomainnameTopicClientMap().set(domainName,pairingCLient)
-                            this.context.getDomainnameIpMap().set(domainName,socketInput)
-                            this.context.getdomainNameConnectionState().push({domainName:domainName,connectionStatus:"disconnected"})
-                        })
-                        .catch((error)=>{
-                            console.log(error);
+                        setTimeout(() => {
+                            pairingCLient.getServerID()
+                            .then((serverID)=>{
+                                this.context.getDomainnameTopicClientMap().set(domainName,pairingCLient)
+                                this.context.getDomainnameIpMap().set(domainName,socketInput)
+                                this.context.getdomainNameConnectionState().push({domainName:domainName,connectionStatus:"disconnected"})
+                            })
+                            .catch((error)=>{
+                                console.log(error);
+                                
+                            })
                             
-                        })
-                        
-                        
+                        }, 100);
+ 
                     }
-                    else{
-
-                        if(this.context.getDomainnameIpMap().get(domainName)!==socketInput){
-                            console.log("socketInput change");
-                            
-                            socket =io("http://"+ip+":"+port?.toString())
-                            pairingCLient = new TopicClient(socket)
-                            this.context.getDomainnameTopicClientMap().set(domainName,pairingCLient)
-                            this.context.getDomainnameIpMap().set(domainName,socketInput)
-                        }
-                        pairingCLient= this.context.getDomainnameTopicClientMap().get(domainName) as TopicClient
-                    }
+                    
+                    pairingCLient= this.context.getDomainnameTopicClientMap().get(domainName) as TopicClient
                     const currentIps =retrieveIps();
                     const botNetworkPortion =getNetworkPortion(ip)
 

@@ -56,7 +56,7 @@ export class Controller {
                     for(const botName of availableBots.keys()){
                         if(this.context.getBotConnectionState().find((BCS)=>BCS.domainName===botName)===undefined){
                             this.context.getBotConnectionState().push({domainName:botName,connectionStatus:"disconnected"})
-                            
+
                         }
                     }
                 })

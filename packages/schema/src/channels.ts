@@ -6,7 +6,7 @@ import { type } from "os";
 // Topics
 export const fleetTopic = createTopic("fleet", fleetStateSchema)
 export const stageTopic = createTopic("stage", stageStateSchema)
-
+//export const botConnectionStatusTopic = createTopic("botConnectionStatus")
 
 //Bot paring service
 export const botPairingRequestSchema = z.object({

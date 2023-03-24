@@ -7,11 +7,12 @@ export class botPairingServer{
     private pairingClient:PairingClient
     private botPairingWebTopicServer :TopicServer;
     private bridgeIPPort;
-    
+    private socketServer;
 
     constructor(){
         this.pairingClient= new PairingClient();
-        this.botPairingWebTopicServer =new TopicServer(new Server(3535))
+        this.socketServer =new Server(3535);
+        this.botPairingWebTopicServer =new TopicServer(this.socketServer)
         this.bridgeIPPort="not found"
     }
     public runPairingService(){
@@ -23,6 +24,13 @@ export class botPairingServer{
             
             console.log(this.bridgeIPPort);
             
+        })
+        process.on("SIGINT",()=>{
+            console.log('Received SIGINT. Stopping Socket.IO server...');
+            this.socketServer.close(()=>{
+                console.log('Socket.IO server stopped.');
+                process.exit();
+            })
         })
     }
 

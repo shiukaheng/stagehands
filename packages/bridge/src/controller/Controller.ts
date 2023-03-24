@@ -59,9 +59,11 @@ export class Controller {
                 console.log(this.context.getdomainNameConnectionState());
                 
                 server.getDnsMap().forEach(async (ip,domainName)=>{
+                    console.log(domainName);
+                    
                     let socket:any;
                     let pairingCLient:TopicClient;
-                    const dN=this.context.getdomainNameConnectionState().find((d)=>d.domainName===domainName)
+                    const dN=Array.from(this.context.getDomainnameIpMap().keys()).find((d)=>d===domainName)
                     console.log(domainName);
                     const port = server.getdnsPortMap().get(domainName)
                     console.log(`Connecting to botClient with ip:${ip} and port:${port}`);
@@ -86,36 +88,38 @@ export class Controller {
                     const botNetworkPortion =getNetworkPortion(ip)
 
                     for(const ip of currentIps){
+                        const dC = this.context.getdomainNameConnectionState().find((d)=>d.domainName===domainName)
                         if(botNetworkPortion===getNetworkPortion(ip)){
                             pairingCLient.getServerID()
                             .then((serverID)=>{
-                                pairingCLient.req(botParingService,serverID,{bridgeIp:ip,bridgePort:this.bridgePort})
-                                .then(()=>{
-                                    if(dN===undefined){
-                                        console.log(ip+"connected");
-                                        this.context.getdomainNameConnectionState().push({domainName:domainName,connectionStatus:"connected"})
-                                    }
+                                if(dC===undefined){
+                                    this.context.getdomainNameConnectionState().push({domainName:domainName,connectionStatus:"disconnected"})
+                                }
+                                // pairingCLient.req(botParingService,serverID,{bridgeIp:ip,bridgePort:this.bridgePort})
+                                // .then(()=>{
+                                //     if(dN===undefined){
+                                //         console.log(ip+"connected");
+                                //         this.context.getdomainNameConnectionState().push({domainName:domainName,connectionStatus:"connected"})
+                                //     }
                                     
-                                })
-                                .catch((error)=>{
-                                    console.log(domainName);
+                                // })
+                                // .catch((error)=>{
+                                //     console.log(domainName);
                                     
-                                    console.log(error);
+                                //     console.log(error);
                                     
-                                })
+                                // })
                                 
                             })
                             .catch((error)=>{
-                                if(dN?.connectionStatus==="connected"){
-                                    console.log(dN.domainName+" disconnected");
-                                    const disconnectionIndex=this.context.getdomainNameConnectionState().findIndex((d)=>d.domainName===domainName)
-                                    this.context.getdomainNameConnectionState()[disconnectionIndex].connectionStatus="disconnected"
-                                    
+                                console.log(error);
+                                
+                                if(dC!==undefined){
+                                    console.log(dC.domainName+" disconnected");
+                                    const newState = this.context.getdomainNameConnectionState().filter((d)=>d.domainName===domainName)
+                                    this.context.setdomainNameConnectionState(newState)
                                 }
-                                else{
-                                    console.log(domainName+"not in same network");
-                                }
-                                //socket.close()
+
                             })
                             
                         }

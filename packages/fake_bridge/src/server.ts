@@ -32,7 +32,7 @@ export class FakeBridgeServer {
      * Constructor for FakeBridgeServer
      * @param port Port to run the server on
      */
-    constructor(port: number=3000) {
+    constructor(port: number=2324) {
         this.io = new Server(port, {
             cors: {
                 origin: "*",

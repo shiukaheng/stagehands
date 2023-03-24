@@ -27,7 +27,7 @@ const target_pose_service = (rosnodejs.require('stagehands_ros').srv).setTargetP
 // instantiate ros node named 'interface'
 rosnodejs.initNode('interface').then((nodeHandle) => {
     // create a TopicClient for the main server
-    let client = new TopicClient(io("http://127.0.0.1:3001"), {logTopics: true});
+    let client = new TopicClient(io("http://192.168.0.37:3001"), {logTopics: true});
 
     console.log("Connecting to server...")
     client.getServerID().then((id) => {

@@ -1,3 +1,2 @@
-xhost local:root
-sudo docker-compose -f docker-compose-linux.yaml up -d --build
-# If docker container not visible from VSCode / dev container extensions, make sure they are in the same context.
+xhost local:root # Needed to allow GUI to be displayed
+sudo docker-compose -f docker-compose.yaml -f docker-compose.linux.yaml up -d --build

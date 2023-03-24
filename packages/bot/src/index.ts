@@ -3,23 +3,8 @@ import { TopicClient } from "webtopics";
 import io from "socket.io-client";
 import { fleetTopic, ModuleState, recallBotStateService, BotState, RecallBotState } from "schema";
 import NodeHandle from 'rosnodejs/dist/lib/NodeHandle';
+import { ROSPose } from './types';
 
-/*
-Message type for currentPose:
-    string robot_id
-    float64 xPos
-    float64 yPos
-    float64[] rotationQuaternion
-    float64 currentMicHeight
-*/
-
-type ROSPose = {
-    robot_id: string,
-    xPos: number,
-    yPos: number,
-    rotationQuaternion: number[],
-    currentMicHeight: number
-}
 
 const current_pose = (rosnodejs.require('stagehands_ros').msg).robotCurrentPose ;
 const target_pose_service = (rosnodejs.require('stagehands_ros').srv).setTargetPose;

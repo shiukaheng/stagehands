@@ -1,4 +1,4 @@
-import { PairingClient } from "../../../../bot_pairing/src";
+import { PairingClient } from "../../../../bot/src/discovery";
 import { Server } from "socket.io";
 import { TopicServer } from "webtopics";
 import { botParingService } from "schema";
@@ -25,13 +25,13 @@ export class botPairingServer{
             console.log(this.bridgeIPPort);
             
         })
-        process.on("SIGINT",()=>{
-            console.log('Received SIGINT. Stopping Socket.IO server...');
-            this.socketServer.close(()=>{
-                console.log('Socket.IO server stopped.');
-                process.exit();
-            })
-        })
+        // process.on("SIGINT",()=>{
+        //     console.log('Received SIGINT. Stopping Socket.IO server...');
+        //     this.socketServer.close(()=>{
+        //         console.log('Socket.IO server stopped.');
+        //         process.exit();
+        //     })
+        // })
     }
 
     //getter setter

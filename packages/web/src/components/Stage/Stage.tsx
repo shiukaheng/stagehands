@@ -14,7 +14,6 @@ export const StageContext = createContext<IStageContext>({
 
 export function Stage() {
   const provider = useContext(TopicContext);
-  console.log("provider is", provider);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const setCursor = useCallback((cursor: cursorOverride) => {
     if (canvasRef.current && cursor !== null) {

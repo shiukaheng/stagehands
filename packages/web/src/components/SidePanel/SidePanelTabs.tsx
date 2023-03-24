@@ -9,9 +9,9 @@ export function SidePanelTabs() {
   <div className="flex flex-row gap-2">
     {/* preset button*/}
     <div id="PresetsButton" 
-    className= {"rounded flex-1 p-4 cursor-pointer " + style[0]} 
+    className= {"rounded flex-1 p-4 cursor-pointer border-zinc-400 active:border " + style[0]} 
     onClick={() => {
-      setStyle(["ui-highlight-extra",""])
+      setStyle(["ui-highlight-extra shadow-inner ",""])
       setComponentSelect(({type :"preset_panel"} as PresetPanelSelection))
       }}>
       Presets
@@ -20,10 +20,10 @@ export function SidePanelTabs() {
       /* Mics Button */
     }
     <div id="LiveViewButton" 
-    className={"rounded flex-1 p-4 cursor-pointer "+ style[1] } 
+    className={"rounded flex-1 p-4 cursor-pointer border-zinc-400 active:border "+ style[1] } 
     
     onClick={() => {
-      setStyle(["","ui-highlight-extra"])
+      setStyle(["","ui-highlight-extra shadow-inner"])
       setComponentSelect(({type: "mic_panel",presetID: null} as MicPanelSelection))}
     }>
       Live view

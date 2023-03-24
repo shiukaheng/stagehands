@@ -1,4 +1,4 @@
-import { PointLightProps, useFrame } from "@react-three/fiber";
+import { PointLightProps, useFrame } from '@react-three/fiber'
 import { useEffect, useRef } from "react";
 import { BotLEDState, LEDState } from "schema";
 

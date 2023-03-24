@@ -9,7 +9,7 @@ import { SidePanelSelection } from '../components/SidePanel/PresetPanel/PresetPa
 
 export function AppContexts({ children }: { children: ReactNode; }) {
   const [presetButtons, setPresetButtons] = useState([] as any[]);
-  const [componentSelect, setComponentSelect] = useState("preset_panel" as SidePanelSelection);
+  const [componentSelect, setComponentSelect] = useState({type :"preset_panel"} as SidePanelSelection);
   const value1 = { presetButtons, setPresetButtons };
   const value2 = { componentSelect, setComponentSelect };
 

@@ -6,9 +6,8 @@ import { StageContext } from '../Stage';
 
 const height = 0.15;
 
-function Bot({module}: {module: RecallBotState}) {
+function PresetBot({module}: {module: RecallBotState}) {
     const bodyPose = [module.targetPose.position[0], module.targetPose.position[1] + height / 2 + 0.01, module.targetPose.position[2]] as [number, number, number];
-    console.log("hi")
     return (
         <Fragment key={module.name}>
             {/* Label */}
@@ -50,4 +49,4 @@ function Bot({module}: {module: RecallBotState}) {
     );
 }
 
-export default Bot;
+export default PresetBot;

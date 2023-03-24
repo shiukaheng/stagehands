@@ -1,7 +1,7 @@
 import { Context } from "./controller/Context";
 import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, RegisterBotClientIDRequest, CreatePresetReturn } from "schema";
 import { v4 } from "uuid"
-import { checkClientIDPresent, checkValidRecall } from "./utils/ValidationFunc";
+import { checkValidRecall } from "./utils/ValidationFunc";
 import { Controller } from "./controller/Controller";
 import { TopicServer } from "webtopics";
 
@@ -44,9 +44,9 @@ export function UpdatePresetServiceHandler(updatePresetRequest:UpdatePresetReque
  // Emergency stop
 export function EmergencyStopServiceHandler(requestData:undefined,context:Context,server:TopicServer){
     const errors = [];
-    for (const botName in context.getCurrentBotState()) {
+    for (const botID in context.getCurrentBotState()) {
         try{
-            StopBotServiceHandler(botName,context,server);
+            StopBotServiceHandler(botID,context,server);
         }
         catch(error){
             errors.push(error);
@@ -59,9 +59,9 @@ export function EmergencyStopServiceHandler(requestData:undefined,context:Contex
  // Clear emergency stop
 export function EmergencyStopClearServiceHandler(requestData:undefined,context:Context,server:TopicServer){
     const errors = [];
-    for (const botName in context.getCurrentBotState()) {
+    for (const botID in context.getCurrentBotState()) {
         try{
-            StopBotClearServiceHandler(botName,context,server);
+            StopBotClearServiceHandler(botID,context,server);
         }
         catch(error){
             errors.push(error);
@@ -256,8 +256,9 @@ export function reorderPresetsServiceHandler(presetIDs:string[],context:Context,
 }
 
 }
+//export function 
 //register bot clientID
-export function registerBotClientIDServiceHandler(registerBotClientIDRequest:RegisterBotClientIDRequest,context:Context){
-    context.getbotClientIDMap().set(registerBotClientIDRequest.botID,registerBotClientIDRequest.clientID);
-}
+// export function registerBotClientIDServiceHandler(registerBotClientIDRequest:RegisterBotClientIDRequest,context:Context){
+//     context.getbotClientIDMap().set(registerBotClientIDRequest.botID,registerBotClientIDRequest.clientID);
+// }
 

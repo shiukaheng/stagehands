@@ -5,7 +5,7 @@ import { z } from "zod"
 import { ServiceChannel } from "webtopics/dist/utils/Channel"
 import { v4 } from "uuid"
 import { Controller } from "./controller/Controller"
-import { clearBotLEDOverwriteServiceHandler, clearLEDOverwriteServiceHandler, CreatePresetServiceHandler, DeletePresetServiceHandler, EmergencyStopClearServiceHandler, EmergencyStopServiceHandler, overWriteBotLEDServiceHandler, overWriteLEDServiceHandler, RecallFleetStateServiceHandler, registerBotClientIDServiceHandler, reorderPresetsServiceHandler, runPresetServiceHandler, StopBotClearServiceHandler, StopBotServiceHandler, UpdatePresetServiceHandler } from "./serviceHandlers"
+import { clearBotLEDOverwriteServiceHandler, clearLEDOverwriteServiceHandler, CreatePresetServiceHandler, DeletePresetServiceHandler, EmergencyStopClearServiceHandler, EmergencyStopServiceHandler, overWriteBotLEDServiceHandler, overWriteLEDServiceHandler, RecallFleetStateServiceHandler, reorderPresetsServiceHandler, runPresetServiceHandler, StopBotClearServiceHandler, StopBotServiceHandler, UpdatePresetServiceHandler } from "./serviceHandlers"
 import { fleetTopicHandler } from "./topicHandler"
 
 

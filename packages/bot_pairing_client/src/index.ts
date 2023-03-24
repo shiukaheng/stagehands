@@ -1,6 +1,6 @@
 import makeMdns from "multicast-dns"
 import { getName } from "./name";
-
+import{retrieveIps} from "../../bridge/src/utils/ipRetrival"
 // Get IP address of the device on the local network 
 let mdns = makeMdns();
 function getMdns() {
@@ -11,26 +11,42 @@ function getMdns() {
 export class PairingClient {
     private mdns: makeMdns.MulticastDNS;
     private name: string | null;
-    private ip: string = "172.0.0.1"
+    private ip:string ="172.0.0.1"
+    private ips: string[];
     constructor() {
         this.name = null;
         this.mdns = getMdns();
+        
+        this.ips=retrieveIps();
     }
     async startAdvertise() {
         // Advertise stagehands_pairing service
         this.name = await getName();
         this.mdns.on('query', (query) => {
             // console.log('Got a query:', query);
+            let deviceAns = [];
+            console.log(this.ips);
+            
+            for(const ip of this.ips){
+                console.log(ip);
+                deviceAns.push({
+                    name: `${this.name}-stagehands.local`,
+                    type: 'A',
+                    ttl: 300,
+                    data:ip
+                }) 
+            }
             const [question] = query.questions;
             if (question && question.type === 'PTR' && question.name === '_stagehands_pairing._tcp.local') {
                 console.log('✅ Got a query for stagehands_pairing service');
+
                 this.mdns.respond({
                     answers: [{
-                        name: '_stagehands_pairing._tcp.local.',
+                        name: '_stagehands_pairing._tcp.local',
                         type: 'PTR',
-                        data: `${this.name} Pairing Service._stagehands_pairing._tcp.local.`
+                        data: `${this.name} Pairing Service._stagehands_pairing._tcp.local`
                     }, {
-                        name: `${this.name} Pairing Service._stagehands_pairing._tcp.local.`,
+                        name: `${this.name} Pairing Service._stagehands_pairing._tcp.local`,
                         type: 'SRV',
                         data: {
                             port: 3535,
@@ -38,12 +54,16 @@ export class PairingClient {
                             priority: 0,
                             target: `${this.name}-stagehands.local`
                         }
-                    }, {
-                        name: `${this.name}-stagehands.local`,
-                        type: 'A',
-                        ttl: 300,
-                        data: this.ip
-                    }]
+                    }, 
+                    //@ts-ignore
+                    ...deviceAns
+                ]
+                    // {
+                    //     name: `${this.name}-stagehands.local`,
+                    //     type: 'A',
+                    //     ttl: 300,
+                    //     data: this.ip
+                    // }]
                 });
             }
         });
@@ -121,12 +141,12 @@ export class PairingServer {
     //addDevices(dev)
 }
 
-const client = new PairingClient();
-client.startAdvertise();
+// const client = new PairingClient();
+// client.startAdvertise();
 
-setTimeout(() => {
-    const server = new PairingServer();
-    server.startDiscoverListener();
-    server.sendDiscoveryPacket();
-}, 100);
+// setTimeout(() => {
+//     const server = new PairingServer();
+//     server.startDiscoverListener();
+//     server.sendDiscoveryPacket();
+// }, 100);
 

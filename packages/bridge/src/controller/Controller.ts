@@ -9,6 +9,7 @@ import {PairingServer} from "../../../bot_pairing_client/src/index"
 import { values } from "lodash";
 import{retrieveIps,getNetworkPortion} from"../utils/ipRetrival"
 import { botParingService } from "schema";
+import { Socket } from "dgram";
 export class Controller {
     private context: Context;
 
@@ -53,44 +54,77 @@ export class Controller {
 
         setTimeout(()=>{
             setInterval(()=>{
-
-                this.context.getcurrentdnsMap().forEach((key,value)=>{
-                    if(server.getDnsMap().get(key)===undefined){
-                        console.log(`${key} disconnnected`);
-                        this.context.getcurrentdnsMap().delete(key)
+                console.log("all domain name");
+                
+                console.log(this.context.getdomainNameConnectionState());
+                
+                server.getDnsMap().forEach(async (ip,domainName)=>{
+                    let socket:any;
+                    let pairingCLient:TopicClient;
+                    const dN=this.context.getdomainNameConnectionState().find((d)=>d.domainName===domainName)
+                    console.log(domainName);
+                    const port = server.getdnsPortMap().get(domainName)
+                    console.log(`Connecting to botClient with ip:${ip} and port:${port}`);
+                    const socketInput="http://"+ip+":"+port?.toString()
+                    if(dN===undefined){
+                        socket =io("http://"+ip+":"+port?.toString())
+                        pairingCLient = new TopicClient(socket)
+                        this.context.getDomainnameTopicClientMap().set(domainName,pairingCLient)
+                        this.context.getDomainnameIpMap().set(domainName,socketInput)
+                        
                     }
-                })
-                server.getDnsMap().forEach(async (key,value)=>{
-                    if(this.context.getcurrentdnsMap().get(key)===undefined){
-                        const port = server.getdnsPortMap().get(key)
-                        console.log(`Connecting to botClient with ip:${value} and port:${port}`);
-                        
-                        const socket =io(value+":"+port?.toString())
-                        const pairingCLient = new TopicClient(socket)
-                        
-                        const currentIps =retrieveIps();
-                        const botNetworkPortion =getNetworkPortion(value)
-                        let bridgeIp:string;
-                        for(const ip of currentIps){
-                            if(botNetworkPortion===getNetworkPortion(ip)){
-                                bridgeIp = ip
-                                const serverID = await pairingCLient.getServerID()
-                                pairingCLient.req(botParingService,serverID,{bridgeIp:bridgeIp,bridgePort:this.bridgePort})
+                    else{
+                        if(this.context.getDomainnameIpMap().get(domainName)!==socketInput){
+                            socket =io("http://"+ip+":"+port?.toString())
+                            pairingCLient = new TopicClient(socket)
+                            this.context.getDomainnameTopicClientMap().set(domainName,pairingCLient)
+                            this.context.getDomainnameIpMap().set(domainName,socketInput)
+                        }
+                        pairingCLient= this.context.getDomainnameTopicClientMap().get(domainName) as TopicClient
+                    }
+                    const currentIps =retrieveIps();
+                    const botNetworkPortion =getNetworkPortion(ip)
+
+                    for(const ip of currentIps){
+                        if(botNetworkPortion===getNetworkPortion(ip)){
+                            pairingCLient.getServerID()
+                            .then((serverID)=>{
+                                pairingCLient.req(botParingService,serverID,{bridgeIp:ip,bridgePort:this.bridgePort})
                                 .then(()=>{
-                                    console.log(key+"connected");
+                                    if(dN===undefined){
+                                        console.log(ip+"connected");
+                                        this.context.getdomainNameConnectionState().push({domainName:domainName,connectionStatus:"connected"})
+                                    }
                                     
                                 })
                                 .catch((error)=>{
-                                    throw error
+                                    console.log(domainName);
+                                    
+                                    console.log(error);
+                                    
                                 })
-                                break;
-                            }
+                                
+                            })
+                            .catch((error)=>{
+                                if(dN?.connectionStatus==="connected"){
+                                    console.log(dN.domainName+" disconnected");
+                                    const disconnectionIndex=this.context.getdomainNameConnectionState().findIndex((d)=>d.domainName===domainName)
+                                    this.context.getdomainNameConnectionState()[disconnectionIndex].connectionStatus="disconnected"
+                                    
+                                }
+                                else{
+                                    console.log(domainName+"not in same network");
+                                }
+                                //socket.close()
+                            })
+                            
                         }
-                        this.context.getcurrentdnsMap().set(key,value)
-                        console.log(`${key} connected`);
                     }
+
+                    
+
                 }) 
-            },5000)
+            },2000)
         },500)
         
     }

@@ -30,16 +30,4 @@ import { botIDRegistrationService,FleetState } from "schema";
 
 export function fleetTopicHandler(fleetState:FleetState,context:Context){
     context.setCurrentBotState(fleetState);
-    console.log(fleetState);
-    console.log("receving")
-    
-    //console.log("current state");
-
-    //console.log(fleetState);
-    
-    
-    // console.log("fleet topic received");
-    
-    // console.log(fleetState);
-    
 }

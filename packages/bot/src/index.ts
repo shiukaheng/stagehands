@@ -12,7 +12,7 @@ const target_pose_service = (rosnodejs.require('stagehands_ros').srv).setTargetP
 // instantiate ros node named 'interface'
 rosnodejs.initNode('interface').then((nodeHandle) => {
     // create a TopicClient for the main server
-    let client = new TopicClient(io("http://192.168.0.37:3000"), {logTopics: true});
+    let client = new TopicClient(io("http://192.168.0.37:2324"), {logTopics: true});
 
     console.log("Connecting to server...")
     client.getServerID().then((id) => {
@@ -93,6 +93,7 @@ function target_pose_executor(client: TopicClient, nodeHandle: NodeHandle) {
 
         // set values in request object based on input schema
         let requestedPose = new target_pose_service.Request();
+        console.log(requestedPose)
         requestedPose.xPos = data.targetPose.position[0]
         requestedPose.yPos = data.targetPose.position[1]
         requestedPose.rotationQuaternion = data.targetPose.quaternion

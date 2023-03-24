@@ -11,14 +11,16 @@ export class botPairingServer{
 
     constructor(){
         this.pairingClient= new PairingClient();
-        this.botPairingWebTopicServer =new TopicServer(new Server(3000))
+        this.botPairingWebTopicServer =new TopicServer(new Server(3535))
         this.bridgeIPPort="not found"
     }
     public runPairingService(){
         this.pairingClient.startAdvertise();
 
         this.botPairingWebTopicServer.srv(botParingService,(req)=>{
-            this.bridgeIPPort=req.bridgeIp+":",req.bridgePort
+            this.bridgeIPPort=req.bridgeIp+":"+req.bridgePort
+            console.log("connection established");
+            
             console.log(this.bridgeIPPort);
             
         })

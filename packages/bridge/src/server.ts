@@ -12,7 +12,7 @@ import { fleetTopicHandler } from "./topicHandler"
 export class bridgeServer{
     private controller:Controller;
     constructor(){
-        this.controller =  new Controller(3000);
+        this.controller =  new Controller(3001);
         //publish fleet topic
         this.controller.serverPub(stageTopic);
         //register new botClient with its botID

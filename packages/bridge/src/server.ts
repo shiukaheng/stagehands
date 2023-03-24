@@ -5,7 +5,7 @@ import { z } from "zod"
 import { ServiceChannel } from "webtopics/dist/utils/Channel"
 import { v4 } from "uuid"
 import { Controller } from "./controller/Controller"
-import { clearBotLEDOverwriteServiceHandler, clearLEDOverwriteServiceHandler, CreatePresetServiceHandler, DeletePresetServiceHandler, EmergencyStopClearServiceHandler, EmergencyStopServiceHandler, overWriteBotLEDServiceHandler, overWriteLEDServiceHandler, RecallFleetStateServiceHandler, registerBotClientIDServiceHandler, reorderPresetsServiceHandler, runPresetServiceHandler, StopBotClearServiceHandler, StopBotServiceHandler, UpdatePresetServiceHandler } from "./serviceHandlers"
+import { clearBotLEDOverwriteServiceHandler, clearLEDOverwriteServiceHandler, CreatePresetServiceHandler, DeletePresetServiceHandler, EmergencyStopClearServiceHandler, EmergencyStopServiceHandler, overWriteBotLEDServiceHandler, overWriteLEDServiceHandler, RecallFleetStateServiceHandler, reorderPresetsServiceHandler, runPresetServiceHandler, StopBotClearServiceHandler, StopBotServiceHandler, UpdatePresetServiceHandler } from "./serviceHandlers"
 import { fleetTopicHandler } from "./topicHandler"
 
 
@@ -19,7 +19,7 @@ export class bridgeServer{
         //controller.serverSub(serverMetaChannel,newBotClientRegistrationHandler);
         this.controller.serverSub(fleetTopic,fleetTopicHandler);
         //register bot client ID
-        this.controller.runService(registerBotClientIDService,registerBotClientIDServiceHandler);
+        //this.controller.runService(registerBotClientIDService,registerBotClientIDServiceHandler);
         //create preset service
         this.controller.runService(createPresetService,CreatePresetServiceHandler);
         //update preset service

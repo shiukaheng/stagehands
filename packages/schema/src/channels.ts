@@ -134,13 +134,16 @@ export const clearBotLEDOverwriteService = createService ("clearBotLEDOverwrite"
  * Service to clear bot's led overwrite
  */
 export const clearLEDOverwriteService = createService ("clearLEDOverwrite")
-
 /**
- * Service to receive bot clientID
+ * Service to connect bot
+ * 
  */
-export const registerBotClientIDRequestSchema = z.object({
-    botID:z.string(),
-    clientID:z.string()
-})
-export type RegisterBotClientIDRequest = z.infer<typeof registerBotClientIDRequestSchema>
-export const registerBotClientIDService = createService("receiveBotClientID",registerBotClientIDRequestSchema)
+export const connectBotService =createService("connectBotService",z.string())
+
+
+// export const registerBotClientIDRequestSchema = z.object({
+//     botID:z.string(),
+//     clientID:z.string()
+// })
+// export type RegisterBotClientIDRequest = z.infer<typeof registerBotClientIDRequestSchema>
+// export const registerBotClientIDService = createService("receiveBotClientID",registerBotClientIDRequestSchema)

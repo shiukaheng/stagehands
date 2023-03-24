@@ -11,7 +11,7 @@ export class Context {
     private currentBotState: FleetState;
     private targetBotState: FleetState;
     private stageState: StageState;
-    private botClientIDMap:Map<string,string>
+    //private botClientIDMap:Map<string,string>
     private botConnectionState:DomainNameConnectionState[]
 
     constructor() {
@@ -26,7 +26,7 @@ export class Context {
                 polygonVertexCoordinates: []
             },
         };
-        this.botClientIDMap=new Map<string,string>();
+        //this.botClientIDMap=new Map<string,string>();
 
 
     }
@@ -45,9 +45,9 @@ export class Context {
     public setStageState(stageState: StageState): void {
         this.stageState = stageState;
     }
-    public getbotClientIDMap(): Map<string,string>{
-        return this.botClientIDMap;
-    }
+    // public getbotClientIDMap(): Map<string,string>{
+    //     return this.botClientIDMap;
+    // }
 
     public setTargetBotState(targetBotState: FleetState): void {
         this.targetBotState = targetBotState;

@@ -17,9 +17,9 @@ export function checkValidRecall(newFleetState: Record<string, { module: { type:
     }
     return true;
 }
-export function checkClientIDPresent(botName:string,context:Context):boolean{
-    if(context.getbotClientIDMap().get(botName)===undefined){
-        throw new Error(`Bot ${botName} does not connect to bridge`)
-    }
-    return true;
-}
+// export function checkClientIDPresent(botName:string,context:Context):boolean{
+//     if(context.getbotClientIDMap().get(botName)===undefined){
+//         throw new Error(`Bot ${botName} does not connect to bridge`)
+//     }
+//     return true;
+// }

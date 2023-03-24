@@ -132,4 +132,4 @@ if __name__ == '__main__':
 
     rospy.spin()
 
-    ser.close()
+    # ser.close()

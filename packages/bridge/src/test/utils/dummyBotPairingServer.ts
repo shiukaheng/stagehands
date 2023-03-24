@@ -25,13 +25,13 @@ export class botPairingServer{
             console.log(this.bridgeIPPort);
             
         })
-        process.on("SIGINT",()=>{
-            console.log('Received SIGINT. Stopping Socket.IO server...');
-            this.socketServer.close(()=>{
-                console.log('Socket.IO server stopped.');
-                process.exit();
-            })
-        })
+        // process.on("SIGINT",()=>{
+        //     console.log('Received SIGINT. Stopping Socket.IO server...');
+        //     this.socketServer.close(()=>{
+        //         console.log('Socket.IO server stopped.');
+        //         process.exit();
+        //     })
+        // })
     }
 
     //getter setter

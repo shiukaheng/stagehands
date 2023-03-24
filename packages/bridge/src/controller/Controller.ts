@@ -87,18 +87,29 @@ export class Controller {
                                 
                             })
                             
-                        }, 100);
+                        }, 200);
  
+                    }else{
+                        
+                        pairingCLient= this.context.getDomainnameTopicClientMap().get(domainName) as TopicClient
                     }
+                    // if(this.context.getDomainnameTopicClientMap().get(domainName)===undefined){
+                    //     console.log("domain client not found");
+                        
+                    // }
                     
-                    pairingCLient= this.context.getDomainnameTopicClientMap().get(domainName) as TopicClient
+                    // pairingCLient= this.context.getDomainnameTopicClientMap().get(domainName) as TopicClient
+                    //pairingCLient= this.context.getDomainnameTopicClientMap().get(domainName)
+
+                    //console.log(pairingCLient);
+                    
                     const currentIps =retrieveIps();
                     const botNetworkPortion =getNetworkPortion(ip)
 
                     for(const bridgeIp of currentIps){
                         const dC = this.context.getdomainNameConnectionState().find((d)=>d.domainName===domainName)
-                        console.log(getNetworkPortion(bridgeIp));
-                        console.log(botNetworkPortion);
+                        // console.log(getNetworkPortion(bridgeIp));
+                        // console.log(botNetworkPortion);
                         
                         
                         if(botNetworkPortion===getNetworkPortion(bridgeIp)){
@@ -112,20 +123,18 @@ export class Controller {
                                 if(dC===undefined){
                                     this.context.getdomainNameConnectionState().push({domainName:domainName,connectionStatus:"disconnected"})
                                 }
-                                // pairingCLient.req(botParingService,serverID,{bridgeIp:ip,bridgePort:this.bridgePort})
-                                // .then(()=>{
-                                //     if(dN===undefined){
-                                //         console.log(ip+"connected");
-                                //         this.context.getdomainNameConnectionState().push({domainName:domainName,connectionStatus:"connected"})
-                                //     }
+                                pairingCLient.req(botParingService,serverID,{bridgeIp:ip,bridgePort:this.bridgePort})
+                                .then(()=>{
                                     
-                                // })
-                                // .catch((error)=>{
-                                //     console.log(domainName);
+                                })
+                                .catch((error)=>{
+                                    console.log("connection time out");
                                     
-                                //     console.log(error);
+                                    let newState = this.context.getdomainNameConnectionState().filter((d)=>d.domainName!==domainName)
+                                    console.log(newState);
                                     
-                                // })
+                                    this.context.setdomainNameConnectionState(newState)
+                                })
                                 
                             })
                             .catch((error)=>{
@@ -142,6 +151,7 @@ export class Controller {
                             })
                             
                         }
+                        
                     }
 
                     

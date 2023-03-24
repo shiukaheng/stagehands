@@ -14,10 +14,10 @@ export class Controller {
     private context: Context;
     private _server: TopicServer;
     private bridgePort;
-    constructor(port: number = 3000) {
+    constructor(port: number = 2324) {
         this.context = new Context();
-        this._server = new TopicServer(new Server(port, {cors: {origin: "*"}}), { logTopics: false});
-        //this._server = new TopicServer(new Server(port))
+        this._server = new TopicServer(new Server(port, {cors: {origin: "*"}}), {logTopics: false});
+        // this._server = new TopicServer(new Server(port))
         this.bridgePort = port;
         console.log(`✅ bridge server running on port ${port}`);
     }

@@ -42,7 +42,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
       (
         <div className="h-5/6 overflow-clip pt-1">
           <div className="h-full w-full p-2 overflow-y-auto flex flex-col">
-            <button className=" w-16 rounded cursor-pointer p-3 " onClick={() => {
+            <button className=" w-16 rounded cursor-pointer p-3 ui-shadow ui-hover-highlight " onClick={() => {
               setComponentSelect({ type: "mic_panel", presetID: presetID })
             }}> Back </button>
 

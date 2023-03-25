@@ -207,9 +207,9 @@ include_directories(
 # catkin_add_nosetests(test)
 
 catkin_install_python(PROGRAMS 
-  scripts/robot_pose_server.py
+  src/robot_pose_server.py
   # scripts/led_strip_handler.py
-  scripts/aruco.py
+  src/aruco_location_storage.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

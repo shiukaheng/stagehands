@@ -39,7 +39,7 @@ def aruco_average_pose(req):
 
 if __name__ == '__main__':
     # initialize node
-    rospy.init_node('aruco_pose_handler')
+    rospy.init_node('aruco_location_storage')
     print('node running')
     # create service to start recording marker poses
     s = rospy.Service('aruco_record_poses', arucoRecordPoses, aruco_listener)

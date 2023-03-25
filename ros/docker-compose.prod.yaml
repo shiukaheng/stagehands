@@ -1,3 +1,6 @@
 services:
   ros-dev:
     image: shiukaheng/stagehands:prod
+    entrypoint: ["/scripts/entrypoint.sh"]
+    volumes:
+      - ./basebot/scripts:/scripts

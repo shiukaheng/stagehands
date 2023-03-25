@@ -39,7 +39,8 @@
     "dev-wtf": "cd packages/wtf && npm run dev",
 
     "ros": "ts-node scripts/launch_ros.ts",
-    "update-prod": "ts-node scripts/update_prod.ts",
+    "update-ros-prod": "ts-node scripts/update_prod.ts",
+    "ros-prod": "cd ./ros && docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up",
    
     "wtf": "cd packages/wtf && npm run wtf",
     "install-pi": "cd bot_setup && chmod +x install.sh && ./install.sh",

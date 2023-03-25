@@ -26,23 +26,27 @@ function getArch() {
  * @param host Hostname, defaults to localhost
  * @returns Promise that resolves to true if port is available, false otherwise
  */
-function portInUse(port: number, host?: string, timeout=50) {
-    // Set host to localhost if not specified
-    if (!host) host = "localhost"
+async function portInUse(port: number, host: string = 'localhost', timeout = 50) {
     return new Promise((resolve, reject) => {
-        const server = net.createServer()
-        server.unref()
-        server.on('error', reject)
-        try {
-            server.listen(port, host, () => {
-                server.close(() => {
-                    resolve(false)
-                })
-            })
-        } catch {
-            resolve(true)
-        }
-    })
+        const client = net.createConnection({ port, host });
+        client.setTimeout(timeout); // set timeout to specified value (in milliseconds)
+        client.on('connect', () => {
+            client.end();
+            resolve(true);
+        });
+        client.on('timeout', () => {
+            client.destroy();
+            reject(new Error(`Connection to ${host}:${port} timed out`));
+        });
+        client.on('error', (err) => {
+            client.destroy();
+            if (err.message.includes('ECONNREFUSED')) {
+                resolve(false);
+            } else {
+                reject(err);
+            }
+        });
+    });
 }
 
 const ports = {

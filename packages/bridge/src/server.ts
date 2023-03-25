@@ -1,4 +1,3 @@
-import { serverMetaChannel } from "webtopics";
 import {
   createPresetService,
   deletePresetService,
@@ -59,11 +58,6 @@ export class BridgeServer {
     this.controller.runService(reorderPresetsService, reorderPresetsServiceHandler);
     this.controller.runService(runPresetService, runPresetServiceHandler);
     this.controller.runService(overWriteBotLEDService, overWriteBotLEDServiceHandler);
-
-    this.controller.server.sub(serverMetaChannel, (data) => {
-      console.log(data);
-    });
-
     this.controller.runPairingService();
   }
 

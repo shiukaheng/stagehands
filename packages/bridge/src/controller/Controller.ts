@@ -22,7 +22,7 @@ export class Controller {
         this.context = new Context();
         this.server = this.context.getServer();
         this.bridgePort = port;
-        console.log(`✅ bridge server running on port ${port}`);
+        console.log(`✅ Bridge server running on port ${port}`);
     }
 
     /**

@@ -1,13 +1,36 @@
 import makeMdns from "multicast-dns"
 import { getName } from "./name";
-import { retrieveIps } from "../../bridge/src/utils/ipRetrival"
 import { TopicClient } from "webtopics";
 import { io } from "socket.io-client";
+import os from "os";
 // Get IP address of the device on the local network 
 
 let mdns = makeMdns();
 function getMdns() {
     return mdns;
+}
+
+/**
+ * Retrieves all IPv4 addresses of the current machine.
+ * @returns An array of IPv4 addresses.
+ * @throws An error if no IP addresses are found.
+ */
+export function retrieveIps(): string[] {
+    const interfaces = os.networkInterfaces();
+    const allAddresses: string[] = [];
+    for (const interfaceName of Object.keys(interfaces)) {
+        const addresses = interfaces[interfaceName];
+        if (addresses === undefined) {
+            throw new Error("No IP address found");
+        } else {
+            for (const address of addresses) {
+                if (address.family === "IPv4" && !address.internal) {
+                    allAddresses.push(address.address);
+                }
+            }
+        }
+    }
+    return allAddresses;
 }
 
 

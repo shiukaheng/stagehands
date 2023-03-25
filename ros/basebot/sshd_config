@@ -1,0 +1,2 @@
+PermitRootLogin yes     # Allow anyone to SSH into root
+PasswordAuthentication yes  # Enable password authentication

@@ -58,6 +58,15 @@ ENV NVM_DIR=/root/.nvm
 # Install the latest version of NodeJS
 RUN /bin/bash -c "source $NVM_DIR/nvm.sh; nvm install node"
 
+# Install ssh
+RUN apt-get update && apt-get install -y openssh-server
+
+# Configure SSH
+COPY ./ros/basebot/sshd_config /etc/ssh/sshd_config
+
+# Set password
+RUN echo 'root:turtlebot' | chpasswd
+
 # Set the working directory to catkin_ws
 WORKDIR /catkin_ws/src
 
@@ -69,8 +78,8 @@ COPY ../packages ./stagehands-js/packages
 COPY ../package.json ./stagehands-js
 COPY ../package-lock.json ./stagehands-js
 
-# Build the npm workspace
-RUN /bin/bash -c "source ${NVM_DIR}/nvm.sh; cd stagehands-js; npm install; npm run build-bot-deps; npm -g install ts-node typescript"
+# Build the npm workspace and remove the node_modules folder
+RUN /bin/bash -c "source ${NVM_DIR}/nvm.sh; cd stagehands-js; npm install; npm run build-bot-deps; npm -g install ts-node typescript; rm -rf node_modules"
 
 # Set the working directory to catkin_ws 
 WORKDIR /catkin_ws

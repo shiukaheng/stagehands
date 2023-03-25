@@ -3,8 +3,7 @@ import { UpdatePresetRequest, RecallFleetState, recallBotStateService, stopServi
 import { v4 } from "uuid";
 import { checkValidRecall } from "./utils/ValidationFunc";
 import { TopicServer } from "webtopics";
-import { retrieveIps } from "../src/utils/ipRetrival";
-
+import { retrieveIps } from "utils";
 /**
  * Create a new preset.
  * @param preset - The preset to be created.

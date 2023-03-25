@@ -1,12 +1,12 @@
 import { createService, createTopic } from "webtopics";
-import { fleetStateSchema, ledStateSchema, presetSchema, recallBotStateSchema, recallFleetStateSchema, stageStateSchema } from "./schemas/schemas";
+import { botConnectionStatusSchema, fleetStateSchema, ledStateSchema, presetSchema, recallBotStateSchema, recallFleetStateSchema, stageStateSchema } from "./schemas/schemas";
 import { z } from "zod";
 import { type } from "os";
 
 // Topics
 export const fleetTopic = createTopic("fleet", fleetStateSchema)
 export const stageTopic = createTopic("stage", stageStateSchema)
-//export const botConnectionStatusTopic = createTopic("botConnectionStatus")
+export const botConnectionStatusTopic = createTopic("botConnectionStatus",z.array(botConnectionStatusSchema))
 
 //Bot paring service
 export const botPairingRequestSchema = z.object({

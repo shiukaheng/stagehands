@@ -1,0 +1,8 @@
+prefix=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/install
+
+Name: rqt_graph
+Description: Description of rqt_graph
+Version: 0.4.14
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

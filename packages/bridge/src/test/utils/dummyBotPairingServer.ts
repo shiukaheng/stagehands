@@ -17,7 +17,7 @@ export class botPairingServer{
     }
     public runPairingService(){
         this.pairingClient.startAdvertise();
-
+        
         this.botPairingWebTopicServer.srv(botParingService,(req)=>{
             this.bridgeIPPort=req.bridgeIp+":"+req.bridgePort
             console.log("connection established");

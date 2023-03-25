@@ -4,17 +4,22 @@ import { FleetState,presetRecallStateLiteralSchema,StageBoundary,StageState,BotC
 import { Preset } from "schema";
 import { TopicClient } from "webtopics";
 
+/**
+ * Context class to store the current state of the bridge
+ */
 export class Context {
     private currentBotState: FleetState;
     private targetBotState: FleetState;
     private stageState: StageState;
     //private botClientIDMap:Map<string,string>
     private botConnectionState:BotConnectionStatus[]
-
+    private availableBotTopicClientMap:Map<string,TopicClient>
+    //private server:TopicServer;
     constructor() {
         this.currentBotState ={};
         this.targetBotState = {};
         this.botConnectionState=[]
+        this.availableBotTopicClientMap=new Map<string,TopicClient>();
         this.stageState = {
             presets: [],
             activePreset: "NoActivePreset",
@@ -26,6 +31,12 @@ export class Context {
         //this.botClientIDMap=new Map<string,string>();
 
 
+    }
+    public getAvailableBotTopicClientMap():Map<string,TopicClient>{
+        return this.availableBotTopicClientMap;
+    }
+    public setAvailableBotTopicClientMap(availableBotTopicClientMap:Map<string,TopicClient>):void{
+        this.availableBotTopicClientMap=availableBotTopicClientMap;
     }
     public getCurrentBotState(): FleetState {
         return this.currentBotState;

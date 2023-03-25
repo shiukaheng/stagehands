@@ -9,6 +9,7 @@ import serial
 from stagehands_ros.srv import setTargetPose,setTargetPoseResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+from geometry_msgs.msg import Pose, Point, Quaternion
 # from led_strip_handler import GroveWS2813RgbStrip
 from rpi_ws281x import PixelStrip, Color
 
@@ -64,10 +65,13 @@ def set_target_pose(req):
     goal = MoveBaseGoal()
     goal.target_pose.header.frame_id = "map"
     goal.target_pose.header.stamp = rospy.Time.now()
-   
-    goal.target_pose.pose.position.x = req.xPos
-    goal.target_pose.pose.position.y = req.yPos
-    goal.target_pose.pose.orientation = req.rotationQuaternion
+    # log goal to ros console
+    rospy.loginfo(goal)
+    # goal.target_pose.pose.position.x = req.xPos
+    # goal.target_pose.pose.position.y = req.yPos
+    # goal.target_pose.pose.orientation = req.rotationQuaternion
+    pose = Pose(Point(req.xPos, req.yPos, 0.000), Quaternion(req.rotationQuaternion[0], req.rotationQuaternion[1], req.rotationQuaternion[2], req.rotationQuaternion[3]))
+    goal.target_pose.pose = pose
 
     # probs not how this works but lol
     if micModuleExists: ser.write(req.micHeight)
@@ -83,6 +87,7 @@ def set_target_pose(req):
     else:
     # Result of executing the action
         return setTargetPoseResponse(str(client.get_result()))
+    # return setTargetPoseResponse("lmao")
 
 def publish_current_pose():
     # do stuff

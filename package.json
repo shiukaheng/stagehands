@@ -23,6 +23,7 @@
     "dev-bridge": "cd packages/bridge && npm run dev",
     "dev-web": "cd packages/web && npm run dev",
     "dev-web-emu": "npm run build-schema && concurrently \"npm run dev-fake_bridge\" \"npm run dev-web\"",
+    "dev-interface": "cd packages/bot && npm run dev",
     "ros": "ts-node scripts/launch_ros.ts",
     "ros-push-prod": "cd ros && docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml build && docker push shiukaheng/stagehands:prod",
     "ros-push-dev": "cd ros && docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml build && docker push shiukaheng/stagehands:dev",

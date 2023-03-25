@@ -1,10 +1,10 @@
 import { Context } from "./controller/Context";
-import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn,BotConnectionStatus } from "schema";
+import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn, botParingService } from "schema";
 import { v4 } from "uuid"
 import { checkValidRecall } from "./utils/ValidationFunc";
 import { Controller } from "./controller/Controller";
 import { TopicServer } from "webtopics";
-
+import{retrieveIps} from "./utils/ipRetrival";
 
 //Create preset
 export function CreatePresetServiceHandler(preset:Preset,context:Context,server:TopicServer):string {
@@ -257,7 +257,10 @@ export function reorderPresetsServiceHandler(presetIDs:string[],context:Context,
 
 }
 export function connectBotServiceHandler(botName:string,context:Context,server:TopicServer){
+    const ips=retrieveIps()
     
+    const availableBotTopicClientMap=context.getAvailableBotTopicClientMap()
+    //server.req(botParingService,)
 }
 //register bot clientID
 // export function registerBotClientIDServiceHandler(registerBotClientIDRequest:RegisterBotClientIDRequest,context:Context){

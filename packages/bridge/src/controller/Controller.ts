@@ -8,7 +8,7 @@ import { selectTopic } from "../topicSelector"
 import { PairingServer } from "../../../bot/src/discovery"
 import { values } from "lodash";
 import { retrieveIps, getNetworkPortion } from "../utils/ipRetrival"
-import { botParingService } from "schema";
+import { botParingService,botConnectionStatusTopic } from "schema";
 import{Listener} from "../../../bot/src/discovery"
 export class Controller {
     private context: Context;
@@ -16,7 +16,7 @@ export class Controller {
     private bridgePort;
     constructor(port: number = 2324) {
         this.context = new Context();
-        this._server = new TopicServer(new Server(port, {cors: {origin: "*"}}), {logTopics: false});
+        this._server = new TopicServer(new Server(port, {cors: {origin: "*"}}) /*{logTopicValidationErrors: true}*/);
         // this._server = new TopicServer(new Server(port))
         this.bridgePort = port;
         console.log(`✅ bridge server running on port ${port}`);
@@ -39,7 +39,9 @@ export class Controller {
             topicHandler(topic, this.context);
         })
     }
-
+/**
+ * 
+ */
     public runParingService() {
         let server: PairingServer
 
@@ -53,14 +55,21 @@ export class Controller {
             setInterval(() => {
                 server.sendDiscoveryPacket();
                 server.subBots((availableBots)=>{
+                    
+                    //console.log(availableBots);
+                    this.context.setAvailableBotTopicClientMap(availableBots);
+                    
                     for(const botName of availableBots.keys()){
                         if(this.context.getBotConnectionState().find((BCS)=>BCS.domainName===botName)===undefined){
-                            this.context.getBotConnectionState().push({domainName:botName,connectionStatus:"disconnected"})
 
+                            this.context.getBotConnectionState().push({domainName:botName,connectionStatus:"disconnected"})
                         }
                     }
                 })
-                console.log(this.context.getBotConnectionState());
+                
+                
+                this.server.pub(botConnectionStatusTopic, this.context.getBotConnectionState());
+                //console.log(this.context.getBotConnectionState());
                 
             }, 2000)
         }, 500)

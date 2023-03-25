@@ -49,6 +49,10 @@ export class bridgeServer{
         //clear all bot's led overwrite service
         this.controller.runService(clearLEDOverwriteService,clearLEDOverwriteServiceHandler);
         
+        this.controller.server.sub(serverMetaChannel,(data)=>{
+            console.log(data);
+            
+        })
         //this.controller.runParingService();
         // this.controller.server.sub(serverMetaChannel,(data)=>{
         //     console.log(data);

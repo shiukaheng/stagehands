@@ -1,3 +1,7 @@
+function refreshenv() {
+    source ~/.bashrc
+}
+
 function stagehands() {
     local current_dir=$(pwd)
 
@@ -18,6 +22,7 @@ function stagehands() {
             cd /home/pi/stagehands/
             git fetch origin
             git reset --hard origin/integration
+            refreshenv
 
             if [ $? -eq 0 ]; then
                 echo -e "${green}Stagehands has been updated successfully.${nocolor}"
@@ -43,8 +48,4 @@ function stagehands() {
     esac
 
     cd "$current_dir"
-}
-
-function refreshenv() {
-    source ~/.bashrc
 }

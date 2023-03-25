@@ -16,7 +16,7 @@ export class Controller {
     private bridgePort;
     constructor(port: number = 2324) {
         this.context = new Context();
-        this._server = new TopicServer(new Server(port, {cors: {origin: "*"}}) /*{logTopicValidationErrors: true}*/);
+        this._server = this.context.getServer();
         // this._server = new TopicServer(new Server(port))
         this.bridgePort = port;
         console.log(`✅ bridge server running on port ${port}`);
@@ -55,10 +55,7 @@ export class Controller {
             setInterval(() => {
                 server.sendDiscoveryPacket();
                 server.subBots((availableBots)=>{
-                    
-                    //console.log(availableBots);
-                    this.context.setAvailableBotTopicClientMap(availableBots);
-                    
+                    this.context.setAvailableBotNameTopicCLientMap(availableBots)
                     for(const botName of availableBots.keys()){
                         if(this.context.getBotConnectionState().find((BCS)=>BCS.domainName===botName)===undefined){
 

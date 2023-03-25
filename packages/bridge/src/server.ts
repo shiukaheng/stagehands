@@ -1,6 +1,6 @@
 import { serverMetaChannel, TopicServer } from "webtopics"
 import { Server } from "socket.io"
-import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, stopBotService, reorderPresetsService, runPresetService, overWriteBotLEDService, clearBotLEDOverwriteService, overWriteLEDService, clearLEDOverwriteService } from "schema"
+import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, stopBotService, reorderPresetsService, runPresetService, overWriteBotLEDService, clearBotLEDOverwriteService, overWriteLEDService, clearLEDOverwriteService, botConnectionStatusTopic } from "schema"
 import { z } from "zod"
 import { ServiceChannel } from "webtopics/dist/utils/Channel"
 import { v4 } from "uuid"
@@ -17,6 +17,11 @@ export class bridgeServer{
         this.controller.serverPub(stageTopic);
         //register new botClient with its botID
         //controller.serverSub(serverMetaChannel,newBotClientRegistrationHandler);
+        this.controller.server.pub(stageTopic,this.controller.getContext().getStageState())
+        
+        setInterval(()=>{
+            this.controller.server.pub(botConnectionStatusTopic,this.controller.getContext().getBotConnectionState())
+        },500)
         this.controller.serverSub(fleetTopic,fleetTopicHandler);
         //register bot client ID
         //this.controller.runService(registerBotClientIDService,registerBotClientIDServiceHandler);
@@ -42,12 +47,7 @@ export class bridgeServer{
         this.controller.runService(runPresetService,runPresetServiceHandler);
         //overwrite Bot LED Service
         this.controller.runService(overWriteBotLEDService,overWriteBotLEDServiceHandler);
-        //clear bot's led overwrite service
-        this.controller.runService(clearBotLEDOverwriteService,clearBotLEDOverwriteServiceHandler);
-        //overwrite all bot's led service
-        this.controller.runService(overWriteLEDService,overWriteLEDServiceHandler);
-        //clear all bot's led overwrite service
-        this.controller.runService(clearLEDOverwriteService,clearLEDOverwriteServiceHandler);
+        //clear bot's led overwrite servicethis.controller.server.pub(botConnectionStatusTopic,this.controller.getContext().getBotConnectionState())ndler);
         
         this.controller.server.sub(serverMetaChannel,(data)=>{
             console.log(data);

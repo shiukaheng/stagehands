@@ -1,5 +1,4 @@
-import { type } from "os";
-import { FleetState,presetRecallStateLiteralSchema,StageBoundary,StageState,BotConnectionStatus,Preset } from "schema";
+import { FleetState, StageState, BotConnectionStatus } from "schema";
 
 import { TopicClient, TopicServer } from "webtopics";
 import { Server } from "socket.io";
@@ -7,8 +6,8 @@ export class Context {
     private currentBotState: FleetState;
     private targetBotState: FleetState;
     private stageState: StageState;
-    private server:TopicServer;
-    private serverPort:number;
+    private server: TopicServer;
+    private serverPort: number;
 
     public getServerPort(): number {
         return this.serverPort;
@@ -26,26 +25,26 @@ export class Context {
         this.server = server;
     }
 
-    
-    //private botClientIDMap:Map<string,string>
-    private botConnectionState:BotConnectionStatus[]
-    private availableBotNameTopicCLientMap:Map<string,TopicClient>
 
-    public getAvailableBotNameTopicCLientMap(): Map<string,TopicClient> {
+    //private botClientIDMap:Map<string,string>
+    private botConnectionState: BotConnectionStatus[]
+    private availableBotNameTopicCLientMap: Map<string, TopicClient>
+
+    public getAvailableBotNameTopicCLientMap(): Map<string, TopicClient> {
         return this.availableBotNameTopicCLientMap;
     }
 
-    public setAvailableBotNameTopicCLientMap(availableBotNameTopicCLientMap: Map<string,TopicClient>): void {
+    public setAvailableBotNameTopicCLientMap(availableBotNameTopicCLientMap: Map<string, TopicClient>): void {
         this.availableBotNameTopicCLientMap = availableBotNameTopicCLientMap;
     }
 
-    constructor(port:number=2324) {
-        this.currentBotState ={};
+    constructor(port: number = 2324) {
+        this.currentBotState = {};
         this.targetBotState = {};
-        this.botConnectionState=[]
-        this.server=new TopicServer(new Server(port, {cors: {origin: "*"}}));
-        this.serverPort=port;
-        this.availableBotNameTopicCLientMap =new Map<string,TopicClient>;
+        this.botConnectionState = []
+        this.server = new TopicServer(new Server(port, { cors: { origin: "*" } }));
+        this.serverPort = port;
+        this.availableBotNameTopicCLientMap = new Map<string, TopicClient>;
 
         this.stageState = {
             presets: [],
@@ -92,6 +91,6 @@ export class Context {
     public setBotConnectionState(domainNameList: BotConnectionStatus[]): void {
         this.botConnectionState = domainNameList;
     }
-    
+
 
 }

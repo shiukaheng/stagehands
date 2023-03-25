@@ -1,15 +1,9 @@
 import { Context } from "./Context";
-import { JSONValue, RequestType, ServiceResponseType, TopicServer } from "webtopics";
-import { Server } from "socket.io";
-import { io } from "socket.io-client";
-import { Channel } from "webtopics";
-import { ServiceChannel, TopicChannel, TopicClient } from "webtopics";
+import { RequestType, ServiceResponseType, TopicServer } from "webtopics";
+import { ServiceChannel, TopicChannel } from "webtopics";
 import { selectTopic } from "../topicSelector"
-import { PairingServer } from "../../../bot/src/discovery"
-import { values } from "lodash";
-import { retrieveIps, getNetworkPortion } from "../utils/ipRetrival"
-import { botParingService,botConnectionStatusTopic } from "schema";
-import{Listener} from "../../../bot/src/discovery"
+import { PairingServer } from "../../../utils/src/discovery"
+import { botConnectionStatusTopic } from "schema";
 export class Controller {
     private context: Context;
     private _server: TopicServer;

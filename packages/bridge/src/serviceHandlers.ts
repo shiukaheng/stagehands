@@ -1,5 +1,5 @@
 import { Context } from "./controller/Context";
-import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn,botParingService } from "schema";
+import {UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn,botParingService, BotConnectionStatus } from "schema";
 import { v4 } from "uuid"
 import { checkValidRecall } from "./utils/ValidationFunc";
 import { TopicServer } from "webtopics";

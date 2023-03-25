@@ -1,7 +1,6 @@
 import { type } from "os";
-import { FleetState,presetRecallStateLiteralSchema,StageBoundary,StageState,BotConnectionStatus } from "schema";
+import { FleetState,presetRecallStateLiteralSchema,StageBoundary,StageState,BotConnectionStatus,Preset } from "schema";
 
-import { Preset } from "schema";
 import { TopicClient, TopicServer } from "webtopics";
 import { Server } from "socket.io";
 export class Context {
@@ -44,7 +43,7 @@ export class Context {
         this.currentBotState ={};
         this.targetBotState = {};
         this.botConnectionState=[]
-        this.server=new TopicServer(new Server(port, {cors: {origin: "*"}}), {logTopics: true});
+        this.server=new TopicServer(new Server(port, {cors: {origin: "*"}}), {logTopics: false});
         this.serverPort=port;
         this.availableBotNameTopicCLientMap =new Map<string,TopicClient>;
 

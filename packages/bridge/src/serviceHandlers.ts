@@ -259,9 +259,16 @@ export async function connectBotServiceHandler(botName:string,context:Context,se
     const pairingClient = context.getAvailableBotNameTopicCLientMap().get(botName)
     const serverId =await pairingClient?.getServerID() as string
     const ips = retrieveIps()
+    let successRequest=true;
     for (const ip of ips){
-        pairingClient?.req(botParingService,serverId,{bridgeIp:ip,bridgePort:context.getServerPort()})
-        
+        await pairingClient?.req(botParingService,serverId,{bridgeIp:ip,bridgePort:context.getServerPort()})
+        .catch((error)=>{
+            successRequest=false
+        })
+    }
+    if(successRequest){
+        const botConnectionStatus=context.getBotConnectionState().find((BCS)=>BCS.domainName===botName) as BotConnectionStatus
+        botConnectionStatus.connectionStatus="connected"
     }
    
 }

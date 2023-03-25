@@ -53,7 +53,7 @@ export class bridgeServer{
             console.log(data);
             
         })
-        //this.controller.runParingService();
+        this.controller.runParingService();
         // this.controller.server.sub(serverMetaChannel,(data)=>{
         //     console.log(data);
             

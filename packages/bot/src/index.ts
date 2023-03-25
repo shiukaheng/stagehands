@@ -5,8 +5,8 @@ import { fleetTopic, ModuleState, recallBotStateService, BotState, RecallBotStat
 import NodeHandle from 'rosnodejs/dist/lib/NodeHandle';
 import { ROSPose } from './types';
 
-const current_pose = (rosnodejs.require('stagehands_ros').msg).robotCurrentPose;
-const target_pose_service = (rosnodejs.require('stagehands_ros').srv).setTargetPose;
+const current_pose = (rosnodejs.require('stagehands_ros').msg as any).robotCurrentPose;
+const target_pose_service = (rosnodejs.require('stagehands_ros').srv as any).setTargetPose;
 
 console.dir(current_pose)
 console.dir(target_pose_service)

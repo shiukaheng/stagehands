@@ -1,4 +1,5 @@
 services:
   ros-dev:
+    platform: linux/amd64
     environment:
       - HOST_OS=win_wsl

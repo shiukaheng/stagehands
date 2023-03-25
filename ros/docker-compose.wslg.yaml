@@ -1,5 +1,6 @@
 services:
   ros-dev:
+    platform: linux/amd64
     volumes:
       - \\wsl$\Ubuntu\mnt\wslg\:/mnt/wslg/
       - \\wsl$\Ubuntu\tmp\.X11-unix:/tmp/.X11-unix

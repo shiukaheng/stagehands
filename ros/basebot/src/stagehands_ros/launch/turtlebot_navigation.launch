@@ -15,4 +15,5 @@
     <!-- custom server -->
     <node pkg="stagehands_ros" name="robot_position_server" type="robot_pose_server.py"/>
     <node pkg="stagehands_ros" name="aruco_pose_handler" type="aruco.py"/>
+    <!-- now: how to launch the interface.ts -->
 </launch>

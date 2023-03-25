@@ -1,8 +1,0 @@
-prefix=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/install
-
-Name: nav2d_msgs
-Description: Description of nav2d_msgs
-Version: 0.4.3
-Cflags: -I${prefix}/include
-Libs: -L${prefix}/lib 
-Requires: message_runtime std_msgs sensor_msgs geometry_msgs

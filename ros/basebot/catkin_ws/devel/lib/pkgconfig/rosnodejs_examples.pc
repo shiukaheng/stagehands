@@ -1,8 +1,0 @@
-prefix=/afs/inf.ed.ac.uk/user/s20/s2030247/Documents/stagehands/basebot/catkin_ws/devel
-
-Name: rosnodejs_examples
-Description: Description of rosnodejs_examples
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -5,7 +5,7 @@ function stagehands() {
     case $1 in
         "run")
             cd /home/pi/stagehands/
-            npm run prod
+            npm run prod-bot
             ;;
         "update")
             cd /home/pi/stagehands/
@@ -23,13 +23,14 @@ function stagehands() {
                 fi
             else
                 git pull
+                sudo npm run ros-pull-prod
             fi
             ;;
         "help"|"")
             echo "Usage: stagehands [subcommand]"
             echo ""
             echo "Subcommands:"
-            echo "  run     Run the 'prod' script using npm"
+            echo "  run     Run the 'prod-bot' script using npm"
             echo "  update  Update the Stagehands repository using git pull"
             echo "  help    Display this help message"
             ;;

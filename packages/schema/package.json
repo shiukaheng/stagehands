@@ -1,5 +1,5 @@
 {
-    "name": "utils",
+    "name": "schema",
     "version": "1.0.0",
     "description": "",
     "main": "dist/index.js",

@@ -1,3 +1,5 @@
+echo Hello world!
+
 function stagehands() {
     local current_dir=$(pwd)
 
@@ -43,4 +45,8 @@ function stagehands() {
     esac
 
     cd "$current_dir"
+}
+
+function refreshenv() {
+    source ~/.bashrc
 }

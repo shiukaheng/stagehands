@@ -17,7 +17,7 @@ function stagehands() {
         "update")
             cd /home/pi/stagehands/
             git fetch origin
-            git reset --hard origin/master
+            git reset --hard origin/integration
 
             if [ $? -eq 0 ]; then
                 echo -e "${green}Stagehands has been updated successfully.${nocolor}"

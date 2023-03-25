@@ -39,9 +39,7 @@
     "dev-wtf": "cd packages/wtf && npm run dev",
 
     "ros": "ts-node scripts/launch_ros.ts",
-    "ros-push-prod": "cd ros && docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml build && docker push shiukaheng/stagehands:prod",
-    "ros-push-dev": "cd ros && docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml build && docker push shiukaheng/stagehands:dev",
-    "ros-pull-prod": "cd ros && docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml pull",
+    "update-prod": "ts-node scripts/update_prod.ts",
     "ros-pull-dev": "cd ros && docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml pull",
    
     "wtf": "cd packages/wtf && npm run wtf",

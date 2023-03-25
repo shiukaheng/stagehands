@@ -46,7 +46,7 @@
    
     "wtf": "cd packages/wtf && npm run wtf",
     "install-pi": "cd bot_setup && chmod +x install.sh && ./install.sh",
-    "publish-pi-update": "npm run build-schema && npm run build-utils && npm run build-bot && npm run build-wtf"
+    "publish-pi-docker": "npm run build-schema && npm run build-utils && npm run build-bot && npm run build-wtf && npm run ros-push-prod"
   },
   "repository": {
     "type": "git",

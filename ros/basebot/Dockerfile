@@ -1,6 +1,5 @@
 # Pull ROS noetic image from Docker Hub
-FROM ros:noetic-perception-focal
-
+FROM shiukaheng/ros-base:latest
 # Update git
 RUN sed -i 's/archive.ubuntu.com/uk.archive.ubuntu.com/g' /etc/apt/sources.list
 RUN apt-get update
@@ -44,11 +43,15 @@ RUN pip install pyserial rpi_ws281x
 RUN apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns mdns-scan
 RUN apt-get install -y wget
 RUN apt-get install -y dos2unix
+
 # Change apt sources to use the UK mirror
 RUN apt-get install -y curl
 # Install latest version of NodeJS
 RUN echo "Installing latest version of NodeJS"
 RUN /bin/bash -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash"
+
+# Raspberry Pi access
+RUN apt-get install -y python3-rpi.gpio
 
 # Add the "~/.nvm" directory to the PATH
 ENV NVM_DIR=/root/.nvm
@@ -67,7 +70,7 @@ COPY ../package.json ./stagehands-js
 COPY ../package-lock.json ./stagehands-js
 
 # Build the npm workspace
-RUN /bin/bash -c "source ${NVM_DIR}/nvm.sh; cd stagehands-js; npm install; npm run build-schema"
+RUN /bin/bash -c "source ${NVM_DIR}/nvm.sh; cd stagehands-js; npm install; npm run build-bot-deps; npm -g install ts-node typescript"
 
 # Set the working directory to catkin_ws 
 WORKDIR /catkin_ws

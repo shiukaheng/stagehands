@@ -43,7 +43,7 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
     fleet !== undefined ? (
       <div className="h-full overflow-clip">
         <div className="h-full w-full p-2 overflow-y-auto flex flex-col">
-          <button className=" w-16 rounded cursor-pointer p-3 " onClick={() => {
+          <button className=" w-16 rounded cursor-pointer p-3 ui-shadow ui-hover-highlight " onClick={() => {
             setComponentSelect({ type: "mic_panel", presetID: null })
           }}> Back </button>
 

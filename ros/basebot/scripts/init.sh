@@ -1,3 +1,4 @@
+#!/bin/bash
 source /opt/ros/noetic/setup.bash
 source /catkin_ws/devel/setup.bash
 
@@ -28,3 +29,5 @@ function set_bot_name {
 function set_bot_model {
     export TURTLEBOT3_MODEL=$1
 }
+
+. /root/.nvm/nvm.sh

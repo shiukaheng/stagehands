@@ -1,1 +1,1 @@
-export { bridgeServer } from "./server";
+export { BridgeServer } from "./server";

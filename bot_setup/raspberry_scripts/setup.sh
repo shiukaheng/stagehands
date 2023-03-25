@@ -1,6 +1,6 @@
 # Update apt-get
 echo -e "\e[1;32mUpdating apt-get...\e[0m"
-sed -i 's/archive.ubuntu.com/uk.archive.ubuntu.com/g' /etc/apt/sources.list
+sudo sed -i 's/archive.ubuntu.com/uk.archive.ubuntu.com/g' /etc/apt/sources.list
 sudo apt-get update
 
 # Make sure curl is installed
@@ -27,8 +27,10 @@ echo -e "\e[1;32mCloning stagehands...\e[0m"
 cd ~
 git clone https://github.com/shiukaheng/stagehands.git
 
-# Add sourcing /scripts/bot_setup/raspberry_scripts/convenience.sh to .bashrc
-echo -e "\e[1;32mAdding sourcing convenience.sh to .bashrc...\e[0m"
-echo "source /home/pi/stagehands/bot_setup/raspberry_scripts/convenience.sh" >> ~/.bashrc
+# Add sourcing /scripts/bot_setup/raspberry_scripts/convenience.sh to .bashrc if it hasn't been added already
+if ! grep -q "source /home/pi/stagehands/bot_setup/raspberry_scripts/convenience.sh" ~/.bashrc ; then
+    echo -e "\e[1;32mAdding sourcing convenience.sh to .bashrc...\e[0m"
+    echo "source /home/pi/stagehands/bot_setup/raspberry_scripts/convenience.sh" >> ~/.bashrc
+fi
 
 echo -e "\e[1;32mDone!\e[0m"

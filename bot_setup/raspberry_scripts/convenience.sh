@@ -1,3 +1,7 @@
+function refreshenv() {
+    source ~/.bashrc
+}
+
 function stagehands() {
     local current_dir=$(pwd)
 
@@ -6,38 +10,49 @@ function stagehands() {
     local yellow='\033[1;33m'
     local red='\033[0;31m'
     local bold='\033[1m'
+    local underline='\033[4m'
     local nocolor='\033[0m'
 
     # Parse subcommand
     case $1 in
         "run")
             cd /home/pi/stagehands/
-            npm run prod-bot
+            /home/pi/stagehands/ros/launch_prod.sh
             ;;
-        "update")
+        "update-repo")
             cd /home/pi/stagehands/
             git fetch origin
             git reset --hard origin/integration
+            refreshenv
 
             if [ $? -eq 0 ]; then
-                echo -e "${green}Stagehands has been updated successfully.${nocolor}"
-                sudo docker pull shiukaheng/stagehands:prod
+                echo -e "${green}Stagehands repository has been updated successfully.${nocolor}"
+            else
+                echo -e "${red}An error occurred while updating Stagehands repository.${nocolor}"
+                echo -e "${yellow}Please check your internet connection and try again.${nocolor}"
+            fi
+            ;;
+        "pull-docker")
+            echo -e "${yellow}Note: Docker pull is not normally needed.${nocolor}"
+            sudo docker pull shiukaheng/stagehands:prod
+            if [ $? -eq 0 ]; then
                 echo -e "${green}Docker image has been updated successfully.${nocolor}"
             else
-                echo -e "${red}An error occurred while updating Stagehands.${nocolor}"
+                echo -e "${red}An error occurred while updating Docker image.${nocolor}"
                 echo -e "${yellow}Please check your internet connection and try again.${nocolor}"
             fi
             ;;
         "help"|"")
-            echo -e "${bold}Usage: stagehands [subcommand]${nocolor}"
+            echo -e "${bold}Usage: ${underline}stagehands${nocolor} [subcommand]"
             echo ""
             echo -e "${bold}Subcommands:${nocolor}"
-            echo -e "${bold}  run     ${nocolor}Run the 'prod-bot' script using npm"
-            echo -e "${bold}  update  ${nocolor}Update the Stagehands repository using git fetch and git reset, and update Docker image"
-            echo -e "${bold}  help    ${nocolor}Display this help message"
+            echo -e "${green}  run           ${nocolor}Run the 'prod-bot' script using /home/pi/stagehands/ros/launch_prod.sh"
+            echo -e "${yellow}  update-repo ${nocolor}Update the Stagehands repository using git fetch and git reset"
+            echo -e "${yellow}  pull-docker ${nocolor}Update the Stagehands Docker image"
+            echo -e "${green}  help          ${nocolor}Display this help message"
             ;;
         *)
-            echo -e "${red}Error: Invalid subcommand. Use 'stagehands help' for usage instructions.${nocolor}"
+            echo -e "${red}Error: Invalid subcommand. Use '${underline}stagehands help${nocolor}' for usage instructions.${nocolor}"
             return 1
             ;;
     esac

@@ -73,8 +73,18 @@ export class Controller {
                     if (this.context.getBotConnectionState().find((BCS) => BCS.domainName === botName) === undefined) {
                         this.context.getBotConnectionState().push({ domainName: botName, connectionStatus: "disconnected" });
                     }
+                    
                 }
+                this.context.getBotConnectionState().forEach((BCS) => {
+                    if(availableBots.get(BCS.domainName)===undefined){
+                        this.context.getBotConnectionState().splice(this.context.getBotConnectionState().indexOf(BCS),1);
+                    }
+                })
             });
+            console.log("Available Bots: " + this.context.getAvailableBotNameTopicClientMap().size);
+            
+            console.log(this.context.getBotConnectionState());
+            
             this.server.pub(botConnectionStatusTopic, this.context.getBotConnectionState());
         }, 2000);
     }

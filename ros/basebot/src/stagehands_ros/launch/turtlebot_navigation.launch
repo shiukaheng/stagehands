@@ -20,7 +20,7 @@
     <!-- TODO: launch aruco ros, publish marker coords in camera frame -->
     <!-- TODO: aruco 2nd half: getting coordinates from aruco_ros, retrieving fixed map position for the exact same aruco -->
 
-     <!-- AMCL -->
+    <!-- AMCL -->
     <include file="$(find turtlebot3_navigation)/launch/amcl.launch"/>
 
     <!-- move_base -->

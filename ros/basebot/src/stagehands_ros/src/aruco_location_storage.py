@@ -33,7 +33,9 @@ def aruco_average_pose(req):
         sum_of_poses = [(x,y,z) for x,y,z in entry.value]
         nr_poses = len(sum_of_poses)
         average_pose = [sum_of_poses[0]/nr_poses, sum_of_poses[1]/nr_poses, sum_of_poses[2]/nr_poses]
-        f.write('marker id: ' + str(marker_id) + ' average pose: ' + str(average_pose))
+        # f.write(str(marker_id) + ', ' + str(average_pose))
+        f.write(str(marker_id) + ":\n")
+        f.write(average_pose + "\n")
     f.close()
         
 

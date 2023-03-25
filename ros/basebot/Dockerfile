@@ -37,7 +37,7 @@ RUN apt-get install -y iputils-ping
 
 RUN apt-get install -y net-tools
 RUN apt-get install -y python3-pip
-RUN pip install pyserial rpi_ws281x
+RUN pip install pyserial rpi_ws281x numpy
 
 # For hostname resolution
 RUN apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns mdns-scan

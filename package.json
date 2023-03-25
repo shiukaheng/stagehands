@@ -34,7 +34,8 @@
     "build-bot": "cd packages/bot && npm run build",
     "dev-bot-pairing": "cd packages/bot_pairing && npm run dev",
     "build-bot-pairing": "cd packages/bot_pairing && npm run build",
-    "wtf": "cd packages/wtf && npm run wtf"
+    "wtf": "cd packages/wtf && npm run wtf",
+    "install-pi": "cd bot_setup && chmod +x install.sh && ./install.sh"
   },
   "repository": {
     "type": "git",

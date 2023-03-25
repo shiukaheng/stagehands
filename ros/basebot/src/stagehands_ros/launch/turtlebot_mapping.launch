@@ -1,0 +1,23 @@
+<launch>
+    <param name="use_sim_time" value="false" />
+
+    <!-- Turtlebot3 -->
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+    <arg name="map_file" default="$(find stagehands_ros)/maps/gazebomap.yaml"/>
+    <arg name="open_rviz" default="true"/>
+    <arg name="move_forward_only" default="false"/>
+
+    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
+
+    <include file="$(find ros_autonomous_slam)/launch/autonomous_explorer.launch">
+        <arg name="model" value="$(arg model)" />
+        <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+    </include>
+
+    <include file="$(find aruco_ros)/launch/marker_publisher.launch"/>
+
+    <node pkg="stagehands_ros" name="aruco_location_storage" type="aruco_location_storage.py"/>
+
+    <!-- somehow call the services at appropriate times???????-->
+
+</launch>

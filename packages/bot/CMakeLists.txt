@@ -48,18 +48,18 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(
-  FILES
-  robotCurrentPose.msg
-)
+# add_message_files(
+#   FILES
+#   robotCurrentPose.msg
+# )
 
-# Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  setTargetPose.srv
-  arucoRecordPoses.srv
-  arucoAveragePose.srv
-)
+# # Generate services in the 'srv' folder
+# add_service_files(
+#   FILES
+#   setTargetPose.srv
+#   arucoRecordPoses.srv
+#   arucoAveragePose.srv
+# )
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -206,13 +206,28 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-catkin_install_python(PROGRAMS 
-  scripts/robot_pose_server.py
-  # scripts/led_strip_handler.py
-  scripts/aruco.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-
 install(DIRECTORY config/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
 )
+
+find_program(NODEJS_EXECUTABLE NAMES node nodejs DOC "Path to the Node.js interpreter")
+find_program(TSC_EXECUTABLE NAMES tsc DOC "Path to the TypeScript compiler")
+
+if(NODEJS_EXECUTABLE AND TSC_EXECUTABLE)
+  set(TS_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/src/index.ts)
+  set(JS_SCRIPT ${CMAKE_CURRENT_BINARY_DIR}/dist/index.js)
+
+  add_custom_command(
+    OUTPUT ${JS_SCRIPT}
+    COMMAND ${TSC_EXECUTABLE} --out ${JS_SCRIPT} ${TS_SCRIPT}
+    DEPENDS ${TS_SCRIPT}
+    COMMENT "Compiling TypeScript script ${TS_SCRIPT}"
+    VERBATIM)
+
+  add_custom_target(my_typescript_target
+    COMMAND ${NODEJS_EXECUTABLE} ${JS_SCRIPT}
+    DEPENDS ${JS_SCRIPT}
+    SOURCES ${TS_SCRIPT})
+else()
+  message(WARNING "Node.js or TypeScript not found. Skipping my_typescript_target.")
+endif()

@@ -12,8 +12,26 @@
     <!-- Map server -->
     <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
 
-    <!-- custom server -->
+    <!-- Node sending commands to robot over ROS and getting pose -->
     <node pkg="stagehands_ros" name="robot_position_server" type="robot_pose_server.py"/>
-    <node pkg="stagehands_ros" name="aruco_pose_handler" type="aruco.py"/>
-    <!-- now: how to launch the interface.ts -->
+    <!-- Node sending commands to previous node from UI and returning pose to UI-->
+    <!-- if this fails blame GPT4 not me -->
+    <node name="webtopics_ros_interface" pkg="stagehands_js" type="run_js_node.sh" output="screen" />
+    <!-- TODO: launch aruco ros, publish marker coords in camera frame -->
+    <!-- TODO: aruco 2nd half: getting coordinates from aruco_ros, retrieving fixed map position for the exact same aruco -->
+
+    <!-- AMCL -->
+    <include file="$(find turtlebot3_navigation)/launch/amcl.launch"/>
+
+    <!-- move_base -->
+    <include file="$(find turtlebot3_navigation)/launch/move_base.launch">
+        <arg name="model" value="$(arg model)" />
+        <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+    </include>
+
+    <!-- rviz -->
+    <group if="$(arg open_rviz)"> 
+        <node pkg="rviz" type="rviz" name="rviz" required="true"
+            args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz"/>
+    </group>
 </launch>

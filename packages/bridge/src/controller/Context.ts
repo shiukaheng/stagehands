@@ -10,11 +10,13 @@ export class Context {
     private stageState: StageState;
     //private botClientIDMap:Map<string,string>
     private botConnectionState:BotConnectionStatus[]
-
+    private availableBotNameTopicCLientMap:Map<string,TopicClient>
     constructor() {
         this.currentBotState ={};
         this.targetBotState = {};
         this.botConnectionState=[]
+        this.availableBotNameTopicCLientMap =new Map<string,TopicClient>;
+
         this.stageState = {
             presets: [],
             activePreset: "NoActivePreset",
@@ -60,6 +62,7 @@ export class Context {
     public setBotConnectionState(domainNameList: BotConnectionStatus[]): void {
         this.botConnectionState = domainNameList;
     }
+
     
 
 }

@@ -16,7 +16,7 @@ export class Controller {
     private bridgePort;
     constructor(port: number = 2324) {
         this.context = new Context();
-        this._server = new TopicServer(new Server(port, {cors: {origin: "*"}}), {logTopics: false});
+        this._server = new TopicServer(new Server(port, {cors: {origin: "*"}}), {logTopics: true});
         // this._server = new TopicServer(new Server(port))
         this.bridgePort = port;
         console.log(`✅ bridge server running on port ${port}`);
@@ -29,10 +29,11 @@ export class Controller {
         })
     }
 
-    public serverPub(topicChannel: TopicChannel<any>) {
-        const topic = selectTopic(topicChannel, this.context);
-        this.server.pub(topicChannel, topic);
-    }
+    // public serverPub(topicChannel: TopicChannel<any>) {
+        
+    //     const topic = selectTopic(topicChannel, this.context);
+    //     this.server.pub(topicChannel, topic);
+    // }
 
     public serverSub(topicChannel: TopicChannel<any>, topicHandler: (topicData: any, context: Context) => void) {
         this.server.sub(topicChannel, (topic) => {
@@ -53,9 +54,11 @@ export class Controller {
             setInterval(() => {
                 server.sendDiscoveryPacket();
                 server.subBots((availableBots)=>{
+                    
                     for(const botName of availableBots.keys()){
                         if(this.context.getBotConnectionState().find((BCS)=>BCS.domainName===botName)===undefined){
                             this.context.getBotConnectionState().push({domainName:botName,connectionStatus:"disconnected"})
+                            
 
                         }
                     }

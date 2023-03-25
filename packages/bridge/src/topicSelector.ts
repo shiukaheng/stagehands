@@ -17,3 +17,5 @@ export function selectTopic(topicChannel:TopicChannel<any>,context:Context):any{
     }
     return topic;
 }
+
+const type = typeof fleetTopic;

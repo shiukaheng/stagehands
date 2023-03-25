@@ -14,9 +14,10 @@ export class bridgeServer{
     constructor(){
         this.controller =  new Controller(3001);
         //publish fleet topic
-        this.controller.serverPub(stageTopic);
+        //this.controller.serverPub(stageTopic);
         //register new botClient with its botID
         //controller.serverSub(serverMetaChannel,newBotClientRegistrationHandler);
+        this.controller.server.pub(stageTopic,this.controller.getContext().getStageState())
         this.controller.serverSub(fleetTopic,fleetTopicHandler);
         //register bot client ID
         //this.controller.runService(registerBotClientIDService,registerBotClientIDServiceHandler);

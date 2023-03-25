@@ -13,7 +13,8 @@
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node ./build/index.js",
     "ipTest":"nodemon --exec node --experimental-specifier-resolution=node --loader ts-node/esm src/utils/ipRetrival.ts",
-    "pairingTest":"nodemon --exec node --experimental-specifier-resolution=node --loader ts-node/esm src/test/utils/dummyBotPairingServer.ts"
+    "pairingTest":"nodemon --exec node --experimental-specifier-resolution=node --loader ts-node/esm src/test/utils/dummyBotPairingServer.ts",
+    "debuggingWebClient":"nodemon --exec node --experimental-specifier-resolution=node --loader ts-node/esm src/test/debugingReqClient.ts"
   },
   "author": "",
   "license": "ISC",

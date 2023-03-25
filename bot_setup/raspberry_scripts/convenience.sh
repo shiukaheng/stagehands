@@ -1,5 +1,3 @@
-echo Hello world!
-
 function stagehands() {
     local current_dir=$(pwd)
 

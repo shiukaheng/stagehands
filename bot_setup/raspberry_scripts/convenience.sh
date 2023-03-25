@@ -2,7 +2,7 @@ function refreshenv() {
     source ~/.bashrc
 }
 
-function sh() {
+function stagehands() {
     local current_dir=$(pwd)
 
     # Define colors
@@ -15,7 +15,7 @@ function sh() {
 
     # Parse subcommand
     case $1 in
-        "r")
+        "run")
             cd /home/pi/stagehands/
             /home/pi/stagehands/ros/launch_prod.sh
             ;;
@@ -42,17 +42,17 @@ function sh() {
                 echo -e "${yellow}Please check your internet connection and try again.${nocolor}"
             fi
             ;;
-        "h"|"")
-            echo -e "${bold}Usage: ${underline}sh${nocolor} [subcommand]"
+        "help"|"")
+            echo -e "${bold}Usage: ${underline}stagehands${nocolor} [subcommand]"
             echo ""
             echo -e "${bold}Subcommands:${nocolor}"
-            echo -e "${green}  r           ${nocolor}Run the 'prod-bot' script using /home/pi/stagehands/ros/launch_prod.sh"
+            echo -e "${green}  run           ${nocolor}Run the 'prod-bot' script using /home/pi/stagehands/ros/launch_prod.sh"
             echo -e "${yellow}  update-repo ${nocolor}Update the Stagehands repository using git fetch and git reset"
             echo -e "${yellow}  pull-docker ${nocolor}Update the Stagehands Docker image"
-            echo -e "${green}  h           ${nocolor}Display this help message"
+            echo -e "${green}  help          ${nocolor}Display this help message"
             ;;
         *)
-            echo -e "${red}Error: Invalid subcommand. Use '${underline}sh h${nocolor}' for usage instructions.${nocolor}"
+            echo -e "${red}Error: Invalid subcommand. Use '${underline}stagehands help${nocolor}' for usage instructions.${nocolor}"
             return 1
             ;;
     esac

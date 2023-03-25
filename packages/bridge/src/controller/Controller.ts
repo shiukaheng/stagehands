@@ -46,31 +46,22 @@ export class Controller {
         let server: PairingServer
 
         // Regularly sends discover packets, and starts a pairing server
-        setTimeout(() => {
-            server = new PairingServer();
-            server.startDiscoverListener();
-        }, 100);
+        server = new PairingServer();
+        server.startDiscoverListener();
+        setInterval(() => {
+            server.sendDiscoveryPacket();
+            server.subBots((availableBots)=>{
+                this.context.setAvailableBotNameTopicCLientMap(availableBots)
+                for(const botName of availableBots.keys()){
+                    if(this.context.getBotConnectionState().find((BCS)=>BCS.domainName===botName)===undefined){
 
-        setTimeout(() => {
-            setInterval(() => {
-                server.sendDiscoveryPacket();
-                server.subBots((availableBots)=>{
-                    this.context.setAvailableBotNameTopicCLientMap(availableBots)
-                    for(const botName of availableBots.keys()){
-                        if(this.context.getBotConnectionState().find((BCS)=>BCS.domainName===botName)===undefined){
-
-                            this.context.getBotConnectionState().push({domainName:botName,connectionStatus:"disconnected"})
-                        }
+                        this.context.getBotConnectionState().push({domainName:botName,connectionStatus:"disconnected"})
                     }
-                })
-                
-                
-                this.server.pub(botConnectionStatusTopic, this.context.getBotConnectionState());
-                //console.log(this.context.getBotConnectionState());
-                
-            }, 2000)
-        }, 500)
-
+                }
+            })
+            
+            this.server.pub(botConnectionStatusTopic, this.context.getBotConnectionState());
+        }, 2000)
     }
 
     public get server(): TopicServer {

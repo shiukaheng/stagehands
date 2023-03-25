@@ -44,7 +44,7 @@ export class Context {
         this.currentBotState ={};
         this.targetBotState = {};
         this.botConnectionState=[]
-        this.server=new TopicServer(new Server(port, {cors: {origin: "*"}}), {logTopics: true});
+        this.server=new TopicServer(new Server(port, {cors: {origin: "*"}}));
         this.serverPort=port;
         this.availableBotNameTopicCLientMap =new Map<string,TopicClient>;
 

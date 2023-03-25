@@ -20,7 +20,6 @@ export class PairingClient {
         this.name = null;
         this.mdns = getMdns();
         this.ips = retrieveIps();
-        console.log(this.ips)
     }
 
     async startAdvertise() {
@@ -151,7 +150,8 @@ export class PairingServer {
 
     private connectBotPairingService(service: Service) {
         // Connect to the bot pairing service
-        const socket = io(`http://${service.host}:${service.port}`)
+        const host = this.dnsMap.get(service.host) ?? service.host // Lookup in case the host OS doesn't resolve it (Windows)
+        const socket = io(`http://${host}:${service.port}`)
         const topicClient = new TopicClient(socket);
         const botName = service.name
         console.log("Trying to connect to bot...", botName.replace("._stagehands_pairing._tcp.local", ""))
@@ -197,12 +197,3 @@ export class PairingServer {
         });
     }
 }
-
-// const client = new PairingClient();
-// client.startAdvertise();
-
-// setTimeout(() => {
-//     const server = new PairingServer();
-//     server.startDiscoverListener();
-//     server.sendDiscoveryPacket();
-// }, 100);

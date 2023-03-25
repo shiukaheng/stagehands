@@ -23,7 +23,7 @@ function stagehands() {
                 fi
             else
                 git pull
-                sudo npm run ros-pull-prod
+                sudo docker pull shiukaheng/stagehands:prod
             fi
             ;;
         "help"|"")

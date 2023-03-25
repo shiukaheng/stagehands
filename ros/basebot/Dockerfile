@@ -66,7 +66,7 @@ COPY ../package.json ./stagehands-js
 COPY ../package-lock.json ./stagehands-js
 
 # Build the npm workspace
-RUN /bin/bash -c "source ${NVM_DIR}/nvm.sh; cd stagehands-js; npm install; npm run build-schema"
+RUN /bin/bash -c "source ${NVM_DIR}/nvm.sh; cd stagehands-js; npm install; npm run build-bot-deps"
 
 # Set the working directory to catkin_ws 
 WORKDIR /catkin_ws

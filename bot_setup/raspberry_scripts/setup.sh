@@ -33,4 +33,13 @@ if ! grep -q "source /home/pi/stagehands/bot_setup/raspberry_scripts/convenience
     echo "source /home/pi/stagehands/bot_setup/raspberry_scripts/convenience.sh" >> ~/.bashrc
 fi
 
+# Create the udev rules directory if it doesn't exist
+sudo mkdir -p /etc/udev/rules.d/
+
+# Create the file with the desired content
+sudo sh -c 'echo "SUBSYSTEM==\"vchiq\",MODE=\"0666\"" > /etc/udev/rules.d/99-camera.rules'
+
+# Reload the udev rules to apply the changes
+sudo udevadm control --reload-rules
+
 echo -e "\e[1;32mDone!\e[0m"

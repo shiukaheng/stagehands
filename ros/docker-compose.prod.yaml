@@ -4,3 +4,6 @@ services:
     entrypoint: ["/scripts/entrypoint.sh"]
     volumes:
       - ./basebot/scripts:/scripts
+      - /dev:/dev
+      - /dev/bus/usb:/dev/bus/usb
+    privileged: true

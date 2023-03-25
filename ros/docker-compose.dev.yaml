@@ -12,6 +12,5 @@ services:
       - /catkin_ws/build
       - /catkin_ws/logs
       - /catkin_ws/install
-    image: shiukaheng/stagehands:dev
     stdin_open: true
     tty: true

@@ -4,6 +4,6 @@ services:
     build:
       context: ../
       dockerfile: ./ros/basebot/Dockerfile
-    container_name: basebot-dev-container
+    container_name: stagehands-dev
     network_mode: host
     privileged: true

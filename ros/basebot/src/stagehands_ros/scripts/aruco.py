@@ -1,6 +1,7 @@
 import rospy
 
 from aruco_msgs.msg import MarkerArray, Marker
+from stagehands_ros.srv import arucoRecordPoses, arucoAveragePose
 
 # dict with key markerID and value list of marker pose readings
 marker_pose_readings = dict()
@@ -12,18 +13,19 @@ def store_marker_poses(data):
     # print(data.markers[0].pose.pose.position.y)
     # print(data.markers[0].pose.pose.position.z)
 
+    # for each marker in the MarkerArray, add the pose to the list of poses for that marker
     for marker in data.markers:
         # if there is already a list of marker poses for this marker, append the new pose to the list
         # otherwise create a new list with the new pose
-        current_list = marker_average_pose.getordefault(marker.id, [])
-        marker_average_pose.update({marker.id: current_list.append(marker.pose.pose)})
+        current_list = marker_pose_readings.getordefault(marker.id, [])
+        marker_pose_readings.update({marker.id: current_list.append(marker.pose.pose)})
 
 # when the record service is called, begin storing the marker poses
-def aruco_listener():
-    rospy.Subscriber("markers", MarkerArray, callback)
+def aruco_listener(req):
+    rospy.Subscriber("markers", MarkerArray, store_marker_poses)
 
 # when the average service is called, calculate the average pose for each marker and write to file
-def aruco_average_pose():
+def aruco_average_pose(req):
     f = open('../files/aruco_poses.txt', 'a')
     # for each marker, calculate the average pose and write to file
     for entry in marker_pose_readings:

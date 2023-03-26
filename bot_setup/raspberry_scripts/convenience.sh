@@ -34,7 +34,7 @@ function stagehands() {
                 echo -e "${yellow}Please check your internet connection and try again.${nocolor}"
             fi
             ;;
-        "pull-docker")
+        "docker-pull")
             sudo docker pull shiukaheng/stagehands:prod
             if [ $? -eq 0 ]; then
                 echo -e "${green}Docker image has been updated successfully.${nocolor}"
@@ -43,14 +43,25 @@ function stagehands() {
                 echo -e "${yellow}Please check your internet connection and try again.${nocolor}"
             fi
             ;;
+        "docker-restart")
+            sudo systemctl stop --force stagehands.service
+            sudo systemctl start stagehands.service
+            echo -e "${green}Stagehands service has been restarted.${nocolor}"
+            ;;
+        "update")
+            stagehands update-repo
+            stagehands docker-restart
+            ;;
         "help"|"")
             echo -e "${bold}Usage: ${underline}stagehands${nocolor} [subcommand]"
             echo ""
             echo -e "${bold}Subcommands:${nocolor}"
-            echo -e "${green}  run           ${nocolor}Run the 'prod-bot' script using /home/pi/stagehands/ros/launch_prod.sh"
-            echo -e "${yellow}  update-repo ${nocolor}Update the Stagehands repository using git fetch and git reset"
-            echo -e "${yellow}  pull-docker ${nocolor}Update the Stagehands Docker image"
-            echo -e "${green}  help          ${nocolor}Display this help message"
+            echo -e "${green}  run              ${nocolor}Run the 'prod-bot' script using /home/pi/stagehands/ros/launch_prod.sh"
+            echo -e "${yellow}  update-repo  ${nocolor}Update the Stagehands repository using git fetch and git reset"
+            echo -e "${yellow}  docker-pull  ${nocolor}Update the Stagehands Docker image"
+            echo -e "${green}  docker-restart ${nocolor}Restart the Stagehands service by stopping and starting it again"
+            echo -e "${green}  update          ${nocolor}Update the Stagehands repository and restart the service"
+            echo -e "${green}  help             ${nocolor}Display this help message"
             ;;
         *)
             echo -e "${red}Error: Invalid subcommand. Use '${underline}stagehands help${nocolor}' for usage instructions.${nocolor}"

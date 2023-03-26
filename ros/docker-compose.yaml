@@ -19,3 +19,5 @@ services:
     container_name: stagehands-dev
     network_mode: host
     privileged: true
+    environment:
+      - TURTLEBOT3_MODEL=waffle_pi

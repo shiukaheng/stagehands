@@ -211,6 +211,7 @@ catkin_install_python(PROGRAMS
   # scripts/led_strip_handler.py
   src/aruco_location_storage.py
   src/map_monitor.py
+  src/main.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

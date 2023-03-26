@@ -33,7 +33,6 @@ function stagehands() {
             fi
             ;;
         "pull-docker")
-            echo -e "${yellow}Note: Docker pull is not normally needed.${nocolor}"
             sudo docker pull shiukaheng/stagehands:prod
             if [ $? -eq 0 ]; then
                 echo -e "${green}Docker image has been updated successfully.${nocolor}"

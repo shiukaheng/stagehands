@@ -1,11 +1,9 @@
 [Unit]
-Description=My Service
-After=network.target
+Description=Stagehands Service
 
 [Service]
 Type=simple
-# Run "stagehands run" (after sourcing the environment) in bash to get the command
-ExecStart=/bin/bash -c "source /home/pi/.bashrc && stagehands run"
+ExecStart=/bin/bash -c "source /home/pi/stagehands/bot_setup/raspberry_scripts/convenience.sh; stagehands run"
 Restart=always
 
 [Install]

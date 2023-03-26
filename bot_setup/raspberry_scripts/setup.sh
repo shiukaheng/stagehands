@@ -47,4 +47,7 @@ echo -e "\e[1;32mCopying service file to /etc/systemd/system...\e[0m"
 cd ~/stagehands/bot_setup/raspberry_scripts
 sudo cp stagehands.service /etc/systemd/system/stagehands.service
 
+sudo systemctl daemon-reload
+sudo systemctl enable stagehands.service
+
 echo -e "\e[1;32mDone!\e[0m"

@@ -20,5 +20,12 @@
     "socket.io-client": "^4.6.1",
     "ts-node": "^10.9.1",
     "webtopics": "^1.9.10"
+  },
+  "devDependencies": {
+    "parcel": "^2.8.3",
+    "ts-loader": "^9.4.2",
+    "vite": "^4.2.1",
+    "vite-node": "^0.29.7",
+    "webpack-cli": "^5.0.1"
   }
 }

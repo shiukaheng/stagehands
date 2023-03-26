@@ -9,6 +9,7 @@ function stagehands() {
     local green='\033[0;32m'
     local yellow='\033[1;33m'
     local red='\033[0;31m'
+    local blue='\033[0;34m'
     local bold='\033[1m'
     local underline='\033[4m'
     local nocolor='\033[0m'
@@ -66,13 +67,13 @@ function stagehands() {
             echo -e "${bold}Usage: ${underline}stagehands${nocolor} [subcommand]"
             echo ""
             echo -e "${bold}Subcommands:${nocolor}"
-            echo -e "${green}  run              ${nocolor}Run the 'prod-bot' script using /home/pi/stagehands/ros/launch_prod.sh"
-            echo -e "${yellow}  update-repo  ${nocolor}Update the Stagehands repository using git fetch and git reset"
-            echo -e "${yellow}  docker-pull  ${nocolor}Update the Stagehands Docker image"
-            echo -e "${green}  docker-restart ${nocolor}Restart the Stagehands service by stopping and starting it again"
-            echo -e "${green}  update          ${nocolor}Update the Stagehands repository and restart the service"
-            echo -e "${green}  ssh             ${nocolor}Connect to Stagehands using SSH"
-            echo -e "${green}  help             ${nocolor}Display this help message"
+            echo -e "${blue}  run              ${nocolor}Run the 'prod-bot' script using /home/pi/stagehands/ros/launch_prod.sh"
+            echo -e "${blue}  update-repo  ${nocolor}Update the Stagehands repository using git fetch and git reset"
+            echo -e "${blue}  docker-pull  ${nocolor}Update the Stagehands Docker image"
+            echo -e "${blue}  docker-restart ${nocolor}Restart the Stagehands service by stopping and starting it again"
+            echo -e "${blue}  update          ${nocolor}Update the Stagehands repository and restart the service"
+            echo -e "${blue}  ssh             ${nocolor}Connect to Stagehands using SSH"
+            echo -e "${blue}  help             ${nocolor}Display this help message"
             ;;
         *)
             echo -e "${red}Error: Invalid subcommand. Use '${underline}stagehands help${nocolor}' for usage instructions.${nocolor}"

@@ -42,4 +42,9 @@ sudo sh -c 'echo "SUBSYSTEM==\"vchiq\",MODE=\"0666\"" > /etc/udev/rules.d/99-cam
 # Reload the udev rules to apply the changes
 sudo udevadm control --reload-rules
 
+# Copy the service file to /etc/systemd/system
+echo -e "\e[1;32mCopying service file to /etc/systemd/system...\e[0m"
+cd ~/stagehands/bot_setup/raspberry_scripts
+sudo cp stagehands.service /etc/systemd/system/stagehands.service
+
 echo -e "\e[1;32mDone!\e[0m"

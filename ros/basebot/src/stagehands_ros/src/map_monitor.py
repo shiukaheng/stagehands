@@ -10,6 +10,10 @@ CHANGE_THRESHOLD = 0
 map_path = "../../maps/generated_map"
 
 def map_callback(msg):
+    """
+    Callback function for the map subscriber. Checks if the map has changed: if it hasn't for 10 iterations, calls the aruco_average_pose service.
+    :param msg: OccupancyGrid message
+    """
     if prev_map_data == []:
         prev_map_data = msg.data
     else:
@@ -37,7 +41,9 @@ def map_callback(msg):
         except Exception as e:
             rospy.logerr("Failed to save map: " + str(e))
 
-        # now how to send this map to a server hmmmmmmm
+        # KILLS EVERYTHING MUAHAHAHAHA (hopefully)
+        process = subprocess.Popen('\x03', shell=True)
+        process.wait()
         
 if __name__ == '__main__':
     rospy.init_node('map_monitor')

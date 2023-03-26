@@ -44,13 +44,18 @@ function stagehands() {
             fi
             ;;
         "docker-restart")
-            sudo systemctl stop --force stagehands.service
+            sudo docker container kill stagehands-dev
             sudo systemctl start stagehands.service
             echo -e "${green}Stagehands service has been restarted.${nocolor}"
             ;;
         "update")
+            echo -e "${green}Stopping Stagehands service...${nocolor}"
+            sudo docker container kill stagehands-dev
+            echo -e "${green}Updating Stagehands repository...${nocolor}"
             stagehands update-repo
-            stagehands docker-restart
+            echo -e "${green}Restarting Stagehands service...${nocolor}"
+            sudo systemctl start stagehands.service
+            echo -e "${green}Stagehands has been updated successfully.${nocolor}"
             ;;
         "help"|"")
             echo -e "${bold}Usage: ${underline}stagehands${nocolor} [subcommand]"

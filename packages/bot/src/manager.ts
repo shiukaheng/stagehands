@@ -1,6 +1,5 @@
-import { WebtopicROSInterface } from "src";
-import { PairingClient } from "utils";
-import { botPairingService } from "schema";
+import { WebtopicROSInterface } from "./interface";
+import { PairingClient, PairingRequestArgs } from "utils";
 
 export interface IStagehandsManagerOptions {
     pairingPort: number;
@@ -10,8 +9,7 @@ export const defaultOptions: IStagehandsManagerOptions = {
     pairingPort: 3435,
 };
 
-class StagehandsManager {
-
+export class StagehandsManager {
     // Pairing client for advertising this bot
     private pairingClient: PairingClient;
     // Interface for communicating with web UI
@@ -19,15 +17,21 @@ class StagehandsManager {
     private options = defaultOptions;
 
     constructor(options: Partial<IStagehandsManagerOptions> = {}) {
+        console.log("🎤 Stagehands Manager");
         this.options = { ...defaultOptions, ...options }; // Merge options with defaults
-        this.pairingClient = new PairingClient();
+        this.pairingClient = new PairingClient({
+            pairingPort: this.options.pairingPort,
+        });
         this.pairingClient.subscribeRequest(this.onRequestConnect);
         this.pairingClient.subscribeDisconnect(this.onRequestDisconnect);
     }
     onRequestDisconnect() {
-        throw new Error("Method not implemented.");
+        console.log("💔 Disconnected from web UI");
+        this.interface ?? this.interface.shutdown();
+        this.interface = null;
     }
-    onRequestConnect(onRequestConnect: any) {
-        throw new Error("Method not implemented.");
+    onRequestConnect(args: PairingRequestArgs) {
+        console.log("🔌 Request to connect from", args.bridgeIp);
+        this.interface = new WebtopicROSInterface(args.bridgeIp, args.bridgePort.toString());
     }
 }

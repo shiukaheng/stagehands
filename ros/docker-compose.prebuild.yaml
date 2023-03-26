@@ -2,3 +2,4 @@ version: "3.3"
 services:
   ros-dev:
     entrypoint: ["/scripts/prebuild.sh"]
+    platform: linux/arm64

@@ -4,4 +4,3 @@ services:
     volumes:
       - ./basebot/prebuild/devel:/catkin_ws/devel
       - ./basebot/prebuild/build:/catkin_ws/build
-    platform: linux/arm64

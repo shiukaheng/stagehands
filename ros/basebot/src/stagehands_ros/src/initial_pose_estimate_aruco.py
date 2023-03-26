@@ -166,6 +166,7 @@ def callback(data):
         # divide the sum of the matrices by the number of markers
         avg_transform_map_to_camera /= marker_count
         send_initial_pose(avg_transform_map_to_camera)
+        rospy.signal_shutdown("Initial pose estimate published")
     else:
         print("No markers found, please move the robot to a different location")
 

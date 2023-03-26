@@ -9,3 +9,5 @@ services:
       - /dev/bus/usb:/dev/bus/usb
       - /root/name.json
     privileged: true
+    stdin_open: true
+    tty: true

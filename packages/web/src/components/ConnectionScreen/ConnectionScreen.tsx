@@ -2,11 +2,31 @@ import BackButton from './BackButton';
 import AvailableBotsPanel from './AvailableBotsPanel';
 import PreviewBotCanvas from './PreviewBotCanvas';
 import { TopicContext } from 'src/contexts/ServerContext';
-import { useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import screenSelectionContext from 'web/src/contexts/WhichScreenContext';
+
+export interface IHoveredBot {
+  hoverBotID: string
+  setBotID: (input: string) => void
+}
+
+export const hoveredBotContext = createContext<IHoveredBot>({
+  hoverBotID: "",
+  setBotID: (input: string) => { input }
+})
+
+{/*export function hoverContext({children}): { children: ReactNode; } {
+  const [botID, setBotID] = useState<string>("");
+  const hoverContextValue = { botID, setBotID};
+
+  return (
+
+  )*/}
 
 export function ConnectionScreen() {
   const { screenSelection } = useContext(screenSelectionContext);
+  const [hoverBotID, setBotID] = useState<string>("");
+  const hoverContextValue = { hoverBotID, setBotID};
   // const provider = useContext(TopicContext);
     return (
       <div>
@@ -19,13 +39,13 @@ export function ConnectionScreen() {
 
         {/* main body of page */}
         <div className="flex overflow-hidden flex-row">
-          <AvailableBotsPanel />
+          <hoveredBotContext.Provider value={hoverContextValue}><AvailableBotsPanel /></hoveredBotContext.Provider>
           <div className="w-full flex-col overflow-visible"> {/* div for canvas and below details */}
             <div className="m-5 h-4/5 ui-shadow ui-div ui-highlight safari-canvas-overflow-fix">
               <PreviewBotCanvas />
               {/* below canvas details start */}
             </div>
-            <div className="m-5 h-28 ui-shadow ui-div ui-highlight p-2 font-bold">Name</div> {/* selected bot info goes here */}
+            <div className="m-5 h-28 ui-shadow ui-div ui-highlight p-2 font-bold">Bot info {hoverBotID}</div> {/* selected bot info goes here */}
           </div>
           {/* below canvas details end */}
 

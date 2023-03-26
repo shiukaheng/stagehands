@@ -2,11 +2,13 @@ import { useContext, useMemo } from "react"
 import LiveBotWidget from "./LiveBotWidget";
 import { TopicContext } from "../../../contexts/ServerContext";
 import PresetBotWidget from "./PresetBotWidget";
+import screenSelectionContext, { ScreenSelection } from "web/src/contexts/WhichScreenContext";
 
 /**
  * Provides a list of all the bots in the current preset, or live bots, depending on the presetID
  */
 function BotOverviewPanel({ presetID }: { presetID: string | null }) {
+    const { screenSelection, setScreenSelection } = useContext(screenSelectionContext);
     const provider = useContext(TopicContext);
     const presetIsNull = presetID === null
     const currentPreset = useMemo(() => {
@@ -44,9 +46,11 @@ function BotOverviewPanel({ presetID }: { presetID: string | null }) {
                 )
             }
         </div>
-        <div className="inset-x-0 bottom-0">
+        <div className="flex flex-row gap-2 w-full">
             <button
-            className="font-bold box-border flex-shrink ui-div ui-highlight-solid ui-shadow m-6 p-4 w-full">
+            className="font-bold box-border flex-shrink ui-div ui-highlight-solid ui-shadow m-6 p-4 w-full"
+            onClick={() => { setScreenSelection(("connection_screen" as ScreenSelection))
+            console.log("goto connection screen button clicked") }}>
                 Connect Bots +
             </button>
         </div>

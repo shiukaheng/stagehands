@@ -2,6 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from '@react-three/drei'
 import { createContext, useCallback, useRef } from "react";
 import { StageScene } from "../Stage/StageScene";
+import { PreviewScene } from "./PreviewScene";
 
 export type cursorOverride = 'default' | 'pointer' | 'grab' | 'grabbing';
 export interface IPreviewContext {
@@ -36,7 +37,7 @@ function PreviewBotCanvas() {
         <spotLight position={[5, 5, 5]} penumbra={1} intensity={0.1}/>
         <spotLight position={[-5, 5, 5]} penumbra={1} intensity={0.1}/>
         <spotLight position={[5, 5, -5]} penumbra={1} intensity={0.1}/>
-        <StageScene />
+        <PreviewScene />
         </PreviewContext.Provider>
       </Canvas>
     )

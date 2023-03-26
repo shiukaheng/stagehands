@@ -8,7 +8,7 @@ export interface IScreenSelectionContext {
 }
 
 const screenSelectionContext = createContext<IScreenSelectionContext>({
-	screenSelection: "main_screen",
+	screenSelection: "connection_screen",
 	setScreenSelection: (input: ScreenSelection) => { input }
 })
 

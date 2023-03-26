@@ -68,11 +68,11 @@ function stagehands() {
             echo ""
             echo -e "${bold}Subcommands:${nocolor}"
             echo -e "${blue}  run              ${nocolor}Run the 'prod-bot' script using /home/pi/stagehands/ros/launch_prod.sh"
-            echo -e "${blue}  update-repo  ${nocolor}Update the Stagehands repository using git fetch and git reset"
-            echo -e "${blue}  docker-pull  ${nocolor}Update the Stagehands Docker image"
-            echo -e "${blue}  docker-restart ${nocolor}Restart the Stagehands service by stopping and starting it again"
-            echo -e "${blue}  update          ${nocolor}Update the Stagehands repository and restart the service"
-            echo -e "${blue}  ssh             ${nocolor}Connect to Stagehands using SSH"
+            echo -e "${blue}  update-repo      ${nocolor}Update the Stagehands repository using git fetch and git reset"
+            echo -e "${blue}  docker-pull      ${nocolor}Update the Stagehands Docker image"
+            echo -e "${blue}  docker-restart   ${nocolor}Restart the Stagehands service by stopping and starting it again"
+            echo -e "${blue}  update           ${nocolor}Update the Stagehands repository and restart the service"
+            echo -e "${blue}  ssh              ${nocolor}Connect to Stagehands using SSH"
             echo -e "${blue}  help             ${nocolor}Display this help message"
             ;;
         *)

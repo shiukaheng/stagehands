@@ -4,3 +4,4 @@ services:
     volumes:
       - ./basebot/prebuild/devel:/catkin_ws/devel
       - ./basebot/prebuild/build:/catkin_ws/build
+      - ./basebot/prebuild/install:/catkin_ws/install

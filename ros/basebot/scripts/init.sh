@@ -36,3 +36,5 @@ function set_bot_model {
 }
 
 . /root/.nvm/nvm.sh
+
+cd /catkin_ws

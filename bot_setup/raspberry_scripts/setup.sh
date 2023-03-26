@@ -33,6 +33,14 @@ if ! grep -q "source /home/pi/stagehands/bot_setup/raspberry_scripts/convenience
     echo "source /home/pi/stagehands/bot_setup/raspberry_scripts/convenience.sh" >> ~/.bashrc
 fi
 
+# Install ntp
+echo -e "\e[1;32mInstalling ntp...\e[0m"
+sudo apt-get install -y ntp
+
+# Synch time
+echo -e "\e[1;32mSynching time...\e[0m"
+sudo ntpdate -s time.nist.gov
+
 # Create the udev rules directory if it doesn't exist
 sudo mkdir -p /etc/udev/rules.d/
 

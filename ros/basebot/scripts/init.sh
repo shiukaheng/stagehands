@@ -1,6 +1,9 @@
 #!/bin/bash
 source /opt/ros/noetic/setup.bash
-source /catkin_ws/devel/setup.bash
+# Source /catkin_ws/devel/setup.bash if it exists
+if [ -f "/catkin_ws/devel/setup.bash" ]; then
+    source /catkin_ws/devel/setup.bash
+fi
 
 if [ -d "/mnt/wslg/distro" ]; then \
     export DISPLAY=:0; \
@@ -19,7 +22,9 @@ export PS1='\[\e[1;32m\]\u@\h:\[\e[1;34m\]\w\[\e[0m\]\$ '
 # Convenience function to build the workspace
 function build {
     catkin build
-    source /catkin_ws/devel/setup.bash
+    if [ $? -eq 0 ]; then
+        source devel/setup.bash
+    fi
 }
 
 function set_bot_name {

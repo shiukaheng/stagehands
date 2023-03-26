@@ -1,9 +1,9 @@
 import { Context } from "./controller/Context";
-import { UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn, botPairingService, BotConnectionStatus } from "schema";
+import { UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn, botPairingService, BotConnectionStatus, botDisconnectionService, botConnectionStatusTopic } from "schema";
 import { v4 } from "uuid";
 import { checkValidRecall } from "./utils/ValidationFunc";
 import { TopicServer } from "webtopics";
-import { retrieveIps } from "utils";
+import { retrieveIps } from "../../utils/src/discovery";
 /**
  * Create a new preset.
  * @param preset - The preset to be created.
@@ -341,6 +341,13 @@ export function reorderPresetsServiceHandler(
     server: TopicServer
   ): Promise<void> {
     const pairingClient = context.getAvailableBotNameTopicClientMap().get(botName);
+    if (!pairingClient) {
+      throw new Error("Bot does not exist");
+    }
+    const botConnectionStatus = context.getBotConnectionState().find((BCS) => BCS.domainName === botName) as BotConnectionStatus;
+    if (botConnectionStatus.connectionStatus === "connected") {
+      throw new Error("Bot is already connected");
+    }
     const serverId = await pairingClient?.getServerID() as string;
     const ips = retrieveIps();
     let successRequest = true;
@@ -351,7 +358,29 @@ export function reorderPresetsServiceHandler(
         });
     }
     if (successRequest) {
-      const botConnectionStatus = context.getBotConnectionState().find((BCS) => BCS.domainName === botName) as BotConnectionStatus;
       botConnectionStatus.connectionStatus = "connected";
     }
+    server.pub(botConnectionStatusTopic,context.getBotConnectionState());
   }
+ export async function disconnectBotServiceHandler(
+    botID:string,
+    context: Context,
+    server: TopicServer
+ ):Promise<void>{
+    if (!context.getCurrentBotState().hasOwnProperty(botID)) {
+        throw new Error(`Bot ${botID} does not exist`);
+    }
+    const botName = context.getCurrentBotState()[botID].name;
+    const botConnectionStatus = context.getBotConnectionState().find((BCS) => BCS.domainName === botName) as BotConnectionStatus;
+    if (botConnectionStatus.connectionStatus === "disconnected") {
+        throw new Error("Bot is already disconnected");
+      }
+    server.req(botDisconnectionService,botID)
+    .then(()=>{
+        botConnectionStatus.connectionStatus = "disconnected";
+    })
+    .catch((error)=>{
+        throw error;
+    })
+    server.pub(botConnectionStatusTopic,context.getBotConnectionState());
+ }

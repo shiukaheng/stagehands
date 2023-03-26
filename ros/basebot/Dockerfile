@@ -53,6 +53,13 @@ RUN /bin/bash -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/
 # Raspberry Pi access
 RUN apt-get install -y python3-rpi.gpio
 
+# Install MML libraries to allow camera to run
+RUN apt-get install libraspberrypi-dev
+RUN sudo mkdir -p /opt/vc/lib
+RUN sudo ln -s /usr/lib/arm-linux-gnueabihf/libmmal* /opt/vc/lib/
+RUN echo 'export LD_LIBRARY_PATH=/opt/vc/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
+RUN source ~/.bashrc
+
 # Add the "~/.nvm" directory to the PATH
 ENV NVM_DIR=/root/.nvm
 # Install the latest version of NodeJS

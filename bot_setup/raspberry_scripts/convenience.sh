@@ -23,8 +23,8 @@ function stagehands() {
             ;;
         "update-repo")
             cd /home/pi/stagehands/
-            git fetch origin
-            git reset --hard origin/integration
+            sudo git fetch origin
+            sudo git reset --hard origin/integration
             refreshenv
 
             if [ $? -eq 0 ]; then

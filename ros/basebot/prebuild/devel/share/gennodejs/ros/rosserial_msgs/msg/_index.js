@@ -1,4 +1,4 @@
 module.exports = {
-  TopicInfo: require('./TopicInfo.js'),
   Log: require('./Log.js'),
+  TopicInfo: require('./TopicInfo.js'),
 };

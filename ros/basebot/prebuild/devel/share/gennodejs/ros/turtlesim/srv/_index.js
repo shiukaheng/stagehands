@@ -1,7 +1,7 @@
 module.exports = {
   SetPen: require('./SetPen.js'),
-  Spawn: require('./Spawn.js'),
   Kill: require('./Kill.js'),
-  TeleportRelative: require('./TeleportRelative.js'),
+  Spawn: require('./Spawn.js'),
   TeleportAbsolute: require('./TeleportAbsolute.js'),
+  TeleportRelative: require('./TeleportRelative.js'),
 };

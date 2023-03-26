@@ -1,4 +1,4 @@
 module.exports = {
-  Floats: require('./Floats.js'),
   HeaderString: require('./HeaderString.js'),
+  Floats: require('./Floats.js'),
 };

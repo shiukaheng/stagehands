@@ -1,5 +1,5 @@
 module.exports = {
-  arucoAveragePose: require('./arucoAveragePose.js'),
   arucoRecordPoses: require('./arucoRecordPoses.js'),
+  arucoAveragePose: require('./arucoAveragePose.js'),
   setTargetPose: require('./setTargetPose.js'),
 };

@@ -61,9 +61,9 @@ CMakeFiles/aruco_msgs_generate_messages_eus: /catkin_ws/devel/.private/aruco_msg
 /catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/Marker.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/Marker.l: /catkin_ws/src/aruco_ros/aruco_msgs/msg/Marker.msg
 /catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/Marker.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/Marker.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/Marker.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/Marker.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
+/catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/Marker.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/Marker.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 /catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/Marker.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/catkin_ws/build/aruco_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from aruco_msgs/Marker.msg"
 	catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /catkin_ws/src/aruco_ros/aruco_msgs/msg/Marker.msg -Iaruco_msgs:/catkin_ws/src/aruco_ros/aruco_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p aruco_msgs -o /catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg
@@ -71,10 +71,10 @@ CMakeFiles/aruco_msgs_generate_messages_eus: /catkin_ws/devel/.private/aruco_msg
 /catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/MarkerArray.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/MarkerArray.l: /catkin_ws/src/aruco_ros/aruco_msgs/msg/MarkerArray.msg
 /catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/MarkerArray.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/MarkerArray.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/MarkerArray.l: /catkin_ws/src/aruco_ros/aruco_msgs/msg/Marker.msg
-/catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/MarkerArray.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/MarkerArray.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
+/catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/MarkerArray.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/MarkerArray.l: /catkin_ws/src/aruco_ros/aruco_msgs/msg/Marker.msg
+/catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/MarkerArray.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 /catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg/MarkerArray.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/catkin_ws/build/aruco_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from aruco_msgs/MarkerArray.msg"
 	catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /catkin_ws/src/aruco_ros/aruco_msgs/msg/MarkerArray.msg -Iaruco_msgs:/catkin_ws/src/aruco_ros/aruco_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p aruco_msgs -o /catkin_ws/devel/.private/aruco_msgs/share/roseus/ros/aruco_msgs/msg

@@ -1,5 +1,5 @@
 module.exports = {
-  SetBool: require('./SetBool.js'),
   Empty: require('./Empty.js'),
+  SetBool: require('./SetBool.js'),
   Trigger: require('./Trigger.js'),
 };

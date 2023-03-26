@@ -116,6 +116,7 @@ export class PairingClient {
     async startAdvertise() {
         // Advertise stagehands_pairing service
         this.name = await getName();
+        console.log(`Advertising stagehands_pairing service as ${this.name}-stagehands.local`);
         this.mdns.on('query', (query) => {
             let deviceAns = [];
             for (const ip of this.ips) {

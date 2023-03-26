@@ -18,6 +18,7 @@
     "build-bot": "cd packages/bot && npm run build",
     "dev-bot": "cd packages/bot && npm run dev",
     "prod-bot": "cd packages/bot && npm run prod",
+    "dev-bot-pairing-emu": "cd packages/bot && npm run discovery-emu",
 
     "build-bridge": "cd packages/bridge && npm run build",
     "dev-bridge": "cd packages/bridge && npm run dev",

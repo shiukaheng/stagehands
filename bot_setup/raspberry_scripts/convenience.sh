@@ -61,6 +61,7 @@ function stagehands() {
             echo -e "${green}Connecting to Stagehands...${nocolor}"
             sshpass -p turtlebot ssh root@localhost -p 2222
             echo -e "${green}Disconnected from Stagehands.${nocolor}"
+            ;;
         "help"|"")
             echo -e "${bold}Usage: ${underline}stagehands${nocolor} [subcommand]"
             echo ""

@@ -60,6 +60,8 @@ RUN sudo ln -s /usr/lib/arm-linux-gnueabihf/libmmal* /opt/vc/lib/
 RUN echo 'export LD_LIBRARY_PATH=/opt/vc/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
 RUN source ~/.bashrc
 
+RUN apt-get install python
+
 # Add the "~/.nvm" directory to the PATH
 ENV NVM_DIR=/root/.nvm
 # Install the latest version of NodeJS

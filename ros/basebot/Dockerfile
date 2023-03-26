@@ -82,14 +82,14 @@ WORKDIR /catkin_ws/src
 # RUN /bin/bash -c "source /opt/ros/noetic/setup.bash; rosrun turtlebot3_bringup create_udev_rules"
 
 # Set the environment variables
-ARG ROS_MASTER_HOSTNAME=docker-desktop
-ARG ROS_MASTER_PORT=11311
-ARG TURTLEBOT3_MODEL=waffle_pi
-ENV ROS_MASTER_URI=http://${ROS_MASTER_HOSTNAME}:11311
-ENV ROS_HOSTNAME=${ROS_MASTER_HOSTNAME}
-ENV TURTLEBOT3_MODEL=${TURTLEBOT3_MODEL}
-ENV LDS_MODEL=LDS-01
-EXPOSE 11311
+# ARG ROS_MASTER_HOSTNAME=docker-desktop
+# ARG ROS_MASTER_PORT=11311
+# ARG TURTLEBOT3_MODEL=waffle_pi
+# ENV ROS_MASTER_URI=http://${ROS_MASTER_HOSTNAME}:11311
+# ENV ROS_HOSTNAME=${ROS_MASTER_HOSTNAME}
+# ENV TURTLEBOT3_MODEL=${TURTLEBOT3_MODEL}
+# ENV LDS_MODEL=LDS-01
+# EXPOSE 11311
 
 # Copy the scripts directory into the container
 COPY ./ros/basebot/scripts/ /scripts/

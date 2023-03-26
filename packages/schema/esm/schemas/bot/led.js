@@ -1,24 +1,24 @@
 import { z } from "zod";
 // LED state
 // Primitives to define color, animation:
-export var ledRGBValueSchema = z.number().array().length(3);
-export var ledAnimationModeLiteralsSchema = z.union([
+export const ledRGBValueSchema = z.number().array().length(3);
+export const ledAnimationModeLiteralsSchema = z.union([
     z.literal("constant"),
     z.literal("flashing"),
 ]);
-export var ledAnimationSchema = z.object({
+export const ledAnimationSchema = z.object({
     animationMode: ledAnimationModeLiteralsSchema,
-    flashingFrequency: z.number().optional()
+    flashingFrequency: z.number().optional(),
 });
 // Combining animation and color to define the state:
-export var ledStateSchema = z.object({
+export const ledStateSchema = z.object({
     rgbValue: ledRGBValueSchema,
-    ledAnimation: ledAnimationSchema
+    ledAnimation: ledAnimationSchema,
 });
 // Creating the actual robotic LED state to allow overrides:
-export var botLEDStateSchema = z.object({
+export const botLEDStateSchema = z.object({
     // The default color / state for the bot
     base: ledStateSchema,
     // System override for displaying errors, etc
-    systemOverride: ledStateSchema.optional()
+    systemOverride: ledStateSchema.optional(),
 });

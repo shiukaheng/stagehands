@@ -1,6 +1,6 @@
 import { z } from "zod";
 // Battery state
-export var batteryPercentageSchema = z.number();
-export var batteryStatusSchema = z.object({
-    batteryPercentage: batteryPercentageSchema
+export const batteryPercentageSchema = z.number();
+export const batteryStatusSchema = z.object({
+    batteryPercentage: batteryPercentageSchema,
 });

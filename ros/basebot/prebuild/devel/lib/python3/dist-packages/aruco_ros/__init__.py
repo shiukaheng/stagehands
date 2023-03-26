@@ -1,0 +1,1 @@
+/catkin_ws/devel/.private/aruco_ros/lib/python3/dist-packages/aruco_ros/__init__.py

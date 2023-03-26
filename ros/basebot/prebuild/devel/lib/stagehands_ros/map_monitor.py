@@ -1,0 +1,1 @@
+/catkin_ws/devel/.private/stagehands_ros/lib/stagehands_ros/map_monitor.py

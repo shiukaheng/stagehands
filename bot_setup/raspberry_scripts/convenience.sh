@@ -18,6 +18,8 @@ function stagehands() {
         "run")
             cd /home/pi/stagehands/
             /home/pi/stagehands/ros/launch_prod.sh
+            exit_code=$?
+            echo -e "${green}Docker container exited with code $exit_code.${nocolor}"
             ;;
         "update-repo")
             cd /home/pi/stagehands/

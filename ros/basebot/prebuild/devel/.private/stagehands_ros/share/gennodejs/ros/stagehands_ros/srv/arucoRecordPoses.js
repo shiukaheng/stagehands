@@ -1,16 +1,16 @@
-// Auto-generated. Do not edit!
-
-// (in-package stagehands_ros.srv)
-
+//-----------------------------------------------------------
+// Auto-generated from package stagehands_ros.
+// !! Do not edit !!
+//-----------------------------------------------------------
 
 "use strict";
 
 const _serializer = _ros_msg_utils.Serialize;
 const _arraySerializer = _serializer.Array;
 const _deserializer = _ros_msg_utils.Deserialize;
-const _arrayDeserializer = _deserializer.Array;
+const _arrayDeserializer = _deserializer.Array
 const _finder = _ros_msg_utils.Find;
-const _getByteLength = _ros_msg_utils.getByteLength;
+const _getByteLength = _ros_msg_utils.getByteLength
 
 //-----------------------------------------------------------
 
@@ -23,6 +23,7 @@ class arucoRecordPosesRequest {
       // initObj === null is a special case for deserialization where we don't initialize fields
     }
     else {
+      // check for this message's fields by key name - otherwise assign default values
     }
   }
 
@@ -32,9 +33,9 @@ class arucoRecordPosesRequest {
   }
 
   static deserialize(buffer, bufferOffset=[0]) {
-    //deserializes a message object of type arucoRecordPosesRequest
-    let len;
+    // Deserializes a message object of type arucoRecordPosesRequest
     let data = new arucoRecordPosesRequest(null);
+    let len;
     return data;
   }
 
@@ -43,20 +44,20 @@ class arucoRecordPosesRequest {
   }
 
   static datatype() {
-    // Returns string type for a service object
+    // Returns string type for a stagehands_ros/arucoRecordPosesRequest object
     return 'stagehands_ros/arucoRecordPosesRequest';
   }
 
   static md5sum() {
-    //Returns md5sum for a message object
-    return 'd41d8cd98f00b204e9800998ecf8427e';
+    // Returns md5sum of message object
+    return 'd41d8cd98f00b204e9800998ecf8427e'
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     
-    `;
+`;
   }
 
   static Resolve(msg) {
@@ -66,15 +67,17 @@ class arucoRecordPosesRequest {
     }
     const resolved = new arucoRecordPosesRequest(null);
     return resolved;
-    }
-};
+  }
+}
 
+//-----------------------------------------------------------
 class arucoRecordPosesResponse {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
     }
     else {
+      // check for this message's fields by key name - otherwise assign default values
     }
   }
 
@@ -84,9 +87,9 @@ class arucoRecordPosesResponse {
   }
 
   static deserialize(buffer, bufferOffset=[0]) {
-    //deserializes a message object of type arucoRecordPosesResponse
-    let len;
+    // Deserializes a message object of type arucoRecordPosesResponse
     let data = new arucoRecordPosesResponse(null);
+    let len;
     return data;
   }
 
@@ -95,20 +98,20 @@ class arucoRecordPosesResponse {
   }
 
   static datatype() {
-    // Returns string type for a service object
+    // Returns string type for a stagehands_ros/arucoRecordPosesResponse object
     return 'stagehands_ros/arucoRecordPosesResponse';
   }
 
   static md5sum() {
-    //Returns md5sum for a message object
-    return 'd41d8cd98f00b204e9800998ecf8427e';
+    // Returns md5sum of message object
+    return 'd41d8cd98f00b204e9800998ecf8427e'
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     
-    `;
+`;
   }
 
   static Resolve(msg) {
@@ -118,12 +121,14 @@ class arucoRecordPosesResponse {
     }
     const resolved = new arucoRecordPosesResponse(null);
     return resolved;
-    }
-};
+  }
+}
 
+//-----------------------------------------------------------
 module.exports = {
   Request: arucoRecordPosesRequest,
   Response: arucoRecordPosesResponse,
   md5sum() { return 'd41d8cd98f00b204e9800998ecf8427e'; },
   datatype() { return 'stagehands_ros/arucoRecordPoses'; }
 };
+

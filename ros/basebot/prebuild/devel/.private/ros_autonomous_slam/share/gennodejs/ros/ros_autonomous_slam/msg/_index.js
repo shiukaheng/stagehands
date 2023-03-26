@@ -1,8 +1,3 @@
-
-"use strict";
-
-let PointArray = require('./PointArray.js');
-
 module.exports = {
-  PointArray: PointArray,
+  PointArray: require('./PointArray.js'),
 };

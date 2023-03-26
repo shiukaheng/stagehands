@@ -1,17 +1,17 @@
-// Auto-generated. Do not edit!
-
-// (in-package ros_autonomous_slam.msg)
-
+//-----------------------------------------------------------
+// Auto-generated from package ros_autonomous_slam.
+// !! Do not edit !!
+//-----------------------------------------------------------
 
 "use strict";
 
 const _serializer = _ros_msg_utils.Serialize;
 const _arraySerializer = _serializer.Array;
 const _deserializer = _ros_msg_utils.Deserialize;
-const _arrayDeserializer = _deserializer.Array;
+const _arrayDeserializer = _deserializer.Array
 const _finder = _ros_msg_utils.Find;
-const _getByteLength = _ros_msg_utils.getByteLength;
-let geometry_msgs = _finder('geometry_msgs');
+const _getByteLength = _ros_msg_utils.getByteLength
+const geometry_msgs = _finder('geometry_msgs');
 
 //-----------------------------------------------------------
 
@@ -22,71 +22,76 @@ class PointArray {
       this.points = null;
     }
     else {
+      // check for this message's fields by key name - otherwise assign default values
       if (initObj.hasOwnProperty('points')) {
-        this.points = initObj.points
+        this.points = initObj.points;
       }
       else {
         this.points = [];
       }
+
     }
   }
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type PointArray
+
     // Serialize message field [points]
     // Serialize the length for message field [points]
     bufferOffset = _serializer.uint32(obj.points.length, buffer, bufferOffset);
     obj.points.forEach((val) => {
       bufferOffset = geometry_msgs.msg.Point.serialize(val, buffer, bufferOffset);
     });
+
     return bufferOffset;
   }
 
   static deserialize(buffer, bufferOffset=[0]) {
-    //deserializes a message object of type PointArray
-    let len;
+    // Deserializes a message object of type PointArray
     let data = new PointArray(null);
+    let len;
     // Deserialize message field [points]
     // Deserialize array length for message field [points]
     len = _deserializer.uint32(buffer, bufferOffset);
     data.points = new Array(len);
     for (let i = 0; i < len; ++i) {
-      data.points[i] = geometry_msgs.msg.Point.deserialize(buffer, bufferOffset)
+      data.points[i] = geometry_msgs.msg.Point.deserialize(buffer, bufferOffset);
     }
+
     return data;
   }
 
   static getMessageSize(object) {
     let length = 0;
-    length += 24 * object.points.length;
+    length += 24 * object.points.length
+    // 4 is precalculated sum of the constant length fields
     return length + 4;
   }
 
   static datatype() {
-    // Returns string type for a message object
+    // Returns string type for a ros_autonomous_slam/PointArray object
     return 'ros_autonomous_slam/PointArray';
   }
 
   static md5sum() {
-    //Returns md5sum for a message object
-    return '3fb3f9dacc279b964c4c8341122c34df';
+    // Returns md5sum of message object
+    return '3fb3f9dacc279b964c4c8341122c34df'
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     # An array of points
-    
-    geometry_msgs/Point[] points
-    
-    ================================================================================
-    MSG: geometry_msgs/Point
-    # This contains the position of a point in free space
-    float64 x
-    float64 y
-    float64 z
-    
-    `;
+
+geometry_msgs/Point[] points
+
+================================================================================
+MSG: geometry_msgs/Point
+# This contains the position of a point in free space
+float64 x
+float64 y
+float64 z
+`;
   }
 
   static Resolve(msg) {
@@ -102,11 +107,11 @@ class PointArray {
       }
     }
     else {
-      resolved.points = []
+      resolved.points = [];
     }
 
     return resolved;
-    }
-};
+  }
+}
 
-module.exports = PointArray;
+module.exports = PointArray

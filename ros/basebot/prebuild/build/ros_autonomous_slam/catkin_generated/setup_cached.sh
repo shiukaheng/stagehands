@@ -8,6 +8,9 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/catkin_ws/devel/.private/ros_autonomous_slam:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/catkin_ws/devel/.private/ros_autonomous_slam/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/catkin_ws/devel/.private/ros_autonomous_slam/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD='/catkin_ws/build/ros_autonomous_slam'
+export PYTHONPATH="/catkin_ws/devel/.private/ros_autonomous_slam/lib/python3/dist-packages:$PYTHONPATH"
 export ROSLISP_PACKAGE_DIRECTORIES="/catkin_ws/devel/.private/ros_autonomous_slam/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
 export ROS_PACKAGE_PATH="/catkin_ws/src/ros_autonomous_slam:$ROS_PACKAGE_PATH"

@@ -63,6 +63,12 @@ function stagehands() {
             sshpass -p turtlebot ssh root@localhost -p 2222
             echo -e "${green}Disconnected from Stagehands.${nocolor}"
             ;;
+        "status")
+            echo -e "${green}Docker container status:${nocolor}"
+            sudo docker container ls
+            echo -e "${green}Stagehands service status:${nocolor}"
+            sudo systemctl status stagehands.service
+            ;;
         "help"|"")
             echo -e "${bold}Usage: ${underline}stagehands${nocolor} [subcommand]"
             echo ""
@@ -73,6 +79,7 @@ function stagehands() {
             echo -e "${blue}  docker-restart   ${nocolor}Restart the Stagehands service by stopping and starting it again"
             echo -e "${blue}  update           ${nocolor}Update the Stagehands repository and restart the service"
             echo -e "${blue}  ssh              ${nocolor}Connect to Stagehands using SSH"
+            echo -e "${blue}  status           ${nocolor}Display the status of the Stagehands service and Docker container"
             echo -e "${blue}  help             ${nocolor}Display this help message"
             ;;
         *)

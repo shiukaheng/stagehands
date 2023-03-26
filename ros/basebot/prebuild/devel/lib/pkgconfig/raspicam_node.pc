@@ -1,0 +1,1 @@
+/catkin_ws/devel/.private/raspicam_node/lib/pkgconfig/raspicam_node.pc

@@ -1,0 +1,1 @@
+/catkin_ws/devel/.private/raspicam_node/include/raspicam_node/CameraConfig.h

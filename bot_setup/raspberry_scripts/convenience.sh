@@ -57,6 +57,10 @@ function stagehands() {
             sudo systemctl start stagehands.service
             echo -e "${green}Stagehands has been updated successfully.${nocolor}"
             ;;
+        "ssh")
+            echo -e "${green}Connecting to Stagehands...${nocolor}"
+            sshpass -p turtlebot ssh root@localhost -p 2222
+            echo -e "${green}Disconnected from Stagehands.${nocolor}"
         "help"|"")
             echo -e "${bold}Usage: ${underline}stagehands${nocolor} [subcommand]"
             echo ""
@@ -66,6 +70,7 @@ function stagehands() {
             echo -e "${yellow}  docker-pull  ${nocolor}Update the Stagehands Docker image"
             echo -e "${green}  docker-restart ${nocolor}Restart the Stagehands service by stopping and starting it again"
             echo -e "${green}  update          ${nocolor}Update the Stagehands repository and restart the service"
+            echo -e "${green}  ssh             ${nocolor}Connect to Stagehands using SSH"
             echo -e "${green}  help             ${nocolor}Display this help message"
             ;;
         *)

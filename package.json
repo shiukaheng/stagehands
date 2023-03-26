@@ -18,23 +18,31 @@
     "build-bot": "cd packages/bot && npm run build",
     "dev-bot": "cd packages/bot && npm run dev",
     "prod-bot": "cd packages/bot && npm run prod",
+
     "build-bridge": "cd packages/bridge && npm run build",
     "dev-bridge": "cd packages/bridge && npm run dev",
     "test-bridge": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+
     "build-fake-bridge": "cd packages/fake_bridge && npm run build",
     "dev-fake-bridge": "cd packages/fake_bridge && npm run dev",
+
     "build-schema": "cd packages/schema && npm run build",
     "dev-schema": "cd packages/schema && npm run dev",
+
     "build-utils": "cd packages/utils && npm run build",
     "dev-utils": "cd packages/utils && npm run dev",
+
     "build-web": "cd packages/web && npm run build",
     "dev-web": "cd packages/web && npm run dev",
     "dev-web-emu": "npm run build-schema && concurrently \"npm run dev-fake-bridge\" \"npm run dev-web\"",
+
     "build-wtf": "cd packages/wtf && npm run build",
     "dev-wtf": "cd packages/wtf && npm run dev",
+
     "ros": "ts-node scripts/launch_ros.ts",
     "update-ros-prod": "ts-node scripts/update_prod.ts",
     "ros-prod": "cd ./ros && docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up",
+   
     "wtf": "cd packages/wtf && npm run wtf",
     "install-pi": "cd bot_setup && chmod +x install.sh && ./install.sh",
     "build-bot-deps": "npm run build-schema && npm run build-utils && npm run build-bot && npm run build-wtf"

@@ -1,5 +1,5 @@
 import { Context } from "./controller/Context";
-import { UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn, botPairingService, BotConnectionStatus, botDisconnectionService } from "schema";
+import { UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn, botPairingService, BotConnectionStatus, botDisconnectionService, botConnectionStatusTopic } from "schema";
 import { v4 } from "uuid";
 import { checkValidRecall } from "./utils/ValidationFunc";
 import { TopicServer } from "webtopics";
@@ -360,6 +360,7 @@ export function reorderPresetsServiceHandler(
     if (successRequest) {
       botConnectionStatus.connectionStatus = "connected";
     }
+    server.pub(botConnectionStatusTopic,context.getBotConnectionState());
   }
  export async function disconnectBotServiceHandler(
     botID:string,
@@ -378,5 +379,5 @@ export function reorderPresetsServiceHandler(
     .catch((error)=>{
         throw error;
     })
-
+    server.pub(botConnectionStatusTopic,context.getBotConnectionState());
  }

@@ -8,6 +8,7 @@ services:
       - /dev:/dev
       - /dev/bus/usb:/dev/bus/usb
       - /root/name.json
+      - /etc/ssh:/etc/ssh
     privileged: true
     stdin_open: true
     tty: true

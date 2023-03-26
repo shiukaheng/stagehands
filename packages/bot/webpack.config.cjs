@@ -3,7 +3,17 @@ const nodeExternals = require('webpack-node-externals');
 
 
 module.exports = {
-  entry: './src/botDiscoveryEmu.ts', // Your entry file
+  entry: {
+    index: "./src/index.ts",
+    botDiscoveryEmu: "./src/botDiscoveryEmu.ts",
+    getName: "./src/getName.ts"
+  },
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist'),
+    libraryTarget: 'module',
+    chunkFormat: 'module',
+  },
   target: 'node',
   externals: [nodeExternals()],
   mode: 'production',
@@ -24,12 +34,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
-  },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'module',
-    chunkFormat: 'module',
   },
   externalsPresets: { node: true },
   experiments: {

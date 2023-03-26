@@ -45,6 +45,7 @@ async function writeName(name: string, cachePath?:string): Promise<void> {
 	catch (err) {
 		throw err;
 	}
+	return;
 }
 
 /**

@@ -210,6 +210,7 @@ catkin_install_python(PROGRAMS
   src/robot_pose_server.py
   # scripts/led_strip_handler.py
   src/aruco_location_storage.py
+  src/main.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

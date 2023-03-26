@@ -7,4 +7,5 @@ services:
       - ./basebot/scripts:/scripts
       - /dev:/dev
       - /dev/bus/usb:/dev/bus/usb
+      - /root/name.json
     privileged: true

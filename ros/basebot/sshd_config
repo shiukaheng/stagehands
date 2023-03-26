@@ -1,2 +1,3 @@
 PermitRootLogin yes     # Allow anyone to SSH into root
 PasswordAuthentication yes  # Enable password authentication
+Port 2222                # Use a non-standard port

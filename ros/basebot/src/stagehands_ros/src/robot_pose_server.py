@@ -41,6 +41,12 @@ except serial.SerialException:
     micModuleExists = False
 
 def set_target_pose(req):
+    """
+    This function is called when a request is made to the set_target_pose service.
+    It sets the target pose of the robot to the pose specified in the request (including pose, mic height and LED colour).
+    :param req: The request message containing the target pose, mic height and LED colour.
+    :return: A response message confirming that the target pose has been set.
+    """
     # set the led strip to the colour and animation routine specified in the request
     (red, green, blue) = req.ledRGBColour
     ledColour = Color(red, green, blue)
@@ -90,6 +96,9 @@ def set_target_pose(req):
     # return setTargetPoseResponse("lmao")
 
 def publish_current_pose():
+    """
+    This function publishes the current pose of the robot to the robot_current_pose topic.
+    """
     # do stuff
     pub = rospy.Publisher('robot_current_pose', robotCurrentPose, queue_size = 10)
     listener = tf.TransformListener()
@@ -121,6 +130,9 @@ def publish_current_pose():
         rate.sleep()
 
 def action_server():
+    """
+    This function creates a service action_server called set_target_pose.
+    """
     s = rospy.Service('set_target_pose', setTargetPose, set_target_pose)
     print('action action_server running')
 

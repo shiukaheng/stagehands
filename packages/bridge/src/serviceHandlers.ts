@@ -370,10 +370,13 @@ export function reorderPresetsServiceHandler(
     if (!context.getCurrentBotState().hasOwnProperty(botID)) {
         throw new Error(`Bot ${botID} does not exist`);
     }
+    const botName = context.getCurrentBotState()[botID].name;
+    const botConnectionStatus = context.getBotConnectionState().find((BCS) => BCS.domainName === botName) as BotConnectionStatus;
+    if (botConnectionStatus.connectionStatus === "disconnected") {
+        throw new Error("Bot is already disconnected");
+      }
     server.req(botDisconnectionService,botID)
     .then(()=>{
-        const botName = context.getCurrentBotState()[botID].name;
-        const botConnectionStatus = context.getBotConnectionState().find((BCS) => BCS.domainName === botName) as BotConnectionStatus;
         botConnectionStatus.connectionStatus = "disconnected";
     })
     .catch((error)=>{

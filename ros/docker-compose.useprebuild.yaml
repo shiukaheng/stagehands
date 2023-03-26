@@ -1,0 +1,7 @@
+version: "3.3"
+services:
+  ros-dev:
+    volumes:
+      - ./basebot/prebuild/devel:/home/ros/devel
+      - ./basebot/prebuild/build:/home/ros/build
+    platform: linux/arm64

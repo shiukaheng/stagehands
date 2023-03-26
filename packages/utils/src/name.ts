@@ -20,7 +20,7 @@ function generateName(): string {
 
 async function readName(cachePath?:string): Promise<string | null> {
 	// Check if file exists
-	const resolvedPath = cachePath ? path.resolve(cachePath) : path.resolve(os.homedir(), "name.json");
+	const resolvedPath = cachePath ? path.resolve(cachePath) : path.resolve(os.homedir(), "stagehands-config", "name.json");
 	let file: string;
 	try {
 		file = await fs.readFile(resolvedPath, "utf-8");

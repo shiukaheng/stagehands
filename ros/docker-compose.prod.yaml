@@ -7,7 +7,7 @@ services:
       - ./basebot/scripts:/scripts
       - /dev:/dev
       - /dev/bus/usb:/dev/bus/usb
-      - /root/name.json
+      # - ./basebot/home:/root/
       - /etc/ssh:/etc/ssh
     privileged: true
     stdin_open: true

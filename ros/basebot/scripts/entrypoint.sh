@@ -12,10 +12,13 @@ export ROS_HOSTNAME=$NAME-stagehands.local
 echo "Launching ROS with hostname $ROS_HOSTNAME"
 
 # Launch ROS master
-roscore &
+# roscore &
+
+# Launch the management node
+# node /catkin_ws/src/stagehands-js/packages/bot/dist/index.js &
 
 # Start ssh daemon
-service ssh start
+# service ssh start
 
 # Prevent container from exiting
 tail -f /dev/null

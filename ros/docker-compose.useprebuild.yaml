@@ -2,6 +2,6 @@ version: "3.3"
 services:
   ros-dev:
     volumes:
-      - ./basebot/prebuild/devel:/home/ros/devel
-      - ./basebot/prebuild/build:/home/ros/build
+      - ./basebot/prebuild/devel:/catkin_ws/devel
+      - ./basebot/prebuild/build:/catkin_ws/build
     platform: linux/arm64

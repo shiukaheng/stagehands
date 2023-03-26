@@ -4,6 +4,8 @@ cd /catkin_ws/src/stagehands-js/
 npm install
 npm run build-bot-deps
 cd /catkin_ws/src/stagehands-js/packages/bot/
+# Build the message types
+node -e "require('rosnodejs').loadAllPackages();"
 npm run build
 cd /catkin_ws/
 build

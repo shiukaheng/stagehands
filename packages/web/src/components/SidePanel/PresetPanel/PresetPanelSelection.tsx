@@ -27,7 +27,6 @@ export type LiveAttributesPageSelection = {
 	type: "live_attributes_page";
 	bot: BotState;
 	botID: string;
-
 };
 
 export type RunningPresetSelction = {

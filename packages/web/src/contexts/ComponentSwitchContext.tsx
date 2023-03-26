@@ -7,7 +7,7 @@ export interface IComponentSelectContext {
 }
 
 const componentSelectContext = createContext<IComponentSelectContext>({
-	componentSelect: "preset_panel",
+	componentSelect: { type: "preset_panel" },
 	setComponentSelect: (input: SidePanelSelection) => { input }
 })
 

@@ -1,20 +1,20 @@
 import { describe,beforeAll,expect,test,jest} from "@jest/globals";
 import { createPresetService, Preset, recallFleetStateService, runPresetService } from "schema";
 import { Controller } from "src/controller/Controller";
-import { bridgeServer } from "../server";
+import { BridgeServer } from "../server";
 import { dummyBotClient } from "./utils/dummyBotClient";
 import { dummyWebClient } from "./utils/dummyWebClient";
 
 describe("fleetRecallTest",()=>{
     
-    let server:bridgeServer
+    let server:BridgeServer
     let controller:Controller
     let dummyBot1Client:dummyBotClient
     let dummyBot2Client:dummyBotClient
     let dummyWebClient1:dummyWebClient
     let serverID :string;
     beforeAll(async ()=>{
-        server = new bridgeServer();
+        server = new BridgeServer();
         controller = server.getController();
         dummyBot1Client = new dummyBotClient("1");
         dummyBot2Client = new dummyBotClient("2");

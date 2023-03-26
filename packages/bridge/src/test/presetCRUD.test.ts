@@ -1,11 +1,8 @@
 
-import {test,expect,describe,beforeEach,beforeAll} from "@jest/globals"
-import { createPresetService, deletePresetService, Preset, stageTopic, updatePresetService } from "schema"
-import { io } from "socket.io-client";
-import { bridgeServer } from "../server";
-import { TopicClient } from "webtopics";
+import {test,expect,describe,beforeAll} from "@jest/globals"
+import { createPresetService, deletePresetService, Preset, updatePresetService } from "schema"
+import { BridgeServer } from "../server";
 import { dummyBotClient } from "./utils/dummyBotClient";
-import isEqual from "lodash";
 import { Controller } from "src/controller/Controller";
 import { dummyWebClient } from "./utils/dummyWebClient";
 
@@ -13,14 +10,14 @@ import { dummyWebClient } from "./utils/dummyWebClient";
 
 
 describe("presetCRUDTest",()=>{
-    let server:bridgeServer
+    let server:BridgeServer
     let controller:Controller
     let dummyBot1Client:dummyBotClient
     let dummyBot2Client:dummyBotClient
     let dummyWebClient1:dummyWebClient
     let serverID :string;
     beforeAll(async ()=>{
-        server = new bridgeServer();
+        server = new BridgeServer();
         //const serverController = server.getController();
         controller = server.getController();
         dummyBot1Client = new dummyBotClient("1");

@@ -27,6 +27,10 @@ echo -e "\e[1;32mCloning stagehands...\e[0m"
 cd ~
 git clone https://github.com/shiukaheng/stagehands.git
 
+# Install sshpass
+echo -e "\e[1;32mInstalling sshpass...\e[0m"
+sudo apt-get install -y sshpass
+
 # Add sourcing /scripts/bot_setup/raspberry_scripts/convenience.sh to .bashrc if it hasn't been added already
 if ! grep -q "source /home/pi/stagehands/bot_setup/raspberry_scripts/convenience.sh" ~/.bashrc ; then
     echo -e "\e[1;32mAdding sourcing convenience.sh to .bashrc...\e[0m"
@@ -37,7 +41,7 @@ fi
 echo -e "\e[1;32mInstalling ntp...\e[0m"
 sudo apt-get install -y ntp
 
-# Synch time
+# Sync time
 echo -e "\e[1;32mSynching time...\e[0m"
 sudo ntpdate -s time.nist.gov
 

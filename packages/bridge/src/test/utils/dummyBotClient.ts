@@ -1,4 +1,4 @@
-import { botIDRegistrationService, BotState, clearStopService, fleetTopic, LEDOverwriteService, Pose, recallBotStateService, registerBotClientIDService, restoreLEDService, stopService } from "schema";
+import { BotState, clearStopService, fleetTopic, LEDOverwriteService, Pose, recallBotStateService, restoreLEDService, stopService } from "schema";
 import { io } from "socket.io-client";
 import{ServiceChannel, TopicClient} from "webtopics";
 import cloneDeep from 'lodash/cloneDeep'
@@ -88,7 +88,7 @@ export class dummyBotClient{
     }
     public async registerID(){
         const serverID = await this.botClient.getServerID();
-        this.botClient.req(registerBotClientIDService,serverID,{botID:this.currentBotState.name,clientID:this.botClient.id})
+        // this.botClient.req(registerBotClientIDService,serverID,{botID:this.currentBotState.name,clientID:this.botClient.id})
         // .catch((error)=>{
         //     const attempInterval = setInterval(()=>{
         //         this.botClient.req(registerBotClientIDService,serverID,{botID:this.currentBotState.name,clientID:this.botClient.id})

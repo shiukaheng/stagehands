@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useContext, useMemo } from "react"
-import { getRecallFleetState } from "schema/dist/schemas/bot/bot";
+import { getRecallFleetState } from "schema";
 import { ServiceContext, TopicContext } from "../../../contexts/ServerContext";
 import { Preset as PresetT } from "schema";
 import PresetWidget from "./PresetWidget";

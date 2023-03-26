@@ -36,12 +36,21 @@ class GroveWS2813RgbStrip(PixelStrip):
 
     # light every single led up
     def light_all_leds(self, color: Color):
+        """
+        Light every single LED up with the given color.
+        :param color: The color to light the LEDs up with.
+        """
         for i in range(self.numPixels()):
             self.setPixelColor(i, color)
         self.show()
 
     # set leds to flash (although this obviously stops after a while)
     def flashing_leds(self, color: Color, frequency: int):
+        """
+        Set the LEDs to flash with the given color and frequency.
+        :param color: The color to flash the LEDs with.
+        :param frequency: The frequency to flash the LEDs at.
+        """
         for i in range(10):
             for i in range(self.numPixels()):
                 self.setPixelColor(i, color)

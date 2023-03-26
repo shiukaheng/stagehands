@@ -41,4 +41,9 @@ def map_callback(msg):
         
 if __name__ == '__main__':
     rospy.init_node('map_monitor')
-    rospy.subscriber('map', OccupancyGrid, map_callback)
+    try:
+        rospy.subscriber('map', OccupancyGrid, map_callback)
+    except:
+        rospy.logerr("Failed to subscribe to map topic")
+
+    rospy.spin()

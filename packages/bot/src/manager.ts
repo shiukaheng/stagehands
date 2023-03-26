@@ -21,5 +21,13 @@ class StagehandsManager {
     constructor(options: Partial<IStagehandsManagerOptions> = {}) {
         this.options = { ...defaultOptions, ...options }; // Merge options with defaults
         this.pairingClient = new PairingClient();
+        this.pairingClient.subscribeRequest(this.onRequestConnect);
+        this.pairingClient.subscribeDisconnect(this.onRequestDisconnect);
+    }
+    onRequestDisconnect() {
+        throw new Error("Method not implemented.");
+    }
+    onRequestConnect(onRequestConnect: any) {
+        throw new Error("Method not implemented.");
     }
 }

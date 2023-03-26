@@ -21,3 +21,4 @@ services:
     privileged: true
     environment:
       - TURTLEBOT3_MODEL=waffle_pi
+      - ROS_MASTER_URI=http://localhost:11311

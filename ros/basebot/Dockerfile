@@ -70,23 +70,6 @@ RUN echo 'root:turtlebot' | chpasswd
 # Set the working directory to catkin_ws
 WORKDIR /catkin_ws/src
 
-# Copy .src files into the catkin_ws/src folder:
-COPY ./ros/basebot/src/ .
-
-# Copy stagehands javascript codebase into the catkin_ws/src folder:
-COPY ../packages ./stagehands-js/packages
-COPY ../package.json ./stagehands-js
-COPY ../package-lock.json ./stagehands-js
-
-# Build the npm workspace and remove the node_modules folder
-RUN /bin/bash -c "source ${NVM_DIR}/nvm.sh; cd stagehands-js; npm install; npm run build-bot-deps; npm -g install ts-node typescript; rm -rf node_modules"
-
-# Set the working directory to catkin_ws 
-WORKDIR /catkin_ws
-
-# Build the catkin workspace
-RUN /bin/bash -c "source /opt/ros/noetic/setup.bash; catkin build"
-
 # Setup USB permissions
 # RUN /bin/bash -c "source /opt/ros/noetic/setup.bash; rosrun turtlebot3_bringup create_udev_rules"
 
@@ -98,19 +81,10 @@ ENV ROS_MASTER_URI=http://${ROS_MASTER_HOSTNAME}:11311
 ENV ROS_HOSTNAME=${ROS_MASTER_HOSTNAME}
 ENV TURTLEBOT3_MODEL=${TURTLEBOT3_MODEL}
 ENV LDS_MODEL=LDS-01
-
-# Go back to the default working directory
-WORKDIR /
-
-# Copy in the map directory
-COPY ./ros/basebot/map/ ./map/
-
-# Expose the port for the ROS master
 EXPOSE 11311
 
-## BELOW IS FOR DEVELOPMENT PURPOSES ONLY, PLEASE REMOVE FOR PRODUCTION ##
 # Copy the scripts directory into the container
-COPY ./ros/basebot/scripts/ ./scripts/
+COPY ./ros/basebot/scripts/ /scripts/
 RUN dos2unix /scripts/*
 
 # Set the working directory to the scripts directory

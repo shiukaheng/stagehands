@@ -1,5 +1,5 @@
 import { Context } from "./controller/Context";
-import { UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn, botParingService, BotConnectionStatus } from "schema";
+import { UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn, botPairingService, BotConnectionStatus } from "schema";
 import { v4 } from "uuid";
 import { checkValidRecall } from "./utils/ValidationFunc";
 import { TopicServer } from "webtopics";
@@ -345,7 +345,7 @@ export function reorderPresetsServiceHandler(
     const ips = retrieveIps();
     let successRequest = true;
     for (const ip of ips) {
-      await pairingClient?.req(botParingService, serverId, { bridgeIp: ip, bridgePort: context.getServerPort() })
+      await pairingClient?.req(botPairingService, serverId, { bridgeIp: ip, bridgePort: context.getServerPort() })
         .catch((error) => {
           successRequest = false;
         });

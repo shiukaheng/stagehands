@@ -13,7 +13,8 @@ export const botPairingRequestSchema = z.object({
     bridgeIp:z.string(),
     bridgePort:z.number()
 })
-export const botParingService = createService("botPairingService",botPairingRequestSchema)
+export const botPairingService = createService("botPairingService",botPairingRequestSchema)
+export const botDisconnectionService = createService("botDisconnectionService")
 // Bot services
 export const recallBotStateService = createService("recallState", recallBotStateSchema)
 

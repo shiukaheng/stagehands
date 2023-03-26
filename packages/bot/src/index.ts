@@ -11,7 +11,7 @@ const target_pose_service = (rosnodejs.require('stagehands_ros').srv as any).set
 console.dir(current_pose)
 console.dir(target_pose_service)
 
-class WebtopicROSInterface {
+export class WebtopicROSInterface {
     private client: TopicClient;
     private nodeHandle: NodeHandle | null = null;
     private connectedToROSResolver: ((v: unknown)=>void) | null = null;
@@ -160,6 +160,6 @@ class WebtopicROSInterface {
 
 }
 
-// Create a new instance of the class and start the node
-let rosInterface = new WebtopicROSInterface("192.168.0.37", "3001")
-rosInterface.startNode()
+// // Create a new instance of the class and start the node
+// let rosInterface = new WebtopicROSInterface("192.168.0.37", "3001")
+// rosInterface.startNode()

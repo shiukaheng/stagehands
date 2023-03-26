@@ -1,7 +1,7 @@
 import { PairingClient } from "../../../../utils/src/discovery"
 import { Server } from "socket.io";
 import { TopicServer } from "webtopics";
-import { botParingService } from "schema";
+import { botPairingService } from "schema";
 export class botPairingServer{
 
     private pairingClient:PairingClient
@@ -18,7 +18,7 @@ export class botPairingServer{
     public runPairingService(){
         this.pairingClient.startAdvertise();
         
-        this.botPairingWebTopicServer.srv(botParingService,(req)=>{
+        this.botPairingWebTopicServer.srv(botPairingService,(req)=>{
             this.bridgeIPPort=req.bridgeIp+":"+req.bridgePort
             console.log("connection established");
             

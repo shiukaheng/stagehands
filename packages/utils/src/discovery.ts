@@ -1,8 +1,10 @@
 import makeMdns from "multicast-dns"
 import { getName } from "./name";
-import { TopicClient } from "webtopics";
+import { TopicClient, TopicServer } from "webtopics";
 import { io } from "socket.io-client";
 import os from "os";
+import { Server } from "socket.io";
+import { botPairingService, botDisconnectionService } from "schema";
 // Get IP address of the device on the local network 
 
 let mdns = makeMdns();
@@ -33,17 +35,83 @@ export function retrieveIps(): string[] {
     return allAddresses;
 }
 
+export interface IPairingClientOptions {
+    pairingPort: number;
+}
+
+export const defaultPairingClientOptions: IPairingClientOptions = {
+    pairingPort: 3535,
+}
+
+export type PairingRequestArgs = {
+    bridgeIp: string,
+    bridgePort: number,
+}
+
+export type PairingListener = (args: PairingRequestArgs) => void
+export type DisconnectionListener = () => void
 
 export class PairingClient {
     private mdns: makeMdns.MulticastDNS;
     private name: string | null;
     private ips: string[];
+    private ioServer: Server;
+    private webTopicsServer: TopicServer;
+    private options: IPairingClientOptions;
+    private pairingSubscribers: Set<PairingListener> = new Set();
+    private disconnectionSubscribers: Set<DisconnectionListener> = new Set();
 
-    constructor() {
+    constructor(options: Partial<IPairingClientOptions> = {}) {
+        this.options = { ...defaultPairingClientOptions, ...options };
         this.name = null;
         this.mdns = getMdns();
         this.ips = retrieveIps();
+
+        // Create a webtopics server
+        this.ioServer = new Server(this.options.pairingPort, {
+            cors: {
+                origin: "*",
+            }
+        })
+
+        // Create a webtopics server
+        this.webTopicsServer = new TopicServer(this.ioServer);
+
+        // Implement services
+        this.webTopicsServer.srv(botPairingService, ({bridgeIp, bridgePort}) => {
+            this.publishRequest({bridgeIp, bridgePort});
+        });
+
+        this.webTopicsServer.srv(botDisconnectionService, () => {
+            this.publishDisconnect();
+        });
     }
+
+    private publishRequest(args: PairingRequestArgs) {
+        this.pairingSubscribers.forEach((listener) => listener(args));
+    }
+
+    subscribeRequest(listener: PairingListener): Unsubscriber {
+        this.pairingSubscribers.add(listener);
+        return () => this.pairingSubscribers.delete(listener);
+    }
+
+    unsubscribeRequest(listener: PairingListener) {
+        this.pairingSubscribers.delete(listener);
+    }
+
+    private publishDisconnect() {
+        this.disconnectionSubscribers.forEach((listener) => listener());
+    }
+
+    subscribeDisconnect(listener: DisconnectionListener): Unsubscriber {
+        this.disconnectionSubscribers.add(listener);
+        return () => this.disconnectionSubscribers.delete(listener);
+    }
+
+    unsubscribeDisconnect(listener: DisconnectionListener) {
+        this.disconnectionSubscribers.delete(listener);
+    }   
 
     async startAdvertise() {
         // Advertise stagehands_pairing service

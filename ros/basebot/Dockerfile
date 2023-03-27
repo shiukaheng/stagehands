@@ -104,3 +104,16 @@ WORKDIR /scripts
 
 # Add the init script to the bashrc
 RUN echo "source /scripts/init.sh" >> ~/.bashrc
+
+# Copy the required javascript package specifications
+COPY ./package.json /catkin_ws/src/stagehands-js/package.json 
+COPY ./package-lock.json /catkin_ws/src/stagehands-js/package-lock.json
+COPY ./packages/bot/package.json /catkin_ws/src/stagehands-js/packages/bot/package.json
+COPY ./packages/bridge/package.json /catkin_ws/src/stagehands-js/packages/bridge/package.json
+COPY ./packages/fake_bridge/package.json /catkin_ws/src/stagehands-js/packages/fake_bridge/package.json
+COPY ./packages/schema/package.json /catkin_ws/src/stagehands-js/packages/schema/package.json
+COPY ./packages/utils/package.json /catkin_ws/src/stagehands-js/packages/utils/package.json
+COPY ./packages/wtf/package.json /catkin_ws/src/stagehands-js/packages/wtf/package.json
+
+# Install the required javascript packages
+RUN cd /catkin_ws/src/stagehands-js && npm install

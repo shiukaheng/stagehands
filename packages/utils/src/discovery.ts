@@ -1,4 +1,3 @@
-import makeMdns from "multicast-dns"
 import { getName } from "./name";
 import { TopicClient, TopicServer } from "webtopics";
 import { io } from "socket.io-client";
@@ -6,8 +5,8 @@ import os from "os";
 import { Server } from "socket.io";
 import { botPairingService, botDisconnectionService } from "schema";
 // Get IP address of the device on the local network 
-
-let mdns = makeMdns();
+import makeMdns from 'multicast-dns';
+var mdns = require('multicast-dns')() as makeMdns.MulticastDNS;
 function getMdns() {
     return mdns;
 }

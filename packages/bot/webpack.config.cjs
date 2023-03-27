@@ -5,18 +5,22 @@ const nodeExternals = require('webpack-node-externals');
 module.exports = {
   entry: {
     index: "./src/index.ts",
-    botDiscoveryEmu: "./src/botDiscoveryEmu.ts",
-    getName: "./src/getName.ts"
   },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'module',
-    chunkFormat: 'module',
+    libraryTarget: 'commonjs2',
   },
-  target: 'node',
-  externals: [nodeExternals()],
-  mode: 'production',
+  target: 'node16',
+  externals: [nodeExternals(),
+    nodeExternals({
+      modulesDir: path.resolve(__dirname, '../../node_modules'),
+    }),
+    // Make rosnodejs an external dependency:
+    { rosnodejs: 'commonjs rosnodejs' }
+  ],
+  // mode: 'production',
+  mode: 'development',
   module: {
     rules: [
       {
@@ -38,6 +42,5 @@ module.exports = {
   externalsPresets: { node: true },
   experiments: {
     topLevelAwait: true,
-    outputModule: true,
   },
 };

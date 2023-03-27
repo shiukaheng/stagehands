@@ -3,11 +3,12 @@
     "version": "1.0.0",
     "description": "",
     "main": "dist/index.js",
+    "module": "esm/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "nodemon --exec ts-node src/index.ts",
-        "build": "rimraf ./dist && tsc",
+        "build": "rimraf ./dist && tsc && rimraf ./esm && tsc -p tsconfig.esm.json",
         "start": "npm run build && node ./dist/index.js",
         "test-server": "nodemon --exec ts-node src/server.ts"
     },
@@ -30,6 +31,5 @@
     "devDependencies": {
         "zod": "3.20.6"
     },
-    "private": true,
-    "type": "module"
+    "private": true
 }

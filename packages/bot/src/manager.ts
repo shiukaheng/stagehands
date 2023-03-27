@@ -19,9 +19,12 @@ export class StagehandsManager {
     constructor(options: Partial<IStagehandsManagerOptions> = {}) {
         console.log("🎤 Stagehands Manager");
         this.options = { ...defaultOptions, ...options }; // Merge options with defaults
+        console.log("🔌 Pairing port:", this.options.pairingPort);
         this.pairingClient = new PairingClient({
             pairingPort: this.options.pairingPort,
         });
+        // console.log("🔌 Advertising bot");
+        this.pairingClient.startAdvertise();
         this.pairingClient.subscribeRequest(this.onRequestConnect);
         this.pairingClient.subscribeDisconnect(this.onRequestDisconnect);
     }

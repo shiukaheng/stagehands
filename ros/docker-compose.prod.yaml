@@ -6,6 +6,5 @@ services:
     privileged: true
     stdin_open: true
     tty: true
-    platform: linux/arm64
     volumes:
       - ./basebot/scripts:/scripts

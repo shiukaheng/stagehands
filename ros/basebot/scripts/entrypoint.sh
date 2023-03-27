@@ -15,11 +15,10 @@ echo "Launching ROS with hostname $ROS_HOSTNAME"
 cd /catkin_ws/src/stagehands-js/packages/bot
 ls /catkin_ws/devel/share/gennodejs/ros/stagehands_ros/
 # node -e "require(\"rosnodejs\"); console.log(require(\"\/catkin_ws\/devel\/share\/gennodejs\/ros\/stagehands_ros\/_index.js\"))"
-export NODE_PATH=/catkin_ws/devel/share/gennodejs/ros
-node /catkin_ws/src/stagehands-js/packages/bot/dist/index.js
+# node --
 
 # Start ssh daemon
 # service ssh start
 
 # Prevent container from exiting
-tail -f /dev/null
+# tail -f /dev/null

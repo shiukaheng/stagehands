@@ -11,7 +11,7 @@
         <param name="image_is_rectified" value="True"/>
         <param name="marker_size"        value="$(arg markerSize)"/>
         <param name="reference_frame"    value="$(arg ref_frame)"/>   <!-- frame in which the marker pose will be refered -->
-        <param name="camera_frame"       value="$(arg side)_hand_camera"/>
+        <param name="camera_frame"       value="camera_link"/>
     </node>
 
 </launch>

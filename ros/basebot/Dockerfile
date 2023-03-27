@@ -115,5 +115,5 @@ COPY ./packages/schema/package.json /catkin_ws/src/stagehands-js/packages/schema
 COPY ./packages/utils/package.json /catkin_ws/src/stagehands-js/packages/utils/package.json
 COPY ./packages/wtf/package.json /catkin_ws/src/stagehands-js/packages/wtf/package.json
 
-# Install the required javascript packages
-RUN cd /catkin_ws/src/stagehands-js && npm install
+# Install the required javascript packages needed during runtime
+RUN bash -c "source /scripts/init.sh; cd /catkin_ws/src/stagehands-js && npm install --omit=dev"

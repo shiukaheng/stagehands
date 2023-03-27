@@ -6,3 +6,5 @@ services:
       - /dev:/dev
       - /dev/bus/usb:/dev/bus/usb
       - /etc/ssh:/etc/ssh
+      # SSHD config
+      - ./basebot/sshd_config:/etc/ssh/sshd_config

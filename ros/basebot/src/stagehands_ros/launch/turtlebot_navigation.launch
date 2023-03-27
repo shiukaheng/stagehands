@@ -7,7 +7,12 @@
     <arg name="open_rviz" default="false"/>
     <arg name="move_forward_only" default="false"/>
 
-    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
+    <arg name="running_on_robot" default="false"/>
+
+    <group if="($arg running_on_robot)">
+        <!-- Launch turtlebot3 bringup-->
+        <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
+    </group>
 
     <!-- Map server -->
     <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>

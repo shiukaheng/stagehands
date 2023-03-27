@@ -24,6 +24,7 @@ export function createNewBotState(state: Partial<BotState>): BotState {
                 }
             }
         },
+        batteryStatus: { batteryPercentage: 100 },
         status: "idle",
         module: {
             type: "nullModule",

@@ -73,9 +73,6 @@ RUN pip install scikit-learn
 # Install ssh
 RUN apt-get update && apt-get install -y openssh-server
 
-# Configure SSH
-COPY ./ros/basebot/sshd_config /etc/ssh/sshd_config
-
 # Set password
 RUN echo 'root:turtlebot' | chpasswd
 
@@ -95,8 +92,8 @@ WORKDIR /catkin_ws/src
 # ENV LDS_MODEL=LDS-01
 # EXPOSE 11311
 
-# Copy the scripts directory into the container
-COPY ./ros/basebot/scripts/ /scripts/
+# Copy the init script
+COPY ./ros/basebot/scripts/init.sh /scripts/init.sh
 RUN dos2unix /scripts/*
 
 # Set the working directory to the scripts directory
@@ -169,3 +166,12 @@ RUN /bin/bash -c "source /scripts/init.sh; cd /catkin_ws/src/stagehands-js; npm 
 # # # Build the message types
 WORKDIR /catkin_ws/src/stagehands-js/packages/bot/ &&
 RUN /bin/bash -c "source /scripts/init.sh; cd /catkin_ws/src/stagehands-js/packages/bot; node -e \"require('rosnodejs').loadAllPackages();\""
+
+COPY ./ros/basebot/scripts/ /scripts/
+RUN dos2unix /scripts/*
+
+# Configure SSH
+COPY ./ros/basebot/sshd_config /etc/ssh/sshd_config
+
+# Add the post init script to the bashrc (init scripts that dont affect build time should be added here)
+RUN echo "source /scripts/post_init.sh" >> ~/.bashrc

@@ -43,6 +43,21 @@ function cdjsbot {
     cd /catkin_ws/src/stagehands-js/packages/bot
 }
 
+function cdjsutils {
+    cd /catkin_ws/src/stagehands-js/packages/utils
+}
+
+function run {
+    local cwd=$(pwd)
+    cd /catkin_ws/src/stagehands-js/packages/bot
+    node dist/index.js
+    cd $cwd
+}
+
+function refreshenv {
+    source ~/.bashrc
+}
+
 . /root/.nvm/nvm.sh
 
 cd /catkin_ws

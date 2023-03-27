@@ -1,6 +1,6 @@
 module.exports = {
-  PointIndices: require('./PointIndices.js'),
   ModelCoefficients: require('./ModelCoefficients.js'),
-  PolygonMesh: require('./PolygonMesh.js'),
+  PointIndices: require('./PointIndices.js'),
   Vertices: require('./Vertices.js'),
+  PolygonMesh: require('./PolygonMesh.js'),
 };

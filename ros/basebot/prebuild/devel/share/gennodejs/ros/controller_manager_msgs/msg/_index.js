@@ -1,6 +1,6 @@
 module.exports = {
-  ControllerState: require('./ControllerState.js'),
-  ControllerStatistics: require('./ControllerStatistics.js'),
-  ControllersStatistics: require('./ControllersStatistics.js'),
   HardwareInterfaceResources: require('./HardwareInterfaceResources.js'),
+  ControllerStatistics: require('./ControllerStatistics.js'),
+  ControllerState: require('./ControllerState.js'),
+  ControllersStatistics: require('./ControllersStatistics.js'),
 };

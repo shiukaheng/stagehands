@@ -34,7 +34,7 @@
     "docker-build": "ts-node scripts/update_prod.ts",
     "docker-push": "docker push shiukaheng/stagehands:prod",
     "docker-pull": "docker pull shiukaheng/stagehands:prod",
-    "docker-update": "npm run build-ros-prod && npm run push-ros-prod",
+    "docker-update": "npm run docker-build && npm run docker-push",
     "install-pi": "cd bot_setup && chmod +x install.sh && ./install.sh",
     "prebuild": "echo Please use build-ros-prod instead"
   },

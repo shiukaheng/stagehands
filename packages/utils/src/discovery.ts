@@ -134,11 +134,11 @@ export class PairingClient {
                 console.log('Responding to stagehands_pairing query');
                 this.mdns.respond({
                     answers: [{
-                        name: '_stagehands_pairing._tcp.local',
+                        name: '_stagehands_pairing._tcp.local.',
                         type: 'PTR',
-                        data: `${this.name} Pairing Service._stagehands_pairing._tcp.local`
+                        data: `${this.name} Pairing Service._stagehands_pairing._tcp.local.`
                     }, {
-                        name: `${this.name} Pairing Service._stagehands_pairing._tcp.local`,
+                        name: `${this.name} Pairing Service._stagehands_pairing._tcp.local.`,
                         type: 'SRV',
                         data: {
                             port: 3535,
@@ -170,11 +170,11 @@ export class PairingClient {
         console.log('Periodic advertisement');
         this.mdns.respond({
             answers: [{
-                name: '_stagehands_pairing._tcp.local',
+                name: '_stagehands_pairing._tcp.local.',
                 type: 'PTR',
-                data: `${this.name} Pairing Service._stagehands_pairing._tcp.local`
+                data: `${this.name} Pairing Service._stagehands_pairing._tcp.local.`
             }, {
-                name: `${this.name} Pairing Service._stagehands_pairing._tcp.local`,
+                name: `${this.name} Pairing Service._stagehands_pairing._tcp.local.`,
                 type: 'SRV',
                 data: {
                     port: 3535,
@@ -251,6 +251,7 @@ export class PairingServer {
             for (const answer of answers) {
                 if (answer.type === 'A') { // For resolving domain names to IP addresses - DOESNT HAVE TO BE USED
                     this.dnsMap.set(answer.name, answer.data); // Add the IP address to the map
+                    console.log(answer.name, answer.data)
                 } else if (answer.type === 'SRV') { // Answers that declare a certain service
                     this.servicesMap.set(answer.name, { name: answer.name, host: answer.data.target, port: answer.data.port })
                 } else if (answer.type === 'PTR') { // Answers that declare a host runs a type of service
@@ -325,7 +326,7 @@ export class PairingServer {
         this.mdns.query({
             questions: [{
                 type: 'PTR',
-                name: '_stagehands_pairing._tcp.local'
+                name: '_stagehands_pairing._tcp.local.'
             }]
         });
     }

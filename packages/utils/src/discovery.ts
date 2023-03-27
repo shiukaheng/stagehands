@@ -248,10 +248,14 @@ export class PairingServer {
         // Discover stagehands_pairing services on the local network
         this.mdns.on('response', (response) => { // Handles all responses from the network
             const answers = response.answers;
+            // console.log(answers)
             for (const answer of answers) {
                 if (answer.type === 'A') { // For resolving domain names to IP addresses - DOESNT HAVE TO BE USED
-                    this.dnsMap.set(answer.name, answer.data); // Add the IP address to the map
-                    console.log(answer.name, answer.data)
+                    // If doesnt start with 192.168.194 (zerotier stuff)
+                    if (!answer.data.startsWith('192.168.194')) { 
+                        this.dnsMap.set(answer.name, answer.data); // Add the IP address to the map
+                        console.log(answer.name, answer.data)
+                    }
                 } else if (answer.type === 'SRV') { // Answers that declare a certain service
                     this.servicesMap.set(answer.name, { name: answer.name, host: answer.data.target, port: answer.data.port })
                 } else if (answer.type === 'PTR') { // Answers that declare a host runs a type of service
@@ -288,7 +292,7 @@ export class PairingServer {
         const socket = io(`http://${host}:${service.port}`)
         const topicClient = new TopicClient(socket);
         const botName = service.name
-        console.log("Trying to connect to bot...", botName.replace("._stagehands_pairing._tcp.local", ""))
+        console.log("Trying to connect to bot...", botName.replace("._stagehands_pairing._tcp.local", ""), " at ", host, " on port ", service.port)
         socket.on('connect', () => {
             console.log('Connected to bot pairing service')
             // Add to available bots

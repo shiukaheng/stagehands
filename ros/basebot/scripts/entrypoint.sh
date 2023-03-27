@@ -13,7 +13,7 @@ echo "Launching ROS with hostname $ROS_HOSTNAME"
 
 # Launch the management node
 cd /catkin_ws/src/stagehands-js/packages/bot
-# node dist/index.js &
+node dist/index.js &
 
 # Start ssh daemon
 service ssh start

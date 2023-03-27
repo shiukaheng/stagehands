@@ -1,5 +1,5 @@
 module.exports = {
-  GoalID: require('./GoalID.js'),
   GoalStatus: require('./GoalStatus.js'),
+  GoalID: require('./GoalID.js'),
   GoalStatusArray: require('./GoalStatusArray.js'),
 };

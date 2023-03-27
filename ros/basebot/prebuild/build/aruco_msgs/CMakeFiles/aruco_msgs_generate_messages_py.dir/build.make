@@ -60,22 +60,22 @@ CMakeFiles/aruco_msgs_generate_messages_py: /catkin_ws/devel/.private/aruco_msgs
 
 /catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_Marker.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_Marker.py: /catkin_ws/src/aruco_ros/aruco_msgs/msg/Marker.msg
-/catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_Marker.py: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
+/catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_Marker.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_Marker.py: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovariance.msg
 /catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_Marker.py: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
+/catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_Marker.py: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_Marker.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_Marker.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/catkin_ws/build/aruco_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG aruco_msgs/Marker"
 	catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /catkin_ws/src/aruco_ros/aruco_msgs/msg/Marker.msg -Iaruco_msgs:/catkin_ws/src/aruco_ros/aruco_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p aruco_msgs -o /catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg
 
 /catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_MarkerArray.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_MarkerArray.py: /catkin_ws/src/aruco_ros/aruco_msgs/msg/MarkerArray.msg
-/catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_MarkerArray.py: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
-/catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_MarkerArray.py: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_MarkerArray.py: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_MarkerArray.py: /catkin_ws/src/aruco_ros/aruco_msgs/msg/Marker.msg
-/catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_MarkerArray.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 /catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_MarkerArray.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_MarkerArray.py: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovariance.msg
+/catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_MarkerArray.py: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
+/catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_MarkerArray.py: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
+/catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg/_MarkerArray.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/catkin_ws/build/aruco_msgs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG aruco_msgs/MarkerArray"
 	catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /catkin_ws/src/aruco_ros/aruco_msgs/msg/MarkerArray.msg -Iaruco_msgs:/catkin_ws/src/aruco_ros/aruco_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p aruco_msgs -o /catkin_ws/devel/.private/aruco_msgs/lib/python3/dist-packages/aruco_msgs/msg
 

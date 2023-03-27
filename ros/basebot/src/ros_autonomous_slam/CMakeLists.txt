@@ -207,4 +207,7 @@ target_link_libraries(local_rrt_detector ${catkin_LIBRARIES})
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-
+catkin_install_python(PROGRAMS 
+  scripts/filter.py
+  scripts/assigner.py
+)

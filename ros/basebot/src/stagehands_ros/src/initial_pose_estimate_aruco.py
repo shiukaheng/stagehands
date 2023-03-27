@@ -172,7 +172,7 @@ def callback(data):
 
 
 def listener():
-    rospy.Subscriber("markers", MarkerArray, callback)
+    rospy.Subscriber("/aruco_marker_publisher/markers", MarkerArray, callback)
 
 if __name__ == "__main__":
     rospy.init_node('initial_pose_estimate_aruco')

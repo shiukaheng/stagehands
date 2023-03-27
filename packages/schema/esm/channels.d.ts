@@ -24,6 +24,9 @@ export declare const fleetTopic: import("webtopics").TopicChannel<Record<string,
         position: number[];
         quaternion: number[];
     };
+    batteryStatus: {
+        batteryPercentage: number;
+    };
     ledState: {
         systemOverride?: {
             rgbValue: number[];

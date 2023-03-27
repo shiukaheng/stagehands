@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { batteryStatusSchema } from "./battery";
 import { botLEDStateSchema, ledStateSchema } from "./led";
 import { poseSchema } from "./pose";
 import { moduleDataSchema, moduleStateSchema, moduleTypeToDataSchema } from "./module";
@@ -14,7 +15,7 @@ export const botStateSchema = z.object({
     name: z.string(),
     pose: poseSchema,
     targetPose: poseSchema,
-    // batteryStatus: batteryStatusSchema, // Not sure if implementable
+    batteryStatus: batteryStatusSchema,
     ledState: botLEDStateSchema,
     status: robotStatusLiteralSchema,
     module: moduleStateSchema,

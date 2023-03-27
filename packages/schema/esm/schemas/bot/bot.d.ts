@@ -23,6 +23,13 @@ export declare const botStateSchema: z.ZodObject<{
         position: number[];
         quaternion: number[];
     }>;
+    batteryStatus: z.ZodObject<{
+        batteryPercentage: z.ZodNumber;
+    }, "strip", z.ZodTypeAny, {
+        batteryPercentage: number;
+    }, {
+        batteryPercentage: number;
+    }>;
     ledState: z.ZodObject<{
         base: z.ZodObject<{
             rgbValue: z.ZodArray<z.ZodNumber, "many">;
@@ -215,6 +222,9 @@ export declare const botStateSchema: z.ZodObject<{
         position: number[];
         quaternion: number[];
     };
+    batteryStatus: {
+        batteryPercentage: number;
+    };
     ledState: {
         systemOverride?: {
             rgbValue: number[];
@@ -255,6 +265,9 @@ export declare const botStateSchema: z.ZodObject<{
     targetPose: {
         position: number[];
         quaternion: number[];
+    };
+    batteryStatus: {
+        batteryPercentage: number;
     };
     ledState: {
         systemOverride?: {
@@ -414,6 +427,13 @@ export declare const fleetStateSchema: z.ZodRecord<z.ZodString, z.ZodObject<{
         position: number[];
         quaternion: number[];
     }>;
+    batteryStatus: z.ZodObject<{
+        batteryPercentage: z.ZodNumber;
+    }, "strip", z.ZodTypeAny, {
+        batteryPercentage: number;
+    }, {
+        batteryPercentage: number;
+    }>;
     ledState: z.ZodObject<{
         base: z.ZodObject<{
             rgbValue: z.ZodArray<z.ZodNumber, "many">;
@@ -606,6 +626,9 @@ export declare const fleetStateSchema: z.ZodRecord<z.ZodString, z.ZodObject<{
         position: number[];
         quaternion: number[];
     };
+    batteryStatus: {
+        batteryPercentage: number;
+    };
     ledState: {
         systemOverride?: {
             rgbValue: number[];
@@ -646,6 +669,9 @@ export declare const fleetStateSchema: z.ZodRecord<z.ZodString, z.ZodObject<{
     targetPose: {
         position: number[];
         quaternion: number[];
+    };
+    batteryStatus: {
+        batteryPercentage: number;
     };
     ledState: {
         systemOverride?: {

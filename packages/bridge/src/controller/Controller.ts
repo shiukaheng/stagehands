@@ -2,7 +2,7 @@ import { Context } from "./Context";
 import { RequestType, ServiceResponseType, TopicServer } from "webtopics";
 import { ServiceChannel, TopicChannel } from "webtopics";
 import { selectTopic } from "../topicSelector";
-import { PairingServer } from "../../../utils/src/discovery";
+import { PairingServer } from "utils";
 import { botConnectionStatusTopic } from "schema";
 
 /**

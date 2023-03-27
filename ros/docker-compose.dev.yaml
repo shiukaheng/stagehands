@@ -16,6 +16,5 @@ services:
       - ./basebot/sshd_config:/etc/ssh/sshd_config
     stdin_open: true
     tty: true
-    build:
-      args:
-        DOCKER_BUILDKIT: 0
+    entrypoint:
+      - /bin/bash

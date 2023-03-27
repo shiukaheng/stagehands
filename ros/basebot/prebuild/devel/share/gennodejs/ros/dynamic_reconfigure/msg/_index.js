@@ -3,10 +3,10 @@ module.exports = {
   ConfigDescription: require('./ConfigDescription.js'),
   Config: require('./Config.js'),
   DoubleParameter: require('./DoubleParameter.js'),
-  IntParameter: require('./IntParameter.js'),
   GroupState: require('./GroupState.js'),
-  ParamDescription: require('./ParamDescription.js'),
-  SensorLevels: require('./SensorLevels.js'),
   Group: require('./Group.js'),
+  ParamDescription: require('./ParamDescription.js'),
+  IntParameter: require('./IntParameter.js'),
   StrParameter: require('./StrParameter.js'),
+  SensorLevels: require('./SensorLevels.js'),
 };

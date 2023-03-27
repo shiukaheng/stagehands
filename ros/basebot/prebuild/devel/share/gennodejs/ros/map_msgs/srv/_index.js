@@ -1,8 +1,8 @@
 module.exports = {
   GetMapROI: require('./GetMapROI.js'),
-  SaveMap: require('./SaveMap.js'),
-  ProjectedMapsInfo: require('./ProjectedMapsInfo.js'),
   GetPointMap: require('./GetPointMap.js'),
   GetPointMapROI: require('./GetPointMapROI.js'),
+  ProjectedMapsInfo: require('./ProjectedMapsInfo.js'),
+  SaveMap: require('./SaveMap.js'),
   SetMapProjections: require('./SetMapProjections.js'),
 };

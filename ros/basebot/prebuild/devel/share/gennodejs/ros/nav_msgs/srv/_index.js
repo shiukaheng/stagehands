@@ -1,6 +1,6 @@
 module.exports = {
   GetMap: require('./GetMap.js'),
-  SetMap: require('./SetMap.js'),
   GetPlan: require('./GetPlan.js'),
+  SetMap: require('./SetMap.js'),
   LoadMap: require('./LoadMap.js'),
 };

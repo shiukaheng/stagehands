@@ -51,7 +51,6 @@ export type PairingRequestArgs = {
 
 export type PairingListener = (args: PairingRequestArgs) => void
 export type DisconnectionListener = () => void
-
 export class PairingClient {
     private mdns: makeMdns.MulticastDNS;
     private name: string | null;
@@ -75,6 +74,8 @@ export class PairingClient {
                 origin: "*",
             }
         })
+
+        console.log(`Listening for pairing requests on port ${this.options.pairingPort}`);
 
         // Create a webtopics server
         this.webTopicsServer = new TopicServer(this.ioServer);
@@ -141,7 +142,7 @@ export class PairingClient {
                         name: `${this.name} Pairing Service._stagehands_pairing._tcp.local.`,
                         type: 'SRV',
                         data: {
-                            port: 3535,
+                            port: this.options.pairingPort,
                             weight: 0,
                             priority: 0,
                             target: `${this.name}-stagehands.local`
@@ -167,7 +168,7 @@ export class PairingClient {
                 data: ip
             })
         }
-        console.log('Periodic advertisement');
+        // console.log('Periodic advertisement');
         this.mdns.respond({
             answers: [{
                 name: '_stagehands_pairing._tcp.local.',
@@ -177,7 +178,7 @@ export class PairingClient {
                 name: `${this.name} Pairing Service._stagehands_pairing._tcp.local.`,
                 type: 'SRV',
                 data: {
-                    port: 3535,
+                    port: this.options.pairingPort,
                     weight: 0,
                     priority: 0,
                     target: `${this.name}-stagehands.local`

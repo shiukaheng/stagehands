@@ -35,6 +35,14 @@ function set_bot_model {
     export TURTLEBOT3_MODEL=$1
 }
 
+function cdjs {
+    cd /catkin_ws/src/stagehands-js
+}
+
+function cdjsbot {
+    cd /catkin_ws/src/stagehands-js/packages/bot
+}
+
 . /root/.nvm/nvm.sh
 
 cd /catkin_ws

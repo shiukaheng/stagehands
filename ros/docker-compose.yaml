@@ -10,3 +10,4 @@ services:
     environment:
       - TURTLEBOT3_MODEL=waffle_pi
       - ROS_MASTER_URI=http://localhost:11311
+      - COMPOSE_DOCKER_CLI_BUILD=0

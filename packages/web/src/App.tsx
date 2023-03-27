@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ReactJson from 'react-json-view'
 import { useContext, useEffect } from 'react'
 import { ServiceContext, TopicContext } from './contexts/ServerContext'
+import { ConnectionScreen } from './components/ConnectionScreen/ConnectionScreen'
 
 function ControlPanel() {
 	return (
@@ -73,6 +74,7 @@ function App() {
 				<Routes>
 					<Route path='/' element={<ControlPanel />} />
 					<Route path='/debug' element={<Debug />} />
+					<Route path='/connectionscreen' element={<ConnectionScreen />} />
 				</Routes>
 			</Router>
 		</AppContexts>

@@ -1,0 +1,16 @@
+module.exports = {
+  AveragingAction: require('./AveragingAction.js'),
+  AveragingActionGoal: require('./AveragingActionGoal.js'),
+  AveragingActionResult: require('./AveragingActionResult.js'),
+  AveragingActionFeedback: require('./AveragingActionFeedback.js'),
+  AveragingFeedback: require('./AveragingFeedback.js'),
+  AveragingGoal: require('./AveragingGoal.js'),
+  AveragingResult: require('./AveragingResult.js'),
+  FibonacciAction: require('./FibonacciAction.js'),
+  FibonacciActionGoal: require('./FibonacciActionGoal.js'),
+  FibonacciActionFeedback: require('./FibonacciActionFeedback.js'),
+  FibonacciActionResult: require('./FibonacciActionResult.js'),
+  FibonacciFeedback: require('./FibonacciFeedback.js'),
+  FibonacciGoal: require('./FibonacciGoal.js'),
+  FibonacciResult: require('./FibonacciResult.js'),
+};

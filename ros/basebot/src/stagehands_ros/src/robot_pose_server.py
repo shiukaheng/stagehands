@@ -12,6 +12,7 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs.msg import Pose, Point, Quaternion
 # from led_strip_handler import GroveWS2813RgbStrip
 from rpi_ws281x import PixelStrip, Color
+import serial.tools.list_ports
 
 # LED strip configuration
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
@@ -34,9 +35,17 @@ LED_INVERT     = False   # True to invert the signal (when using NPN transistor 
 
 # strip = GroveWS2813RgbStrip(pin, count)
 
+# attempt to detect arduino port
+arduino_port = "/dev/ttyACM1" # safe? default?? value?????
+for p in list(serial.tools.list_ports.comports()):
+    if not("AMA" in str(p.device).split("/")[1] or str(p.device).split("/")[1] != str(p.description).split("/")[1]):
+        arduino_port = p.device
+
+# if mic module connected, establish connection
 micModuleExists = True
 try:
-    ser = serial.Serial('/dev/ttyACM0', 115200)
+    ser = serial.Serial(arduino_port, 115200)
+    print("Mic module connected at: " + arduino_port)
 except serial.SerialException:
     micModuleExists = False
 
@@ -73,9 +82,7 @@ def set_target_pose(req):
     goal.target_pose.header.stamp = rospy.Time.now()
     # log goal to ros console
     rospy.loginfo(goal)
-    # goal.target_pose.pose.position.x = req.xPos
-    # goal.target_pose.pose.position.y = req.yPos
-    # goal.target_pose.pose.orientation = req.rotationQuaternion
+    
     pose = Pose(Point(req.xPos, req.yPos, 0.000), Quaternion(req.rotationQuaternion[0], req.rotationQuaternion[1], req.rotationQuaternion[2], req.rotationQuaternion[3]))
     goal.target_pose.pose = pose
 
@@ -93,7 +100,6 @@ def set_target_pose(req):
     else:
     # Result of executing the action
         return setTargetPoseResponse(str(client.get_result()))
-    # return setTargetPoseResponse("lmao")
 
 def publish_current_pose():
     """
@@ -108,14 +114,15 @@ def publish_current_pose():
     pose = robotCurrentPose()
     while not rospy.is_shutdown():
         try:
-            (trans, rot) = listener.lookupTransform('/map', '/base_link', rospy.Time(0))
+            # (trans, rot) = listener.lookupTransform('/map', '/base_link', rospy.Time(0))
 
-            pose.xPos = trans[0]
-            pose.yPos = trans[1]
-            pose.rotationQuaternion = rot
+            # pose.xPos = trans[0]
+            # pose.yPos = trans[1]
+            # pose.rotationQuaternion = rot
 
             # again, probs not how this works but lol, lmao, rofl even
             if (micModuleExists): pose.currentMicHeight = float(ser.read_until().decode('utf-8').rstrip("\r\n"))
+
             else: pose.currentMicHeight = -1
             pub.publish(pose)
 

@@ -38,7 +38,7 @@
     </include>
 
     <!-- launch node to record and store location of aruco markers in map frame-->
-    <!-- <node pkg="stagehands_ros" name="aruco_location_storage" type="aruco_location_storage.py"/> -->
+    <node pkg="stagehands_ros" name="aruco_location_storage" type="aruco_location_storage.py"/>
 
     <!-- launch node to monitor map - this saves the map & aruco locations and kills everything once the map is stable -->
     <!-- <node pkg="stagehands_ros" name="map_monitor" type="map_monitor.py"/> -->

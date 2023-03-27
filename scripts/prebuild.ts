@@ -20,29 +20,5 @@ prebuild.on("exit", (code) => {
     process.exit(code);
   } else {
     console.log(chalk.green.bold("Prebuild completed successfully!"));
-    launchROS();
   }
 });
-
-function launchROS() {
-  const launchScript = os === "win32" ? "launch_ros.bat" : "launch_ros.sh";
-  const launchCmd = os === "win32" ? "cmd" : "bash";
-  const launchArgs = os === "win32" ? ["/c", launchScript] : [launchScript];
-
-  console.log(chalk.blue.bold(`Launching ROS with script: ${launchScript}...`));
-
-  const launch = spawn(launchCmd, launchArgs, {
-    stdio: "inherit",
-    cwd: "./ros",
-  });
-
-  launch.on("exit", (code) => {
-    if (code !== 0 && code !== null) {
-      console.log(chalk.red.bold(`ROS launch failed with code ${code}`));
-      process.exit(code);
-    } else {
-      console.log(chalk.green.bold("ROS launch completed successfully!"));
-      process.exit(0);
-    }
-  });
-}

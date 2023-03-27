@@ -1,7 +1,7 @@
 import { botPairingService } from "schema";
 import { Server } from "socket.io";
 import { TopicServer } from "webtopics";
-import { PairingClient } from "./discovery";
+import { PairingClient } from "./PairingClient";
 
 export class simulatedBotClient{
     private pairingClient:PairingClient

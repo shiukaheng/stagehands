@@ -28,7 +28,7 @@ function PresetBotWidget({ recallBot, name, presetID, botID }: { recallBot: Reca
                 <tbody>
                     <tr>
                         <td className="w-1/2">Name</td>
-                        <td className="w-1/2">{name}</td>
+                        <td className="w-1/2 text-center">{name}</td>
                     </tr>
                     <tr>
                         <td className="w-1/2">Status</td>
@@ -36,7 +36,7 @@ function PresetBotWidget({ recallBot, name, presetID, botID }: { recallBot: Reca
                     </tr>
                     <tr>
                         <td className="w-1/2">Module</td>
-                        <td className="w-1/2">{recallBot.module.type}</td>
+                        <td className="w-1/2 text-center">{recallBot.module.type}</td>
                     </tr>
                 </tbody>
             </table>

@@ -1,6 +1,6 @@
 module.exports = {
-  Mesh: require('./Mesh.js'),
   MeshTriangle: require('./MeshTriangle.js'),
-  SolidPrimitive: require('./SolidPrimitive.js'),
+  Mesh: require('./Mesh.js'),
   Plane: require('./Plane.js'),
+  SolidPrimitive: require('./SolidPrimitive.js'),
 };

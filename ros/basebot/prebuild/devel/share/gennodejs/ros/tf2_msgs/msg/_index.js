@@ -1,11 +1,11 @@
 module.exports = {
-  LookupTransformAction: require('./LookupTransformAction.js'),
-  LookupTransformActionFeedback: require('./LookupTransformActionFeedback.js'),
   LookupTransformActionGoal: require('./LookupTransformActionGoal.js'),
-  LookupTransformFeedback: require('./LookupTransformFeedback.js'),
   LookupTransformActionResult: require('./LookupTransformActionResult.js'),
   LookupTransformGoal: require('./LookupTransformGoal.js'),
+  LookupTransformActionFeedback: require('./LookupTransformActionFeedback.js'),
   LookupTransformResult: require('./LookupTransformResult.js'),
-  TFMessage: require('./TFMessage.js'),
+  LookupTransformFeedback: require('./LookupTransformFeedback.js'),
+  LookupTransformAction: require('./LookupTransformAction.js'),
   TF2Error: require('./TF2Error.js'),
+  TFMessage: require('./TFMessage.js'),
 };

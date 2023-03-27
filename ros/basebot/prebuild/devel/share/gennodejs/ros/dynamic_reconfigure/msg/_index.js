@@ -1,9 +1,9 @@
 module.exports = {
-  BoolParameter: require('./BoolParameter.js'),
-  Config: require('./Config.js'),
   ConfigDescription: require('./ConfigDescription.js'),
-  Group: require('./Group.js'),
+  Config: require('./Config.js'),
   DoubleParameter: require('./DoubleParameter.js'),
+  BoolParameter: require('./BoolParameter.js'),
+  Group: require('./Group.js'),
   GroupState: require('./GroupState.js'),
   IntParameter: require('./IntParameter.js'),
   ParamDescription: require('./ParamDescription.js'),

@@ -1,10 +1,10 @@
 module.exports = {
-  ShapeActionFeedback: require('./ShapeActionFeedback.js'),
-  ShapeActionGoal: require('./ShapeActionGoal.js'),
   ShapeAction: require('./ShapeAction.js'),
-  ShapeFeedback: require('./ShapeFeedback.js'),
+  ShapeActionGoal: require('./ShapeActionGoal.js'),
   ShapeActionResult: require('./ShapeActionResult.js'),
-  ShapeResult: require('./ShapeResult.js'),
-  Velocity: require('./Velocity.js'),
   ShapeGoal: require('./ShapeGoal.js'),
+  ShapeFeedback: require('./ShapeFeedback.js'),
+  Velocity: require('./Velocity.js'),
+  ShapeResult: require('./ShapeResult.js'),
+  ShapeActionFeedback: require('./ShapeActionFeedback.js'),
 };

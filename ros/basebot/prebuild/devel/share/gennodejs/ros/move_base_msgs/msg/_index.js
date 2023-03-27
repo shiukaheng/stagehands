@@ -1,7 +1,7 @@
 module.exports = {
   MoveBaseAction: require('./MoveBaseAction.js'),
-  MoveBaseActionFeedback: require('./MoveBaseActionFeedback.js'),
   MoveBaseActionGoal: require('./MoveBaseActionGoal.js'),
+  MoveBaseActionFeedback: require('./MoveBaseActionFeedback.js'),
   MoveBaseActionResult: require('./MoveBaseActionResult.js'),
   MoveBaseFeedback: require('./MoveBaseFeedback.js'),
   MoveBaseGoal: require('./MoveBaseGoal.js'),

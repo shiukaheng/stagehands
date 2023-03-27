@@ -19,4 +19,4 @@ build &&
 
 # Build the message types
 cd /catkin_ws/src/stagehands-js/packages/bot/ &&
-node -e "require(\"rosnodejs\").loadAllPackages();" &&
+node -e "require(\"rosnodejs\").loadAllPackages();"

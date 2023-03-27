@@ -28,7 +28,7 @@ export class WebtopicROSInterface {
         },
         ledState: {
             base: {
-                rgbValue: [0,0,0],
+                rgbValue: [0, 0, 0],
                 ledAnimation: {
                     animationMode: "constant",
                     flashingFrequency: 0
@@ -41,7 +41,10 @@ export class WebtopicROSInterface {
             state: null,
             moduleModels: {}
         },
-        stopped: false
+        stopped: false,
+        batteryStatus: {
+            batteryPercentage: 0
+        }
     }
 
     constructor(ip:string, port:string) {

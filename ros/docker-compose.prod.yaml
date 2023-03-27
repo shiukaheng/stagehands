@@ -8,4 +8,4 @@ services:
     tty: true
     volumes:
       - ./basebot/scripts:/scripts
-      - ~/stagehands-config:/stagehands-config
+      - /root/stagehands-config

@@ -22,7 +22,7 @@ function stagehands() {
             exit_code=$?
             echo -e "${green}Docker container exited with code $exit_code.${nocolor}"
             ;;
-        "update-repo")
+        "repo-pull")
             cd /home/pi/stagehands/
             sudo git fetch origin
             sudo git reset --hard origin/integration
@@ -54,6 +54,8 @@ function stagehands() {
             sudo docker container kill stagehands-dev
             echo -e "${green}Updating Stagehands repository...${nocolor}"
             stagehands update-repo
+            echo -e "${green}Updating Docker image...${nocolor}"
+            stagehands docker-pull
             echo -e "${green}Restarting Stagehands service...${nocolor}"
             sudo systemctl start stagehands.service
             echo -e "${green}Stagehands has been updated successfully.${nocolor}"

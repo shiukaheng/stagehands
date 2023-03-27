@@ -18,7 +18,7 @@ export const botStateSchema = z.object({
     name: z.string(),
     pose: poseSchema, // Current pose of the robot
     targetPose: poseSchema, // Target pose of the robot
-    // batteryStatus: batteryStatusSchema, // Not sure if implementable
+    batteryStatus: batteryStatusSchema, // Not sure if implementable
     ledState: botLEDStateSchema,
     status: robotStatusLiteralSchema,
     module: moduleStateSchema,

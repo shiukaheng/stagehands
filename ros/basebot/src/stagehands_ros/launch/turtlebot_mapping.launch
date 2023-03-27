@@ -10,9 +10,14 @@
 
     <arg name="running_on_robot" default="false"/>
 
-    <group if="($arg running_on_robot)">
+    <group if="$(eval running_on_robot == 'true')">
         <!-- Launch turtlebot3 bringup-->
         <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
+    </group>
+
+    <group if="$(eval running_on_robot == 'false')">
+        <!-- Launch turtlebot3 bringup-->
+        <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch"/>
     </group>
 
     <!-- SLAM Node -->
@@ -30,10 +35,13 @@
     <include file="$(find ros_autonomous_slam)/launch/$(arg explorer).launch">
     </include>
 
-    <!-- launch raspicam to broadcast images recorded by turtlebot's camera-->
-    <include file="$(find raspicam_node)/launch/camerav2_1280x960.launch">
-        <arg name="enable_raw" value="true" />
-    </include>
+    <group if="$(eval running_on_robot == 'true')">
+        <!-- Launch turtlebot3 bringup-->
+        <!-- launch raspicam to broadcast images recorded by turtlebot's camera-->
+        <include file="$(find raspicam_node)/launch/camerav2_1280x960.launch">
+            <arg name="enable_raw" value="true" />
+        </include>
+    </group>
     
     <!-- launch aruco ros to detect markers in view of turtlebot camera-->
     <include file="$(find aruco_ros)/launch/marker_publisher.launch">
@@ -44,6 +52,12 @@
     <node pkg="stagehands_ros" name="aruco_location_storage" type="aruco_location_storage.py"/>
 
     <!-- launch node to monitor map - this saves the map & aruco locations and kills everything once the map is stable -->
-    <!-- <node pkg="stagehands_ros" name="map_monitor" type="map_monitor.py"/> -->
+    <node pkg="stagehands_ros" name="map_monitor" type="map_monitor.py"/>
+
+    <!-- rviz -->
+    <!-- <group if="$(arg open_rviz)"> 
+        <node pkg="rviz" type="rviz" name="rviz" required="true"
+            args="-d $(find ros_autonomous_slam)/rviz/turtlebot3_navigation.rviz"/>
+    </group> -->
 
 </launch>

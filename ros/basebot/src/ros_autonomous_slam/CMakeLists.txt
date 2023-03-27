@@ -210,5 +210,6 @@ target_link_libraries(local_rrt_detector ${catkin_LIBRARIES})
 catkin_install_python(PROGRAMS 
   scripts/filter.py
   scripts/assigner.py
+  scripts/functions.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

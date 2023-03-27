@@ -3,3 +3,5 @@ export NAME=$(node /catkin_ws/src/stagehands-js/packages/bot/dist/getName.js)
 
 # Set ROS hostname to <name>-stagehands.local
 export ROS_HOSTNAME=$NAME-stagehands.local
+
+export TURTLEBOT3_MODEL=waffle_pi

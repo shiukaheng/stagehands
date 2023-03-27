@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { stageTopic, fleetTopic, createPresetService, updatePresetService, deletePresetService, runPresetService, emergencyStopService, emergencyStopClearService, stopBotService, stopBotClearService, reorderPresetsService, recallFleetStateService } from "schema";
+import { stageTopic, fleetTopic, createPresetService, updatePresetService, deletePresetService, runPresetService, emergencyStopService, emergencyStopClearService, stopBotService, stopBotClearService, reorderPresetsService, recallFleetStateService, connectBotService, disconnectBotService } from "schema";
 import { TopicHookExtractor, useThrottledTopic } from "../utils/useTopic";
 import { ServiceHookExtractor, useService } from "../utils/useService";
 import { settingsContext } from "./SettingsContext";
@@ -27,6 +27,8 @@ export interface IServiceContext {
 	stopBot: ServiceHookExtractor<typeof stopBotService>;
 	stopBotClear: ServiceHookExtractor<typeof stopBotClearService>;
 	recallFleetState : ServiceHookExtractor<typeof recallFleetStateService>;
+	connectBot : ServiceHookExtractor<typeof connectBotService>;
+	disConnectBot : ServiceHookExtractor<typeof disconnectBotService>;
 }
 
 /**
@@ -60,6 +62,8 @@ export function ServiceProvider({ children }: { children: React.ReactNode | null
 	const stopBot = useService(serverUrl, stopBotService);
 	const stopBotClear = useService(serverUrl, stopBotClearService);
 	const recallFleetState = useService(serverUrl, recallFleetStateService);
+	const connectBot = useService(serverUrl, connectBotService);
+	const disConnectBot = useService(serverUrl, disconnectBotService);
 
 	const serviceProvider: IServiceContext = {
 		createPreset,
@@ -72,6 +76,8 @@ export function ServiceProvider({ children }: { children: React.ReactNode | null
 		stopBot,
 		stopBotClear,
 		recallFleetState,
+		connectBot,
+		disConnectBot
 	};
 
 	return <ServiceContext.Provider value={serviceProvider}>{children}</ServiceContext.Provider>;

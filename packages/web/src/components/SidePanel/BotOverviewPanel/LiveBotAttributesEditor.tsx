@@ -7,9 +7,7 @@ import NumberAndBarInput from "../../../utils/NumberAndBarInput"
 import ReadOnlyAttribute from "../../../utils/ReadOnlyAttributes";
 import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
 import componentSelectContext from "../../../contexts/ComponentSwitchContext";
-
-
-
+import FleetModuleComponents from "./FleetModuleComponents";
 
 /**
  * Component for displaying and editing the live attributes of a bot
@@ -92,14 +90,25 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
                 }}
                 boundary={{ min: 0, max: 100 }} />
 
-              <NumberAndBarInput
-                title="X"
+              <FleetModuleComponents bot={bot} fleet={fleet} fleetUpdate={fleetUpdate} />
+
+              {/* <NumberAndBarInput
+                title="Angle"
                 value={0}
                 setValue={(value: number) => {
                   // fleet[botID].targetPose.position[0] = value
                   // fleetUpdate(fleet)
                 }}
                 boundary={{ min: 0, max: 100 }} />
+
+              <NumberAndBarInput
+                title="Mic Height"
+                value={0}
+                setValue={(value: number) => {
+                  // fleet[botID].targetPose.position[0] = value
+                  // fleetUpdate(fleet)
+                }}
+                boundary={{ min: 0, max: 100 }} /> */}
 
               <tr>
                 <th>LED </th>

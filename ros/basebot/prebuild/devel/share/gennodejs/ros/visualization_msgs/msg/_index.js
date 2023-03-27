@@ -1,12 +1,12 @@
 module.exports = {
-  InteractiveMarker: require('./InteractiveMarker.js'),
   ImageMarker: require('./ImageMarker.js'),
+  InteractiveMarker: require('./InteractiveMarker.js'),
   InteractiveMarkerControl: require('./InteractiveMarkerControl.js'),
   InteractiveMarkerInit: require('./InteractiveMarkerInit.js'),
-  InteractiveMarkerFeedback: require('./InteractiveMarkerFeedback.js'),
   InteractiveMarkerPose: require('./InteractiveMarkerPose.js'),
-  Marker: require('./Marker.js'),
+  InteractiveMarkerFeedback: require('./InteractiveMarkerFeedback.js'),
   InteractiveMarkerUpdate: require('./InteractiveMarkerUpdate.js'),
-  MarkerArray: require('./MarkerArray.js'),
+  Marker: require('./Marker.js'),
   MenuEntry: require('./MenuEntry.js'),
+  MarkerArray: require('./MarkerArray.js'),
 };

@@ -1,4 +1,4 @@
 module.exports = {
-  HectorIterData: require('./HectorIterData.js'),
   HectorDebugInfo: require('./HectorDebugInfo.js'),
+  HectorIterData: require('./HectorIterData.js'),
 };

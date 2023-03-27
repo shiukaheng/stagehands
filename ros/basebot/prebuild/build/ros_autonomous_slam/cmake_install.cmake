@@ -179,6 +179,14 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ros_autonomous_slam" TYPE FILE FILES "/catkin_ws/src/ros_autonomous_slam/package.xml")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/ros_autonomous_slam" TYPE PROGRAM FILES "/catkin_ws/build/ros_autonomous_slam/catkin_generated/installspace/filter.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/ros_autonomous_slam" TYPE PROGRAM FILES "/catkin_ws/build/ros_autonomous_slam/catkin_generated/installspace/assigner.py")
+endif()
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/catkin_ws/build/ros_autonomous_slam/gtest/cmake_install.cmake")

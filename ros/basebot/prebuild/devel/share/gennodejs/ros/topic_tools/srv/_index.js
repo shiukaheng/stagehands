@@ -5,6 +5,6 @@ module.exports = {
   DemuxSelect: require('./DemuxSelect.js'),
   MuxAdd: require('./MuxAdd.js'),
   MuxDelete: require('./MuxDelete.js'),
-  MuxList: require('./MuxList.js'),
   MuxSelect: require('./MuxSelect.js'),
+  MuxList: require('./MuxList.js'),
 };

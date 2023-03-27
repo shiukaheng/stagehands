@@ -7,6 +7,7 @@ import { hexTorgb } from "../../../utils/hexTorgb";
 import NumberAndBarInput from "../../../utils/NumberAndBarInput"
 import ReadOnlyAttribute from "../../../utils/ReadOnlyAttributes";
 import componentSelectContext from "../../../contexts/ComponentSwitchContext";
+import PresetModuleComponents from "./PresetModuleComponents";
 
 /**
  * Component for displaying and editing the attributes of a bot in a preset
@@ -46,19 +47,8 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
               className=" font-bold h-full w-full rounded p-5 bottom-0 overflow-y-auto overflow-x-hidden">
 
               <tbody>
-                <tr>
-                  <th>Name</th>
-                  <td>
-                    <input
-                      type="text"
-                      id="micName"
-                      defaultValue={bot.name}
-                      readOnly={true}
-                      size={11}>
-                    </input>
-                  </td>
-                </tr>
 
+                <ReadOnlyAttribute title="Name" value={bot.name} />
 
                 <ReadOnlyAttribute title="Module" value={bot.module.type} />
 
@@ -80,14 +70,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
                   }}
                   boundary={{ min: 0, max: 100 }} />
 
-                <NumberAndBarInput
-                  title="Angle"
-                  value={0}
-                  setValue={(value: number) => {
-                    // fleet[botID].targetPose.position[0] = value
-                    // fleetUpdate(fleet)
-                  }}
-                  boundary={{ min: 0, max: 100 }} />
+                <PresetModuleComponents bot={bot} preset={preset} presetUpdate={presetUpdate} />
 
                 <tr>
                   <th>LED </th>

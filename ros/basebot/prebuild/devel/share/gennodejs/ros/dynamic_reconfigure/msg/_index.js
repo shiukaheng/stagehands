@@ -6,7 +6,7 @@ module.exports = {
   GroupState: require('./GroupState.js'),
   Group: require('./Group.js'),
   IntParameter: require('./IntParameter.js'),
-  SensorLevels: require('./SensorLevels.js'),
   ParamDescription: require('./ParamDescription.js'),
+  SensorLevels: require('./SensorLevels.js'),
   StrParameter: require('./StrParameter.js'),
 };

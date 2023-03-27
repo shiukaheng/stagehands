@@ -21,7 +21,7 @@ def store_marker_poses(data):
     for marker in data.markers:
         # if there is already a list of marker poses for this marker, append the new pose to the list
         # otherwise create a new list with the new pose
-        current_list = marker_pose_readings.getordefault(marker.id, [])
+        current_list = marker_pose_readings.get(marker.id, default=[])
         marker_pose_readings.update({marker.id: current_list.append(marker.pose.pose)})
 
 def aruco_listener():

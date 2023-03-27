@@ -18,14 +18,14 @@
     </include>
 
     <!-- move_base -->
-    <!-- <include file="$(find turtlebot3_navigation)/launch/move_base.launch">
+    <include file="$(find turtlebot3_navigation)/launch/move_base.launch">
         <arg name="model" value="$(arg model)" />
         <arg name="move_forward_only" value="$(arg move_forward_only)"/>
-    </include> -->
+    </include>
 
     <!-- Autonomous Explorer Node -->
-    <!-- <include file="$(find ros_autonomous_slam)/launch/$(arg explorer).launch">
-    </include> -->
+    <include file="$(find ros_autonomous_slam)/launch/$(arg explorer).launch">
+    </include>
 
     <!-- launch raspicam to broadcast images recorded by turtlebot's camera-->
     <!-- <include file="$(find raspicam_node)/launch/camerav2_1280x960.launch">

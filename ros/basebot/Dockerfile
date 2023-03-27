@@ -172,3 +172,6 @@ RUN dos2unix /scripts/*
 
 # Configure SSH
 COPY ./ros/basebot/sshd_config /etc/ssh/sshd_config
+
+# Add the post init script to the bashrc (init scripts that dont affect build time should be added here)
+RUN echo "source /scripts/post_init.sh" >> ~/.bashrc

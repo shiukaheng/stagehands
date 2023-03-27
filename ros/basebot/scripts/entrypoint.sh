@@ -14,7 +14,6 @@ echo "Launching ROS with hostname $ROS_HOSTNAME"
 # Launch the management node
 cd /catkin_ws/src/stagehands-js/packages/bot
 ls /catkin_ws/devel/share/gennodejs/ros/stagehands_ros/
-# node -e "require(\"rosnodejs\"); console.log(require(\"\/catkin_ws\/devel\/share\/gennodejs\/ros\/stagehands_ros\/_index.js\"))"
 # node --
 
 # Start ssh daemon

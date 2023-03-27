@@ -28,8 +28,7 @@
     </include>
 
     <include file="$(find raspicam_node)/launch/camerav2_1280x960.launch">
-        <remap from ="/raspicam_node/camera_info" to="/camera_info" />
-        <remap from ="/raspicam_node/image/compressed" to="/image" />
+        <arg name="enable_raw" value="true" />
     </include>
     
     <!-- launch aruco ros to detect markers in view of turtlebot camera-->

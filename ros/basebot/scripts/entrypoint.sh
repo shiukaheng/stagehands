@@ -19,4 +19,4 @@ cd /catkin_ws/src/stagehands-js/packages/bot
 service ssh start
 
 # Prevent container from exiting
-# tail -f /dev/null
+tail -f /dev/null

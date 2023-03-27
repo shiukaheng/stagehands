@@ -241,7 +241,7 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
                 <th>Battery</th>
                 <td>
                   <button className="text-center h-6 w-32">
-                    30%
+                    {bot.batteryStatus.batteryPercentage}%
                   </button>
                 </td>
               </tr>

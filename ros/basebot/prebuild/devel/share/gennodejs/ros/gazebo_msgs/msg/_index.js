@@ -1,13 +1,13 @@
 module.exports = {
-  ContactState: require('./ContactState.js'),
-  ContactsState: require('./ContactsState.js'),
   LinkState: require('./LinkState.js'),
-  ModelState: require('./ModelState.js'),
-  LinkStates: require('./LinkStates.js'),
+  ContactState: require('./ContactState.js'),
   ModelStates: require('./ModelStates.js'),
+  LinkStates: require('./LinkStates.js'),
+  ContactsState: require('./ContactsState.js'),
   ODEJointProperties: require('./ODEJointProperties.js'),
   ODEPhysics: require('./ODEPhysics.js'),
-  PerformanceMetrics: require('./PerformanceMetrics.js'),
+  ModelState: require('./ModelState.js'),
   SensorPerformanceMetric: require('./SensorPerformanceMetric.js'),
   WorldState: require('./WorldState.js'),
+  PerformanceMetrics: require('./PerformanceMetrics.js'),
 };

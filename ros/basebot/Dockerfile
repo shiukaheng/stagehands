@@ -68,7 +68,7 @@ RUN echo 'export LD_LIBRARY_PATH=/opt/vc/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
 RUN apt-get install -y python3
 
 # install scikit-learn
-RUN python3 -m pip install scikit-learn
+RUN pip install scikit-learn
 
 # Install ssh
 RUN apt-get update && apt-get install -y openssh-server

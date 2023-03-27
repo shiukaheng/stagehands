@@ -164,7 +164,7 @@ RUN /bin/bash -c "source /scripts/init.sh; cd /catkin_ws/src/stagehands-js; npm 
 # RUN /bin/bash -c "source /scripts/init.sh; catkin build stagehands-js" # Not yet ready
 
 # # # Build the message types
-WORKDIR /catkin_ws/src/stagehands-js/packages/bot/ &&
+WORKDIR /catkin_ws/src/stagehands-js/packages/bot/
 RUN /bin/bash -c "source /scripts/init.sh; cd /catkin_ws/src/stagehands-js/packages/bot; node -e \"require('rosnodejs').loadAllPackages();\""
 
 COPY ./ros/basebot/scripts/ /scripts/

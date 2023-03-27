@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Source environment
+cd /scripts
 . init.sh
 
 # Install npm dependencies

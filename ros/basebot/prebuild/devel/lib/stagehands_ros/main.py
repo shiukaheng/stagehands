@@ -1,1 +1,0 @@
-/catkin_ws/devel/.private/stagehands_ros/lib/stagehands_ros/main.py

@@ -1,7 +1,0 @@
-version: "3.3"
-services:
-  ros-dev:
-    entrypoint: ["/scripts/prebuild.sh"]
-    platform: linux/arm64
-    volumes:
-      - /catkin_ws/src/stagehands-js/node_modules

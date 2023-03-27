@@ -15,20 +15,21 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "multicast-dns": "^7.2.5",
         "socket.io": "^4.6.0",
         "socket.io-client": "^4.6.1",
         "uuid-readable": "^0.0.2",
         "webtopics": "^1.1.0"
     },
     "devDependencies": {
-        "zod": "3.20.6",
         "@types/multicast-dns": "^7.2.1",
         "@types/node": "^18.11.18",
         "@types/uuid-readable": "^0.0.1",
         "nodemon": "^2.0.20",
         "rimraf": "^4.1.2",
         "ts-node": "^10.9.1",
-        "typescript": "^4.9.5"
+        "typescript": "^4.9.5",
+        "zod": "3.20.6"
     },
     "private": true
 }

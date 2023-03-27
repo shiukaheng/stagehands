@@ -4,18 +4,6 @@ services:
     build:
       context: ../
       dockerfile: ./ros/basebot/Dockerfile
-    volumes:
-      - ./basebot/src:/catkin_ws/src
-      - ./basebot/map:/map
-      - ./basebot/scripts:/scripts
-      - ../packages:/catkin_ws/src/stagehands-js/packages
-      - ../package.json:/catkin_ws/src/stagehands-js/package.json
-      - ../package-lock.json:/catkin_ws/src/stagehands-js/package-lock.json
-      - /catkin_ws/devel
-      - /catkin_ws/build
-      - /catkin_ws/logs
-      - /catkin_ws/install
-      - ./basebot/sshd_config:/etc/ssh/sshd_config
     container_name: stagehands-dev
     network_mode: host
     privileged: true

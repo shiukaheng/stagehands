@@ -1,1 +1,0 @@
-/catkin_ws/devel/.private/ros_autonomous_slam/share/common-lisp/ros/ros_autonomous_slam/msg/_package_PointArray.lisp

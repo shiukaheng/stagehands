@@ -1,1 +1,0 @@
-/catkin_ws/devel/.private/raspicam_node/lib/python3/dist-packages/raspicam_node/msg/__init__.py

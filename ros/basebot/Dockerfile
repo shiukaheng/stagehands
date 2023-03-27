@@ -105,13 +105,67 @@ WORKDIR /scripts
 # Add the init script to the bashrc
 RUN echo "source /scripts/init.sh" >> ~/.bashrc
 
-# Copy the required javascript package specifications
+# ROS packages
+COPY ./ros/basebot/src/aruco_ros /catkin_ws/src/aruco_ros
+COPY ./ros/basebot/src/raspicam_node /catkin_ws/src/raspicam_node
+COPY ./ros/basebot/src/ros_autonomous_slam /catkin_ws/src/ros_autonomous_slam
+# Build the ROS packages
+RUN /bin/bash -c "source /scripts/init.sh; cd /catkin_ws; catkin build aruco_ros"
+RUN /bin/bash -c "source /scripts/init.sh; cd /catkin_ws; catkin build raspicam_node"
+RUN /bin/bash -c "source /scripts/init.sh; cd /catkin_ws; catkin build ros_autonomous_slam"
+
+# Old setup script"
+# # Install npm dependencies
+# cd /catkin_ws/src/stagehands-js/ &&
+# npm install &&
+# npm run build-bot-deps &&
+
+# # Ensure those two bastard scripts are executable
+# cd /catkin_ws/src/ros_autonomous_slam/scripts &&
+# chmod +x filter.py &&
+# chmod +x assigner.py &&
+
+WORKDIR /catkin_ws/src/ros_autonomous_slam/scripts
+RUN chmod +x filter.py
+RUN chmod +x assigner.py
+
+# Copy stagehands_ros
+COPY "./ros/basebot/src/stagehands_ros" "/catkin_ws/src/stagehands_ros"
+WORKDIR /catkin_ws
+RUN /bin/bash -c "source /scripts/init.sh; catkin build stagehands_ros"
+
+# Copy stagehands-js into the container
+# Copy the required javascript packages
 COPY ./package.json /catkin_ws/src/stagehands-js/package.json 
 COPY ./package-lock.json /catkin_ws/src/stagehands-js/package-lock.json
-COPY ./packages/bot/package.json /catkin_ws/src/stagehands-js/packages/bot/package.json
-COPY ./packages/schema/package.json /catkin_ws/src/stagehands-js/packages/schema/package.json
-COPY ./packages/utils/package.json /catkin_ws/src/stagehands-js/packages/utils/package.json
-COPY ./packages/wtf/package.json /catkin_ws/src/stagehands-js/packages/wtf/package.json
 
-# Install the required javascript packages needed during runtime
-RUN bash -c "source /scripts/init.sh; cd /catkin_ws/src/stagehands-js && npm install --omit=dev"
+COPY ./packages/bot/package.json /catkin_ws/src/stagehands-js/packages/bot/package.json
+COPY ./packages/bot/src/ /catkin_ws/src/stagehands-js/packages/bot/src/
+COPY ./packages/bot/tsconfig.json /catkin_ws/src/stagehands-js/packages/bot/tsconfig.json
+COPY ./packages/bot/webpack.config.cjs /catkin_ws/src/stagehands-js/packages/bot/webpack.config.cjs
+
+COPY ./packages/schema/package.json /catkin_ws/src/stagehands-js/packages/schema/package.json
+COPY ./packages/schema/tsconfig.json /catkin_ws/src/stagehands-js/packages/schema/tsconfig.json
+COPY ./packages/schema/tsconfig.esm.json /catkin_ws/src/stagehands-js/packages/schema/tsconfig.esm.json
+COPY ./packages/schema/src/ /catkin_ws/src/stagehands-js/packages/schema/src/
+
+COPY ./packages/utils/package.json /catkin_ws/src/stagehands-js/packages/utils/package.json
+COPY ./packages/utils/tsconfig.json /catkin_ws/src/stagehands-js/packages/utils/tsconfig.json
+COPY ./packages/utils/tsconfig.esm.json /catkin_ws/src/stagehands-js/packages/utils/tsconfig.esm.json
+COPY ./packages/utils/src/ /catkin_ws/src/stagehands-js/packages/utils/src/
+
+COPY ./packages/wtf/package.json /catkin_ws/src/stagehands-js/packages/wtf/package.json
+COPY ./packages/wtf/tsconfig.json /catkin_ws/src/stagehands-js/packages/wtf/tsconfig.json
+COPY ./packages/wtf/src/ /catkin_ws/src/stagehands-js/packages/wtf/src/
+
+WORKDIR /catkin_ws/src/stagehands-js
+RUN /bin/bash -c "source /scripts/init.sh; cd /catkin_ws/src/stagehands-js; npm install"
+
+COPY ./packages/bot/scripts/ /catkin_ws/src/stagehands-js/packages/bot/scripts/
+
+RUN /bin/bash -c "source /scripts/init.sh; cd /catkin_ws/src/stagehands-js; npm run build-bot-deps"
+# RUN /bin/bash -c "source /scripts/init.sh; catkin build stagehands-js" # Not yet ready
+
+# # # Build the message types
+WORKDIR /catkin_ws/src/stagehands-js/packages/bot/ &&
+RUN /bin/bash -c "source /scripts/init.sh; cd /catkin_ws/src/stagehands-js/packages/bot; node -e \"require('rosnodejs').loadAllPackages();\""

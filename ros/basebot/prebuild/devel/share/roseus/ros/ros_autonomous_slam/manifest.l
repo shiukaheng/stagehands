@@ -1,1 +1,0 @@
-/catkin_ws/devel/.private/ros_autonomous_slam/share/roseus/ros/ros_autonomous_slam/manifest.l

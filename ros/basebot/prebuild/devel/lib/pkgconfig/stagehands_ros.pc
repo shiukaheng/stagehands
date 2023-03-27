@@ -1,1 +1,0 @@
-/catkin_ws/devel/.private/stagehands_ros/lib/pkgconfig/stagehands_ros.pc

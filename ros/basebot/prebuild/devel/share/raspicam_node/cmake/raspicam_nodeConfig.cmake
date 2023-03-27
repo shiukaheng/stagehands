@@ -1,1 +1,0 @@
-/catkin_ws/devel/.private/raspicam_node/share/raspicam_node/cmake/raspicam_nodeConfig.cmake

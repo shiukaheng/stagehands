@@ -1,1 +1,0 @@
-/catkin_ws/devel/.private/raspicam_node/share/common-lisp/ros/raspicam_node/msg/_package.lisp

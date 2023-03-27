@@ -1,1 +1,0 @@
-/catkin_ws/devel/.private/stagehands_ros/share/roseus/ros/stagehands_ros/srv/setTargetPose.l

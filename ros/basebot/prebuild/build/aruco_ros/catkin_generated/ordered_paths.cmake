@@ -1,1 +1,0 @@
-set(ORDERED_PATHS "/catkin_ws/devel/.private/aruco/lib;/opt/ros/noetic/lib")

@@ -1,0 +1,8 @@
+version: "3.3"
+services:
+  ros-dev:
+    volumes:
+      - ./basebot/scripts:/scripts
+      - /dev:/dev
+      - /dev/bus/usb:/dev/bus/usb
+      - /etc/ssh:/etc/ssh

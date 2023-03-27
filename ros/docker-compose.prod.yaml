@@ -3,12 +3,9 @@ services:
   ros-dev:
     image: shiukaheng/stagehands:prod
     entrypoint: ["/scripts/entrypoint.sh"]
-    volumes:
-      - ./basebot/scripts:/scripts
-      - /dev:/dev
-      - /dev/bus/usb:/dev/bus/usb
-      # - ./basebot/home:/root/
-      - /etc/ssh:/etc/ssh
     privileged: true
     stdin_open: true
     tty: true
+    platform: linux/arm64
+    volumes:
+      - ./basebot/scripts:/scripts

@@ -1,1 +1,2 @@
-docker build --platform linux/arm64 -t shiukaheng/stagehands:prod -f ./basebot/Dockerfile ../ && docker push shiukaheng/stagehands:prod
+@REM docker build --platform linux/arm64 -t shiukaheng/stagehands:prod -f ./basebot/Dockerfile ../ && docker push shiukaheng/stagehands:prod
+docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml -f docker-compose.build.yaml build --parallel

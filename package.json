@@ -26,14 +26,16 @@
     "dev-web-emu": "npm run build-schema && concurrently \"npm run dev-fake-bridge\" \"npm run dev-web\"",
     "build-wtf": "cd packages/wtf && npm run build",
     "dev-wtf": "cd packages/wtf && npm run dev",
-    "ros": "ts-node scripts/launch_ros.ts",
-    "update-ros-prod": "ts-node scripts/update_prod.ts",
-    "ros-prod": "cd ./ros && docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up",
     "wtf": "cd packages/wtf && npm run wtf",
-    "install-pi": "cd bot_setup && chmod +x install.sh && ./install.sh",
     "build-bot-deps": "npm run build-schema && npm run build-utils && npm run build-bot && npm run build-wtf",
     "build-all": "npm run build-bot-deps && npm run build-bridge && npm run build-fake-bridge && npm run build-web",
-    "prebuild": "ts-node scripts/prebuild.ts"
+    "ros": "ts-node scripts/launch_ros.ts",
+    "ros-prod": "cd ./ros && docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up",
+    "build-ros-prod": "ts-node scripts/update_prod.ts",
+    "push-ros-prod": "docker push shiukaheng/stagehands:prod",
+    "update-ros-prod": "npm run build-ros-prod && npm run push-ros-prod",
+    "install-pi": "cd bot_setup && chmod +x install.sh && ./install.sh",
+    "prebuild": "echo Please use build-ros-prod instead"
   },
   "repository": {
     "type": "git",

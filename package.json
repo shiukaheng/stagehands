@@ -31,9 +31,9 @@
     "build-all": "npm run build-bot-deps && npm run build-bridge && npm run build-fake-bridge && npm run build-web",
     "ros": "ts-node scripts/launch_ros.ts",
     "ros-prod": "cd ./ros && docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up",
-    "build-ros-prod": "ts-node scripts/update_prod.ts",
-    "push-ros-prod": "docker push shiukaheng/stagehands:prod",
-    "update-ros-prod": "npm run build-ros-prod && npm run push-ros-prod",
+    "docker-build": "ts-node scripts/update_prod.ts",
+    "docker-push": "docker push shiukaheng/stagehands:prod",
+    "docker-update": "npm run build-ros-prod && npm run push-ros-prod",
     "install-pi": "cd bot_setup && chmod +x install.sh && ./install.sh",
     "prebuild": "echo Please use build-ros-prod instead"
   },

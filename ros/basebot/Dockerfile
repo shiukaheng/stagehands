@@ -64,7 +64,11 @@ RUN sudo mkdir -p /opt/vc/lib
 RUN sudo ln -s /usr/lib/arm-linux-gnueabihf/libmmal* /opt/vc/lib/
 RUN echo 'export LD_LIBRARY_PATH=/opt/vc/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
 
-RUN apt-get install -y python
+# let's hope this doesn't break any hidden python2 dependencies
+RUN apt-get install -y python3
+
+# install scikit-learn
+RUN python3 -m pip install scikit-learn
 
 # Install ssh
 RUN apt-get update && apt-get install -y openssh-server

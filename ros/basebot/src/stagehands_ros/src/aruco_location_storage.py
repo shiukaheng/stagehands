@@ -28,7 +28,7 @@ def aruco_listener():
     """
     Subscribes to the aruco marker topic.
     """
-    rospy.Subscriber("markers", MarkerArray, store_marker_poses)
+    rospy.Subscriber("/aruco_marker_publisher/markers", MarkerArray, store_marker_poses)
 
 def aruco_average_pose(req):
     """

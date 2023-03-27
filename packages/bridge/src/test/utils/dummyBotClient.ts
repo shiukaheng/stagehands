@@ -32,6 +32,7 @@ export class dummyBotClient{
                     }
                 }
             },
+            batteryStatus: { batteryPercentage: 100 },
             status: "idle",
             module: {
                 type: "nullModule",

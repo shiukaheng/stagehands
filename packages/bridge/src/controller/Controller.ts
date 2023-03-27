@@ -68,8 +68,10 @@ export class Controller {
         setInterval(() => {
             server.sendDiscoveryPacket();
             server.subBots((availableBots) => {
+                
                 this.context.setAvailableBotNameTopicClientMap(availableBots);
                 for (const botName of availableBots.keys()) {
+                    
                     if (this.context.getBotConnectionState().find((BCS) => BCS.domainName === botName) === undefined) {
                         this.context.getBotConnectionState().push({ domainName: botName, connectionStatus: "disconnected" });
                     }
@@ -82,9 +84,7 @@ export class Controller {
                 })
             });
             console.log("Available Bots: " + this.context.getAvailableBotNameTopicClientMap().size);
-            
             console.log(this.context.getBotConnectionState());
-            
             this.server.pub(botConnectionStatusTopic, this.context.getBotConnectionState());
         }, 2000);
     }

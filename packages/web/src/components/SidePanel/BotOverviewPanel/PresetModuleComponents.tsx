@@ -2,25 +2,25 @@ import { Fragment } from "react"
 import { RecallBotState, Preset } from "schema"
 import NumberAndBarInput from "../../../utils/NumberAndBarInput"
 
-export default function PresetModuleComponents({bot, preset, presetUpdate}: { bot : RecallBotState, preset: Preset, presetUpdate: (id :string,fleet: Preset) => void}) {
+export default function PresetModuleComponents({bot, preset, presetID, presetUpdate}: { bot : RecallBotState, preset: Preset,presetID : string , presetUpdate: (id :string,fleet: Preset) => void}) {
     if( bot.module.type === "micStand"){
         return (
             <Fragment>
             <NumberAndBarInput
-                title="Angle"
-                value={0}
+                title="Mic Angle"
+                value={bot.targetPose.quaternion[0]} //TODO not sure if this is the right value
                 setValue={(value: number) => {
-                  // fleet[botID].targetPose.position[0] = value
-                  // fleetUpdate(fleet)
+                  bot.targetPose.quaternion[0] = value
+                  presetUpdate(presetID, preset)
                 }}
                 boundary={{ min: 0, max: 100 }} />
 
               <NumberAndBarInput
                 title="Mic Height"
-                value={0}
+                value={bot.module.state!.gripPosition}
                 setValue={(value: number) => {
-                  // fleet[botID].targetPose.position[0] = value
-                  // fleetUpdate(fleet)
+                  bot.module.state!.gripPosition = value
+                  presetUpdate(presetID, preset)
                 }}
                 boundary={{ min: 0, max: 100 }} />
                 </Fragment>

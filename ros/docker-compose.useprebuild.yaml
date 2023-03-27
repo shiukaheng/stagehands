@@ -6,7 +6,7 @@ services:
       - ./basebot/prebuild/build:/catkin_ws/build
       - ./basebot/prebuild/install:/catkin_ws/install
       # - ./basebot/prebuild/js/main_node_modules:/catkin_ws/src/stagehands-js/node_modules
-      - ./basebot/prebuild/js/bot_dist:/catkin_ws/src/stagehands-js/packages/bot/dist
+      - ./basebot/prebuild/js/bot_dist:/catkin_ws/src/stagehands-js/packages/schema/dist
       - ./basebot/prebuild/js/schema_dist:/catkin_ws/src/stagehands-js/packages/schema/dist
       - ./basebot/prebuild/js/utils_dist:/catkin_ws/src/stagehands-js/packages/utils/dist
       # - ./basebot/prebuild/js/bridge_node_modules:/catkin_ws/src/stagehands-js/packages/bridge/node_modules

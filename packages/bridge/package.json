@@ -10,7 +10,7 @@
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --runInBand ",
     "mock-test": "nodemon --exec node --experimental-specifier-resolution=node --loader ts-node/esm src/test/presetCRUD.ts",
     "dev": "nodemon --exec node --experimental-specifier-resolution=node --loader ts-node/esm src/server.ts",
-    "build": "rimraf ./build && tsc",
+    "build": "tsc",
     "start": "npm run build && node ./build/index.js",
     "ipTest": "nodemon --exec node --experimental-specifier-resolution=node --loader ts-node/esm src/utils/ipRetrival.ts",
     "pairingTest": "nodemon --exec node --experimental-specifier-resolution=node --loader ts-node/esm src/test/utils/dummyBotPairingServer.ts",

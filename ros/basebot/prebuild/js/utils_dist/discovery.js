@@ -49,11 +49,13 @@ function retrieveIps() {
 exports.retrieveIps = retrieveIps;
 exports.defaultPairingClientOptions = {
     pairingPort: 3535,
+    periodicAdvertisementInterval: 5000
 };
 class PairingClient {
     constructor(options = {}) {
         this.pairingSubscribers = new Set();
         this.disconnectionSubscribers = new Set();
+        this.periodicAdvertisementInterval = null;
         this.options = Object.assign(Object.assign({}, exports.defaultPairingClientOptions), options);
         this.name = null;
         this.mdns = getMdns();
@@ -111,6 +113,7 @@ class PairingClient {
                 }
                 const [question] = query.questions;
                 if (question && question.type === 'PTR' && question.name === '_stagehands_pairing._tcp.local') {
+                    console.log('Responding to stagehands_pairing query');
                     this.mdns.respond({
                         answers: [{
                                 name: '_stagehands_pairing._tcp.local',
@@ -132,12 +135,48 @@ class PairingClient {
                     });
                 }
             });
+            this.periodicAdvertisementInterval = setInterval(() => this.periodicAdvertise(), this.options.periodicAdvertisementInterval);
+        });
+    }
+    periodicAdvertise() {
+        const deviceAns = [];
+        for (const ip of this.ips) {
+            deviceAns.push({
+                name: `${this.name}-stagehands.local`,
+                type: 'A',
+                ttl: 300,
+                data: ip
+            });
+        }
+        console.log('Periodic advertisement');
+        this.mdns.respond({
+            answers: [{
+                    name: '_stagehands_pairing._tcp.local',
+                    type: 'PTR',
+                    data: `${this.name} Pairing Service._stagehands_pairing._tcp.local`
+                }, {
+                    name: `${this.name} Pairing Service._stagehands_pairing._tcp.local`,
+                    type: 'SRV',
+                    data: {
+                        port: 3535,
+                        weight: 0,
+                        priority: 0,
+                        target: `${this.name}-stagehands.local`
+                    }
+                },
+                //@ts-ignore
+                ...deviceAns
+            ]
         });
     }
     stopAdvertise() {
         return __awaiter(this, void 0, void 0, function* () {
             // Stop advertising stagehands_pairing service
             this.mdns.destroy();
+            if (this.periodicAdvertisementInterval) {
+                clearInterval(this.periodicAdvertisementInterval);
+                this.periodicAdvertisementInterval = null;
+            }
         });
     }
 }

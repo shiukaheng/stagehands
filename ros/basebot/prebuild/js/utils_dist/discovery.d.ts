@@ -7,6 +7,7 @@ import { TopicClient } from "webtopics";
 export declare function retrieveIps(): string[];
 export interface IPairingClientOptions {
     pairingPort: number;
+    periodicAdvertisementInterval: number;
 }
 export declare const defaultPairingClientOptions: IPairingClientOptions;
 export type PairingRequestArgs = {
@@ -24,6 +25,7 @@ export declare class PairingClient {
     private options;
     private pairingSubscribers;
     private disconnectionSubscribers;
+    private periodicAdvertisementInterval;
     constructor(options?: Partial<IPairingClientOptions>);
     private publishRequest;
     subscribeRequest(listener: PairingListener): Unsubscriber;
@@ -32,6 +34,7 @@ export declare class PairingClient {
     subscribeDisconnect(listener: DisconnectionListener): Unsubscriber;
     unsubscribeDisconnect(listener: DisconnectionListener): void;
     startAdvertise(): Promise<void>;
+    periodicAdvertise(): void;
     stopAdvertise(): Promise<void>;
 }
 export type Listener = (new_clients: Map<string, TopicClient>) => void;

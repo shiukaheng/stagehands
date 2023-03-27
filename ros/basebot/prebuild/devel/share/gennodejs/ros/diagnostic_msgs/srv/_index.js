@@ -1,4 +1,4 @@
 module.exports = {
-  SelfTest: require('./SelfTest.js'),
   AddDiagnostics: require('./AddDiagnostics.js'),
+  SelfTest: require('./SelfTest.js'),
 };

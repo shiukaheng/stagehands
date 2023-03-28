@@ -20,7 +20,8 @@ module.exports = {
     //   allowlist: ['schema', 'utils', 'uuid-readable', 'multicast-dns', 'webtopics', "dns-packet"]
     // }),
     // Disallow anything used by rosnodejs using regex
-    { rosnodejs: /^rosnodejs/ },
+    // { rosnodejs: 'commonjs rosnodejs' },
+    // { 'rosnodejs/dist/roslib': 'commonjs rosnodejs/dist/roslib' },
     
   ],
   // mode: 'production',

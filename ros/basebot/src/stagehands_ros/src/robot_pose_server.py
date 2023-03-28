@@ -22,20 +22,20 @@ LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
 LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 
-from grove import helper
-from grove.helper import helper
-helper.root_check()
+# from grove import helper
+# from grove.helper import helper
+# helper.root_check()
 
-from grove.helper import SlotHelper
-sh = SlotHelper(SlotHelper.PWM)
-pin = sh.argv2pin(" [led-count]")
+# from grove.helper import SlotHelper
+# sh = SlotHelper(SlotHelper.PWM)
+# pin = sh.argv2pin(" [led-count]")
 
-# import sys
-count = 30
-# if len(sys.argv) >= 3:
-#     count = int(sys.argv[2])
+# # import sys
+# count = 30
+# # if len(sys.argv) >= 3:
+# #     count = int(sys.argv[2])
 
-strip = GroveWS2813RgbStrip(pin, count)
+# strip = GroveWS2813RgbStrip(pin, count)
 
 # attempt to detect arduino port
 arduino_port = "/dev/ttyACM1" # safe? default?? value?????

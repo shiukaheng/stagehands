@@ -60,7 +60,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
                     preset.state[botID].targetPose.position[0] = value
                     presetUpdate(presetID, preset)
                   }}
-                  boundary={{ min: 0, max: 100 }} />
+                  boundary={{ min: -5, max: 5 }} />
 
                 <NumberAndBarInput
                   title="Y"
@@ -69,7 +69,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
                     preset.state[botID].targetPose.position[2] = value
                     presetUpdate(presetID, preset)
                   }}
-                  boundary={{ min: 0, max: 100 }} />
+                  boundary={{ min: -5, max: 5 }} />
 
                 <PresetModuleComponents bot={bot} presetID={presetID} preset={preset} presetUpdate={presetUpdate} />
 

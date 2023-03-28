@@ -135,7 +135,6 @@ def publish_current_pose():
                 mic = ser.read_until().decode('utf-8').rstrip("\r\n").split(",")
                 pose.currentMicHeight = float(mic[0])
                 pose.currentMicAngle = float(mic[1])
-
             else: 
                 pose.currentMicHeight = -1
                 pose.currentMicAngle = -1
@@ -144,7 +143,7 @@ def publish_current_pose():
             print('pose:')
             print(pose)
             
-        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException, ValueError):
+        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException, ValueError, IndexError):
             print('unable to publish updated pose')
             pub.publish(pose)
             continue

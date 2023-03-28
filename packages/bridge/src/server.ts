@@ -52,7 +52,7 @@ export class BridgeServer {
 
     this.controller.serverSub(fleetTopic, fleetTopicHandler);
     this.controller.serverSub(serverMetaChannel,serverMetaHandler);
-    
+
     this.controller.runService(createPresetService, createPresetServiceHandler);
     this.controller.runService(updatePresetService, updatePresetServiceHandler);
     this.controller.runService(deletePresetService, deletePresetServiceHandler);

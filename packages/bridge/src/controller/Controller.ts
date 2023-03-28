@@ -92,7 +92,7 @@ export class Controller {
                     }
                 })
             });
-            console.log(this.context.getBotConnectionState());
+            //console.log(this.context.getBotConnectionState());
             
             this.server.pub(botConnectionStatusTopic, this.context.getBotConnectionState());
         }, 2000);

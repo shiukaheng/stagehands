@@ -14,9 +14,11 @@ class SerialPositionalPIDClient {
     private:
         String _inputBuffer;
         PositionalPIDMotor* _motor;
+        PositionalPIDMotor* _motor2;
     public:
-        SerialPositionalPIDClient(PIDMotorConfig config);
+        SerialPositionalPIDClient(PIDMotorConfig config, PIDMotorConfig config2);
         ~SerialPositionalPIDClient();
         void update();
         void isr();
+        void isr2();
 };

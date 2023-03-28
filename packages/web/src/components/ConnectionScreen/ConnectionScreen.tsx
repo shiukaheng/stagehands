@@ -4,6 +4,7 @@ import PreviewBotCanvas from './PreviewBotCanvas';
 import { ServiceContext, TopicContext } from 'web/src/contexts/ServerContext';
 import { createContext, useContext, useState } from 'react';
 import screenSelectionContext from 'web/src/contexts/WhichScreenContext';
+import { BotState } from 'schema';
 
 export interface IHoveredBot {
   hoverBotID: string
@@ -23,12 +24,24 @@ export const hoveredBotContext = createContext<IHoveredBot>({
 
   )*/}
 
+export function ConnectedBotInfo({ botState, botID }: { botState: BotState, botID: string}) {
+  const [hoverBotID] = useState<string>("");
+  if (botState.name === hoverBotID) {
+    return (
+      "it works"
+    )
+  }
+}
+
 export function ConnectionScreen() {
   const serviceProvider = useContext(ServiceContext);
   const { screenSelection } = useContext(screenSelectionContext);
   const [hoverBotID, setBotID] = useState<string>("");
   const hoverContextValue = { hoverBotID, setBotID};
   // const provider = useContext(TopicContext);
+  const hoverConditionalConnected = hoverBotID === "connected"
+  const hoverConditionalDisconnected = hoverBotID === "disconnected"
+  const hoverConditionalNone = hoverBotID === ""
     return (
       <div className="ui-div ui-shadow flex flex-col h-full">
         
@@ -46,7 +59,20 @@ export function ConnectionScreen() {
               <PreviewBotCanvas />
               {/* below canvas details start */}
             </div>
-            <div className="m-5 h-12 ui-shadow ui-div ui-highlight p-2 font-bold">Bot info {hoverBotID}</div> {/* selected bot info goes here */}
+            { hoverConditionalConnected ? (
+              <div className="m-5 h-12 ui-shadow ui-div ui-highlight p-2 font-bold">
+                {serviceProvider?.fleet && Object.entries(serviceProvider.fleet).map(([key, value]) => (
+                                <ConnectedBotInfo botStatus={value} key={key} botID={key} />))}
+              </div>
+            ) : (
+              hoverConditionalDisconnected ? (
+                <div className="m-5 h-12 ui-shadow ui-div ui-highlight p-2 font-bold">This bot is disconnected</div>
+              ) : (
+                <div className="m-5 h-12 ui-shadow ui-div ui-highlight p-2 font-bold">Hover over an available bot for potential information</div>
+            )
+            )
+            }
+            
           </div>
           {/* below canvas details end */}
 

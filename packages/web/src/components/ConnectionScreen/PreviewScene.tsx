@@ -2,6 +2,8 @@ import { Fragment, useState, useContext } from 'react';
 // import { TopicContext } from '../../contexts/ServerContext';
 // import Bot from './3d/Bot';
 import { SpotLight, useDepthBuffer } from '@react-three/drei';
+import Bot from '../Stage/3d/Bot';
+import { TopicContext } from 'web/src/contexts/ServerContext';
 
 /**
  * PreviewScene
@@ -9,7 +11,7 @@ import { SpotLight, useDepthBuffer } from '@react-three/drei';
  * @return Fragment with the lighting and plane for the stage
  */
 export function PreviewScene() {
-  // const provider = useContext(TopicContext);
+  const provider = useContext(TopicContext);
   const depthBuffer = useDepthBuffer()
   // render the mic stands on the plane
   return (
@@ -33,11 +35,13 @@ export function PreviewScene() {
         <planeGeometry args={[1000, 1000]} />
         <meshStandardMaterial color="white" />
       </mesh>
-      {/*
-        provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
-          <Bot module={value} key={key} />
-        ))
-        */}
+      {
+      provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
+          <Fragment key={key}>
+            <Bot module={value}/>
+          </Fragment>
+      )) 
+      }
     </Fragment>
   )
 }

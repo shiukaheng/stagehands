@@ -81,7 +81,7 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
                   fleet[botID].targetPose.position[0] = value
                   fleetUpdate(fleet)
                 }}
-                boundary={{ min: 0, max: 100 }} />
+                boundary={{ min: -5, max: 5 }} />
 
               <NumberAndBarInput
                 title="Y"
@@ -90,7 +90,7 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
                   fleet[botID].targetPose.position[2] = value
                   fleetUpdate(fleet)
                 }}
-                boundary={{ min: 0, max: 100 }} />
+                boundary={{ min: -5, max: 5 }} />
 
               <FleetModuleComponents bot={bot} fleet={fleet} fleetUpdate={fleetUpdate} />
 

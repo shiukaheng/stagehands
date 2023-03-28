@@ -35,5 +35,7 @@ export function AvailableBotWidget({ botStatus, botID }: { botStatus: string, bo
                     {botID} - {botStatus}{/*{botState.name} - {botState.status}/disconnected*/}
                 </button>
             )
+    } else{
+        throw new Error("Bot status not recognised")
     }
 }

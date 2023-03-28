@@ -60,6 +60,7 @@ add_service_files(
   arucoRecordPoses.srv
   arucoAveragePose.srv
   dummyOrientationTest.srv
+  dummyLEDTest.srv
 )
 
 ## Generate actions in the 'action' folder

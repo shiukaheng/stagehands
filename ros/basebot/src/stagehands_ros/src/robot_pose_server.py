@@ -6,7 +6,9 @@ import tf
 import actionlib
 import serial
 
-from stagehands_ros.srv import setTargetPose,setTargetPoseResponse, dummyOrientationTest, dummyOrientationTestResponse
+from stagehands_ros.srv import setTargetPose,setTargetPoseResponse
+from stagehands_ros.srv import dummyOrientationTest, dummyOrientationTestResponse
+from stagehands_ros.srv import dummyLEDTest, dummyLEDTestResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs.msg import Pose, Point, Quaternion
@@ -20,20 +22,20 @@ LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
 LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 
-# from grove import helper
-# from grove.helper import helper
-# helper.root_check()
+from grove import helper
+from grove.helper import helper
+helper.root_check()
 
-# from grove.helper import SlotHelper
-# sh = SlotHelper(SlotHelper.PWM)
-# pin = sh.argv2pin(" [led-count]")
+from grove.helper import SlotHelper
+sh = SlotHelper(SlotHelper.PWM)
+pin = sh.argv2pin(" [led-count]")
 
-# # import sys
-# count = 30
-# # if len(sys.argv) >= 3:
-# #     count = int(sys.argv[2])
+# import sys
+count = 30
+# if len(sys.argv) >= 3:
+#     count = int(sys.argv[2])
 
-# strip = GroveWS2813RgbStrip(pin, count)
+strip = GroveWS2813RgbStrip(pin, count)
 
 # attempt to detect arduino port
 arduino_port = "/dev/ttyACM1" # safe? default?? value?????
@@ -49,44 +51,34 @@ try:
 except serial.SerialException:
     micModuleExists = False
 
-def set_target_pose(req):
+def send_LED_colour(red, green, blue, animation, frequency):
     """
     This function is called when a request is made to the set_target_pose service.
-    It sets the target pose of the robot to the pose specified in the request (including pose, mic height and LED colour).
-    :param req: The request message containing the target pose, mic height and LED colour.
-    :return: A response message confirming that the target pose has been set.
+    It sends signals to the LED strip of the robot.
+    :param red: The red value of the LED colour.
+    :param green: The green value of the LED colour.
+    :param blue: The blue value of the LED colour.
+    :param animation: The animation setting (flashing or constant).
+    :param frequency: The frequency of the flashing animation in Hz."""
+
+    ledColour = Color(red, green, blue)
+    if (animation== "constant"):
+        strip.light_all_leds(ledColour)
+        # print('LED animation is constant')
+        rospy.loginfo('LED animation is constant')
+    elif (animation == "flashing"):
+        strip.flashing_leds(ledColour, frequency)
+        # print('flashing')
+        rospy.loginfo('LED animation is flashing')
+    # print(ledColour)
+    rospy.loginfo(ledColour)
+
+def send_mic_orientation(micHeight, micAngle):
     """
-    # set the led strip to the colour and animation routine specified in the request
-    # (red, green, blue) = req.ledRGBColour
-    # ledColour = Color(red, green, blue)
-    # if (req.ledAnimation== "constant"):
-    #     # strip.light_all_leds(ledColour)
-    #     # print('LED animation is constant')
-    #     rospy.loginfo('LED animation is constant')
-    # elif (req.ledAnimation == "flashing"):
-    #     # strip.flashing_leds(ledColour, req.flashFrequency)
-    #     # print('flashing')
-    #     rospy.loginfo('LED animation is flashing')
-    # # print(ledColour)
-    # rospy.loginfo(ledColour)
-
-    # Create an action client called "move_base" with action definition file "MoveBaseAction"
-    # client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
- 
-    # # Waits until the action action_server has started up and started listening for goals.
-    # client.wait_for_server()
-
-    # # Creates a new goal with the MoveBaseGoal constructor
-    # goal = MoveBaseGoal()
-    # goal.target_pose.header.frame_id = "map"
-    # goal.target_pose.header.stamp = rospy.Time.now()
-    # # log goal to ros console
-    # rospy.loginfo(goal)
-    
-    # pose = Pose(Point(req.xPos, req.yPos, 0.000), Quaternion(req.rotationQuaternion[0], req.rotationQuaternion[1], req.rotationQuaternion[2], req.rotationQuaternion[3]))
-    # goal.target_pose.pose = pose
-
-    # probs not how this works but lol
+    This function is called when a request is made to the set_target_pose service.
+    It sets the mic configuration of the robot: mic height and angle.
+    :param micHeight: The height of the mic module in cm.
+    :param micAngle: The angle of the mic module in degrees."""
     if micModuleExists:
         valid = False
         # while True:
@@ -102,26 +94,71 @@ def set_target_pose(req):
             current_val_from_serial = ser.read_until().decode('utf-8').rstrip("\r\n")
             rospy.loginfo(current_val_from_serial)
             if current_val_from_serial not in "ZEROING":
-                # ser.write((str(req.micHeight)+","+str(req.micAngle)).encode('utf-8'))
-                ser.write(req.MicHeightCommaAngle.encode('utf-8'))
+                ser.write((str(micHeight)+","+str(micAngle)).encode('utf-8'))
                 valid = True
                 rospy.loginfo("Mic value sent correctly")
             else:
                 rospy.logwarn("Mic is likely zeroing, waiting for it to finish")
 
+def send_goal_pose_ros(xPos, yPos, rotationQuaternion):
+    """
+    This function is called when a request is made to the set_target_pose service.
+    It sends a goal pose to the ROS navigation stack.
+    :param xPos: The x position of the goal pose.
+    :param yPos: The y position of the goal pose.
+    :param rotationQuaternion: The rotation of the goal pose as a quaternion."""
+
+    # Create an action client called "move_base" with action definition file "MoveBaseAction"
+    client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
+ 
+    # Waits until the action action_server has started up and started listening for goals.
+    client.wait_for_server()
+
+    # Creates a new goal with the MoveBaseGoal constructor
+    goal = MoveBaseGoal()
+    goal.target_pose.header.frame_id = "map"
+    goal.target_pose.header.stamp = rospy.Time.now()
+    # log goal to ros console
+    rospy.loginfo(goal)
+    
+    pose = Pose(Point(xPos, yPos, 0.000), Quaternion(rotationQuaternion[0], rotationQuaternion[1], rotationQuaternion[2], rotationQuaternion[3]))
+    goal.target_pose.pose = pose
 
     # Sends the goal to the action action_server.
-    # client.send_goal(goal)
-    # # Waits for the action_server to finish performing the action.
-    # wait = client.wait_for_result()
-    # # If the result doesn't arrive, assume the Server is not available
-    # if not wait:
-    #     rospy.logerr("Action action_server not available!")
-    #     rospy.signal_shutdown("Action action_server not available!")
+    client.send_goal(goal)
+    # Waits for the action_server to finish performing the action.
+    wait = client.wait_for_result()
+    # If the result doesn't arrive, assume the Server is not available
+    if not wait:
+        rospy.logerr("Action action_server not available!")
+        rospy.signal_shutdown("Action action_server not available!")
     # else:
     # # Result of executing the action
     #     # return setTargetPoseResponse(str(client.get_result()))
     #     return dummyOrientationTestResponse(str(client.get_result()))
+
+def set_target_pose(req):
+    """
+    This function is called when a request is made to the set_target_pose service.
+    It sets the target pose of the robot to the pose specified in the request (including pose, mic height and LED colour).
+    :param req: The request message containing the target pose, mic height and LED colour.
+    :return: A response message confirming that the target pose has been set.
+    """
+    # working with dummy test message that directly takes the rgb values in a string separated by commas
+    colour = req.RGBValue.split[","]
+    send_LED_colour(int(colour[0]), int(colour[1]), int(colour[2]), "constant", -1)
+
+    # for the actual intended service request type, it is this:
+    # send_LED_colour(req.ledColour[0], req.ledColour[1], req.ledColour[2], req.ledAnimation, req.ledFrequency)
+
+    # working with dummy test service that just directly takes the string format used by arduino
+    # mic = req.micHeightcommaAngle.split(",")
+    # send_mic_orientation(float(mic[0]), float(mic[1]))
+
+    # for the actual intended service request type, it is this:
+    # send_mic_orientation(req.micHeight, req.micAngle)
+
+    # send_goal_pose_ros(req.xPos, req.yPos, req.rotationQuaternion)
     return dummyOrientationTestResponse("lol")
 
 def publish_current_pose():
@@ -168,7 +205,8 @@ def action_server():
     This function creates a service action_server called set_target_pose.
     """
     # s = rospy.Service('set_target_pose', setTargetPose, set_target_pose)
-    s = rospy.Service('set_target_pose', dummyOrientationTest, set_target_pose)
+    # s = rospy.Service('set_target_pose', dummyOrientationTest, set_target_pose)
+    s = rospy.Service('set_target_pose', dummyLEDTest, set_target_pose)
     print('action action_server running')
 
 if __name__ == '__main__':

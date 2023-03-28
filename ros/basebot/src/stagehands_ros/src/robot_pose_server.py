@@ -160,7 +160,7 @@ def set_target_pose(req):
     # send_mic_orientation(req.micHeight, req.micAngle)
 
     # send_goal_pose_ros(req.xPos, req.yPos, req.rotationQuaternion)
-    return dummyOrientationTestResponse("lol")
+    return dummyLEDTestResponse("lol")
 
 def publish_current_pose():
     """

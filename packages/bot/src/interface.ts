@@ -17,7 +17,7 @@ export class WebtopicROSInterface {
         this.connectedToROSResolver = resolve;
     })
     private initBotState: BotState = {
-        name: "alice",
+        name: "",
         pose: {
             position: [0, 0, 0],
             quaternion: [0, 0, 0, 1]
@@ -144,6 +144,7 @@ export class WebtopicROSInterface {
 
             if (data.module.state != null) {
                 requestedPose.micHeight = data.module.state.gripPosition
+                requestedPose.micAngle = data.module.state.gripAngle
             }
 
             else { requestedPose.micHeight = null }

@@ -44,14 +44,24 @@ export function useService<T extends RequestType, U extends ServiceResponseType>
                 console.log(`Using cached client for ${url}`);
             }
             clientRef.current = client;
-            client.getServerID().then((id) => {
-                console.log("Ready",readyRef.current)
-                serverIDRef.current = id;
-                readyRef.current = true;
-                setReady(true);
-            }).catch((err) => {
-                console.error(err);
-            });
+            // client.getServerID().then((id) => {
+            //     console.log("Ready",readyRef.current)
+            //     serverIDRef.current = id;
+            //     readyRef.current = true;
+            //     setReady(true);
+            // }).catch((err) => {
+            //     console.error(err);
+            // });
+            setTimeout(() => {
+                client.getServerID().then((id) => {
+                    console.log("Ready",readyRef.current)
+                    serverIDRef.current = id;
+                    readyRef.current = true;
+                    setReady(true);
+                }).catch((err) => {
+                    console.error(err);
+                });
+            }, 100);
         }
     }, [url, channel, clientCache]);
     const callback = useCallback((data: T, dest?: string) => {

@@ -14,37 +14,6 @@ export class Context {
     private server: TopicServer;
     private serverPort: number;
 
-    /**
-     * Get the server port number.
-     * @returns The port number.
-     */
-    public getServerPort(): number {
-        return this.serverPort;
-    }
-
-    /**
-     * Set the server port number.
-     * @param serverPort The port number.
-     */
-    public setServerPort(serverPort: number): void {
-        this.serverPort = serverPort;
-    }
-
-    /**
-     * Get the TopicServer instance.
-     * @returns The TopicServer instance.
-     */
-    public getServer(): TopicServer {
-        return this.server;
-    }
-
-    /**
-     * Set the TopicServer instance.
-     * @param server The TopicServer instance.
-     */
-    public setServer(server: TopicServer): void {
-        this.server = server;
-    }
 
     private botConnectionState: BotConnectionStatus[];
     private availableBotNameTopicClientMap: Map<string, TopicClient>;
@@ -151,5 +120,35 @@ export class Context {
     public setBotConnectionState(domainNameList: BotConnectionStatus[]): void {
         this.botConnectionState = domainNameList;
     }
+    /**
+     * Get the server port number.
+     * @returns The port number.
+     */
+    public getServerPort(): number {
+    return this.serverPort;
+    }
 
+    /**
+     * Set the server port number.
+     * @param serverPort The port number.
+     */
+    public setServerPort(serverPort: number): void {
+    this.serverPort = serverPort;
+    }
+
+    /**
+     * Get the TopicServer instance.
+     * @returns The TopicServer instance.
+     */
+    public getServer(): TopicServer {
+    return this.server;
+    }
+
+    /**
+     * Set the TopicServer instance.
+     * @param server The TopicServer instance.
+     */
+    public setServer(server: TopicServer): void {
+    this.server = server;
+    }
 }

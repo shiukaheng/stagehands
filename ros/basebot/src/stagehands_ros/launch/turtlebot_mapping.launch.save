@@ -10,16 +10,7 @@
 
     <arg name="running_on_robot" default="false"/>
 
-    <group if="$(arg running_on_robot)">
-        <!-- Launch turtlebot3 bringup-->
-        <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
-    </group>
-
-    <group unless="$(arg running_on_robot)">
-        <!-- Launch turtlebot3 bringup-->
-        <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch"/>
-    </group>
-
+    
 
     <!-- SLAM Node -->
     <include file="$(find ros_autonomous_slam)/launch/turtlebot3_slam.launch">

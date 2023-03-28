@@ -10,7 +10,7 @@ function LiveBotWidget({ botState, botID }: { botState: BotState, botID: string}
     return (
         <button
             id={botState.name}
-            className="ui-shadow ui-highlight ui-div snap-center font-bold box-border h-32 w-64 rounded px-8"
+            className="ui-shadow ui-highlight ui-div snap-center font-bold box-border h-32 w-64 rounded p-4"
             onClick={() => {
                 setComponentSelect({type: "live_attributes_page", bot :botState, botID : botID})
             }}>
@@ -27,7 +27,7 @@ function LiveBotWidget({ botState, botID }: { botState: BotState, botID: string}
                 <tbody>
                     <tr>
                         <td className="w-1/2">Name</td>
-                        <td className="w-1/2">{botState.name}</td>
+                        <td className="w-1/2 text-center">{botState.name}</td>
                     </tr>
                     <tr>
                         <td className="w-1/2">Status</td>
@@ -35,7 +35,7 @@ function LiveBotWidget({ botState, botID }: { botState: BotState, botID: string}
                     </tr>
                     <tr>
                         <td className="w-1/2">Module</td>
-                        <td className="w-1/2">{botState.module.type}</td>
+                        <td className="w-1/2 text-center">{botState.module.type}</td>
                     </tr>
                 </tbody>
             </table>

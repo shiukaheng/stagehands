@@ -92,24 +92,6 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
 
               <FleetModuleComponents bot={bot} fleet={fleet} fleetUpdate={fleetUpdate} />
 
-              {/* <NumberAndBarInput
-                title="Angle"
-                value={0}
-                setValue={(value: number) => {
-                  // fleet[botID].targetPose.position[0] = value
-                  // fleetUpdate(fleet)
-                }}
-                boundary={{ min: 0, max: 100 }} />
-
-              <NumberAndBarInput
-                title="Mic Height"
-                value={0}
-                setValue={(value: number) => {
-                  // fleet[botID].targetPose.position[0] = value
-                  // fleetUpdate(fleet)
-                }}
-                boundary={{ min: 0, max: 100 }} /> */}
-
               <tr>
                 <th>LED </th>
                 <td>

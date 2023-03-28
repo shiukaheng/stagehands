@@ -70,7 +70,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
                   }}
                   boundary={{ min: 0, max: 100 }} />
 
-                <PresetModuleComponents bot={bot} preset={preset} presetUpdate={presetUpdate} />
+                <PresetModuleComponents bot={bot} presetID={presetID} preset={preset} presetUpdate={presetUpdate} />
 
                 <tr>
                   <th>LED </th>

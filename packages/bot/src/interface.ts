@@ -17,7 +17,7 @@ export class WebtopicROSInterface {
         this.connectedToROSResolver = resolve;
     })
     private initBotState: BotState = {
-        name: "alice",
+        name: "",
         pose: {
             position: [0, 0, 0],
             quaternion: [0, 0, 0, 1]
@@ -94,7 +94,7 @@ export class WebtopicROSInterface {
             // isn't a module attached)
             if (data.currentMicHeight != null) {
                 mod.type = "micStand"
-                mod.state = { gripPosition: data.currentMicHeight}
+                mod.state = { gripPosition: data.currentMicHeight, gripAngle: 0 }
             }
             // define schema containing bot current location
             this.initBotState.pose.position = [data.xPos, 0, data.yPos]
@@ -144,6 +144,7 @@ export class WebtopicROSInterface {
 
             if (data.module.state != null) {
                 requestedPose.micHeight = data.module.state.gripPosition
+                requestedPose.micAngle = data.module.state.gripAngle
             }
 
             else { requestedPose.micHeight = null }

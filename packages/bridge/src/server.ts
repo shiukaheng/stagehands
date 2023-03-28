@@ -13,11 +13,15 @@ import {
   runPresetService,
   overWriteBotLEDService,
   botConnectionStatusTopic,
+  connectBotService,
+  disconnectBotService,
 } from "schema";
 import { Controller } from "./controller/Controller";
 import {
+  connectBotServiceHandler,
   createPresetServiceHandler,
   deletePresetServiceHandler,
+  disconnectBotServiceHandler,
   emergencyStopClearServiceHandler,
   emergencyStopServiceHandler,
   overWriteBotLEDServiceHandler,
@@ -40,11 +44,10 @@ export class BridgeServer {
   constructor() {
     this.controller = new Controller();
     this.controller.serverPub(stageTopic);
-    this.controller.server.pub(stageTopic, this.controller.getContext().getStageState());
 
-    setInterval(() => {
-      this.controller.server.pub(botConnectionStatusTopic, this.controller.getContext().getBotConnectionState());
-    }, 500);
+    // setInterval(() => {
+    //   this.controller.server.pub(botConnectionStatusTopic, this.controller.getContext().getBotConnectionState());
+    // }, 500);
 
     this.controller.serverSub(fleetTopic, fleetTopicHandler);
     this.controller.runService(createPresetService, createPresetServiceHandler);
@@ -58,6 +61,8 @@ export class BridgeServer {
     this.controller.runService(reorderPresetsService, reorderPresetsServiceHandler);
     this.controller.runService(runPresetService, runPresetServiceHandler);
     this.controller.runService(overWriteBotLEDService, overWriteBotLEDServiceHandler);
+    this.controller.runService(connectBotService, connectBotServiceHandler)
+    this.controller.runService(disconnectBotService, disconnectBotServiceHandler)
     this.controller.runPairingService();
   }
 

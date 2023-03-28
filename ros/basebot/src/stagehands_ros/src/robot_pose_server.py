@@ -6,7 +6,7 @@ import tf
 import actionlib
 import serial
 
-from stagehands_ros.srv import setTargetPose,setTargetPoseResponse
+from stagehands_ros.srv import setTargetPose,setTargetPoseResponse, dummyOrientationTest, dummyOrientationTestResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs.msg import Pose, Point, Quaternion
@@ -57,34 +57,34 @@ def set_target_pose(req):
     :return: A response message confirming that the target pose has been set.
     """
     # set the led strip to the colour and animation routine specified in the request
-    (red, green, blue) = req.ledRGBColour
-    ledColour = Color(red, green, blue)
-    if (req.ledAnimation== "constant"):
-        # strip.light_all_leds(ledColour)
-        # print('LED animation is constant')
-        rospy.loginfo('LED animation is constant')
-    elif (req.ledAnimation == "flashing"):
-        # strip.flashing_leds(ledColour, req.flashFrequency)
-        # print('flashing')
-        rospy.loginfo('LED animation is flashing')
-    # print(ledColour)
-    rospy.loginfo(ledColour)
+    # (red, green, blue) = req.ledRGBColour
+    # ledColour = Color(red, green, blue)
+    # if (req.ledAnimation== "constant"):
+    #     # strip.light_all_leds(ledColour)
+    #     # print('LED animation is constant')
+    #     rospy.loginfo('LED animation is constant')
+    # elif (req.ledAnimation == "flashing"):
+    #     # strip.flashing_leds(ledColour, req.flashFrequency)
+    #     # print('flashing')
+    #     rospy.loginfo('LED animation is flashing')
+    # # print(ledColour)
+    # rospy.loginfo(ledColour)
 
     # Create an action client called "move_base" with action definition file "MoveBaseAction"
-    client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
+    # client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
  
-    # Waits until the action action_server has started up and started listening for goals.
-    client.wait_for_server()
+    # # Waits until the action action_server has started up and started listening for goals.
+    # client.wait_for_server()
 
-    # Creates a new goal with the MoveBaseGoal constructor
-    goal = MoveBaseGoal()
-    goal.target_pose.header.frame_id = "map"
-    goal.target_pose.header.stamp = rospy.Time.now()
-    # log goal to ros console
-    rospy.loginfo(goal)
+    # # Creates a new goal with the MoveBaseGoal constructor
+    # goal = MoveBaseGoal()
+    # goal.target_pose.header.frame_id = "map"
+    # goal.target_pose.header.stamp = rospy.Time.now()
+    # # log goal to ros console
+    # rospy.loginfo(goal)
     
-    pose = Pose(Point(req.xPos, req.yPos, 0.000), Quaternion(req.rotationQuaternion[0], req.rotationQuaternion[1], req.rotationQuaternion[2], req.rotationQuaternion[3]))
-    goal.target_pose.pose = pose
+    # pose = Pose(Point(req.xPos, req.yPos, 0.000), Quaternion(req.rotationQuaternion[0], req.rotationQuaternion[1], req.rotationQuaternion[2], req.rotationQuaternion[3]))
+    # goal.target_pose.pose = pose
 
     # probs not how this works but lol
     if micModuleExists:
@@ -92,21 +92,24 @@ def set_target_pose(req):
             mic = ser.read_until().decode('utf-8').rstrip("\r\n").split(",")
             x = float(mic[0])
             y = float(mic[1])
-            ser.write(str(req.micHeight)+","+str(req.micAngle))
-        except Exception:
+            # ser.write(str(req.micHeight)+","+str(req.micAngle))
+            ser.write(req.micHeightcommaAngle)
+        except (ValueError, IndexError):
             pass
 
     # Sends the goal to the action action_server.
-    client.send_goal(goal)
-    # Waits for the action_server to finish performing the action.
-    wait = client.wait_for_result()
-    # If the result doesn't arrive, assume the Server is not available
-    if not wait:
-        rospy.logerr("Action action_server not available!")
-        rospy.signal_shutdown("Action action_server not available!")
-    else:
-    # Result of executing the action
-        return setTargetPoseResponse(str(client.get_result()))
+    # client.send_goal(goal)
+    # # Waits for the action_server to finish performing the action.
+    # wait = client.wait_for_result()
+    # # If the result doesn't arrive, assume the Server is not available
+    # if not wait:
+    #     rospy.logerr("Action action_server not available!")
+    #     rospy.signal_shutdown("Action action_server not available!")
+    # else:
+    # # Result of executing the action
+    #     # return setTargetPoseResponse(str(client.get_result()))
+    #     return dummyOrientationTestResponse(str(client.get_result()))
+    return dummyOrientationTestResponse("lol")
 
 def publish_current_pose():
     """
@@ -152,7 +155,8 @@ def action_server():
     """
     This function creates a service action_server called set_target_pose.
     """
-    s = rospy.Service('set_target_pose', setTargetPose, set_target_pose)
+    # s = rospy.Service('set_target_pose', setTargetPose, set_target_pose)
+    s = rospy.Service('set_target_pose', dummyOrientationTest, set_target_pose)
     print('action action_server running')
 
 if __name__ == '__main__':

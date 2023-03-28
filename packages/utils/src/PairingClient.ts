@@ -37,7 +37,7 @@ export interface IPairingClientOptions {
 }
 
 export const defaultPairingClientOptions: IPairingClientOptions = {
-    pairingPort: 3535,
+    pairingPort: 3435,
     periodicAdvertisementInterval: 5000
 }
 

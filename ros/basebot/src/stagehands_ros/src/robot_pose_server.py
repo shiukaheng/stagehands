@@ -45,7 +45,7 @@ for p in list(serial.tools.list_ports.comports()):
 micModuleExists = True
 try:
     ser = serial.Serial(arduino_port, 115200)
-    print("Mic module connected at: " + arduino_port)
+    print("Mic module connected at: " + arduino_port + ", communicating over serial")
 except serial.SerialException:
     micModuleExists = False
 
@@ -88,17 +88,27 @@ def set_target_pose(req):
 
     # probs not how this works but lol
     if micModuleExists:
-        while True:
-            try:
-                mic = ser.read_until().decode('utf-8').rstrip("\r\n").split(",")
-                rospy.logwarn(mic)
-                x = float(mic[0])
-                y = float(mic[1])
-                # ser.write(str(req.micHeight)+","+str(req.micAngle))
-                ser.write(req.micHeightcommaAngle.encode('utf-8'))
-                break
-            except (ValueError, IndexError):
-                pass
+        valid = False
+        # while True:
+        #     try:
+        #         mic = ser.read_until().decode('utf-8').rstrip("\r\n").split(",")
+        #         rospy.logwarn(mic)
+        #         # ser.write(str(req.micHeight)+","+str(req.micAngle))
+        #         ser.write(req.micHeightcommaAngle.encode('utf-8'))
+        #         break
+        #     except (ValueError, IndexError):
+        #         pass
+        while not valid:
+            current_val_from_serial = ser.read_until().decode('utf-8').rstrip("\r\n")
+            rospy.loginfo(current_val_from_serial)
+            if current_val_from_serial not in "ZEROING":
+                # ser.write((str(req.micHeight)+","+str(req.micAngle)).encode('utf-8'))
+                ser.write(req.MicHeightCommaAngle.encode('utf-8'))
+                valid = True
+                rospy.loginfo("Mic value sent correctly")
+            else:
+                rospy.logwarn("Mic is likely zeroing, waiting for it to finish")
+
 
     # Sends the goal to the action action_server.
     # client.send_goal(goal)
@@ -174,4 +184,4 @@ if __name__ == '__main__':
 
     rospy.spin()
 
-    # ser.close()
+    ser.close()

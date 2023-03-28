@@ -37,9 +37,11 @@ function BotOverviewPanel({ presetID }: { presetID: string | null }) {
             }
             {/* "flex flex-col overflow-y-auto " */}
 
-            <div className="flex flex-col overflow-y-auto overflow-x-hidden">
 
-                <div className="w-full snap-center flex flex-col items-center gap-4">
+
+            <div className="flex flex-col flex-grow overflow-y-auto overflow-x-hidden">
+
+                <div className="w-full snap-center flex flex-col flex-grow items-center gap-4">
                     {presetIsNull ?
 
                         (

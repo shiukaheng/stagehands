@@ -9,9 +9,9 @@ export default function FleetModuleComponents({bot, fleet, fleetUpdate}: { bot :
             <Fragment>
             <NumberAndBarInput
                 title="Mic Angle"
-                value={bot.targetPose.quaternion[0]} //TODO not sure if this is the right value
+                value={bot.module.state?.gripAngle!} //TODO not sure if this is the right value
                 setValue={(value: number) => {
-                  bot.targetPose.quaternion[0] = value
+                  bot.module.state!.gripAngle = value
                   fleetUpdate(fleet)
                 }}
                 boundary={{ min: 0, max: 100 }} />

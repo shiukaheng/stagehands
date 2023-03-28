@@ -4,7 +4,8 @@ import { ServiceContext } from "web/src/contexts/ServerContext";
 import { hoveredBotContext } from "./ConnectionScreen";
 
 export function AvailableBotWidget({ botStatus, botID }: { botStatus: string, botID: string}) {
-    const { hoverBotID, setBotID } = useContext(hoveredBotContext);
+    const { hoverBotID, setBotID, hoverBotName, setBotName } = useContext(hoveredBotContext);
+    setBotName(botID)
     const serviceProvider = useContext(ServiceContext);
     {/* TODO */}
     {/* want know if the bot is connected or not so we can highlight it red or green (or have some indication of its connection status) */}

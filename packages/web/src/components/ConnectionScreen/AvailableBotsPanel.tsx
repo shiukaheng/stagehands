@@ -14,7 +14,7 @@ function AvailableBotsPanel() {
                 {/*{provider?.connectionState && Object.entries(provider.connectionState).map(([key, value]) => (
                         <AvailableBotWidget botState={value} key={key} botID ={key} />))} {/* CHANGE THIS TO BROADCAST WHEN ITS READY */}
                 {provider?.connectionState && Object.entries(provider.connectionState).map(([key, value]) => (
-                        <AvailableBotWidget botStatus={value} key={key} botID={key} />))}
+                        <AvailableBotWidget botStatus={value} key={key} botID={key} />))} {/* key name value status */}
                 </div>
             </div> 
         </div>

@@ -57,18 +57,18 @@ def set_target_pose(req):
     :return: A response message confirming that the target pose has been set.
     """
     # set the led strip to the colour and animation routine specified in the request
-    (red, green, blue) = req.ledRGBColour
-    ledColour = Color(red, green, blue)
-    if (req.ledAnimation== "constant"):
-        # strip.light_all_leds(ledColour)
-        # print('LED animation is constant')
-        rospy.loginfo('LED animation is constant')
-    elif (req.ledAnimation == "flashing"):
-        # strip.flashing_leds(ledColour, req.flashFrequency)
-        # print('flashing')
-        rospy.loginfo('LED animation is flashing')
-    # print(ledColour)
-    rospy.loginfo(ledColour)
+    # (red, green, blue) = req.ledRGBColour
+    # ledColour = Color(red, green, blue)
+    # if (req.ledAnimation== "constant"):
+    #     # strip.light_all_leds(ledColour)
+    #     # print('LED animation is constant')
+    #     rospy.loginfo('LED animation is constant')
+    # elif (req.ledAnimation == "flashing"):
+    #     # strip.flashing_leds(ledColour, req.flashFrequency)
+    #     # print('flashing')
+    #     rospy.loginfo('LED animation is flashing')
+    # # print(ledColour)
+    # rospy.loginfo(ledColour)
 
     # Create an action client called "move_base" with action definition file "MoveBaseAction"
     # client = actionlib.SimpleActionClient('move_base',MoveBaseAction)

@@ -13,13 +13,14 @@ module.exports = {
     libraryTarget: 'commonjs2',
   },
   target: 'node16',
-  // externals: [nodeExternals(),
-  //   nodeExternals({
-  //     modulesDir: path.resolve(__dirname, '../../node_modules'),
-  //   }),
-  //   // Make rosnodejs an external dependency:
-  //   { rosnodejs: 'commonjs rosnodejs' }
-  // ],
+  externals: [
+    // nodeExternals(),
+    // nodeExternals({
+    //   modulesDir: path.resolve(__dirname, '../../node_modules'),
+    // }),
+    // Make rosnodejs an external dependency:
+    { rosnodejs: 'commonjs rosnodejs' }
+  ],
   // mode: 'production',
   mode: 'development',
   module: {

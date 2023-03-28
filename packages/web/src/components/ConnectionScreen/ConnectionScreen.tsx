@@ -30,12 +30,8 @@ export const hoveredBotContext = createContext<IHoveredBot>({
 
 export function ConnectedBotInfo({ botState, botID }: { botState: BotState, botID: string}) {
   const { hoverBotID, setBotID, hoverBotName, setBotName } = useContext(hoveredBotContext);
-  console.log("ConnectedBotInfo is run")
-  console.log("botState.name is:")
-  console.log(botState.name)
-  console.log("hoverBotName is:")
-  console.log(hoverBotName)
-  if (botState.name == hoverBotName) {
+  console.log(botState.name, hoverBotName)
+  if (botState.name === hoverBotName) {
     return (
       <div>it works</div>
     )

@@ -20,7 +20,7 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
   const flashingFrequencyElemRef = useRef<HTMLInputElement>(null)
   const [ledAnimationInput, setLedAnimationInput] = useState(bot.ledState.base.ledAnimation.animationMode)
   const { setComponentSelect } = useContext(componentSelectContext);
-
+  console.log(botID)
   const services = useContext(ServiceContext);
   const provider = useContext(TopicContext);
   if (provider === null) {
@@ -92,7 +92,7 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
                 }}
                 boundary={{ min: -5, max: 5 }} />
 
-              <FleetModuleComponents bot={bot} fleet={fleet} fleetUpdate={fleetUpdate} />
+              <FleetModuleComponents bot={bot} fleet={fleet} fleetUpdate={fleetUpdate} botID = {botID}/>
 
               <tr>
                 <th>LED </th>

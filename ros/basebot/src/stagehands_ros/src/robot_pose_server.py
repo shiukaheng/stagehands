@@ -91,6 +91,7 @@ def set_target_pose(req):
         while True:
             try:
                 mic = ser.read_until().decode('utf-8').rstrip("\r\n").split(",")
+                print(mic)
                 x = float(mic[0])
                 y = float(mic[1])
                 # ser.write(str(req.micHeight)+","+str(req.micAngle))

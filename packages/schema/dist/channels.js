@@ -7,7 +7,7 @@ const zod_1 = require("zod");
 // Topics
 exports.fleetTopic = (0, webtopics_1.createTopic)("fleet", schemas_1.fleetStateSchema);
 exports.stageTopic = (0, webtopics_1.createTopic)("stage", schemas_1.stageStateSchema);
-exports.botConnectionStatusTopic = (0, webtopics_1.createTopic)("botConnectionStatus", zod_1.z.array(schemas_1.botConnectionStatusSchema));
+exports.botConnectionStatusTopic = (0, webtopics_1.createTopic)("botConnectionStatus", zod_1.z.record(schemas_1.botConnectionStatusSchema));
 //Bot paring service
 exports.botPairingRequestSchema = zod_1.z.object({
     bridgeIp: zod_1.z.string(),

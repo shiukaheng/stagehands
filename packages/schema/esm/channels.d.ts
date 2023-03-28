@@ -79,7 +79,7 @@ export declare const stageTopic: import("webtopics").TopicChannel<{
     activePreset: string | null;
     presetRecallState: "error" | "idle" | "recalling";
 }>;
-export declare const botConnectionStatusTopic: import("webtopics").TopicChannel<("connected" | "disconnected")[]>;
+export declare const botConnectionStatusTopic: import("webtopics").TopicChannel<Record<string, "connected" | "disconnected">>;
 export declare const botPairingRequestSchema: z.ZodObject<{
     bridgeIp: z.ZodString;
     bridgePort: z.ZodNumber;

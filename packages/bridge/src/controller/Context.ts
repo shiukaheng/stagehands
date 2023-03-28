@@ -1,4 +1,4 @@
-import { FleetState, StageState, BotConnectionStatus } from "schema";
+import { FleetState, StageState, BotConnectionStatus, BotConnectionState } from "schema";
 import { TopicClient, TopicServer } from "webtopics";
 import { Server } from "socket.io";
 
@@ -15,7 +15,7 @@ export class Context {
     private serverPort: number;
 
 
-    private botConnectionState: BotConnectionStatus[];
+    private botConnectionState: BotConnectionState;
     private availableBotNameTopicClientMap: Map<string, TopicClient>;
 
     /**
@@ -41,7 +41,7 @@ export class Context {
     constructor(port: number = 2324) {
         this.currentBotState = {};
         this.targetBotState = {};
-        this.botConnectionState = [];
+        this.botConnectionState = {};
         this.server = new TopicServer(new Server(port, { cors: { origin: "*" } }));
         this.serverPort = port;
         this.availableBotNameTopicClientMap = new Map<string, TopicClient>();
@@ -108,7 +108,7 @@ export class Context {
      * Get the bot connection state.
      * @returns The bot connection state.
      */
-    public getBotConnectionState(): BotConnectionStatus[] {
+    public getBotConnectionState(): BotConnectionState {
         return this.botConnectionState;
     }
 
@@ -117,7 +117,7 @@ export class Context {
      * @param domainNameList The bot connection state.
      * @returns The bot connection status.
      */
-    public setBotConnectionState(domainNameList: BotConnectionStatus[]): void {
+    public setBotConnectionState(domainNameList: BotConnectionState): void {
         this.botConnectionState = domainNameList;
     }
     /**

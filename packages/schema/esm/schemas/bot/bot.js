@@ -51,6 +51,7 @@ export const botConnectionStatusSchema = z.union([
     z.literal("connected"),
     z.literal("disconnected"),
 ]);
+export const botConnectionStateSchema = z.record(botConnectionStatusSchema);
 export const fleetStateSchema = z.record(botStateSchema);
 export const recallFleetStateSchema = z.record(recallBotStateSchema);
 /**

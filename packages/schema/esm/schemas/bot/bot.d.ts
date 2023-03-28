@@ -412,6 +412,8 @@ export declare const recallBotStateSchema: z.ZodObject<{
     };
 }>;
 export declare const botConnectionStatusSchema: z.ZodUnion<[z.ZodLiteral<"connected">, z.ZodLiteral<"disconnected">]>;
+export declare const botConnectionStateSchema: z.ZodRecord<z.ZodString, z.ZodUnion<[z.ZodLiteral<"connected">, z.ZodLiteral<"disconnected">]>>;
+export type BotConnectionState = z.infer<typeof botConnectionStateSchema>;
 export type BotConnectionStatus = z.infer<typeof botConnectionStatusSchema>;
 export type RecallBotState = z.infer<typeof recallBotStateSchema>;
 export declare const fleetStateSchema: z.ZodRecord<z.ZodString, z.ZodObject<{

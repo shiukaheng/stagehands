@@ -3,7 +3,7 @@ import { botPairingService, BotState, fleetTopic, recallBotStateService } from "
 import { Server } from "socket.io";
 import {io} from "socket.io-client"
 import { TopicClient, TopicServer } from "webtopics";
-import { PairingClient } from "../discovery";
+import { PairingClient } from "utils";
 import{createNewBotState} from "./utils"
 export class simulatedBotClient{
     private pairingClient:PairingClient
@@ -48,7 +48,7 @@ export class simulatedBotClient{
         const clientID = client.id;
         this.connectionStatus=true;
         client.pub(fleetTopic, {clientID:this.botState});
-
+        
         const timer = setInterval(() => {
             this.update(1/this.simulationFrameRate)
         }, 1000/this.simulationFrameRate)

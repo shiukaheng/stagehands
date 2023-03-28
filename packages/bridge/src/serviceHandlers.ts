@@ -344,8 +344,8 @@ export function reorderPresetsServiceHandler(
     if (!pairingClient) {
       throw new Error("Bot does not exist");
     }
-    const botConnectionStatus = context.getBotConnectionState().find((BCS) => BCS.domainName === botName) as BotConnectionStatus;
-    if (botConnectionStatus.connectionStatus === "connected") {
+    const botConnectionStatus = context.getBotConnectionState()[botName];
+    if (botConnectionStatus === "connected") {
       throw new Error("Bot is already connected");
     }
     const serverId = await pairingClient?.getServerID() as string;
@@ -358,7 +358,7 @@ export function reorderPresetsServiceHandler(
         });
     }
     if (successRequest) {
-      botConnectionStatus.connectionStatus = "connected";
+        context.getBotConnectionState()[botName] = "connected";
     }
     server.pub(botConnectionStatusTopic,context.getBotConnectionState());
   }
@@ -371,13 +371,13 @@ export function reorderPresetsServiceHandler(
         throw new Error(`Bot ${botID} does not exist`);
     }
     const botName = context.getCurrentBotState()[botID].name;
-    const botConnectionStatus = context.getBotConnectionState().find((BCS) => BCS.domainName === botName) as BotConnectionStatus;
-    if (botConnectionStatus.connectionStatus === "disconnected") {
+    const botConnectionStatus = context.getBotConnectionState()[botName]
+    if (botConnectionStatus === "disconnected") {
         throw new Error("Bot is already disconnected");
       }
     server.req(botDisconnectionService,botID)
     .then(()=>{
-        botConnectionStatus.connectionStatus = "disconnected";
+        context.getBotConnectionState()[botName]= "disconnected";
     })
     .catch((error)=>{
         throw error;

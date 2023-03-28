@@ -55,6 +55,8 @@ export const botConnectionStatusSchema = z.union([
     z.literal("disconnected"),
 
 ])
+export const botConnectionStateSchema=z.record(botConnectionStatusSchema)
+export type BotConnectionState=z.infer<typeof botConnectionStateSchema>
 export type BotConnectionStatus=z.infer<typeof botConnectionStatusSchema>
 export type RecallBotState = z.infer<typeof recallBotStateSchema>;
 

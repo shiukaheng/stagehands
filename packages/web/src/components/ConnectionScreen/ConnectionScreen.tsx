@@ -2,18 +2,22 @@ import BackButton from './BackButton';
 import AvailableBotsPanel from './AvailableBotsPanel';
 import PreviewBotCanvas from './PreviewBotCanvas';
 import { ServiceContext, TopicContext } from 'web/src/contexts/ServerContext';
-import { createContext, useContext, useState } from 'react';
+import { createContext, Fragment, useContext, useState } from 'react';
 import screenSelectionContext from 'web/src/contexts/WhichScreenContext';
 import { BotState } from 'schema';
 
 export interface IHoveredBot {
   hoverBotID: string
+  hoverBotName: string
   setBotID: (input: string) => void
+  setBotName: (input: string) => void
 }
 
 export const hoveredBotContext = createContext<IHoveredBot>({
   hoverBotID: "",
-  setBotID: (input: string) => { input }
+  hoverBotName: "",
+  setBotID: (input: string) => { input },
+  setBotName: (input: string) => { input }
 })
 
 {/*export function hoverContext({children}): { children: ReactNode; } {
@@ -25,19 +29,31 @@ export const hoveredBotContext = createContext<IHoveredBot>({
   )*/}
 
 export function ConnectedBotInfo({ botState, botID }: { botState: BotState, botID: string}) {
-  const [hoverBotID] = useState<string>("");
-  if (botState.name === hoverBotID) {
+  const { hoverBotID, setBotID, hoverBotName, setBotName } = useContext(hoveredBotContext);
+  console.log("ConnectedBotInfo is run")
+  console.log("botState.name is:")
+  console.log(botState.name)
+  console.log("hoverBotName is:")
+  console.log(hoverBotName)
+  if (botState.name == hoverBotName) {
     return (
-      "it works"
+      <div>it works</div>
+    )
+  } else {
+    return (
+      <div>it doesn't work {botState.name} {hoverBotName} </div>
+      
     )
   }
 }
 
 export function ConnectionScreen() {
   const serviceProvider = useContext(ServiceContext);
+  const topicProvider = useContext(TopicContext);
   const { screenSelection } = useContext(screenSelectionContext);
   const [hoverBotID, setBotID] = useState<string>("");
-  const hoverContextValue = { hoverBotID, setBotID};
+  const [hoverBotName, setBotName] = useState<string>("");
+  const hoverContextValue = { hoverBotID, setBotID, hoverBotName, setBotName};
   // const provider = useContext(TopicContext);
   const hoverConditionalConnected = hoverBotID === "connected"
   const hoverConditionalDisconnected = hoverBotID === "disconnected"
@@ -61,8 +77,8 @@ export function ConnectionScreen() {
             </div>
             { hoverConditionalConnected ? (
               <div className="m-5 h-12 ui-shadow ui-div ui-highlight p-2 font-bold">
-                {serviceProvider?.fleet && Object.entries(serviceProvider.fleet).map(([key, value]) => (
-                                <ConnectedBotInfo botStatus={value} key={key} botID={key} />))}
+                {topicProvider?.fleet && Object.entries(topicProvider.fleet).map(([key, value]) => (
+                                <ConnectedBotInfo botState={value} key={key} botID={key} />))}
               </div>
             ) : (
               hoverConditionalDisconnected ? (

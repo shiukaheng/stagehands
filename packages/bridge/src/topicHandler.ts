@@ -21,7 +21,8 @@ export function serverMetaHandler(serverMeta:ServerMeta,context:Context,server:T
 
   })
   
-  console.log(context.getCurrentBotState());
+  //console.log(serverMeta);
+  console.log(serverMeta);
   
   server.pub(fleetTopic,context.getCurrentBotState())
 }

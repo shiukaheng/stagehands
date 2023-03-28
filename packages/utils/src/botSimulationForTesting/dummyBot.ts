@@ -63,9 +63,14 @@ export class simulatedBotClient{
         })
         this.pairingClient.subscribeDisconnect(()=>{
             clearInterval(this.timer)
-            delete this.fleetState[this.botClinet?.id as string]
-            this.botClinet?.pub(fleetTopic,this.fleetState);
-            (this.botSocket as Socket).close();
+            delete this.fleetState[this.botClinet?.id as string];
+            
+            // this.botClinet?.pub(fleetTopic,this.fleetState);
+            // console.log("fleet topic after");
+            // console.log(this.fleetState);
+            
+            
+            (this.botSocket as Socket).disconnect();
         })
     }
     public connectToBridge(client:TopicClient){

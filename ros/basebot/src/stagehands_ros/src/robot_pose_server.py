@@ -6,7 +6,9 @@ import tf
 import actionlib
 import serial
 
-from stagehands_ros.srv import setTargetPose,setTargetPoseResponse, dummyOrientationTest, dummyOrientationTestResponse
+from stagehands_ros.srv import setTargetPose,setTargetPoseResponse
+from stagehands_ros.srv import dummyOrientationTest, dummyOrientationTestResponse
+from stagehands_ros.srv import dummyLEDTest, dummyLEDTestResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs.msg import Pose, Point, Quaternion
@@ -105,7 +107,7 @@ def send_goal_pose_ros(xPos, yPos, rotationQuaternion):
     :param xPos: The x position of the goal pose.
     :param yPos: The y position of the goal pose.
     :param rotationQuaternion: The rotation of the goal pose as a quaternion."""
-    
+
     # Create an action client called "move_base" with action definition file "MoveBaseAction"
     client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
  
@@ -142,12 +144,16 @@ def set_target_pose(req):
     :param req: The request message containing the target pose, mic height and LED colour.
     :return: A response message confirming that the target pose has been set.
     """
-    # set the led strip to the colour and animation routine specified in the request
-    send_LED_colour(req.ledColour[0], req.ledColour[1], req.ledColour[2], req.ledAnimation, req.ledFrequency)
+    # working with dummy test message that directly takes the rgb values in a string separated by commas
+    colour = req.RGBValue.split[","]
+    send_LED_colour(int(colour[0]), int(colour[1]), int(colour[2]), "constant", -1)
+
+    # for the actual intended service request type, it is this:
+    # send_LED_colour(req.ledColour[0], req.ledColour[1], req.ledColour[2], req.ledAnimation, req.ledFrequency)
 
     # working with dummy test service that just directly takes the string format used by arduino
-    mic = req.micHeightcommaAngle.split(",")
-    send_mic_orientation(float(mic[0]), float(mic[1]))
+    # mic = req.micHeightcommaAngle.split(",")
+    # send_mic_orientation(float(mic[0]), float(mic[1]))
 
     # for the actual intended service request type, it is this:
     # send_mic_orientation(req.micHeight, req.micAngle)
@@ -199,7 +205,8 @@ def action_server():
     This function creates a service action_server called set_target_pose.
     """
     # s = rospy.Service('set_target_pose', setTargetPose, set_target_pose)
-    s = rospy.Service('set_target_pose', dummyOrientationTest, set_target_pose)
+    # s = rospy.Service('set_target_pose', dummyOrientationTest, set_target_pose)
+    s = rospy.Service('set_target_pose', dummyLEDTest, set_target_pose)
     print('action action_server running')
 
 if __name__ == '__main__':

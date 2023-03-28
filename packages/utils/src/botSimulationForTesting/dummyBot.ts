@@ -55,15 +55,15 @@ export class simulatedBotClient{
             const bridgeIPPort="http://"+bridgeIp+":"+bridgePort.toString()
             console.log(bridgeIPPort);
             if(this.botClinet===undefined){
-                
+                //this.testBridgeConnection(bridgeIPPort)
             }
             this.testBridgeConnection(bridgeIPPort)
             
             //console.log(this.bridgeIPPort);
         })
         this.pairingClient.subscribeDisconnect(()=>{
-            clearInterval(this.timer)
-            delete this.fleetState[this.botClinet?.id as string];
+            clearInterval(this.timer);
+            //delete this.fleetState[this.botClinet?.id as string];
             
             // this.botClinet?.pub(fleetTopic,this.fleetState);
             // console.log("fleet topic after");
@@ -71,6 +71,8 @@ export class simulatedBotClient{
             
             
             (this.botSocket as Socket).disconnect();
+            
+            //this.botSocket=undefined;
         })
     }
     public connectToBridge(client:TopicClient){

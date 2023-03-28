@@ -1,5 +1,5 @@
 import { Context } from "./controller/Context";
-import { UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn, botPairingService, BotConnectionStatus, botDisconnectionService, botConnectionStatusTopic } from "schema";
+import { UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn, botPairingService, BotConnectionStatus, botDisconnectionService, botConnectionStatusTopic, fleetTopic } from "schema";
 import { v4 } from "uuid";
 import { checkValidRecall } from "./utils/ValidationFunc";
 import { TopicClient, TopicServer } from "webtopics";
@@ -23,6 +23,8 @@ export function createPresetServiceHandler(preset: Preset, context: Context, ser
     ];
 
     server.pub(stageTopic, context.getStageState());
+    console.log("preset created");
+    
     return "created" as CreatePresetReturn;
 }
 
@@ -35,6 +37,7 @@ export function createPresetServiceHandler(preset: Preset, context: Context, ser
 export function deletePresetServiceHandler(presetID: string, context: Context, server: TopicServer): void {
     context.getStageState().presets = context.getStageState().presets.filter(preset => preset.id !== presetID);
     server.pub(stageTopic, context.getStageState());
+    console.log("preset deleted");
 }
 
 /**
@@ -51,6 +54,7 @@ export function updatePresetServiceHandler(updatePresetRequest: UpdatePresetRequ
     }
     context.getStageState().presets[presetIndex].value = updatePresetRequest.preset;
     server.pub(stageTopic, context.getStageState());
+    console.log("preset updated");
 }
 
 /**
@@ -87,6 +91,7 @@ export function emergencyStopClearServiceHandler(requestData: undefined, context
             errors.push(error);
         }
     }
+    console.log("emergencyStopClearService called");
     throw new AggregateError(errors);
 }
 /**
@@ -116,6 +121,8 @@ export async function stopBotServiceHandler(
     } catch (error) {
         throw error;
     }
+    console.log("stopBot service called");
+    
 }
 
 /**
@@ -145,6 +152,7 @@ export async function stopBotClearServiceHandler(
     } catch (error) {
         throw error;
     }
+    console.log("stopBotClear service called");
 }
 
 /**
@@ -386,9 +394,29 @@ export function reorderPresetsServiceHandler(
     currentBotClient.req(botDisconnectionService,serverID as string)
     .then(()=>{
         context.getBotConnectionState()[botName]= "disconnected";
+        for(const botID of Object.keys(context.getCurrentBotState())){
+            if(context.getCurrentBotState()[botID].name===botName){
+                console.log(`${botName} disconnected`);
+                
+                delete context.getCurrentBotState()[botID]
+                
+                console.log(context.getCurrentBotState());
+                console.log(context.getCurrentBotState());
+                // server.pub(fleetTopic,context.getCurrentBotState(), true, true);
+                server.pubDiff(fleetTopic, {
+                    modified: undefined,
+                    // @ts-ignore type hack
+                    deleted: {
+                        [botID]: null
+                    }
+                })
+            }
+        }
     })
     .catch((error)=>{
         throw error;
     })
+    
     server.pub(botConnectionStatusTopic,context.getBotConnectionState());
+
  }

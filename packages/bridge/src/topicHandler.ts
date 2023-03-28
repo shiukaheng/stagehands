@@ -8,6 +8,8 @@ import { ServerMeta, TopicServer } from "webtopics";
  * @param context - The context object.
  */
 export function fleetTopicHandler(fleetState: FleetState, context: Context): void {
+  console.log("getting fleet topic ");
+  
   console.log(fleetState);
   
   context.setCurrentBotState(fleetState);

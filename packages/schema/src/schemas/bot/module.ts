@@ -4,6 +4,7 @@ import { poseSchema } from "./pose";
 // Mic stand module specific schema
 export const micStandDataSchema = z.object({
     gripPosition: z.number(),
+    gripAngle: z.number(),
 });
 export type MicStandData = z.infer<typeof micStandDataSchema>;
 

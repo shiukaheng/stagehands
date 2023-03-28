@@ -12,7 +12,7 @@ export class FakeBridgeServer {
     private io: Server
     private fleetState: FleetState = {
         "1": createNewBotState({name: "Alice" , module : {type: "micStand", 
-        state: {gripPosition : 10}, moduleModels: {"1" : {modelID : "1", pose :{ position : [0,0,0], quaternion :[0,0,0,1]}} }}}), // 
+        state: {gripPosition : 10, gripAngle: 0}, moduleModels: {"1" : {modelID : "1", pose :{ position : [0,0,0], quaternion :[0,0,0,1]}} }}}), // 
         "2" : createNewBotState({name: "Bob"}),
         "3" : createNewBotState({name: "Charlie"}),
         "4" : createNewBotState({name: "Daisy"}),

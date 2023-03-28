@@ -87,7 +87,7 @@ def set_target_pose(req):
     goal.target_pose.pose = pose
 
     # probs not how this works but lol
-    if micModuleExists: ser.write(req.micHeight)
+    if micModuleExists: ser.write(str(req.micHeight)+","+str(req.micAngle))
 
     # Sends the goal to the action action_server.
     client.send_goal(goal)
@@ -121,9 +121,14 @@ def publish_current_pose():
             # pose.rotationQuaternion = rot
 
             # again, probs not how this works but lol, lmao, rofl even
-            if (micModuleExists): pose.currentMicHeight = float(ser.read_until().decode('utf-8').rstrip("\r\n"))
+            if (micModuleExists): 
+                mic = ser.read_until().decode('utf-8').rstrip("\r\n").split(",")
+                pose.currentMicHeight = float(mic[0])
+                pose.currentMicAngle = float(mic[1])
 
-            else: pose.currentMicHeight = -1
+            else: 
+                pose.currentMicHeight = -1
+                pose.currentMicAngle = -1
             pub.publish(pose)
 
             print('pose:')

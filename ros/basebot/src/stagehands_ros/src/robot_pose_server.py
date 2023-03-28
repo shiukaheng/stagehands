@@ -12,9 +12,72 @@ from stagehands_ros.srv import dummyLEDTest, dummyLEDTestResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs.msg import Pose, Point, Quaternion
-from led_strip_handler import GroveWS2813RgbStrip
+# from led_strip_handler import GroveWS2813RgbStrip
 from rpi_ws281x import PixelStrip, Color
 import serial.tools.list_ports
+import time
+
+class GroveWS2813RgbStrip(PixelStrip):
+    '''
+    Wrapper Class for Grove - WS2813 RGB LED Strip Waterproof - XXX LED/m
+
+    Args:
+        pin(int)  : 12, 18 for RPi
+        count(int): strip LEDs count
+        brightness(int): optional, set to 0 for darkest and 255 for brightest, default 255
+    '''
+    def __init__(self, pin, count, brightness = None):
+        ws2812_pins = { 12:0, 13:1, 18:0, 19:1}
+        if not pin in ws2812_pins.keys():
+            print("OneLedTypedWs2812: pin {} could not used with WS2812".format(pin))
+            return
+        channel = ws2812_pins.get(pin)
+
+        if brightness is None:
+            brightness = LED_BRIGHTNESS
+
+        # Create PixelStrip object with appropriate configuration.
+        super(GroveWS2813RgbStrip, self).__init__(
+            count,
+            pin,
+            LED_FREQ_HZ,
+            LED_DMA,
+            LED_INVERT,
+            brightness,
+            channel
+        )
+
+        # Intialize the library (must be called once before other functions).
+        self.begin()
+
+    # light every single led up
+    def light_all_leds(self, color: Color):
+        """
+        Light every single LED up with the given color.
+        :param color: The color to light the LEDs up with.
+        """
+        for i in range(self.numPixels()):
+            self.setPixelColor(i, color)
+        self.show()
+
+    # set leds to flash (although this obviously stops after a while)
+    def flashing_leds(self, color: Color, frequency: int):
+        """
+        Set the LEDs to flash with the given color and frequency.
+        :param color: The color to flash the LEDs with.
+        :param frequency: The frequency to flash the LEDs at.
+        """
+        for i in range(10):
+            for i in range(self.numPixels()):
+                self.setPixelColor(i, color)
+                self.show()
+
+            time.sleep(1/frequency)
+
+            for i in range(self.numPixels()):
+                self.setPixelColour(i, Color(0, 0, 0))
+                self.show()
+            time.sleep(1/frequency)
 
 # LED strip configuration
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)

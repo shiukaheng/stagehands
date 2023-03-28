@@ -6,6 +6,7 @@ const pose_1 = require("./pose");
 // Mic stand module specific schema
 exports.micStandDataSchema = zod_1.z.object({
     gripPosition: zod_1.z.number(),
+    gripAngle: zod_1.z.number(),
 });
 // Null module
 exports.nullModuleDataSchema = zod_1.z.null();

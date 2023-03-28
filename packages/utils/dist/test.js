@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const discovery_1 = require("./discovery");
-const server = new discovery_1.PairingServer();
+const PairingServer_1 = require("./PairingServer");
+const server = new PairingServer_1.PairingServer();
 server.startDiscoverListener();
-const client = new discovery_1.PairingClient();
-client.startAdvertise();
+// const client = new PairingClient();
+// client.startAdvertise();

@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,24 +7,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getName = void 0;
-const uuid_readable_1 = __importDefault(require("uuid-readable"));
+import id from "uuid-readable";
 // Import uuidv4
-const uuid_1 = require("uuid");
+import { v4 as uuidv4 } from "uuid";
 // Get async fs
-const promises_1 = __importDefault(require("fs/promises"));
-const path_1 = __importDefault(require("path"));
-const os_1 = __importDefault(require("os"));
+import fs from "fs/promises";
+import path from "path";
+import os from "os";
 /**
  * Generate a random memorable name
  * @returns A random name in camelCase
  */
 function generateName() {
-    const words = uuid_readable_1.default.short((0, uuid_1.v4)()).split(" ");
+    const words = id.short(uuidv4()).split(" ");
     // Capitalize the first letter of each word
     const capitalized = words.map(word => word[0].toUpperCase() + word.slice(1));
     // Return first 4 words in camelCase
@@ -34,10 +28,10 @@ function generateName() {
 function readName(cachePath) {
     return __awaiter(this, void 0, void 0, function* () {
         // Check if file exists
-        const resolvedPath = cachePath ? path_1.default.resolve(cachePath) : path_1.default.resolve(os_1.default.homedir(), "stagehands-config", "name.json");
+        const resolvedPath = cachePath ? path.resolve(cachePath) : path.resolve(os.homedir(), "stagehands-config", "name.json");
         let file;
         try {
-            file = yield promises_1.default.readFile(resolvedPath, "utf-8");
+            file = yield fs.readFile(resolvedPath, "utf-8");
         }
         catch (err) {
             return null;
@@ -54,11 +48,11 @@ function readName(cachePath) {
 function writeName(name, cachePath) {
     return __awaiter(this, void 0, void 0, function* () {
         // Resolve path
-        const resolvedPath = cachePath ? path_1.default.resolve(cachePath) : path_1.default.resolve(os_1.default.homedir(), "stagehands-config", "name.json");
+        const resolvedPath = cachePath ? path.resolve(cachePath) : path.resolve(os.homedir(), "stagehands-config", "name.json");
         // Write file and overwrite if it exists
-        yield promises_1.default.mkdir(path_1.default.dirname(resolvedPath), { recursive: true });
+        yield fs.mkdir(path.dirname(resolvedPath), { recursive: true });
         try {
-            yield promises_1.default.writeFile(resolvedPath, JSON.stringify(name), { flag: "w" });
+            yield fs.writeFile(resolvedPath, JSON.stringify(name), { flag: "w" });
         }
         catch (err) {
             throw err;
@@ -70,7 +64,7 @@ function writeName(name, cachePath) {
  * Get the device's name, which is cached on a json file
  * @returns The device's name
  */
-function getName(cachePath) {
+export function getName(cachePath) {
     return __awaiter(this, void 0, void 0, function* () {
         // Read name from cache
         const name = yield readName(cachePath);
@@ -85,4 +79,3 @@ function getName(cachePath) {
         return newName;
     });
 }
-exports.getName = getName;

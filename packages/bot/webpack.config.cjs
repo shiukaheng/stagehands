@@ -14,10 +14,10 @@ module.exports = {
   },
   target: 'node16',
   externals: [
-    nodeExternals(),
+    // nodeExternals(),
     nodeExternals({
       modulesDir: path.resolve(__dirname, '../../node_modules'),
-      allowlist: ['schema', 'utils', 'uuid-readable', 'multicast-dns', 'webtopics']
+      allowlist: ['schema', 'utils', 'uuid-readable', 'multicast-dns', 'webtopics', "dns-packet"]
     }),
     // Make rosnodejs an external dependency:
     { rosnodejs: 'commonjs rosnodejs' }

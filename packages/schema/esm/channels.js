@@ -4,7 +4,7 @@ import { z } from "zod";
 // Topics
 export const fleetTopic = createTopic("fleet", fleetStateSchema);
 export const stageTopic = createTopic("stage", stageStateSchema);
-export const botConnectionStatusTopic = createTopic("botConnectionStatus", z.array(botConnectionStatusSchema));
+export const botConnectionStatusTopic = createTopic("botConnectionStatus", z.record(botConnectionStatusSchema));
 //Bot paring service
 export const botPairingRequestSchema = z.object({
     bridgeIp: z.string(),

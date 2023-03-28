@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
  */
 function BotOverviewPanel({ presetID }: { presetID: string | null }) {
     const provider = useContext(TopicContext);
-    const navigate = useNavigate(); {/* for changing the path to connection screen when bottom button is pressed */}
+    const navigate = useNavigate(); {/* for changing the path to connection screen when bottom button is pressed */ }
     const presetIsNull = presetID === null
     const currentPreset = useMemo(() => {
         if (presetIsNull) {
@@ -55,16 +55,18 @@ function BotOverviewPanel({ presetID }: { presetID: string | null }) {
                         )
                     }
                 </div>
-                <div className="flex flex-row gap-2 w-full">
-            <button
-            className="font-bold box-border flex-shrink ui-div ui-highlight-solid ui-shadow m-6 p-4 w-full"
-            onClick={() => { {/*setScreenSelection(("connection_screen" as ScreenSelection))*/}
-            console.log("goto connection screen button clicked")
-            navigate('/connectionscreen')}}>
-                Connect Bots +
-            </button>
-        </div>
             </div>
+            <div className="flex flex-row gap-2 w-full">
+                    <button
+                        className="font-bold box-border flex-shrink ui-div ui-highlight-solid ui-shadow m-6 p-4 w-full"
+                        onClick={() => {
+                            {/*setScreenSelection(("connection_screen" as ScreenSelection))*/ }
+                            console.log("goto connection screen button clicked")
+                            navigate('/connectionscreen')
+                        }}>
+                        Connect Bots +
+                    </button>
+                </div>
         </div>
     )
 }

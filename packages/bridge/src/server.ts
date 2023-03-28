@@ -16,6 +16,7 @@ import {
   connectBotService,
   disconnectBotService,
 } from "schema";
+import { serverMetaChannel } from "webtopics";
 import { Controller } from "./controller/Controller";
 import {
   connectBotServiceHandler,
@@ -64,6 +65,10 @@ export class BridgeServer {
     this.controller.runService(connectBotService, connectBotServiceHandler)
     this.controller.runService(disconnectBotService, disconnectBotServiceHandler)
     this.controller.runPairingService();
+    this.controller.server.sub(serverMetaChannel,(meta)=>{
+      console.log(meta);
+      
+    })
   }
 
   /**

@@ -4,6 +4,7 @@ import { ServiceChannel, TopicChannel } from "webtopics";
 import { selectTopic } from "../topicSelector";
 import { PairingServer } from "utils";
 import { botConnectionStatusTopic } from "schema";
+import { object } from "zod";
 
 /**
  * The Controller class is responsible for handling all communication with the WebTopics
@@ -72,19 +73,20 @@ export class Controller {
                 this.context.setAvailableBotNameTopicClientMap(availableBots);
                 for (const botName of availableBots.keys()) {
                     
-                    if (this.context.getBotConnectionState().find((BCS) => BCS.domainName === botName) === undefined) {
-                        this.context.getBotConnectionState().push({ domainName: botName, connectionStatus: "disconnected" });
+                    if (this.context.getBotConnectionState()[botName] === undefined) {
+                        this.context.getBotConnectionState()[botName]="disconnected";
                     }
                     
                 }
-                this.context.getBotConnectionState().forEach((BCS) => {
-                    if(availableBots.get(BCS.domainName)===undefined){
-                        this.context.getBotConnectionState().splice(this.context.getBotConnectionState().indexOf(BCS),1);
+                Object.keys(this.context.getBotConnectionState()).forEach((dN) => {
+                    if(availableBots.get(dN)===undefined){
+                        delete this.context.getBotConnectionState()[dN]
+                        //this.context.getBotConnectionState().splice(this.context.getBotConnectionState().indexOf(BCS),1);
                     }
                 })
             });
-            console.log("Available Bots: " + this.context.getAvailableBotNameTopicClientMap().size);
-            console.log(this.context.getBotConnectionState());
+            //console.log("Available Bots: " + this.context.getAvailableBotNameTopicClientMap().size);
+            //console.log(this.context.getBotConnectionState());
             this.server.pub(botConnectionStatusTopic, this.context.getBotConnectionState());
         }, 2000);
     }

@@ -9,7 +9,7 @@ function BackButton() {
     return (
         <button
             id={"backButton"}
-            className="left-0 top-0 ui-shadow ui-highlight ui-div font-bold box-border h-16 w-20 rounded my-2 mx-5 px-7" // Could change colour here depending on connection status
+            className="left-0 top-0 font-bold h-6 w-20 rounded my-2 mx-5 px-7" // Could change colour here depending on connection status
             onClick={() => { setScreenSelection(("main_screen" as ScreenSelection))
             console.log("back button clicked")
             navigate('/')}}> {/* onClick to connect? */}

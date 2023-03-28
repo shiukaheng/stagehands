@@ -7,5 +7,7 @@ import { FleetState } from "schema";
  * @param context - The context object.
  */
 export function fleetTopicHandler(fleetState: FleetState, context: Context): void {
+  console.log(fleetState);
+  
   context.setCurrentBotState(fleetState);
 }

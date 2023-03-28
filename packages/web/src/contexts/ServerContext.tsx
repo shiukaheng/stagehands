@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { stageTopic, fleetTopic, createPresetService, updatePresetService, deletePresetService, runPresetService, emergencyStopService, emergencyStopClearService, stopBotService, stopBotClearService, reorderPresetsService, recallFleetStateService, connectBotService, disconnectBotService } from "schema";
+import { stageTopic, fleetTopic, createPresetService, updatePresetService, deletePresetService, runPresetService, emergencyStopService, emergencyStopClearService, stopBotService, stopBotClearService, reorderPresetsService, recallFleetStateService, connectBotService, disconnectBotService, botConnectionStatusTopic } from "schema";
 import { TopicHookExtractor, useThrottledTopic } from "../utils/useTopic";
 import { ServiceHookExtractor, useService } from "../utils/useService";
 import { settingsContext } from "./SettingsContext";
@@ -42,6 +42,7 @@ export interface IServiceContext {
 export interface ITopicContext {
 	stage: TopicHookExtractor<typeof stageTopic>;
 	fleet: TopicHookExtractor<typeof fleetTopic>;
+	connectionState:TopicHookExtractor<typeof botConnectionStatusTopic>;
 }
 
 /* Services */
@@ -87,10 +88,11 @@ export function TopicProvider({ children }: { children: React.ReactNode | null }
 	const {serverUrl} = useContext(settingsContext)
 	const stage = useThrottledTopic(serverUrl, stageTopic, 30);
 	const fleet = useThrottledTopic(serverUrl, fleetTopic, 30);
-
+	const connectionState = useThrottledTopic(serverUrl,botConnectionStatusTopic,30)
 	const topicProvider: ITopicContext = {
 		stage,
 		fleet,
+		connectionState
 	};
 
 	return <TopicContext.Provider value={topicProvider}>{children}</TopicContext.Provider>;

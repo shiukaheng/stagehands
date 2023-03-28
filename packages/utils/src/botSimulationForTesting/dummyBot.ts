@@ -3,7 +3,7 @@ import { botPairingService, BotState, fleetTopic, recallBotStateService } from "
 import { Server } from "socket.io";
 import {io} from "socket.io-client"
 import { TopicClient, TopicServer } from "webtopics";
-import { PairingClient } from "../discovery";
+import { PairingClient } from "utils";
 import{createNewBotState} from "./utils"
 export class simulatedBotClient{
     private pairingClient:PairingClient
@@ -20,14 +20,15 @@ export class simulatedBotClient{
         //this.socketServer =new Server(3435);
         
         this.botState=createNewBotState({});
-        this.bridgeIPPort="not found"
+        this.bridgeIPPort=null as any
         this.connectionStatus=false;
         
     }
     public testBridgeConnection(bridgeIPPort:string){
         const testSocket = io(bridgeIPPort);
-
         testSocket.on("connect",()=>{
+            console.log("connecting");
+            
             this.bridgeIPPort=bridgeIPPort;
             this.botClinet = new TopicClient(testSocket);
             this.connectToBridge(this.botClinet);
@@ -38,23 +39,23 @@ export class simulatedBotClient{
         
         this.pairingClient.startAdvertise();
         this.pairingClient.subscribeRequest(({bridgeIp,bridgePort})=>{
-            const bridgeIPPort=bridgeIp+":"+bridgePort.toString()
+            const bridgeIPPort="http://"+bridgeIp+":"+bridgePort.toString()
+            console.log(bridgeIPPort);
             this.testBridgeConnection(bridgeIPPort)
-            console.log(this.bridgeIPPort);
+            
+            //console.log(this.bridgeIPPort);
         })
 
     }
     public connectToBridge(client:TopicClient){
         const clientID = client.id;
         this.connectionStatus=true;
-        client.pub(fleetTopic, {clientID:this.botState});
-
+        
+        
         const timer = setInterval(() => {
             this.update(1/this.simulationFrameRate)
         }, 1000/this.simulationFrameRate)
-        // client.srv(recallBotStateService,(req)=>{
-            
-        // })
+        
     }
     public update(dt: number) {
 

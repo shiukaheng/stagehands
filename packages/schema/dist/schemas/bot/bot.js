@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRecallFleetState = exports.getRecallBotState = exports.recallFleetStateSchema = exports.fleetStateSchema = exports.botConnectionStatusSchema = exports.recallBotStateSchema = exports.botStateSchema = exports.robotStatusLiteralSchema = void 0;
+exports.getRecallFleetState = exports.getRecallBotState = exports.recallFleetStateSchema = exports.fleetStateSchema = exports.botConnectionStateSchema = exports.botConnectionStatusSchema = exports.recallBotStateSchema = exports.botStateSchema = exports.robotStatusLiteralSchema = void 0;
 const zod_1 = require("zod");
 const battery_1 = require("./battery");
 const led_1 = require("./led");
@@ -50,13 +50,11 @@ exports.recallBotStateSchema = zod_1.z.object({
         }
     }, { message: "Module type does not match module state, or module type not found" }),
 });
-exports.botConnectionStatusSchema = zod_1.z.object({
-    domainName: zod_1.z.string(),
-    connectionStatus: zod_1.z.union([
-        zod_1.z.literal("connected"),
-        zod_1.z.literal("disconnected"),
-    ])
-});
+exports.botConnectionStatusSchema = zod_1.z.union([
+    zod_1.z.literal("connected"),
+    zod_1.z.literal("disconnected"),
+]);
+exports.botConnectionStateSchema = zod_1.z.record(exports.botConnectionStatusSchema);
 exports.fleetStateSchema = zod_1.z.record(exports.botStateSchema);
 exports.recallFleetStateSchema = zod_1.z.record(exports.recallBotStateSchema);
 /**

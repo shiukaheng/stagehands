@@ -60,6 +60,7 @@ add_service_files(
   arucoRecordPoses.srv
   arucoAveragePose.srv
   dummyOrientationTest.srv
+  dummyLEDTest.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -209,7 +210,7 @@ include_directories(
 
 catkin_install_python(PROGRAMS 
   src/robot_pose_server.py
-  # scripts/led_strip_handler.py
+  src/led_strip_handler.py
   src/aruco_location_storage.py
   src/map_monitor.py
   src/main.py

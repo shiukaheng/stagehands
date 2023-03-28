@@ -380,7 +380,7 @@ export function reorderPresetsServiceHandler(
         throw new Error("Bot is already disconnected");
     }
     let currentBotClient =context.getAvailableBotNameTopicClientMap().get(botName) as TopicClient
-    console.log(currentBotClient);
+    //console.log(currentBotClient);
     
     const serverID = await currentBotClient.getServerID();
     currentBotClient.req(botDisconnectionService,serverID as string)

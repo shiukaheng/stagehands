@@ -33,7 +33,7 @@ import {
   stopBotServiceHandler,
   updatePresetServiceHandler,
 } from "./serviceHandlers";
-import { fleetTopicHandler } from "./topicHandler";
+import { fleetTopicHandler, serverMetaHandler } from "./topicHandler";
 
 /**
  * The BridgeServer class is responsible for managing the connections between
@@ -51,6 +51,8 @@ export class BridgeServer {
     // }, 500);
 
     this.controller.serverSub(fleetTopic, fleetTopicHandler);
+    this.controller.serverSub(serverMetaChannel,serverMetaHandler);
+    
     this.controller.runService(createPresetService, createPresetServiceHandler);
     this.controller.runService(updatePresetService, updatePresetServiceHandler);
     this.controller.runService(deletePresetService, deletePresetServiceHandler);
@@ -65,10 +67,7 @@ export class BridgeServer {
     this.controller.runService(connectBotService, connectBotServiceHandler)
     this.controller.runService(disconnectBotService, disconnectBotServiceHandler)
     this.controller.runPairingService();
-    this.controller.server.sub(serverMetaChannel,(meta)=>{
-      console.log(meta);
-      
-    })
+    
   }
 
   /**

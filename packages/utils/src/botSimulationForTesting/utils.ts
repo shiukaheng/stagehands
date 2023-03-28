@@ -1,12 +1,13 @@
 import { BotState } from "schema";
-
+import {getName} from "utils"
 function randomColor(): [number, number, number] {
     return [Math.random(), Math.random(), Math.random()]
 }
 
 export function createNewBotState(state: Partial<BotState>): BotState {
+    //const botName=await getName()
     const base: BotState = {
-        name: "Untitled bot",
+        name:"Untitled bot",
         pose: {
             position: [0, 0, 0],
             quaternion: [0, 0, 0, 1]

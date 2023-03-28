@@ -89,7 +89,9 @@ def set_target_pose(req):
     # probs not how this works but lol
     if micModuleExists:
         try:
-            float(ser.read_until().decode('utf-8').rstrip("\r\n"))
+            mic = ser.read_until().decode('utf-8').rstrip("\r\n").split(",")
+            x = float(mic[0])
+            y = float(mic[1])
             ser.write(str(req.micHeight)+","+str(req.micAngle))
         except ValueError:
             pass

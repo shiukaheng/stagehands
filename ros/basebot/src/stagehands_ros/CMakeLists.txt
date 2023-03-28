@@ -59,6 +59,7 @@ add_service_files(
   setTargetPose.srv
   arucoRecordPoses.srv
   arucoAveragePose.srv
+  dummyOrientationTest.srv
 )
 
 ## Generate actions in the 'action' folder

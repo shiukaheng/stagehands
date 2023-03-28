@@ -38,7 +38,7 @@ LED_INVERT     = False   # True to invert the signal (when using NPN transistor 
 # attempt to detect arduino port
 arduino_port = "/dev/ttyACM1" # safe? default?? value?????
 for p in list(serial.tools.list_ports.comports()):
-    if not("AMA" in str(p.device).split("/")[1] or str(p.device).split("/")[1] != str(p.description).split("/")[1]):
+    if not("AMA" in str(p.device).split("/")[1] or str(p.device).split("/")[1] != str(p.description).split("/")):
         arduino_port = p.device
 
 # if mic module connected, establish connection

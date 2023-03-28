@@ -53,7 +53,7 @@ function stagehands() {
             echo -e "${green}Stopping Stagehands service...${nocolor}"
             sudo docker container kill stagehands-dev
             echo -e "${green}Updating Stagehands repository...${nocolor}"
-            stagehands update-repo
+            stagehands repo-pull
             echo -e "${green}Updating Docker image...${nocolor}"
             stagehands docker-pull
             echo -e "${green}Restarting Stagehands service...${nocolor}"

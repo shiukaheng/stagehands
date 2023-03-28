@@ -37,7 +37,7 @@ RUN apt-get install -y iputils-ping
 
 RUN apt-get install -y net-tools
 RUN apt-get install -y python3-pip
-RUN pip install pyserial rpi_ws281x numpy
+RUN pip install pyserial rpi_ws281x
 
 # For hostname resolution
 RUN apt-get install -y avahi-daemon avahi-discover avahi-utils libnss-mdns mdns-scan
@@ -50,8 +50,8 @@ RUN apt-get install -y curl
 RUN echo "Installing latest version of NodeJS"
 RUN /bin/bash -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash"
 
-# Raspberry Pi access
-RUN apt-get install -y python3-rpi.gpio
+# Raspberry Pi access (make it fail silently and continue since in x86 it will fail)
+RUN apt-get install -y python3-rpi.gpio || true
 
 # Add the "~/.nvm" directory to the PATH
 ENV NVM_DIR=/root/.nvm
@@ -59,7 +59,7 @@ ENV NVM_DIR=/root/.nvm
 RUN /bin/bash -c "source $NVM_DIR/nvm.sh; nvm install node"
 
 # Install MML libraries to allow camera to run
-RUN apt-get install -y libraspberrypi-dev
+RUN apt-get install -y libraspberrypi-dev || true
 RUN sudo mkdir -p /opt/vc/lib
 RUN sudo ln -s /usr/lib/arm-linux-gnueabihf/libmmal* /opt/vc/lib/
 RUN echo 'export LD_LIBRARY_PATH=/opt/vc/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
@@ -164,7 +164,7 @@ RUN /bin/bash -c "source /scripts/init.sh; cd /catkin_ws/src/stagehands-js; npm 
 # RUN /bin/bash -c "source /scripts/init.sh; catkin build stagehands-js" # Not yet ready
 
 # # # Build the message types
-WORKDIR /catkin_ws/src/stagehands-js/packages/bot/ &&
+WORKDIR /catkin_ws/src/stagehands-js/packages/bot/
 RUN /bin/bash -c "source /scripts/init.sh; cd /catkin_ws/src/stagehands-js/packages/bot; node -e \"require('rosnodejs').loadAllPackages();\""
 
 COPY ./ros/basebot/scripts/ /scripts/

@@ -11,7 +11,8 @@
         "dev2": "nodemon --exec ts-node src/test2.ts",
         "build": "tsc && tsc -p tsconfig.esm.json",
         "start": "npm run build && node ./dist/index.js",
-        "test-server": "nodemon --exec ts-node src/server.ts"
+        "test-server": "nodemon --exec ts-node src/server.ts",
+        "dev-dummyBotClient": "nodemon --exec ts-node src/botSimulationForTesting/dummyBot.ts"
     },
     "author": "",
     "license": "ISC",

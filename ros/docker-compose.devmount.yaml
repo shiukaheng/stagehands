@@ -1,14 +1,7 @@
 version: "3.3"
 services:
   ros-dev:
-    image: shiukaheng/stagehands:prod
-    entrypoint: ["/scripts/entrypoint.sh"]
-    privileged: true
-    stdin_open: true
-    tty: true
     volumes:
-      - ./basebot/scripts:/scripts
-      - /root/stagehands-config
       - ./basebot/.vscode:/catkin_ws/.vscode
       - ./basebot/src:/catkin_ws/src
       - ./basebot/map:/map

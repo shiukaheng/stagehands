@@ -1,7 +1,8 @@
-import { PairingClient, PairingServer } from "./discovery";
+import { PairingClient } from "./PairingClient";
+import { PairingServer } from "./PairingServer";
 
 const server = new PairingServer();
 server.startDiscoverListener();
 
-const client = new PairingClient();
-client.startAdvertise();
+// const client = new PairingClient();
+// client.startAdvertise();

@@ -39,6 +39,7 @@ async function writeName(name: string, cachePath?:string): Promise<void> {
 	// Resolve path
 	const resolvedPath = cachePath ? path.resolve(cachePath) : path.resolve(os.homedir(), "stagehands-config", "name.json");
 	// Write file and overwrite if it exists
+	await fs.mkdir(path.dirname(resolvedPath), { recursive: true });
 	try {
 		await fs.writeFile(resolvedPath, JSON.stringify(name), { flag: "w" });
 	}

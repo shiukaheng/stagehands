@@ -94,7 +94,7 @@ export class WebtopicROSInterface {
             // isn't a module attached)
             if (data.currentMicHeight != null) {
                 mod.type = "micStand"
-                mod.state = { gripPosition: data.currentMicHeight}
+                mod.state = { gripPosition: data.currentMicHeight, gripAngle: 0 }
             }
             // define schema containing bot current location
             this.initBotState.pose.position = [data.xPos, 0, data.yPos]

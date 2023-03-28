@@ -16,3 +16,5 @@ services:
       - ./basebot/sshd_config:/etc/ssh/sshd_config
     stdin_open: true
     tty: true
+    entrypoint:
+      - /bin/bash

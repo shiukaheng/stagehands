@@ -1,7 +1,7 @@
 import BackButton from './BackButton';
 import AvailableBotsPanel from './AvailableBotsPanel';
 import PreviewBotCanvas from './PreviewBotCanvas';
-import { TopicContext } from 'src/contexts/ServerContext';
+import { ServiceContext, TopicContext } from 'web/src/contexts/ServerContext';
 import { createContext, useContext, useState } from 'react';
 import screenSelectionContext from 'web/src/contexts/WhichScreenContext';
 
@@ -24,6 +24,7 @@ export const hoveredBotContext = createContext<IHoveredBot>({
   )*/}
 
 export function ConnectionScreen() {
+  const serviceProvider = useContext(ServiceContext);
   const { screenSelection } = useContext(screenSelectionContext);
   const [hoverBotID, setBotID] = useState<string>("");
   const hoverContextValue = { hoverBotID, setBotID};

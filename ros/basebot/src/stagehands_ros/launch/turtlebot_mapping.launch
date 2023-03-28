@@ -16,7 +16,7 @@
     </group>
 
     <group unless="$(arg running_on_robot)">
-        <!-- Launch turtlebot3 bringup-->
+        <!-- Launch turtlebot3 remote-->
         <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch"/>
     </group>
 
@@ -50,15 +50,15 @@
     </include>
 
     <!-- launch node to record and store location of aruco markers in map frame-->
-    <node pkg="stagehands_ros" name="aruco_location_storage" type="aruco_location_storage.py"/>
+    <node pkg="stagehands_ros" name="aruco_location_storage" type="aruco_location_storage.py" output="screen"/>
 
     <!-- launch node to monitor map - this saves the map & aruco locations and kills everything once the map is stable -->
-    <node pkg="stagehands_ros" name="map_monitor" type="map_monitor.py"/>
+    <node pkg="stagehands_ros" name="map_monitor" type="map_monitor.py" output="screen"/>
 
     <!-- rviz -->
-    <!-- <group if="$(arg open_rviz)"> 
+    <group if="$(arg open_rviz)"> 
         <node pkg="rviz" type="rviz" name="rviz" required="true"
             args="-d $(find ros_autonomous_slam)/rviz/turtlebot3_navigation.rviz"/>
-    </group> -->
+    </group>
 
 </launch>

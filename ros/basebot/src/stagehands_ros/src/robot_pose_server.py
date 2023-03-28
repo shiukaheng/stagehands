@@ -100,12 +100,12 @@ def set_target_pose(req):
         #         pass
         while not valid:
             current_val_from_serial = ser.read_until().decode('utf-8').rstrip("\r\n")
-            rospy.logwarn(current_val_from_serial)
+            rospy.loginfo(current_val_from_serial)
             if current_val_from_serial not in "ZEROING":
                 # ser.write((str(req.micHeight)+","+str(req.micAngle)).encode('utf-8'))
                 ser.write(req.MicHeightCommaAngle.encode('utf-8'))
                 valid = True
-                rospy.logwarn("Mic value sent correctly")
+                rospy.loginfo("Mic value sent correctly")
             else:
                 rospy.logwarn("Mic is likely zeroing, waiting for it to finish")
 

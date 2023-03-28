@@ -15,7 +15,7 @@
     </group>
 
     <group unless="$(arg running_on_robot)">
-        <!-- Launch turtlebot3 bringup-->
+        <!-- Launch turtlebot3 remote-->
         <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch"/>
     </group>
 
@@ -23,7 +23,7 @@
     <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
 
     <!-- Node sending commands to robot over ROS and getting pose -->
-    <node pkg="stagehands_ros" name="robot_position_server" type="robot_pose_server.py"/>
+    <node pkg="stagehands_ros" name="robot_position_server" type="robot_pose_server.py" output="screen"/>
     <!-- Node sending commands to previous node from UI and returning pose to UI-->
     <!-- if this fails blame GPT4 not me -->
     <node name="webtopics_ros_interface" pkg="stagehands_js" type="run_js_node.sh" output="screen" />

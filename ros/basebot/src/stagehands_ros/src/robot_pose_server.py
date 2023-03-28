@@ -88,14 +88,17 @@ def set_target_pose(req):
 
     # probs not how this works but lol
     if micModuleExists:
-        try:
-            mic = ser.read_until().decode('utf-8').rstrip("\r\n").split(",")
-            x = float(mic[0])
-            y = float(mic[1])
-            # ser.write(str(req.micHeight)+","+str(req.micAngle))
-            ser.write(req.micHeightcommaAngle.encode('utf-8'))
-        except (ValueError, IndexError):
-            pass
+        while True:
+            try:
+                mic = ser.read_until().decode('utf-8').rstrip("\r\n").split(",")
+                rospy.logwarn(mic)
+                x = float(mic[0])
+                y = float(mic[1])
+                # ser.write(str(req.micHeight)+","+str(req.micAngle))
+                ser.write(req.micHeightcommaAngle.encode('utf-8'))
+                break
+            except (ValueError, IndexError):
+                pass
 
     # Sends the goal to the action action_server.
     # client.send_goal(goal)

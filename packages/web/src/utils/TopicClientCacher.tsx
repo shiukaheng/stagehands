@@ -12,6 +12,7 @@ export const TopicClientCacheContext = createContext<ITopicClientCache | null>(n
  */
 export function TopicClientCacher ({ children }: { children: React.ReactNode }) {
     const cacheRef = useRef<ITopicClientCache>({});
+    // (window as any).topicClientCache = cacheRef.current;
     return <TopicClientCacheContext.Provider value={cacheRef.current}>
         {children}
     </TopicClientCacheContext.Provider>;

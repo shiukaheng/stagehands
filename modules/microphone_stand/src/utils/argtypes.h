@@ -12,6 +12,7 @@ struct MotorConfig : MotorPinout {
     double gear_ratio;
     int ppr;
     int smoothener_window_size;
+    //double maxSpeed;
 };
 
 struct PIDMotorConfig : MotorConfig {

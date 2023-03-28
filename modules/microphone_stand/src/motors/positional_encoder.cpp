@@ -1,4 +1,5 @@
 #include "positional_encoder.h"
+#include "math.h"
 
 // /**
 //  * @brief Converts the pulse period to wheel RPM
@@ -20,7 +21,8 @@
  * @return double The angle in radians
  */
 double pulses_to_angle(int pulses, int ppr, double gear_ratio) {
-    return pulses * 2 * PI / ppr / gear_ratio;
+
+    return (pulses * M_PI / ppr / gear_ratio)/2;
 }
 
 // ========== IMPLEMENTATION ==========

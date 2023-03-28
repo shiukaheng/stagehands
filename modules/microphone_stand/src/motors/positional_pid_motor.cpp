@@ -8,12 +8,13 @@ PositionalPIDMotor::PositionalPIDMotor(PIDMotorConfig config) {
     _hall_a_pin = config.hall_a_pin;
     _hall_b_pin = config.hall_b_pin;
     _gear_ratio = config.gear_ratio;
+    //_max_speed = config.maxSpeed;
     // PID variables
     _setpoint = 0;
     _input = 0;
     _output = 0;
     // Initialize PID controller
-    _pid_controller.setOutputLimits(-255, 255);
+    _pid_controller.setOutputLimits(-110, 110);
     _pid_controller.begin(&_input, &_output, &_setpoint, config.kp, config.ki, config.kd);
     // Initialize encoder
     _encoder = new PositionalEncoderReader(config.hall_a_pin, config.hall_b_pin, config.ppr, config.gear_ratio);

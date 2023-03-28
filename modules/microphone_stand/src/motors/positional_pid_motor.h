@@ -43,6 +43,7 @@ class PositionalPIDMotor {
         // Internal PID variables
         ArduPID _pid_controller;
         PositionalEncoderReader* _encoder;
+
         double _setpoint;
         double _input;
         double _output;
@@ -52,6 +53,7 @@ class PositionalPIDMotor {
         int _r_pin; // Right direction pin
         int _hall_a_pin; // Meant to be attached to interrupt
         int _hall_b_pin; // Read in update function
+        //double _max_speed;
         double _gear_ratio;
         // Motor
         RawMotor* _motor;

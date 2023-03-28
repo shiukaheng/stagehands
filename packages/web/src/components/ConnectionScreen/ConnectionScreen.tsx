@@ -30,7 +30,7 @@ export function ConnectionScreen() {
   const hoverContextValue = { hoverBotID, setBotID};
   // const provider = useContext(TopicContext);
     return (
-      <div>
+      <div className="ui-div ui-shadow flex flex-col h-full">
         
         {/* top bar holding back button and title of page */}
         <div className="flex relative h-20 w-4/5 flex-row"> 
@@ -39,7 +39,7 @@ export function ConnectionScreen() {
         </div>
 
         {/* main body of page */}
-        <div className="flex overflow-hidden flex-row">
+        <div className="flex overflow-auto flex-row">
           <hoveredBotContext.Provider value={hoverContextValue}><AvailableBotsPanel /></hoveredBotContext.Provider>
           <div className="w-full flex-col overflow-visible"> {/* div for canvas and below details */}
             <div className="m-5 h-4/5 ui-shadow ui-div ui-highlight safari-canvas-overflow-fix">

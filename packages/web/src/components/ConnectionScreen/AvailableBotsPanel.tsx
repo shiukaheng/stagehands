@@ -10,8 +10,10 @@ function AvailableBotsPanel() {
                 <div className="text-lg font-bold mb-4 ui-div ui-shadow ui-highlight-extra mx-6 p-2 m-5">
                     Available Bots
                 </div>
+                <div className="w-full snap-center flex flex-col items-center gap-4">
                 {provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
                         <AvailableBotWidget botState={value} key={key} botID ={key} />))} {/* CHANGE THIS TO BROADCAST WHEN ITS READY */}
+                </div>
             </div> 
         </div>
     )

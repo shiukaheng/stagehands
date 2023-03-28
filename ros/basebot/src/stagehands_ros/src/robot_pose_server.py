@@ -94,7 +94,8 @@ def send_mic_orientation(micHeight, micAngle):
             current_val_from_serial = ser.read_until().decode('utf-8').rstrip("\r\n")
             rospy.loginfo(current_val_from_serial)
             if current_val_from_serial not in "ZEROING":
-                ser.write((str(micHeight)+","+str(micAngle)).encode('utf-8'))
+                ser.write((str(micHeight)+","+str(micAngle)).encode())
+                ser.flush()
                 valid = True
                 rospy.loginfo("Mic value sent correctly")
             else:

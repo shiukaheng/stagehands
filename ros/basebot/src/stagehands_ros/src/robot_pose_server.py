@@ -87,7 +87,12 @@ def set_target_pose(req):
     goal.target_pose.pose = pose
 
     # probs not how this works but lol
-    if micModuleExists: ser.write(str(req.micHeight)+","+str(req.micAngle))
+    if micModuleExists:
+        try:
+            float(ser.read_until().decode('utf-8').rstrip("\r\n"))
+            ser.write(str(req.micHeight)+","+str(req.micAngle))
+        except ValueError:
+            pass
 
     # Sends the goal to the action action_server.
     client.send_goal(goal)

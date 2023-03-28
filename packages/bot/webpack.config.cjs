@@ -14,15 +14,15 @@ module.exports = {
   },
   target: 'node16',
   externals: [
-    // nodeExternals(),
-    // nodeExternals({
-    //   modulesDir: path.resolve(__dirname, '../../node_modules'),
-    //   allowlist: ['schema', 'utils', 'uuid-readable', 'multicast-dns', 'webtopics', "dns-packet"]
-    // }),
-    // Disallow anything used by rosnodejs using regex
-    // { rosnodejs: 'commonjs rosnodejs' },
-    // { 'rosnodejs/dist/roslib': 'commonjs rosnodejs/dist/roslib' },
-    
+    nodeExternals({
+      allowlist: [/^(?!rosnodejs).*$/],
+    }),
+    function (context, request, callback) {
+      if (request.startsWith('rosnodejs')) {
+        return callback(null, 'commonjs ' + request);
+      }
+      callback();
+    },
   ],
   // mode: 'production',
   mode: 'development',

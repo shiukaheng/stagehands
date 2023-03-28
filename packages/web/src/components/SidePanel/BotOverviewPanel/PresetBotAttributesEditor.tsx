@@ -8,6 +8,7 @@ import NumberAndBarInput from "../../../utils/NumberAndBarInput"
 import ReadOnlyAttribute from "../../../utils/ReadOnlyAttributes";
 import componentSelectContext from "../../../contexts/ComponentSwitchContext";
 import PresetModuleComponents from "./PresetModuleComponents";
+import { FaArrowLeft } from "react-icons/fa";
 
 /**
  * Component for displaying and editing the attributes of a bot in a preset
@@ -40,7 +41,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
           <div className="h-full w-full p-2 overflow-y-auto flex flex-col">
             <button className=" w-16 rounded cursor-pointer p-3 ui-shadow ui-hover-highlight " onClick={() => {
               setComponentSelect({ type: "mic_panel", presetID: presetID })
-            }}> Back </button>
+            }}> <FaArrowLeft size={25} /> </button>
 
             <table
               id="attributes"

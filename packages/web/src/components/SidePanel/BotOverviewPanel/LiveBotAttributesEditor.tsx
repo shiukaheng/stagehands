@@ -8,6 +8,7 @@ import ReadOnlyAttribute from "../../../utils/ReadOnlyAttributes";
 import { TopicContext, ServiceContext } from "../../../contexts/ServerContext";
 import componentSelectContext from "../../../contexts/ComponentSwitchContext";
 import FleetModuleComponents from "./FleetModuleComponents";
+import { FaArrowLeft } from "react-icons/fa";
 
 /**
  * Component for displaying and editing the live attributes of a bot
@@ -42,7 +43,8 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
         <div className="h-full w-full p-2 overflow-y-auto flex flex-col">
           <button className=" w-16 rounded cursor-pointer p-3 ui-shadow ui-hover-highlight " onClick={() => {
             setComponentSelect({ type: "mic_panel", presetID: null })
-          }}> Back </button>
+          }
+          }> <FaArrowLeft size={25} /></button>
 
           <table
             id="attributes"

@@ -1,16 +1,19 @@
 import { format } from "path";
-import { botPairingService, BotState, fleetTopic, recallBotStateService } from "schema";
+import { botPairingService, BotState, FleetState, fleetTopic, recallBotStateService } from "schema";
 import { Server } from "socket.io";
-import {io} from "socket.io-client"
+import {io,Socket} from "socket.io-client"
 import { TopicClient, TopicServer } from "webtopics";
-import { PairingClient } from "utils";
+import { getName, PairingClient } from "utils";
 import{createNewBotState} from "./utils"
 export class simulatedBotClient{
     private pairingClient:PairingClient
     private bridgeIPPort:string;
     private botState:BotState;
     private connectionStatus:boolean;
-    private botClinet:TopicClient = null as any;
+    private botSocket:Socket|undefined
+    private fleetState:FleetState
+    private botClinet :TopicClient|undefined= undefined;
+    private timer:NodeJS.Timer|undefined
     private botVelocity = 0.1
     private botPoseTolerance = 0.01
     private simulationFrameRate = 60
@@ -19,18 +22,28 @@ export class simulatedBotClient{
         this.pairingClient= new PairingClient();
         //this.socketServer =new Server(3435);
         
-        this.botState=createNewBotState({});
+        this.botState=createNewBotState({})
+        getName()
+        .then((botname)=>{
+            this.botState.name=botname
+        })
+        
         this.bridgeIPPort=null as any
         this.connectionStatus=false;
+        this.timer=undefined;
+        this.fleetState={};
+        this.botSocket=undefined;
         
     }
     public testBridgeConnection(bridgeIPPort:string){
+        
         const testSocket = io(bridgeIPPort);
         testSocket.on("connect",()=>{
             console.log("connecting");
-            
+            this.botSocket=testSocket
             this.bridgeIPPort=bridgeIPPort;
             this.botClinet = new TopicClient(testSocket);
+            
             this.connectToBridge(this.botClinet);
 
         })
@@ -41,18 +54,30 @@ export class simulatedBotClient{
         this.pairingClient.subscribeRequest(({bridgeIp,bridgePort})=>{
             const bridgeIPPort="http://"+bridgeIp+":"+bridgePort.toString()
             console.log(bridgeIPPort);
+            if(this.botClinet===undefined){
+                
+            }
             this.testBridgeConnection(bridgeIPPort)
             
             //console.log(this.bridgeIPPort);
         })
-
+        this.pairingClient.subscribeDisconnect(()=>{
+            clearInterval(this.timer)
+            delete this.fleetState[this.botClinet?.id as string]
+            this.botClinet?.pub(fleetTopic,this.fleetState);
+            (this.botSocket as Socket).close();
+        })
     }
     public connectToBridge(client:TopicClient){
         const clientID = client.id;
         this.connectionStatus=true;
+        console.log("connected");
         
+        client.sub(fleetTopic,(fleet)=>{
+            this.fleetState=fleet;
+        })
         
-        const timer = setInterval(() => {
+        this.timer = setInterval(() => {
             this.update(1/this.simulationFrameRate)
         }, 1000/this.simulationFrameRate)
         
@@ -79,7 +104,8 @@ export class simulatedBotClient{
                 this.botState.status = "idle"
             }
         }
-        this.botClinet.pub(fleetTopic, {clientID:this.botState});
+        const botId= (this.botClinet as TopicClient).id ;
+        (this.botClinet as TopicClient).pub(fleetTopic, {[botId]:this.botState});
     }
 
 

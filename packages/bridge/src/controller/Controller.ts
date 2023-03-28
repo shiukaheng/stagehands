@@ -1,5 +1,5 @@
 import { Context } from "./Context";
-import { RequestType, ServiceResponseType, TopicServer } from "webtopics";
+import { RequestType, ServiceResponseType, TopicClient, TopicServer } from "webtopics";
 import { ServiceChannel, TopicChannel } from "webtopics";
 import { selectTopic } from "../topicSelector";
 import { PairingServer } from "utils";
@@ -54,9 +54,9 @@ export class Controller {
      * @param topicChannel The topic channel to subscribe to.
      * @param topicHandler The handler function for the topic.
      */
-    public serverSub(topicChannel: TopicChannel<any>, topicHandler: (topicData: any, context: Context) => void) {
+    public serverSub(topicChannel: TopicChannel<any>, topicHandler: (topicData: any, context: Context,sever:TopicServer) => void) {
         this.server.sub(topicChannel, (topic) => {
-            topicHandler(topic, this.context);
+            topicHandler(topic, this.context,this.server);
         });
     }
 
@@ -70,23 +70,30 @@ export class Controller {
             server.sendDiscoveryPacket();
             server.subBots((availableBots) => {
                 
-                this.context.setAvailableBotNameTopicClientMap(availableBots);
-                for (const botName of availableBots.keys()) {
+                
+                //this.context.setAvailableBotNameTopicClientMap(availableBots);
+                for (const domainName of availableBots.keys()) {
                     
+                    const botName=domainName.split(" ")[0]
+                    //console.log(botName);
+                    
+                    this.context.getAvailableBotNameTopicClientMap().set(botName,availableBots.get(domainName) as TopicClient)
                     if (this.context.getBotConnectionState()[botName] === undefined) {
                         this.context.getBotConnectionState()[botName]="disconnected";
                     }
                     
                 }
-                Object.keys(this.context.getBotConnectionState()).forEach((dN) => {
-                    if(availableBots.get(dN)===undefined){
-                        delete this.context.getBotConnectionState()[dN]
+                Object.keys(this.context.getBotConnectionState()).forEach((botName) => {
+                    const domainName=botName+" Pairing Service._stagehands_pairing._tcp.local"
+
+                    if(availableBots.get(domainName)===undefined){
+                        delete this.context.getBotConnectionState()[botName]
                         //this.context.getBotConnectionState().splice(this.context.getBotConnectionState().indexOf(BCS),1);
                     }
                 })
             });
-            //console.log("Available Bots: " + this.context.getAvailableBotNameTopicClientMap().size);
-            //console.log(this.context.getBotConnectionState());
+            console.log(this.context.getBotConnectionState());
+            
             this.server.pub(botConnectionStatusTopic, this.context.getBotConnectionState());
         }, 2000);
     }

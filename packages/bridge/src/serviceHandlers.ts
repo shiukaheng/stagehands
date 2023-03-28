@@ -2,7 +2,7 @@ import { Context } from "./controller/Context";
 import { UpdatePresetRequest, RecallFleetState, recallBotStateService, stopService, clearStopService, LEDState, OverWriteBotLEDRequest, LEDOverwriteService, restoreLEDService, Preset, stageTopic, CreatePresetReturn, botPairingService, BotConnectionStatus, botDisconnectionService, botConnectionStatusTopic } from "schema";
 import { v4 } from "uuid";
 import { checkValidRecall } from "./utils/ValidationFunc";
-import { TopicServer } from "webtopics";
+import { TopicClient, TopicServer } from "webtopics";
 import { retrieveIps } from "utils";
 /**
  * Create a new preset.
@@ -365,19 +365,25 @@ export function reorderPresetsServiceHandler(
     server.pub(botConnectionStatusTopic,context.getBotConnectionState());
   }
  export async function disconnectBotServiceHandler(
-    botID:string,
+    botName:string,
     context: Context,
     server: TopicServer
  ):Promise<void>{
-    if (!context.getCurrentBotState().hasOwnProperty(botID)) {
-        throw new Error(`Bot ${botID} does not exist`);
+    console.log(context.getBotConnectionState());
+    
+    if (!context.getBotConnectionState()[botName]) {
+        throw new Error(`Bot ${botName} does not exist`);
     }
-    const botName = context.getCurrentBotState()[botID].name;
+    //const botName = context.getCurrentBotState()[botID].name;
     const botConnectionStatus = context.getBotConnectionState()[botName]
     if (botConnectionStatus === "disconnected") {
         throw new Error("Bot is already disconnected");
-      }
-    server.req(botDisconnectionService,botID)
+    }
+    let currentBotClient =context.getAvailableBotNameTopicClientMap().get(botName) as TopicClient
+    console.log(currentBotClient);
+    
+    const serverID = await currentBotClient.getServerID();
+    currentBotClient.req(botDisconnectionService,serverID as string)
     .then(()=>{
         context.getBotConnectionState()[botName]= "disconnected";
     })

@@ -1,5 +1,6 @@
 import { Context } from "./controller/Context";
-import { FleetState } from "schema";
+import { FleetState, fleetTopic } from "schema";
+import { ServerMeta, TopicServer } from "webtopics";
 
 /**
  * Handles updates to the fleet topic.
@@ -10,4 +11,17 @@ export function fleetTopicHandler(fleetState: FleetState, context: Context): voi
   console.log(fleetState);
   
   context.setCurrentBotState(fleetState);
+}
+
+export function serverMetaHandler(serverMeta:ServerMeta,context:Context,server:TopicServer):void{
+  Object.keys(context.getCurrentBotState()).forEach((botId)=>{
+    if(serverMeta.clients[botId]===undefined){
+      delete context.getCurrentBotState()[botId]
+    }
+
+  })
+  
+  console.log(context.getCurrentBotState());
+  
+  server.pub(fleetTopic,context.getCurrentBotState())
 }

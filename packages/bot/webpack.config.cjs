@@ -17,7 +17,7 @@ module.exports = {
     nodeExternals(),
     nodeExternals({
       modulesDir: path.resolve(__dirname, '../../node_modules'),
-      allowlist: ['schema', 'utils', 'uuid-readable', 'multicastdns', 'webtopics']
+      allowlist: ['schema', 'utils', 'uuid-readable', 'multicast-dns', 'webtopics']
     }),
     // Make rosnodejs an external dependency:
     { rosnodejs: 'commonjs rosnodejs' }

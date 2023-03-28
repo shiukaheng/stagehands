@@ -45,9 +45,12 @@ export function useService<T extends RequestType, U extends ServiceResponseType>
             }
             clientRef.current = client;
             client.getServerID().then((id) => {
+                console.log("Ready",readyRef.current)
                 serverIDRef.current = id;
                 readyRef.current = true;
                 setReady(true);
+            }).catch((err) => {
+                console.error(err);
             });
         }
     }, [url, channel, clientCache]);

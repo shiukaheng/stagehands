@@ -85,8 +85,8 @@ export class Controller {
                     }
                 })
             });
-            console.log("Available Bots: " + this.context.getAvailableBotNameTopicClientMap().size);
-            console.log(this.context.getBotConnectionState());
+            //console.log("Available Bots: " + this.context.getAvailableBotNameTopicClientMap().size);
+            //console.log(this.context.getBotConnectionState());
             this.server.pub(botConnectionStatusTopic, this.context.getBotConnectionState());
         }, 2000);
     }

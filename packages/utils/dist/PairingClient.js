@@ -111,7 +111,7 @@ class PairingClient {
                 }
                 const [question] = query.questions;
                 if (question && question.type === 'PTR' && question.name === '_stagehands_pairing._tcp.local') {
-                    console.log('Responding to stagehands_pairing query');
+                    //console.log('Responding to stagehands_pairing query');
                     this.mdns.respond({
                         answers: [{
                                 name: '_stagehands_pairing._tcp.local.',

@@ -348,6 +348,8 @@ export function reorderPresetsServiceHandler(
     if (botConnectionStatus === "connected") {
       throw new Error("Bot is already connected");
     }
+    console.log("connecting");
+    
     const serverId = await pairingClient?.getServerID() as string;
     const ips = retrieveIps();
     let successRequest = true;

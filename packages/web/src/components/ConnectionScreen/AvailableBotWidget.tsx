@@ -22,7 +22,7 @@ export function AvailableBotWidget({ botStatus, botID }: { botStatus: string, bo
                     {serviceProvider?.disConnectBot.callback(botID)}}} 
                     onMouseEnter={() => { 
                         setBotID(botStatus)
-                        console.log("Mouse hovering!") }}> {/* onClick to connect? */}
+                        console.log("Mouse hovering!", botID) }}> {/* onClick to connect? */}
                     {botID} - {botStatus}{/*{botState.name} - {botState.status}/disconnected*/}
                 </button>
     )

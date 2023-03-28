@@ -14,7 +14,7 @@ export function AvailableBotWidget({ botStatus, botID }: { botStatus: string, bo
                     id={"nameOfBot"}
                     className="ui-shadow ui-highlight ui-div font-bold box-border h-20 w-64 rounded m-2 px-8" // Could change colour here depending on connection status
                     onClick={() => { console.log("Connection button clicked")
-                    {serviceProvider?.connectBot.callback(hoverBotID)}}} 
+                    {serviceProvider?.connectBot.callback(botID)}}} 
                     onMouseEnter={() => { 
                         setBotID(botStatus)
                         console.log("Mouse hovering!") }}> {/* onClick to connect? */}

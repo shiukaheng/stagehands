@@ -50,13 +50,10 @@ exports.recallBotStateSchema = zod_1.z.object({
         }
     }, { message: "Module type does not match module state, or module type not found" }),
 });
-exports.botConnectionStatusSchema = zod_1.z.object({
-    domainName: zod_1.z.string(),
-    connectionStatus: zod_1.z.union([
-        zod_1.z.literal("connected"),
-        zod_1.z.literal("disconnected"),
-    ])
-});
+exports.botConnectionStatusSchema = zod_1.z.union([
+    zod_1.z.literal("connected"),
+    zod_1.z.literal("disconnected"),
+]);
 exports.fleetStateSchema = zod_1.z.record(exports.botStateSchema);
 exports.recallFleetStateSchema = zod_1.z.record(exports.recallBotStateSchema);
 /**

@@ -47,13 +47,10 @@ export const recallBotStateSchema = z.object({
         }
     }, { message: "Module type does not match module state, or module type not found" }),
 });
-export const botConnectionStatusSchema = z.object({
-    domainName: z.string(),
-    connectionStatus: z.union([
-        z.literal("connected"),
-        z.literal("disconnected"),
-    ])
-});
+export const botConnectionStatusSchema = z.union([
+    z.literal("connected"),
+    z.literal("disconnected"),
+]);
 export const fleetStateSchema = z.record(botStateSchema);
 export const recallFleetStateSchema = z.record(recallBotStateSchema);
 /**

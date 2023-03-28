@@ -24,7 +24,7 @@ LED_INVERT     = False   # True to invert the signal (when using NPN transistor 
 
 from grove import helper
 from grove.helper import helper
-helper.root_check()
+# helper.root_check()
 
 from grove.helper import SlotHelper
 sh = SlotHelper(SlotHelper.PWM)

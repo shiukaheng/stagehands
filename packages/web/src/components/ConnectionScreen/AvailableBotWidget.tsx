@@ -3,7 +3,7 @@ import { BotState } from "schema"
 import { ServiceContext } from "web/src/contexts/ServerContext";
 import { hoveredBotContext } from "./ConnectionScreen";
 
-export function AvailableBotWidget({ botState, botID }: { botState: BotState, botID: string}) {
+export function AvailableBotWidget({ botStatus, botID }: { botStatus: string, botID: string}) {
     const { hoverBotID, setBotID } = useContext(hoveredBotContext);
     const serviceProvider = useContext(ServiceContext);
     {/* TODO */}
@@ -18,7 +18,7 @@ export function AvailableBotWidget({ botState, botID }: { botState: BotState, bo
                     onMouseEnter={() => { 
                         setBotID(botID)
                         console.log("Mouse hovering!") }}> {/* onClick to connect? */}
-                    {botState.name} - {botState.status}/disconnected
+                    {botID} - {botStatus}{/*{botState.name} - {botState.status}/disconnected*/}
                 </button>
     )
 }

@@ -11,8 +11,10 @@ function AvailableBotsPanel() {
                     Available Bots
                 </div>
                 <div className="w-full snap-center flex flex-col items-center gap-4">
-                {provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
+                {/*{provider?.connectionState && Object.entries(provider.connectionState).map(([key, value]) => (
                         <AvailableBotWidget botState={value} key={key} botID ={key} />))} {/* CHANGE THIS TO BROADCAST WHEN ITS READY */}
+                {provider?.connectionState && Object.entries(provider.connectionState).map(([key, value]) => (
+                        <AvailableBotWidget botStatus={value} key={key} botID={key} />))}
                 </div>
             </div> 
         </div>

@@ -35,7 +35,16 @@ export function RunningpresetPanel({ presetIndex }: { presetIndex: number }) {
             </div>
             <h1>to run the last preset</h1>
 
+            <br></br>
 
+            <div className="flex flex-row gap-2 items-center justify-center ">
+            <h1>{"press"} </h1>
+                <button className="rounded p-3 border-zinc-400 border ui-shadow ui-hover-highlight " onClick={() => {
+                    setComponentSelect({type : "mic_panel",presetID : null})
+                }
+                }> Esc</button>
+                <h1>{" to quit running"}</h1>
+            </div>
 
         </div>
 

@@ -12,7 +12,7 @@ from stagehands_ros.srv import dummyLEDTest, dummyLEDTestResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs.msg import Pose, Point, Quaternion
-from led_strip_handler import GroveWS2813RgbStrip
+# from led_strip_handler import GroveWS2813RgbStrip
 from rpi_ws281x import PixelStrip, Color
 import serial.tools.list_ports
 

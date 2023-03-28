@@ -93,7 +93,7 @@ def set_target_pose(req):
             x = float(mic[0])
             y = float(mic[1])
             # ser.write(str(req.micHeight)+","+str(req.micAngle))
-            ser.write(req.micHeightcommaAngle)
+            ser.write(req.micHeightcommaAngle.encode('utf-8'))
         except (ValueError, IndexError):
             pass
 

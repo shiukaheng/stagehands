@@ -13,7 +13,7 @@ export default function PresetModuleComponents({bot, preset, presetID, presetUpd
                   bot.targetPose.quaternion[0] = value
                   presetUpdate(presetID, preset)
                 }}
-                boundary={{ min: 0, max: 100 }} />
+                boundary={{ min: 0, max: 180 }} />
 
               <NumberAndBarInput
                 title="Mic Height"

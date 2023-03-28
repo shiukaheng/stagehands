@@ -12,30 +12,30 @@ from stagehands_ros.srv import dummyLEDTest, dummyLEDTestResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs.msg import Pose, Point, Quaternion
-# from led_strip_handler import GroveWS2813RgbStrip
+from led_strip_handler import GroveWS2813RgbStrip
 from rpi_ws281x import PixelStrip, Color
 import serial.tools.list_ports
 
-# # LED strip configuration
-# LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
-# LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
-# LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
-# LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
+# LED strip configuration
+LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
+LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
+LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
+LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 
-# from grove import helper
-# from grove.helper import helper
-# # helper.root_check()
+from grove import helper
+from grove.helper import helper
+# helper.root_check()
 
-# from grove.helper import SlotHelper
-# sh = SlotHelper(SlotHelper.PWM)
+from grove.helper import SlotHelper
+sh = SlotHelper(SlotHelper.PWM)
 # pin = sh.argv2pin(" [led-count]")
+pin = 12
+# import sys
+count = 30
+# if len(sys.argv) >= 3:
+#     count = int(sys.argv[2])
 
-# # import sys
-# count = 30
-# # if len(sys.argv) >= 3:
-# #     count = int(sys.argv[2])
-
-# strip = GroveWS2813RgbStrip(pin, count)
+strip = GroveWS2813RgbStrip(pin, count)
 
 # attempt to detect arduino port
 arduino_port = "/dev/ttyACM0" # safe? default?? value?????
@@ -94,7 +94,8 @@ def send_mic_orientation(micHeight, micAngle):
             current_val_from_serial = ser.read_until().decode('utf-8').rstrip("\r\n")
             rospy.loginfo(current_val_from_serial)
             if current_val_from_serial not in "ZEROING":
-                ser.write((str(micHeight)+","+str(micAngle)).encode('utf-8'))
+                ser.write((str(micHeight)+","+str(micAngle)).encode())
+                ser.flush()
                 valid = True
                 rospy.loginfo("Mic value sent correctly")
             else:
@@ -145,21 +146,21 @@ def set_target_pose(req):
     :return: A response message confirming that the target pose has been set.
     """
     # working with dummy test message that directly takes the rgb values in a string separated by commas
-    # colour = req.RGBValue.split[","]
-    # send_LED_colour(int(colour[0]), int(colour[1]), int(colour[2]), "constant", -1)
+    colour = req.RGBValue.split[","]
+    send_LED_colour(int(colour[0]), int(colour[1]), int(colour[2]), "constant", -1)
 
     # for the actual intended service request type, it is this:
     # send_LED_colour(req.ledColour[0], req.ledColour[1], req.ledColour[2], req.ledAnimation, req.ledFrequency)
 
     # working with dummy test service that just directly takes the string format used by arduino
-    mic = req.micHeightcommaAngle.split(",")
-    send_mic_orientation(float(mic[0]), float(mic[1]))
+    # mic = req.micHeightcommaAngle.split(",")
+    # send_mic_orientation(float(mic[0]), float(mic[1]))
 
     # for the actual intended service request type, it is this:
     # send_mic_orientation(req.micHeight, req.micAngle)
 
     # send_goal_pose_ros(req.xPos, req.yPos, req.rotationQuaternion)
-    return dummyOrientationTestResponse("lol")
+    return dummyLEDTestResponse("lol")
 
 def publish_current_pose():
     """
@@ -205,8 +206,8 @@ def action_server():
     This function creates a service action_server called set_target_pose.
     """
     # s = rospy.Service('set_target_pose', setTargetPose, set_target_pose)
-    s = rospy.Service('set_target_pose', dummyOrientationTest, set_target_pose)
-    # s = rospy.Service('set_target_pose', dummyLEDTest, set_target_pose)
+    # s = rospy.Service('set_target_pose', dummyOrientationTest, set_target_pose)
+    s = rospy.Service('set_target_pose', dummyLEDTest, set_target_pose)
     print('action action_server running')
 
 if __name__ == '__main__':

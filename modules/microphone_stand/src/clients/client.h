@@ -15,6 +15,7 @@ class SerialPositionalPIDClient {
         String _inputBuffer;
         PositionalPIDMotor* _motor;
         PositionalPIDMotor* _motor2;
+        long _lastTime;
     public:
         SerialPositionalPIDClient(PIDMotorConfig config, PIDMotorConfig config2);
         ~SerialPositionalPIDClient();

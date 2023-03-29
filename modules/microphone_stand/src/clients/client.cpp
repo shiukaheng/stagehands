@@ -44,13 +44,20 @@ double rotToDist(double rot){
 
 void SerialPositionalPIDClient::update() {
     double maxDist = 45.0;
+    long _lastTime = 0;
 
     _motor->update();
     _motor2->update();
     
-    Serial.print(-rotToDist(_motor->getAngle()));
-    Serial.print(", ");
-    Serial.println(_motor2->getAngle());
+    
+    // This needs to run every 50ms
+    if (millis() - _lastTime > 50) {
+        Serial.print(-rotToDist(_motor->getAngle()));
+        Serial.print(", ");
+        Serial.println(_motor2->getAngle());
+        // Update the last time
+        _lastTime = millis();
+    }
 
     while (Serial.available() > 0) {
         //receives data in the form of "height,angle"

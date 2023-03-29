@@ -1,6 +1,6 @@
 import { TopicServer } from "webtopics"
 import { Server } from "socket.io"
-import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, runPresetService, reorderPresetsService, Preset } from "schema"
+import { FleetState, PresetSet, StageState, createPresetService, deletePresetService, emergencyStopClearService, emergencyStopService, fleetTopic, recallBotStateService, recallFleetStateService, stageTopic, stopBotClearService, updatePresetService, runPresetService, reorderPresetsService, Preset, BotConnectionState, connectBotService, disconnectBotService, botConnectionStatusTopic } from "schema"
 import { createNewBotState } from "./utils"
 import { z } from "zod"
 import { ServiceChannel } from "webtopics/dist/utils/Channel"
@@ -17,6 +17,9 @@ export class FakeBridgeServer {
         "3" : createNewBotState({name: "Charlie"}),
         "4" : createNewBotState({name: "Daisy"}),
     }
+    private botConnectionState:BotConnectionState={"Alice":"disconnected","Bob":"disconnected","Charlie":"disconnected","Daisy":"disconnected"}
+
+    private activeFleetState:FleetState={}
     private stageState: StageState = {
         boundary: {
             polygonVertexCoordinates: []
@@ -45,9 +48,11 @@ export class FakeBridgeServer {
         })
         this.ts.pub(fleetTopic, this.fleetState)
         this.ts.pub(stageTopic, this.stageState)
+        this.ts.pub(botConnectionStatusTopic,this.botConnectionState)
         console.log(`✅ Fake bridge server running on port ${port}`)
 
         // Run update loop
+        
         const timer = setInterval(() => {
             this.update(1/this.simulationFrameRate)
         }, 1000/this.simulationFrameRate)
@@ -195,6 +200,24 @@ export class FakeBridgeServer {
             console.log(`Stopped bot ${botName}`)
         })
 
+        this.ts.srv(connectBotService,(botName)=>{
+            const botConnectionStatus=this.botConnectionState[botName]
+            if(botConnectionStatus==="connected"){
+                throw new Error("Bot is already connected");
+            }
+            this.botConnectionState[botName]="connected"
+            this.ts.pub(botConnectionStatusTopic,this.botConnectionState)
+        })
+        this.ts.srv(disconnectBotService,(botName)=>{
+            const botConnectionStatus=this.botConnectionState[botName]
+            if(botConnectionStatus==="disconnected"){
+                throw new Error("Bot is already disconnected");
+            }
+            this.botConnectionState[botName]="disconnected"
+            this.ts.pub(botConnectionStatusTopic,this.botConnectionState)
+        })
+
+
         // // Every 5 seconds, randomize each bot's target pose in x and z
         // setInterval(() => {
         //     // console.log("Randomizing target poses")
@@ -227,9 +250,12 @@ export class FakeBridgeServer {
      * @param dt Time since last update
      */
     update(dt: number) {
+        
+
         for (const botName in this.fleetState) {
+
             const botState = this.fleetState[botName];
-            if (botState.stopped !== true) {
+            if (botState.stopped !== true ) {
                 const targetPose = botState.targetPose;
                 const botPose = botState.pose;
                 const posDiff = [targetPose.position[0] - botPose.position[0], targetPose.position[1] - botPose.position[1], targetPose.position[2] - botPose.position[2]];
@@ -249,6 +275,16 @@ export class FakeBridgeServer {
                 }
             }
         }
-        this.ts.pub(fleetTopic, this.fleetState);
+        for(const botID of Object.keys(this.fleetState)){
+            const botName=this.fleetState[botID].name
+            if(this.botConnectionState[botName]==="connected"){
+                this.activeFleetState[botID]=this.fleetState[botID]
+            }
+            else{
+                delete this.activeFleetState[botID]
+            }
+        }
+        this.ts.pub(fleetTopic, this.activeFleetState);
     }
+    
 }

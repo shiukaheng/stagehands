@@ -80,16 +80,16 @@ export class simulatedBotClient{
         this.connectionStatus=true;
         console.log("connected");
         
-        client.sub(fleetTopic,(fleet)=>{
-            this.fleetState=fleet;
-        })
+        // client.sub(fleetTopic,(fleet)=>{
+        //     this.fleetState=fleet;
+        // })
         
         this.timer = setInterval(() => {
             this.update(1/this.simulationFrameRate)
         }, 1000/this.simulationFrameRate)
         
     }
-    public update(dt: number) {
+    public update(dt: number) { 
 
         const botState = this.botState;
         if (botState.stopped !== true) {
@@ -114,9 +114,18 @@ export class simulatedBotClient{
         const botId= (this.botClinet as TopicClient).id ;
         (this.botClinet as TopicClient).pub(fleetTopic, {[botId]:this.botState});
     }
+    public runBotService(server:TopicServer){
+        server.srv(recallBotStateService,(req)=>{
+            
+            this.botState.targetPose=req.targetPose
+            this.botState.module.state=req.module.state
+            this.botState.ledState.base=req.baseLEDState
+        })
+    }
 
 
 }
+
 const dummybotClient =  new simulatedBotClient()
 dummybotClient.runPairingService();
 

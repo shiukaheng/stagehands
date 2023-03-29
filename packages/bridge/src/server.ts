@@ -51,7 +51,7 @@ export class BridgeServer {
     // }, 500);
 
     this.controller.serverSub(fleetTopic, fleetTopicHandler);
-    //this.controller.serverSub(serverMetaChannel,serverMetaHandler);
+    this.controller.serverSub(serverMetaChannel,serverMetaHandler);
 
     this.controller.runService(createPresetService, createPresetServiceHandler);
     this.controller.runService(updatePresetService, updatePresetServiceHandler);
@@ -67,10 +67,17 @@ export class BridgeServer {
     this.controller.runService(connectBotService, connectBotServiceHandler)
     this.controller.runService(disconnectBotService, disconnectBotServiceHandler)
     this.controller.runPairingService();
-    this.controller.getContext().getServer().sub(serverMetaChannel,(serverMeta)=>{
-      console.log(serverMeta);
+    // this.controller.getContext().getServer().sub(serverMetaChannel,(serverMeta)=>{
+    //   console.log(serverMeta);
+    //   // for(const clientID of Object.keys(serverMeta.clients)){
+        
+    //   //   console.log(clientID);
+    //   //   console.log(serverMeta.clients[clientID]);
+        
+        
+    //   // }
       
-    })
+    // })
     
   }
 

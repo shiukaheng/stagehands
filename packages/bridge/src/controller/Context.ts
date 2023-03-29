@@ -42,7 +42,7 @@ export class Context {
         this.currentBotState = {};
         this.targetBotState = {};
         this.botConnectionState = {};
-        this.server = new TopicServer(new Server(port, { cors: { origin: "*" } }));
+        this.server = new TopicServer(new Server(port, { cors: { origin: "*" }}));
         this.serverPort = port;
         this.availableBotNameTopicClientMap = new Map<string, TopicClient>();
 

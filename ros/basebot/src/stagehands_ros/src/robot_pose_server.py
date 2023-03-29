@@ -143,6 +143,7 @@ def send_mic_orientation(micHeight, micAngle):
     :param micHeight: The height of the mic module in cm.
     :param micAngle: The angle of the mic module in degrees."""
     if micModuleExists:
+        ser = serial.Serial(arduino_port, 115200)
         valid = False
         # while True:
         #     try:

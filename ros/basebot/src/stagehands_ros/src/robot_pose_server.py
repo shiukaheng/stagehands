@@ -157,6 +157,7 @@ def send_mic_orientation(micHeight, micAngle):
             current_val_from_serial = ser.read_until().decode('utf-8').rstrip("\r\n")
             rospy.loginfo(current_val_from_serial)
             if current_val_from_serial not in "ZEROING":
+                # reopen port every single time you want to send a value
                 ser = serial.Serial(arduino_port, 115200)
                 ser.write((str(micHeight)+","+str(micAngle)).encode())
                 ser.flush()

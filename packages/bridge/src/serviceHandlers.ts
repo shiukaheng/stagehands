@@ -416,6 +416,9 @@ export function reorderPresetsServiceHandler(
     .catch((error)=>{
         throw error;
     })
+    console.log("debug connectionState");
+    
+    console.log(context.getBotConnectionState());
     
     server.pub(botConnectionStatusTopic,context.getBotConnectionState());
 

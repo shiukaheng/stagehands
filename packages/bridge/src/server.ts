@@ -67,6 +67,10 @@ export class BridgeServer {
     this.controller.runService(connectBotService, connectBotServiceHandler)
     this.controller.runService(disconnectBotService, disconnectBotServiceHandler)
     this.controller.runPairingService();
+    this.controller.getContext().getServer().sub(serverMetaChannel,(serverMeta)=>{
+      console.log(serverMeta);
+      
+    })
     
   }
 

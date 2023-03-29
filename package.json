@@ -37,6 +37,7 @@
     "docker-update": "npm run docker-build && npm run docker-push",
     "install-pi": "cd bot_setup && chmod +x install.sh && ./install.sh",
     "prebuild": "echo Please use build-ros-prod instead"
+    
   },
   "repository": {
     "type": "git",

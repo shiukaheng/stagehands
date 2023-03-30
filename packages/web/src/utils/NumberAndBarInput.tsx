@@ -20,12 +20,18 @@ export default function NumberAndBarInput( {title, value,setValue, boundary} : {
                       defaultValue={value}
                       onChange={() => {
                         const val = parseInt(inputRef.current!.value)
-                        if (val <= boundary.max && val >= boundary.min) {
+
+                        if (val <= boundary.max && val >= boundary.min ) {
                           rangeRef.current!.value = inputRef.current!.value
                           setValue(val)
                         } else {
-                          alert(title +" value must be between "+boundary.min+ " and " + boundary.max)
-                          inputRef.current!.value = rangeRef.current!.value
+                          if(! Number.isNaN(val)){
+                            console.log(val)
+                            alert(title +" value must be between "+boundary.min+ " and " + boundary.max)
+                            inputRef.current!.value = rangeRef.current!.value
+
+                          }
+
                         }
   
   

@@ -15,7 +15,7 @@ import { FaArrowLeft } from "react-icons/fa";
  */
 export default function LiveBotAttributesEditor({ botID }: { botID: string }) {
   const services = useContext(ServiceContext);
-  const provider = useContext(TopicContext);  
+  const provider = useContext(TopicContext);
   if (provider === null) {
     throw new Error("Provider not found")
   }
@@ -27,7 +27,6 @@ export default function LiveBotAttributesEditor({ botID }: { botID: string }) {
   const bot = fleet[botID]
   const ledColorElemRef = useRef<HTMLInputElement>(null)
   const ledAnimationElemRef = useRef<HTMLSelectElement>(null)
-  const [ledAnimationInput, setLedAnimationInput] = useState(bot.ledState.base.ledAnimation.animationMode)
   const { setComponentSelect } = useContext(componentSelectContext);
 
   // console.log(botID)
@@ -44,7 +43,6 @@ export default function LiveBotAttributesEditor({ botID }: { botID: string }) {
     }, 100, { "leading": false, "trailing": true, 'maxWait': 100 })
     , [services?.recallFleetState])
   return (
-    fleet !== undefined ? (
       <div className="h-full overflow-clip">
         <div className="h-full w-full p-2 overflow-y-auto flex flex-col">
           <button className=" w-16 rounded cursor-pointer p-3 ui-shadow ui-hover-highlight " onClick={() => {
@@ -57,8 +55,8 @@ export default function LiveBotAttributesEditor({ botID }: { botID: string }) {
             className=" font-bold h-full w-full rounded p-5 bottom-0 overflow-y-auto overflow-x-hidden">
 
             <tbody>
-          
-              <ReadOnlyAttribute title = "Name" value = {bot.name} />
+
+              <ReadOnlyAttribute title="Name" value={bot.name} />
 
               <ReadOnlyAttribute title="Status" value={bot.status} />
 
@@ -84,7 +82,7 @@ export default function LiveBotAttributesEditor({ botID }: { botID: string }) {
                 }}
                 boundary={{ min: -5, max: 5 }} />
 
-              <FleetModuleComponents bot={bot} fleet={fleet} fleetUpdate={fleetUpdate} botID = {botID}/>
+              <FleetModuleComponents bot={bot} fleet={fleet} fleetUpdate={fleetUpdate} botID={botID} />
 
               <tr>
                 <th>LED </th>
@@ -112,15 +110,13 @@ export default function LiveBotAttributesEditor({ botID }: { botID: string }) {
                 <td>
                   <select
                     className=" ui-shadow ui-highlight ui-div h-6 w-32 text-center"
-                    value={ledAnimationInput}
+                    value={bot.ledState.base.ledAnimation.animationMode}
                     ref={ledAnimationElemRef}
                     onChange={() => {
                       if (ledAnimationElemRef.current!.value === "constant") {
                         fleet[botID].ledState.base.ledAnimation = { flashingFrequency: 0, animationMode: "constant" }
-                        setLedAnimationInput("constant")
                       } else {
-                        fleet[botID].ledState.base.ledAnimation = { flashingFrequency: 5, animationMode: "flashing" }
-                        setLedAnimationInput("flashing")
+                        fleet[botID].ledState.base.ledAnimation = { flashingFrequency: 1, animationMode: "flashing" }
                       }
                       fleetUpdate(fleet)
                     }}>
@@ -131,9 +127,9 @@ export default function LiveBotAttributesEditor({ botID }: { botID: string }) {
                 </td>
               </tr>
 
-              {ledAnimationInput === "flashing" ? (
-                <NumberAndBarInput 
-                title="Frequency"
+              {bot.ledState.base.ledAnimation.animationMode === "flashing" ? (
+                <NumberAndBarInput
+                  title="Frequency"
                   value={fleet[botID].ledState.base.ledAnimation.flashingFrequency!}
                   setValue={(value: number) => {
                     fleet[botID].ledState.base.ledAnimation.flashingFrequency = value
@@ -147,8 +143,7 @@ export default function LiveBotAttributesEditor({ botID }: { botID: string }) {
           </table>
         </div>
       </div>
-    ) : null
-  )
+    )
 }
 
 

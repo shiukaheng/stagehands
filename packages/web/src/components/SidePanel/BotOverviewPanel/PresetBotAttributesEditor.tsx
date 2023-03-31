@@ -31,8 +31,6 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
   }
   const ledColorElemRef = useRef<HTMLInputElement>(null)
   const ledAnimationElemRef = useRef<HTMLSelectElement>(null)
-  const flashingFrequencyElemRef = useRef<HTMLInputElement>(null)
-  const [ledAnimationInput, setLedAnimationInput] = useState(bot?.baseLEDState.ledAnimation.animationMode)
 
   return (
     preset !== null && bot != null ?
@@ -97,19 +95,15 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
                   <td>
                     <select
                       className=" ui-shadow ui-highlight ui-div h-6 w-32 text-center"
-                      value={ledAnimationInput}
+                      value={bot?.baseLEDState.ledAnimation.animationMode}
                       ref={ledAnimationElemRef}
                       onChange={() => {
                         if (ledAnimationElemRef.current!.value === "constant") {
                           preset.state[botID].baseLEDState.ledAnimation = { flashingFrequency: 0, animationMode: "constant" }
-                          setLedAnimationInput("constant")
                         } else {
-                          preset.state[botID].baseLEDState.ledAnimation = { flashingFrequency: 5, animationMode: "flashing" }
-                          setLedAnimationInput("flashing")
+                          preset.state[botID].baseLEDState.ledAnimation = { flashingFrequency: 1, animationMode: "flashing" }
                         }
                         presetUpdate(presetID, preset)
-
-                        console.log(ledAnimationInput)
                       }}>
                       <option value="constant" className="bg-zinc-700">Constant</option>
                       <option value="flashing" className="bg-zinc-700" >Flashing</option>
@@ -118,7 +112,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
                   </td>
                 </tr>
 
-                {ledAnimationInput === "flashing" ? (
+                {bot?.baseLEDState.ledAnimation.animationMode === "flashing" ? (
                   <NumberAndBarInput
                     title="Flashing Frequency"
                     value={bot.baseLEDState.ledAnimation.flashingFrequency!}

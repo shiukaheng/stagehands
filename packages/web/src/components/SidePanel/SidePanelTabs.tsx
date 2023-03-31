@@ -4,7 +4,7 @@ import { PresetPanelSelection, MicPanelSelection } from "./PresetPanel/PresetPan
 
 export function SidePanelTabs() {
   const { setComponentSelect } = useContext(componentSelectContext);
-  const [style, setStyle] = useState(["ui-highlight-extra",""])
+  const [style, setStyle] = useState(["","ui-highlight-extra"])
   return (
   <div className="flex flex-row gap-2">
     {/* preset button*/}

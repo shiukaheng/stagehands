@@ -78,7 +78,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
                   <td>
                     <input
                       type="color"
-                      defaultValue={rgbToHex(bot.baseLEDState.rgbValue.map((x) => x * 255))}
+                      value={rgbToHex(bot.baseLEDState.rgbValue.map((x) => x * 255))}
                       id="ledColor"
                       ref={ledColorElemRef}
                       size={15}
@@ -119,28 +119,15 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
                 </tr>
 
                 {ledAnimationInput === "flashing" ? (
-                  <tr>
-                    <th> Frequency</th>
-                    <td>
-                      <input
-                        ref={flashingFrequencyElemRef}
-                        type={"number"}
-                        id={"flashingFrequency"}
-                        min={1}
-                        max={10}
-                        defaultValue={bot.baseLEDState.ledAnimation.flashingFrequency}
-                        onChange={() => {
-                          if (parseInt(flashingFrequencyElemRef.current!.value) > 10 || parseInt(flashingFrequencyElemRef.current!.value) < 1) {
-                            alert("Flashing frequency must be between 1 and 10")
-                            flashingFrequencyElemRef.current!.value = preset.state[botID].baseLEDState.ledAnimation.flashingFrequency?.toString()!
-                          } else {
-                            preset.state[botID].baseLEDState.ledAnimation.flashingFrequency = parseInt(flashingFrequencyElemRef.current!.value)
-                            presetUpdate(presetID, preset)
-                          }
-                        }}
-                      ></input>
-                    </td>
-                  </tr>
+                  <NumberAndBarInput
+                    title="Flashing Frequency"
+                    value={bot.baseLEDState.ledAnimation.flashingFrequency!}
+                    setValue={(value: number) => {
+                      preset.state[botID].baseLEDState.ledAnimation.flashingFrequency = value
+                      presetUpdate(presetID, preset)                    
+
+                    }}
+                    boundary={{ min: 1, max: 10 }} />                    
                 ) : null}
 
 

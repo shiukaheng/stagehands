@@ -19,8 +19,10 @@ export function StageScene() {
   const { componentSelect, setComponentSelect } = useContext(componentSelectContext);
   // const currentPreset = componentSelect.type === "mic_panel" ? (provider?.stage?.presets.find((preset) => preset.id === componentSelect.presetID)?.value.state) : null
   let current: Preset | undefined;
+  let presetID : string;
   if (componentSelect.type === "mic_panel" || componentSelect.type === "preset_mic_attributes_page") {
     current = provider?.stage?.presets.find((preset) => preset.id === componentSelect.presetID)?.value
+    presetID = componentSelect.presetID!
     // console.log("current")
   } else {
     current = undefined;
@@ -51,12 +53,12 @@ export function StageScene() {
       </mesh>
       {current ? (
         Object.entries(current.state).map(([key, value]) => (
-          <PresetBot module={value} key={key} />
+          <PresetBot module={value} key={key} botID = {key} presetID = {presetID}/>
         ))
       ) : (
         provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
           <Fragment key={key}>
-            <Bot bot={value}/>
+            <Bot bot={value} botID = {key} fleet = {provider?.fleet!}/>
             <BotTargetPose module={value}/>
           </Fragment>
         ))

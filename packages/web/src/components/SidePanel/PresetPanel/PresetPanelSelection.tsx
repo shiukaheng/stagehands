@@ -17,15 +17,12 @@ export type MicPanelSelection = {
 
 export type PresetMicAttributesPageSelection = {
 	type: "preset_mic_attributes_page";
-	name: string | undefined;
 	presetID: string;
 	botID: string;
-	bot: RecallBotState;
 };
 
 export type LiveAttributesPageSelection = {
 	type: "live_attributes_page";
-	bot: BotState;
 	botID: string;
 };
 
@@ -52,7 +49,7 @@ export function SidePanelSwitcher() {
 		return (<PresetBotAttributesEditor presetID={componentSelect.presetID} botID={componentSelect.botID} />); // TODO add mic attributes page
 	} else if (componentSelect.type === "live_attributes_page") {
 		console.log("live mic attributes page");
-		return (<LiveBotAttributesEditor bot={componentSelect.bot} botID = {componentSelect.botID} />);
+		return (<LiveBotAttributesEditor botID = {componentSelect.botID} />);
 	} else if ( componentSelect.type === "running_preset") {
 		console.log("running preset");
 		return (<RunningpresetPanel presetIndex={componentSelect.presetIndex}/>);

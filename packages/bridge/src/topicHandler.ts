@@ -16,6 +16,7 @@ export function fleetTopicHandler(fleetState: FleetState, context: Context): voi
 }
 
 export function serverMetaHandler(serverMeta:ServerMeta,context:Context,server:TopicServer):void{
+  
   Object.keys(context.getCurrentBotState()).forEach((botId)=>{
     if(serverMeta.clients[botId]===undefined){
       delete context.getCurrentBotState()[botId]
@@ -23,8 +24,12 @@ export function serverMetaHandler(serverMeta:ServerMeta,context:Context,server:T
 
   })
   
+  
   //console.log(serverMeta);
   console.log(serverMeta);
+  console.log("current bot state");
+  
+  console.log(context.getCurrentBotState());
   
   server.pub(fleetTopic,context.getCurrentBotState())
 }

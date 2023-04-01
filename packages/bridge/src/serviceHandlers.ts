@@ -168,6 +168,10 @@ export async function recallFleetStateServiceHandler(recallFleetState: RecallFle
     for (const [botID, recallBotState] of Object.entries(recallFleetState)) {
         try {
             checkValidRecall(recallFleetState, context);
+            console.log("botID when requesting");
+            
+            console.log(botID);
+            
             server.req(recallBotStateService, botID, recallBotState)
                 .catch((error) => {
                     errors.push(error);

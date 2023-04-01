@@ -12,7 +12,7 @@ export class simulatedBotClient{
     private connectionStatus:boolean;
     private botSocket:Socket|undefined
     private fleetState:FleetState
-    private botClinet :TopicClient|undefined= undefined;
+    private botClinet :TopicClient|undefined;
     private timer:NodeJS.Timer|undefined
     private botVelocity = 0.1
     private botPoseTolerance = 0.01
@@ -37,16 +37,36 @@ export class simulatedBotClient{
     }
     public testBridgeConnection(bridgeIPPort:string){
         
+        console.log("testing connection");
+        console.log(bridgeIPPort);
+        
+        
         const testSocket = io(bridgeIPPort);
-        testSocket.on("connect",()=>{
-            console.log("connecting");
+        
+        if(this.botClinet===undefined){
             this.botSocket=testSocket
             this.bridgeIPPort=bridgeIPPort;
             this.botClinet = new TopicClient(testSocket);
-            
             this.connectToBridge(this.botClinet);
+        }
+        else{
+            testSocket.disconnect()
+        }
 
-        })
+        // testSocket.on("connect",()=>{
+            
+        //     console.log("connecting");
+        //     if(this.botClinet===undefined){
+        //         this.botSocket=testSocket
+        //         this.bridgeIPPort=bridgeIPPort;
+        //         this.botClinet = new TopicClient(testSocket);
+        //         this.connectToBridge(this.botClinet);
+        //     }
+        //     else{
+        //         testSocket.disconnect()
+        //     }
+
+        // })
     }
     public runPairingService(){
         
@@ -54,9 +74,9 @@ export class simulatedBotClient{
         this.pairingClient.subscribeRequest(({bridgeIp,bridgePort})=>{
             const bridgeIPPort="http://"+bridgeIp+":"+bridgePort.toString()
             console.log(bridgeIPPort);
-            if(this.botClinet===undefined){
-                //this.testBridgeConnection(bridgeIPPort)
-            }
+            // if(this.botClinet===undefined){
+            //     //this.testBridgeConnection(bridgeIPPort)
+            // }
             this.testBridgeConnection(bridgeIPPort)
             
             //console.log(this.bridgeIPPort);
@@ -68,14 +88,16 @@ export class simulatedBotClient{
             // this.botClinet?.pub(fleetTopic,this.fleetState);
             // console.log("fleet topic after");
             // console.log(this.fleetState);
-            
-            
+            if(this.botClinet!==undefined){
+                this.botClinet=undefined
+            }
+
             (this.botSocket as Socket).disconnect();
             
             //this.botSocket=undefined;
         })
     }
-    public connectToBridge(client:TopicClient){
+    public async connectToBridge(client:TopicClient){
         const clientID = client.id;
         this.connectionStatus=true;
         console.log("connected");
@@ -83,10 +105,36 @@ export class simulatedBotClient{
         // client.sub(fleetTopic,(fleet)=>{
         //     this.fleetState=fleet;
         // })
+       
         
         this.timer = setInterval(() => {
             this.update(1/this.simulationFrameRate)
         }, 1000/this.simulationFrameRate)
+        
+       
+        this.runBotService(this.botClinet as TopicClient)
+        client.getServerID()
+        .then((serverID)=>{
+            if(this.botSocket?.connected){
+                console.log("bot socket connected");
+                
+            }
+            (this.botClinet as TopicClient).srv(recallBotStateService,(req)=>{
+                 
+            this.botState.targetPose=req.targetPose
+            this.botState.module.state=req.module.state
+            this.botState.ledState.base=req.baseLEDState
+            })
+            console.log("server ID");
+            console.log(serverID);
+        })
+        .catch((error)=>{
+            console.log(error);
+            
+        })
+       
+        
+        
         
     }
     public update(dt: number) { 
@@ -114,8 +162,8 @@ export class simulatedBotClient{
         const botId= (this.botClinet as TopicClient).id ;
         (this.botClinet as TopicClient).pub(fleetTopic, {[botId]:this.botState});
     }
-    public runBotService(server:TopicServer){
-        server.srv(recallBotStateService,(req)=>{
+    public runBotService(botClient:TopicClient){
+        botClient.srv(recallBotStateService,(req)=>{
             
             this.botState.targetPose=req.targetPose
             this.botState.module.state=req.module.state

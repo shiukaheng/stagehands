@@ -1,12 +1,14 @@
-import { Fragment, useContext, useState } from 'react';
-import { BotState } from 'schema';
+import { Fragment, useCallback, useContext, useState } from 'react';
+import { BotState, FleetState, getRecallFleetState } from 'schema';
 import {Billboard, Text} from '@react-three/drei';
 import { LED } from './LED';
 import { StageContext } from '../Stage';
 
+import componentSelectContext from '../../../contexts/ComponentSwitchContext';
+
 const height = 0.15;
 const stickHeight = 0.695;
-function Module3d({bot, bodyPose}:{bot : BotState, bodyPose: [number, number, number]}){
+function Module3d({bot}:{bot : BotState}){
     if(bot.module.type === "micStand"){
         const micHeight = 0.135 +(stickHeight-0.2) * bot.module.state?.gripPosition!/100
         const radian = bot.module.state?.gripAngle!/180 * Math.PI
@@ -25,11 +27,14 @@ function Module3d({bot, bodyPose}:{bot : BotState, bodyPose: [number, number, nu
         return null;
     }
 }
-function Bot({bot}: {bot: BotState}) {
-    const [hovered, hover] = useState(false);
-    const [clicked, click] = useState(false);
-    const {setCursor} = useContext(StageContext);
+function Bot({bot, botID, fleet}: {bot: BotState, botID: string, fleet: {[key: string]: BotState}}) {
+    // const [hovered, hover] = useState(false);
+    // const [clicked, click] = useState(false);
+    const selectContext = useContext(StageContext);
+    const { componentSelect, setComponentSelect } = useContext(componentSelectContext);
     // console.log("hi from live")
+
+
     const bodyPose = [bot.pose.position[0], bot.pose.position[1] + height / 2 + 0.01, bot.pose.position[2]] as [number, number, number];
     return (
         <Fragment key={bot.name}>
@@ -46,16 +51,28 @@ function Bot({bot}: {bot: BotState}) {
                 castShadow
                 receiveShadow
                 position={bodyPose}
-                scale={clicked ? 1.5 : 1}
-                onClick={(event) => click(clicked)}
-                onPointerOver={(event) => {
-                    hover(true);
-                    setCursor('grab');
+                scale={1}
+                onClick={(event) => {
+                    setComponentSelect({
+                        type: "live_attributes_page",
+                        botID: botID
+                })
                 }}
-                onPointerOut={(event) => {
-                    hover(false)
-                    setCursor('default');
-                }}>
+                // onPointerMove={(event) => {
+                //     if(selectContext.context === true){
+                //         console.log(event)
+                //         fleet[botID].targetPose.position = [event.point.x, 0, event.point.z]
+                //         fleetUpdate(fleet)
+
+                //     }
+                // }}
+
+                // onDoubleClick={(event) => {
+                //     selectContext.setContext( {selected : true, botID: botID})
+                //     console.log("hi")
+                    
+                // }}
+                >
                 <boxGeometry args={[0.26, height, 0.26]} />
                 {/* Black matte plastic */}
                 <meshPhysicalMaterial color="gray" roughness={0.5} metalness={0.5} />
@@ -75,7 +92,7 @@ function Bot({bot}: {bot: BotState}) {
                     {/* Brushed metal */}
                     <meshPhysicalMaterial color="silver" roughness={0.2} metalness={0.9} />
                 </mesh>
-                <Module3d bot={bot} bodyPose = {bodyPose}/>
+                <Module3d bot={bot} />
                 
             </mesh>
         </Fragment>

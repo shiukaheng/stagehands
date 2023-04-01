@@ -3,11 +3,13 @@ import { BotState, RecallBotState } from 'schema';
 import {Billboard, Text} from '@react-three/drei';
 import { LED } from './LED';
 import { StageContext } from '../Stage';
+import componentSelectContext from '../../../contexts/ComponentSwitchContext';
 
 const height = 0.15;
 
-function PresetBot({module}: {module: RecallBotState}) {
+function PresetBot({module, botID, presetID}: {module: RecallBotState, botID: string, presetID: string}) {
     const bodyPose = [module.targetPose.position[0], module.targetPose.position[1] + height / 2 + 0.01, module.targetPose.position[2]] as [number, number, number];
+    const { componentSelect, setComponentSelect } = useContext(componentSelectContext);
     return (
         <Fragment key={module.name}>
             {/* Label */}
@@ -23,7 +25,14 @@ function PresetBot({module}: {module: RecallBotState}) {
                 castShadow
                 receiveShadow
                 position={bodyPose}
-                scale={1}>
+                scale={1}
+                onClick={(event) => {
+                    setComponentSelect({
+                        type: "preset_mic_attributes_page",
+	                    botID: botID,
+                        presetID: presetID
+                })
+                }}>
 
                 <boxGeometry args={[0.26, height, 0.26]} />
                 {/* Black matte plastic */}

@@ -38,7 +38,7 @@ export function PreviewScene() {
       {
       provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (
           <Fragment key={key}>
-            <Bot bot={value}/>
+            <Bot bot={value} botID = {key} fleet = {provider?.fleet!}/>
           </Fragment>
       )) 
       }

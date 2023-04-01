@@ -13,20 +13,25 @@ import { FaArrowLeft } from "react-icons/fa";
 /**
  * Component for displaying and editing the live attributes of a bot
  */
-export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState, botID: string }) {
-  const nameInputElemRef = useRef<HTMLInputElement>(null)
-  const ledColorElemRef = useRef<HTMLInputElement>(null)
-  const ledAnimationElemRef = useRef<HTMLSelectElement>(null)
-  const flashingFrequencyElemRef = useRef<HTMLInputElement>(null)
-  const [ledAnimationInput, setLedAnimationInput] = useState(bot.ledState.base.ledAnimation.animationMode)
-  const { setComponentSelect } = useContext(componentSelectContext);
-  console.log(botID)
+export default function LiveBotAttributesEditor({ botID }: { botID: string }) {
   const services = useContext(ServiceContext);
   const provider = useContext(TopicContext);
   if (provider === null) {
     throw new Error("Provider not found")
   }
   const fleet = provider.fleet
+  if (fleet === undefined) {
+    throw new Error("fleet not found")
+  }
+
+  const bot = fleet[botID]
+  const ledColorElemRef = useRef<HTMLInputElement>(null)
+  const ledAnimationElemRef = useRef<HTMLSelectElement>(null)
+  const { setComponentSelect } = useContext(componentSelectContext);
+
+  // console.log(botID)
+  // console.log(bot)
+
 
   const fleetUpdate = useCallback(
     _.debounce((newFleet: FleetState) => {
@@ -38,7 +43,6 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
     }, 100, { "leading": false, "trailing": true, 'maxWait': 100 })
     , [services?.recallFleetState])
   return (
-    fleet !== undefined ? (
       <div className="h-full overflow-clip">
         <div className="h-full w-full p-2 overflow-y-auto flex flex-col">
           <button className=" w-16 rounded cursor-pointer p-3 ui-shadow ui-hover-highlight " onClick={() => {
@@ -51,22 +55,8 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
             className=" font-bold h-full w-full rounded p-5 bottom-0 overflow-y-auto overflow-x-hidden">
 
             <tbody>
-              <tr>
-                <th>Name</th>
-                <td>
-                  <input
-                    type="text"
-                    id="micName"
-                    ref={nameInputElemRef}
-                    className="text-center"
-                    defaultValue={bot.name}
-                    size={11}
-                    onChange={() => {
-                      fleet[botID].name = nameInputElemRef.current!.value
-                      fleetUpdate(fleet)
-                    }} ></input>
-                </td>
-              </tr>
+
+              <ReadOnlyAttribute title="Name" value={bot.name} />
 
               <ReadOnlyAttribute title="Status" value={bot.status} />
 
@@ -92,14 +82,14 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
                 }}
                 boundary={{ min: -5, max: 5 }} />
 
-              <FleetModuleComponents bot={bot} fleet={fleet} fleetUpdate={fleetUpdate} botID = {botID}/>
+              <FleetModuleComponents bot={bot} fleet={fleet} fleetUpdate={fleetUpdate} botID={botID} />
 
               <tr>
                 <th>LED </th>
                 <td>
                   <input
                     type="color"
-                    defaultValue={rgbToHex(fleet[botID].ledState.base.rgbValue.map((x) => x * 255))}
+                    value={rgbToHex(fleet[botID].ledState.base.rgbValue.map((x) => x * 255))}
                     id="ledColor"
                     ref={ledColorElemRef}
                     size={15}
@@ -120,15 +110,13 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
                 <td>
                   <select
                     className=" ui-shadow ui-highlight ui-div h-6 w-32 text-center"
-                    value={ledAnimationInput}
+                    value={bot.ledState.base.ledAnimation.animationMode}
                     ref={ledAnimationElemRef}
                     onChange={() => {
                       if (ledAnimationElemRef.current!.value === "constant") {
                         fleet[botID].ledState.base.ledAnimation = { flashingFrequency: 0, animationMode: "constant" }
-                        setLedAnimationInput("constant")
                       } else {
-                        fleet[botID].ledState.base.ledAnimation = { flashingFrequency: 5, animationMode: "flashing" }
-                        setLedAnimationInput("flashing")
+                        fleet[botID].ledState.base.ledAnimation = { flashingFrequency: 1, animationMode: "flashing" }
                       }
                       fleetUpdate(fleet)
                     }}>
@@ -139,29 +127,15 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
                 </td>
               </tr>
 
-              {ledAnimationInput === "flashing" ? (
-                <tr>
-                  <th>Frequency</th>
-                  <td>
-                    <input
-                      ref={flashingFrequencyElemRef}
-                      type={"number"}
-                      id={"flashingFrequency"}
-                      min={1}
-                      max={10}
-                      defaultValue={fleet[botID].ledState.base.ledAnimation.flashingFrequency}
-                      onChange={() => {
-                        if (parseInt(flashingFrequencyElemRef.current!.value) > 10 || parseInt(flashingFrequencyElemRef.current!.value) < 1) {
-                          alert("Flashing frequency must be between 1 and 10")
-                          flashingFrequencyElemRef.current!.value = fleet[botID].ledState.base.ledAnimation.flashingFrequency?.toString()!
-                        } else {
-                          fleet[botID].ledState.base.ledAnimation.flashingFrequency = parseInt(flashingFrequencyElemRef.current!.value)
-                          fleetUpdate(fleet)
-                        }
-                      }}
-                    ></input>
-                  </td>
-                </tr>
+              {bot.ledState.base.ledAnimation.animationMode === "flashing" ? (
+                <NumberAndBarInput
+                  title="Frequency"
+                  value={fleet[botID].ledState.base.ledAnimation.flashingFrequency!}
+                  setValue={(value: number) => {
+                    fleet[botID].ledState.base.ledAnimation.flashingFrequency = value
+                    fleetUpdate(fleet)
+                  }}
+                  boundary={{ min: 1, max: 10 }} />
               ) : null}
 
             </tbody>
@@ -169,8 +143,7 @@ export default function LiveBotAttributesEditor({ bot, botID }: { bot: BotState,
           </table>
         </div>
       </div>
-    ) : null
-  )
+    )
 }
 
 

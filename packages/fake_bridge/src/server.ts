@@ -69,13 +69,13 @@ export class FakeBridgeServer {
             this.checkValidRecall(newFleetState)
             // Update the fleet state
             for (const [botName, recallBotState] of Object.entries(newFleetState)) {
-                const bot = this.fleetState[botName]
+                const bot = this.activeFleetState[botName]
                 bot.name = recallBotState.name
                 bot.targetPose = recallBotState.targetPose
                 bot.module.state = recallBotState.module.state
                 bot.ledState.base = recallBotState.baseLEDState
             }
-            this.ts.pub(fleetTopic, this.fleetState)
+            this.ts.pub(fleetTopic, this.activeFleetState)
             console.log("Recalled fleet state")
         })
 

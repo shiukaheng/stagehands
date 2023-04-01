@@ -31,7 +31,8 @@ export const hoveredBotContext = createContext<IHoveredBot>({
 export function ConnectedBotInfo({ botState, botID }: { botState: BotState, botID: string }) {
   const { hoverBotID, setBotID, hoverBotName, setBotName } = useContext(hoveredBotContext);
   console.log(botState.name, hoverBotName)
-  if (botState.name === hoverBotName) {
+  return (botState.name +" ")
+  {/*if (botState.name === hoverBotName) {
     return (
       <div>it works</div>
     )
@@ -40,7 +41,7 @@ export function ConnectedBotInfo({ botState, botID }: { botState: BotState, botI
       <div>it doesn't work {botState.name} {hoverBotName} </div>
 
     )
-  }
+  }*/}
 }
 
 export function ConnectionScreen() {
@@ -73,6 +74,7 @@ export function ConnectionScreen() {
           </div>
           {hoverConditionalConnected ? (
             <div className="m-5 h-12 ui-shadow ui-div ui-highlight p-2 font-bold">
+              {"Connected Bots: "}
               {topicProvider?.fleet && Object.entries(topicProvider.fleet).map(([key, value]) => {
                 console.log(value)
                 return <ConnectedBotInfo botState={value} key={key} botID={key} />

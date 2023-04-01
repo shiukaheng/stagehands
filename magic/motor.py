@@ -22,9 +22,6 @@ class MicModule:
         motor.startSerialRead()
         i = 0
         while True:
-            # print(i)
-            # print(i
-            # self.serial.write((str(i)+","+str(i)+"\n").encode())
             self.serial.write((str(i*10)+","+str(i*10)+"\n").encode())
             i = (i + 1) % 6
             time.sleep(3)
@@ -48,7 +45,7 @@ class MicModule:
     def write(self,data):
         self.serial = serial.Serial(self.serialPort, self.baudRate)
         time.sleep(2)
-        self.serial.write(data.encode())
+        self.serial.write((data+'\n').encode())
 
     # The callback funciton
     def serialInputHandler(self, data):

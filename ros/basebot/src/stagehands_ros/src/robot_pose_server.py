@@ -12,15 +12,25 @@ from stagehands_ros.srv import dummyLEDTest, dummyLEDTestResponse
 from stagehands_ros.msg import robotCurrentPose
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs.msg import Pose, Point, Quaternion
-# from led_strip_handler import GroveWS2813RgbStrip
-from rpi_ws281x import PixelStrip, Color
-import serial.tools.list_ports
+
+import serial
 import time
+import threading
+
+__all__ = ['GroveWS2813RgbStrip', 'PixelStrip', 'Color']
+
+import time
+from rpi_ws281x import PixelStrip, Color
+
+# LED strip configuration
+LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
+LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
+LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
+LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 
 class GroveWS2813RgbStrip(PixelStrip):
     '''
     Wrapper Class for Grove - WS2813 RGB LED Strip Waterproof - XXX LED/m
-
     Args:
         pin(int)  : 12, 18 for RPi
         count(int): strip LEDs count
@@ -50,66 +60,93 @@ class GroveWS2813RgbStrip(PixelStrip):
         # Intialize the library (must be called once before other functions).
         self.begin()
 
-    # light every single led up
-    def light_all_leds(self, color: Color):
-        """
-        Light every single LED up with the given color.
-        :param color: The color to light the LEDs up with.
-        """
+    def setColor(self, color):
         for i in range(self.numPixels()):
-            self.setPixelColor(i, color)
+            self.setPixelColor(i, Color(0,0,0))
+        for u in ([num for num in range(6, 14)] + [num for num in range(23, 30)]):
+            self.setPixelColor(u, color)
         self.show()
 
-    # set leds to flash (although this obviously stops after a while)
-    def flashing_leds(self, color: Color, frequency: int):
-        """
-        Set the LEDs to flash with the given color and frequency.
-        :param color: The color to flash the LEDs with.
-        :param frequency: The frequency to flash the LEDs at.
-        """
-        for i in range(10):
-            for i in range(self.numPixels()):
-                self.setPixelColor(i, color)
-                self.show()
+class MicModule:
+    def __init__(self, serialPort, baudRate, onMicData=None):
+        self.serialPort = serialPort
+        self.baudRate = baudRate
+        self.connected = False
+        self.serial = None
+        self.serialThread = None
+        self.onMicData = onMicData
+        self.status = None
 
-            time.sleep(1/frequency)
+    def start(self):
+        # time.sleep(2)
+        self.connected = True
+        ramp_up_duration = 20
+        iterator = list(range(0, 50))
+        self.serial = serial.Serial(self.serialPort, self.baudRate)
+        time.sleep(2)
+        self.startSerialRead()
+        i = 0
+        while True:
+            self.serial.write((str(i*10)+","+str(i*10)+"\n").encode())
+            i = (i + 1) % 6
+            time.sleep(3)
 
-            for i in range(self.numPixels()):
-                self.setPixelColour(i, Color(0, 0, 0))
-                self.show()
-            time.sleep(1/frequency)
+    # Start multithread: https://stackoverflow.com/questions/17553543/pyserial-non-blocking-read-loop
+    def startSerialRead(self):
+        # Start _serialRead using new thread
+        self.serialThread = threading.Thread(target=self._serialRead)
+        self.serialThread.daemon = True
+        self.serialThread.start()
 
-# LED strip configuration
-# LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
-# LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
-# LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
-# LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
+    # Loop that continuously reads serial, and calls callback function self.serialInputHandler whenever a newline is received, and interpret as number
+    def _serialRead(self):
+        while self.connected == True:
+            self.serialInputHandler(self.serial.readline())
 
-# from grove import helper
-# from grove.helper import helper
-# # helper.root_check()
+    def stopSerialRead(self):
+        self.connected = False
+        self.serialThread.join() 
 
-# from grove.helper import SlotHelper
-# sh = SlotHelper(SlotHelper.PWM)
-# # pin = sh.argv2pin(" [led-count]")
-# pin = 12
-# # import sys
-# count = 30
-# # if len(sys.argv) >= 3:
-# #     count = int(sys.argv[2])
+    def write(self,data):
+        self.serial = serial.Serial(self.serialPort, self.baudRate)
+        time.sleep(2)
+        self.serial.write((data+'\n').encode())
 
-# strip = GroveWS2813RgbStrip(pin, count)
+    # The callback funciton
+    def serialInputHandler(self, data):
+        # Check if the data is castable to float
+        try:
+            raw = data.decode()
+            processed = raw.strip()
+            if processed == "ZEROING":
+                self.onMicData(processed)
+                self.status = processed
+            split = processed.split(",")
+            for x in split:
+                if (len(split) == 2 ):
+                    try:
+                        height, angle = split
+                        height = float(height)
+                        angle = float(angle)
+                        # print(height, angle)
+                        self.onMicData((height,angle))
+                        self.status = (height,angle)
+                    except:
+                        pass
+            
+        except ValueError:
+            # If not, do nothing
+            pass
 
-# attempt to detect arduino port
 arduino_port = "/dev/ttyACM0" # safe? default?? value?????
-# for p in list(serial.tools.list_ports.comports()):
-#     if not("AMA" in str(p.device).split("/")[1] or str(p.device).split("/")[1] != str(p.description).split("/")):
-#         arduino_port = p.device
 
-# if mic module connected, establish connection
+led_strip = GroveWS2813RgbStrip(12, 30)
+
 micModuleExists = True
 try:
-    ser = serial.Serial(arduino_port, 115200)
+    # ser = serial.Serial(arduino_port, 115200)
+    micModule = MicModule(arduino_port, 115200)
+    micModule.start()
     print("Mic module connected at: " + arduino_port + ", communicating over serial")
 except serial.SerialException:
     micModuleExists = False
@@ -126,12 +163,10 @@ def send_LED_colour(red, green, blue, animation, frequency):
 
     ledColour = Color(red, green, blue)
     if (animation== "constant"):
-        strip.light_all_leds(ledColour)
-        # print('LED animation is constant')
+        led_strip.setColor(ledColour)
         rospy.loginfo('LED animation is constant')
     elif (animation == "flashing"):
-        strip.flashing_leds(ledColour, frequency)
-        # print('flashing')
+        led_strip.setColor(ledColour) # todo: implement flashing
         rospy.loginfo('LED animation is flashing')
     # print(ledColour)
     rospy.loginfo(ledColour)
@@ -143,29 +178,30 @@ def send_mic_orientation(micHeight, micAngle):
     :param micHeight: The height of the mic module in cm.
     :param micAngle: The angle of the mic module in degrees."""
     if micModuleExists:
-        ser = serial.Serial(arduino_port, 115200)
-        valid = False
-        # while True:
-        #     try:
-        #         mic = ser.read_until().decode('utf-8').rstrip("\r\n").split(",")
-        #         rospy.logwarn(mic)
-        #         # ser.write(str(req.micHeight)+","+str(req.micAngle))
-        #         ser.write(req.micHeightcommaAngle.encode('utf-8'))
-        #         break
-        #     except (ValueError, IndexError):
-        #         pass
-        while not valid:
-            current_val_from_serial = ser.read_until().decode('utf-8').rstrip("\r\n")
-            rospy.loginfo(current_val_from_serial)
-            if current_val_from_serial not in "ZEROING":
-                # reopen port every single time you want to send a value
-                ser = serial.Serial(arduino_port, 115200)
-                ser.write((str(micHeight)+","+str(micAngle)).encode())
-                ser.flush()
-                valid = True
-                rospy.loginfo("Mic value sent correctly")
-            else:
-                rospy.logwarn("Mic is likely zeroing, waiting for it to finish")
+        # ser = serial.Serial(arduino_port, 115200)
+        # valid = False
+        # # while True:
+        # #     try:
+        # #         mic = ser.read_until().decode('utf-8').rstrip("\r\n").split(",")
+        # #         rospy.logwarn(mic)
+        # #         # ser.write(str(req.micHeight)+","+str(req.micAngle))
+        # #         ser.write(req.micHeightcommaAngle.encode('utf-8'))
+        # #         break
+        # #     except (ValueError, IndexError):
+        # #         pass
+        # while not valid:
+        #     current_val_from_serial = ser.read_until().decode('utf-8').rstrip("\r\n")
+        #     rospy.loginfo(current_val_from_serial)
+        #     if current_val_from_serial not in "ZEROING":
+        #         # reopen port every single time you want to send a value
+        #         ser = serial.Serial(arduino_port, 115200)
+        #         ser.write((str(micHeight)+","+str(micAngle)).encode())
+        #         ser.flush()
+        #         valid = True
+        #         rospy.loginfo("Mic value sent correctly")
+        #     else:
+        #         rospy.logwarn("Mic is likely zeroing, waiting for it to finish")
+        micModule.write(str(micHeight)+","+str(micAngle))
 
 def send_goal_pose_ros(xPos, yPos, rotationQuaternion):
     """
@@ -249,9 +285,9 @@ def publish_current_pose():
 
             # again, probs not how this works but lol, lmao, rofl even
             if (micModuleExists): 
-                mic = ser.read_until().decode('utf-8').rstrip("\r\n").split(",")
-                pose.currentMicHeight = float(mic[0])
-                pose.currentMicAngle = float(mic[1])
+                (height,angle) = micModule.status
+                pose.currentMicHeight = height
+                pose.currentMicAngle = angle
             else: 
                 pose.currentMicHeight = -1
                 pose.currentMicAngle = -1
@@ -289,4 +325,4 @@ if __name__ == '__main__':
 
     rospy.spin()
 
-    ser.close()
+    micModule.stopSerialRead()

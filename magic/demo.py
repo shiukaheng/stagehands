@@ -14,13 +14,13 @@ if __name__ == "__main__":
     m = MicModule('/dev/ttyACM0', 115200, dataHandler)
 
     l.set(255,0,0)
-    m.write("25,180\n")
+    m.write("25,180")
 
     l.set(0,255,0)
-    m.write("100,60\n")
+    m.write("100,60")
 
     l.set(0,0,255)
-    m.write("15,75\n")
+    m.write("15,7")
 
     l.set(255,0,255)
-    m.write("0,0\n")
+    m.write("0,0")

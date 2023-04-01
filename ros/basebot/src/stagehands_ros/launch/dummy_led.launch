@@ -9,7 +9,7 @@
     <arg name="explorer" default="RRT"/>
 
     <!-- Launch turtlebot3 bringup-->
-    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
+    <include file="$(find stagehands_ros)/launch/custom_bringup_file.launch"/>
 
     <!-- Node sending commands to robot over ROS and getting pose -->
     <node pkg="stagehands_ros" name="robot_position_server" type="robot_pose_server.py" output="screen" launch-prefix="sudo"/>

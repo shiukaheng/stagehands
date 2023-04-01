@@ -45,6 +45,11 @@ class MicModule:
         self.connected = False
         self.serialThread.join() 
 
+    def write(self,data):
+        self.serial = serial.Serial(self.serialPort, self.baudRate)
+        time.sleep(2)
+        self.serial.write(data.encode())
+
     # The callback funciton
     def serialInputHandler(self, data):
         # Check if the data is castable to float

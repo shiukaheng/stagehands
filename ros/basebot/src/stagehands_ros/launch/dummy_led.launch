@@ -1,0 +1,15 @@
+<launch>
+    <param name="use_sim_time" value="false" />
+
+    <!-- Turtlebot3 -->
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+    <arg name="map_file" default="$(find stagehands_ros)/maps/gazebomap.yaml"/>
+    <arg name="open_rviz" default="false"/>
+    <arg name="move_forward_only" default="false"/>
+    <arg name="explorer" default="RRT"/>
+
+    <!-- Launch turtlebot3 bringup-->
+    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
+
+    <!-- Node sending commands to robot over ROS and getting pose -->
+    <node pkg="stagehands_ros" name="robot_position_server" type="robot_pose_server.py" output="screen" launch-prefix="sudo"/>

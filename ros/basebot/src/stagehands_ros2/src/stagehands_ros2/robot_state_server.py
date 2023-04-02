@@ -2,7 +2,7 @@ import rospy
 import tf
 import threading
 
-from stagehands_ros2.msg import StagehandsState
+from stagehands_ros2.msg import StagehandsCommandState, StagehandsFeedbackState
 from geometry_msgs.msg import Pose, Point, Quaternion
 
 from stagehands_ros2.led import *
@@ -15,8 +15,8 @@ class RobotStateServer:
         # Initialize node
         rospy.init_node('robot_state_server')
 
-        # Initialize posePublisher
-        self.posePublisher = rospy.Publisher('robot_current_pose', robotCurrentPose, queue_size = 10)
+        # Initialize publishers
+        self.feedbackPublisher = rospy.Publisher('stagehands_feedback_state', StagehandsFeedbackState, queue_size = 10)
         self.transformListener = tf.TransformListener()
         
         # Initialize mic module client
@@ -31,7 +31,7 @@ class RobotStateServer:
         self.navClient = NavClient()
 
         # Initialize state subscriber
-        rospy.Subscriber("stagehands_command_state", StagehandsState, self.onReceiveState)
+        rospy.Subscriber("stagehands_command_state", StagehandsCommandState, self.onReceiveState)
 
     def startPublishState(self):
         """
@@ -48,23 +48,24 @@ class RobotStateServer:
         while not rospy.is_shutdown():
             try:
                 # Create a message to send
-                pose = robotCurrentPose()
+                feedback = StagehandsFeedbackState()
 
                 # Get the transformation between map and baselink (where the bot is in the world)
-                (trans, rot) = listener.lookupTransform('/map', '/base_link', rospy.Time(0))
+                (t, r) = listener.lookupTransform('/map', '/base_link', rospy.Time(0))
 
                 # Fill in the message with the data
-                pose.xPos = trans[0]
-                pose.yPos = trans[1]
-                pose.rotationQuaternion = rot
+                feedback.xPos = t[0]
+                feedback.yPos = t[1]
+                feedback.rotationQuaternion = r
 
                 status = self.micModule.lastReadMsg # Read message
                 if not ((status is None) or (status == "ZEROING")): # Only publish if there is data
                     (height, angle) = self.micModule.lastReadMsg
-                    pose.currentMicHeight = height
-                    pose.currentMicAngle = angle
+                    feedback.currentMicHeight = height
+                    feedback.currentMicAngle = angle
+                    
                     # Publish pose
-                    self.posePublisher.publish(pose)
+                    self.feedbackPublisher.publish(feedback)
 
             except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException, ValueError, IndexError) as e:
                 rospy.logerr("Can't publish message for robot state server: ", e)

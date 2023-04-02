@@ -28,6 +28,7 @@ class MicModule:
         if (self.writeInitialized):
             self.serial.write(msg.encode())
         else:
+            # Deferring write until serial is initialized
             self.lastWriteMsg = msg
 
     # Start multithread: https://stackoverflow.com/questions/17553543/pyserial-non-blocking-read-loop

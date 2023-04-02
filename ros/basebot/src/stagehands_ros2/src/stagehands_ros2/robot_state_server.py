@@ -61,9 +61,9 @@ class RobotStateServer:
                 status = self.micModule.lastReadMsg # Read message
                 if not ((status is None) or (status == "ZEROING")): # Only publish if there is data
                     (height, angle) = self.micModule.lastReadMsg
-                    feedback.currentMicHeight = height
-                    feedback.currentMicAngle = angle
-                    
+                    feedback.micHeight = height
+                    feedback.micAngle = angle
+
                     # Publish pose
                     self.feedbackPublisher.publish(feedback)
 
@@ -93,7 +93,3 @@ class RobotStateServer:
 
         # Start the node
         rospy.spin()
-
-if __name__ == '__main__':
-    server = RobotStateServer()
-    server.start()

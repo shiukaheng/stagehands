@@ -3,10 +3,11 @@ import { TopicClient } from "webtopics";
 import io, { Socket } from "socket.io-client";
 import { fleetTopic, ModuleState, recallBotStateService, BotState, RecallBotState } from "schema";
 import NodeHandle from 'rosnodejs/dist/lib/NodeHandle';
-import { ROSPose } from './types';
+import { StagehandsCommandState, StagehandsFeedbackState } from './types';
 
-const current_pose = (rosnodejs.require('stagehands_ros').msg as any).robotCurrentPose;
-const target_pose_service = (rosnodejs.require('stagehands_ros').srv as any).setTargetPose;
+const stagehands_ros2 = rosnodejs.require('stagehands_ros2').msg as any;
+const StagehandsCommandState = stagehands_ros2.StagehandsCommandState;
+const StagehandsFeedbackState = stagehands_ros2.StagehandsFeedbackState;
 
 export class WebtopicROSInterface {
     private client: TopicClient;
@@ -66,95 +67,84 @@ export class WebtopicROSInterface {
                 console.log("Server ID: ", id);
             });
 
-            // start publishing bot's current location over webtopics
-            this.currentPosePublisher()
+            // Start publishing feedback from ROS to WebTopics
+            this.startPublishFeedbackState()
 
-            // create WebTopics service to send bot to required position
-            this.targetPoseSender()
+            // Start serving recallBotStateService and forwarding to a ROS topic
+            this.listenCommandState()
         })
     }
 
     /**
-     * Publishes the bot's current state to the fleet topic, taken from ROS
+     * Starts listening to the /stagehands_feedback_state topic and publishes the data to the fleet topic
      */
-    currentPosePublisher() {
+    startPublishFeedbackState() {
         if (this.nodeHandle === null) {
             throw new Error("Node handle is null")
         }
-        // subscribe to robot_current_pose ROS topic and receive message containing robot's current position
-        let mod: ModuleState;
-        mod = {
-            type: "nullModule",
-            state: null,
-            moduleModels:{}
-        }
-        let sub = this.nodeHandle.subscribe('robot_current_pose', current_pose, (data:ROSPose) => {
-            // check if a mic module is actually connected (although this is a potential thing to watch out for:
-            // the python ros node actually publishing on this topic stores the mic height as NONE if there
-            // isn't a module attached)
-            if (data.currentMicHeight != null) {
-                mod.type = "micStand"
-                mod.state = { gripPosition: data.currentMicHeight, gripAngle: 0 }
+
+        let sub = this.nodeHandle.subscribe('/stagehands_feedback_state', 'stagehands_ros2/StagehandsFeedbackState', (data: StagehandsFeedbackState) => {
+            // Construct module state
+            const moduleData: ModuleState = {
+                type: "micStand",
+                state: {
+                    gripPosition: data.micHeight,
+                    gripAngle: data.micAngle
+                },
+                moduleModels:{} // Unused
             }
-            // define schema containing bot current location
-            this.initBotState.pose.position = [data.xPos, 0, data.yPos]
-            this.initBotState.pose.quaternion = data.rotationQuaternion
-            // publish to fleet topic
+
+            // Construct bot state
+            const feedback: Partial<BotState> = {
+                module: moduleData,
+                pose: {
+                    position: [data.xPos, 0, data.yPos] as [number, number, number],
+                    quaternion: data.rotationQuaternion as [number, number, number, number]
+                }
+            }
+
+            // Merge in the initial bot state (for fields that are not in the feedback)
+            const botState: BotState = {
+                ...this.initBotState,
+                ...feedback
+            }
+
+            // Publish bot state to the fleet topic
             this.client.pub(fleetTopic, {
-                [this.client.id]: this.initBotState
+                [this.client.id]: botState
             })
         });
     }
 
     /**
-     * Function that takes a recall bot state schema as input and executes it on the robot
+     * Starts serving the recallBotStateService and forwards the data to "/stagehands_command_state"
      */
-    targetPoseSender() {
-        // creates a service
-        this.client.srv(recallBotStateService, (data:RecallBotState) => {
-            if (this.nodeHandle === null) {
-                throw new Error("Node handle is null")
-            }
-            else {
-                this.sendPose(data)
-            }
-        })
-    }
-
-    sendPose(data:RecallBotState) {
+    listenCommandState() {
+        // Advertise a service on the ROS side
         if (this.nodeHandle === null) {
             throw new Error("Node handle is null")
         }
-        else {
-            // Gets service client for ROS service to set robot's target pose
-            let serviceClient = this.nodeHandle.serviceClient('set_target_pose', target_pose_service)
-
-            // Set values in request object based on input schema
-            let requestedPose = new target_pose_service.Request();
-            
-            // Set position and rotation values
-            requestedPose.xPos = data.targetPose.position[0]
-            requestedPose.yPos = data.targetPose.position[2]
-            requestedPose.rotationQuaternion = data.targetPose.quaternion
-
-            // Set LED values
-            requestedPose.ledRGBColour = data.baseLEDState.rgbValue
-            requestedPose.ledAnimation = data.baseLEDState.ledAnimation.animationMode
-            requestedPose.flashFrequency = data.baseLEDState.ledAnimation.flashingFrequency
-
-            if (data.module.state != null) {
-                requestedPose.micHeight = data.module.state.gripPosition
-                requestedPose.micAngle = data.module.state.gripAngle
+        const publisher = this.nodeHandle.advertise('/stagehands_command_state', StagehandsCommandState)
+        this.client.srv(recallBotStateService, (data: RecallBotState) => {
+            if (this.nodeHandle === null) {
+                // Ignore if node handle is null
+                return
             }
 
-            else { requestedPose.micHeight = null }
+            // Construct ROS message
+            const commandState: StagehandsCommandState = new StagehandsCommandState()
+            commandState.xPos = data.targetPose.position[0]
+            commandState.yPos = data.targetPose.position[2]
+            commandState.rotationQuaternion = data.targetPose.quaternion as [number, number, number, number]
+            commandState.micHeight = data.module.state?.gripPosition ?? 0
+            commandState.micAngle = data.module.state?.gripAngle ?? 0
+            commandState.ledRGBColour = data.baseLEDState.rgbValue as [number, number, number]
+            commandState.isFlashing = data.baseLEDState.ledAnimation.animationMode === "flashing"
+            commandState.flashFrequency = data.baseLEDState.ledAnimation.flashingFrequency ?? 0
 
-            console.log("Received:", data)
-            console.log("Sending:", requestedPose)
-            
-            // Call ROS service to move the robot
-            serviceClient.call(requestedPose).then((resp:string) => {console.log(resp);})
-        }
+            // Publish to ROS topic
+            publisher.publish(commandState)
+        })
     }
 
     waitForConnection() {
@@ -166,7 +156,3 @@ export class WebtopicROSInterface {
         rosnodejs.shutdown()
     }
 }
-
-// // Create a new instance of the class and start the node
-// let rosInterface = new WebtopicROSInterface("192.168.0.37", "3001")
-// rosInterface.startNode()

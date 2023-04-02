@@ -1,0 +1,25 @@
+<launch>
+    <arg name="multi_robot_name" default=""/>
+    <arg name="set_lidar_frame_id" default="base_scan"/>
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+
+    <!-- <node pkg="rosserial_python" type="serial_node.py" name="turtlebot3_core" output="screen">
+        <param name="port" value="/dev/ttyACM1"/>
+        <param name="baud" value="115200"/>
+        <param name="tf_prefix" value="$(arg multi_robot_name)"/>
+    </node>
+     -->
+
+    <!-- <include file="$(find turtlebot3_bringup)/launch/turtlebot3_lidar.launch">
+        <arg name="set_frame_id" value="$(arg set_lidar_frame_id)"/>
+    </include>
+
+    <node pkg="turtlebot3_bringup" type="turtlebot3_diagnostics" name="turtlebot3_diagnostics" output="screen"/>
+
+    <group if = "$(eval model == 'waffle_pi')">
+        <include file="$(find turtlebot3_bringup)/launch/turtlebot3_rpicamera.launch"/>
+    </group> -->
+
+    <node pkg="stagehands_ros2" type="test_exec.py" name="stagehands_ros2_test" output="screen" launch-prefix="sudo -E PYTHONPATH=$(env PYTHONPATH)"/>
+
+</launch>

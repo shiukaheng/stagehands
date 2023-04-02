@@ -1,9 +1,8 @@
 import rospy
 import tf
+import threading
 
-from stagehands_ros.srv import setTargetPose,setTargetPoseResponse
-from stagehands_ros.msg import robotCurrentPose, ledData, micModuleData
-from stagehands_ros2.msg import stagehandsState
+from stagehands_ros2.msg import StagehandsState
 from geometry_msgs.msg import Pose, Point, Quaternion
 
 from stagehands_ros2.led import *
@@ -13,6 +12,9 @@ from stagehands_ros2.nav_client import *
 class RobotStateServer:
 
     def __init__(self):
+        # Initialize node
+        rospy.init_node('robot_state_server')
+
         # Initialize posePublisher
         self.posePublisher = rospy.Publisher('robot_current_pose', robotCurrentPose, queue_size = 10)
         self.transformListener = tf.TransformListener()
@@ -28,9 +30,16 @@ class RobotStateServer:
         # Initialize navigation client
         self.navClient = NavClient()
 
-    def startPublishPose(self):
+        # Initialize state subscriber
+        rospy.Subscriber("stagehands_command_state", StagehandsState, self.onReceiveState)
+
+    def startPublishState(self):
         """
-        Starts loop to publish SLAM / odometry and mic data to topic for interface to publish
+        Deals with publishing outgoing state messages to the interface
+
+        Publishes:
+        - Live navigation data (where the bot is in the world)
+        - Live mic module data (sensed height and angle)
         """
 
         # Create a clock / loop
@@ -62,7 +71,28 @@ class RobotStateServer:
                 continue
 
     def onReceiveState(self, state):
+        """
+        Deals with executing incoming state messages from the interface
+
+        Receives:
+        - LED state -> set LED colour and flashing
+        - Mic module state -> set mic height and angle
+        - Navigation state -> set target pose
+        """
+
         # Recieves a stagehandsState msg (identical to original request, just with unused return string removed)
-        self.ledClient.setLEDState((*state.ledRGBColour), state.isFlashing, state.flashFrequency)
+        self.ledClient.setLEDState((state.ledRGBColour[0], state.ledRGBColour[1], state.ledRGBColour[2]), state.isFlashing, state.flashFrequency)
         self.micModuleClient.setState(state.micHeight, state.micAngle)
-        self.navClient.setPose()
+        self.navClient.setPose(state.xPos, state.yPos, state.rotationQuaternion)
+
+    def start(self):
+        # Start the publish state thread
+        publishStateThread = threading.Thread(target=self.startPublishState)
+        publishStateThread.start()
+
+        # Start the node
+        rospy.spin()
+
+if __name__ == '__main__':
+    server = RobotStateServer()
+    server.start()

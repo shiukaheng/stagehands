@@ -83,8 +83,7 @@ class RobotStateServer:
 
         # Recieves a stagehandsState msg (identical to original request, just with unused return string removed)
         self.ledClient.setLEDState((state.ledRGBColour[0], state.ledRGBColour[1], state.ledRGBColour[2]), state.isFlashing, state.flashFrequency)
-        self.micModuleClient.setState(state.micHeight, state.micAngle)
-        self.navClient.setPose(state.xPos, state.yPos, state.rotationQuaternion)
+        # self.micModuleClient.setState(state.micHeight, state.micAngle)
 
     def start(self):
         # Start the publish state thread

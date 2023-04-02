@@ -100,6 +100,7 @@ export default function LiveBotAttributesEditor({ botID }: { botID: string }) {
                     type="color"
                     value={rgbToHex(fleet[botID].ledState.base.rgbValue.map((x) => x * 255))}
                     id="ledColor"
+                    className="h-8 p-0 b-0"
                     ref={ledColorElemRef}
                     size={15}
 

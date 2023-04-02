@@ -31,7 +31,7 @@ export class FakeBridgeServer {
     private botVelocity = 0.1
     private botPoseTolerance = 0.01
     private simulationFrameRate = 60
-    private botRotationSpeed = 30/180 * Math.PI
+    private botRotationSpeed = 60/180 * Math.PI
     private botRotationTolerance = 1/180 * Math.PI
 
     /**

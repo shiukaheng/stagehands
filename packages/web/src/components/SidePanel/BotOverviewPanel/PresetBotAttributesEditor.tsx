@@ -69,6 +69,17 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
                   }}
                   boundary={{ min: -5, max: 5 }} />
 
+                <NumberAndBarInput
+                  title="bot Rotation"
+                  value={bot.targetPose.quaternion.at(0)! * 180 / Math.PI}
+                  setValue={(value: number) => {
+                    const rad = value * Math.PI / 180
+
+                    preset.state[botID].targetPose.quaternion[0] = rad
+                    presetUpdate(presetID, preset)
+                  }}
+                  boundary={{ min: 0, max: 360 }} />
+
                 <PresetModuleComponents bot={bot} presetID={presetID} preset={preset} presetUpdate={presetUpdate} />
 
                 <tr>
@@ -77,6 +88,7 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
                     <input
                       type="color"
                       value={rgbToHex(bot.baseLEDState.rgbValue.map((x) => x * 255))}
+                      className="h-8 p-0 b-0"
                       id="ledColor"
                       ref={ledColorElemRef}
                       size={15}
@@ -118,10 +130,10 @@ export default function PresetBotAttributesEditor({ presetID, botID }: { presetI
                     value={bot.baseLEDState.ledAnimation.flashingFrequency!}
                     setValue={(value: number) => {
                       preset.state[botID].baseLEDState.ledAnimation.flashingFrequency = value
-                      presetUpdate(presetID, preset)                    
+                      presetUpdate(presetID, preset)
 
                     }}
-                    boundary={{ min: 1, max: 10 }} />                    
+                    boundary={{ min: 1, max: 10 }} />
                 ) : null}
 
 

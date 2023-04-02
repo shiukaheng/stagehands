@@ -31,6 +31,8 @@ export class FakeBridgeServer {
     private botVelocity = 0.1
     private botPoseTolerance = 0.01
     private simulationFrameRate = 60
+    private botRotationSpeed = 60/180 * Math.PI
+    private botRotationTolerance = 1/180 * Math.PI
 
     /**
      * Constructor for FakeBridgeServer
@@ -271,8 +273,21 @@ export class FakeBridgeServer {
                     this.fleetState[botName].pose.position = newPos;
                     this.fleetState[botName].status = "moving"
                 } else {
+                    const botQuaternion = botState.pose.quaternion;
+                    const quatDiff = targetPose.quaternion[0] - botQuaternion[0];
+                    const quatDiffMag = Math.abs(quatDiff);
+                    const rotateDirection = quatDiff<0?-1:1
+                    if(quatDiffMag>this.botRotationTolerance){
+                        const newQuaternion = [botQuaternion[0] + rotateDirection* this.botRotationSpeed * dt, botQuaternion[1], botQuaternion[2], botQuaternion[3]];
+                        this.fleetState[botName].status = "moving"
+                        this.fleetState[botName].pose.quaternion = newQuaternion;
+                    } else {
                     this.fleetState[botName].status = "idle"
+                    }
+
                 }
+                
+                
             }
         }
         for(const botID of Object.keys(this.fleetState)){

@@ -53,7 +53,7 @@ export function StageScene() {
       </mesh>
       {current ? (
         Object.entries(current.state).map(([key, value]) => (
-          <PresetBot module={value} key={key} botID = {key} presetID = {presetID}/>
+          <PresetBot bot={value} key={key} botID = {key} presetID = {presetID}/>
         ))
       ) : (
         provider?.fleet && Object.entries(provider.fleet).map(([key, value]) => (

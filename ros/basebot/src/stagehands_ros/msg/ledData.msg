@@ -1,5 +1,5 @@
 uint8 redValue
 uint8 greenValue
 uint8 blueValue
-string ledAnimation
+bool isFlashing
 float64 flashFrequency

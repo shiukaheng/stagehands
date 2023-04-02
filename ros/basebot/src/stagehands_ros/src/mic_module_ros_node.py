@@ -14,21 +14,21 @@ class MicModule:
         self.serialThread = None
         self.onMicData = onMicData
         self.status = None
-        self.start()
+        # self.start()
 
-    def start(self):
-        # time.sleep(2)
-        self.connected = True
-        ramp_up_duration = 20
-        iterator = list(range(0, 50))
-        self.serial = serial.Serial(self.serialPort, self.baudRate)
-        time.sleep(2)
-        self.startSerialRead()
-        i = 0
-        while True:
-            self.serial.write((str(i*10)+","+str(i*10)+"\n").encode())
-            i = (i + 1) % 6
-            time.sleep(3)
+    # def start(self):
+    #     # time.sleep(2)
+    #     self.connected = True
+    #     ramp_up_duration = 20
+    #     iterator = list(range(0, 50))
+    #     self.serial = serial.Serial(self.serialPort, self.baudRate)
+    #     time.sleep(2)
+    #     self.startSerialRead()
+    #     i = 0
+    #     while True:
+    #         self.serial.write((str(i*10)+","+str(i*10)+"\n").encode())
+    #         i = (i + 1) % 6
+    #         time.sleep(3)
 
     # Start multithread: https://stackoverflow.com/questions/17553543/pyserial-non-blocking-read-loop
     def startSerialRead(self):
@@ -58,7 +58,7 @@ class MicModule:
             raw = data.decode()
             processed = raw.strip()
             if processed == "ZEROING":
-                self.onMicData(processed)
+                # self.onMicData(processed)
                 self.status = processed
             split = processed.split(",")
             for x in split:
@@ -68,7 +68,7 @@ class MicModule:
                         height = float(height)
                         angle = float(angle)
                         # print(height, angle)
-                        self.onMicData((height,angle))
+                        # self.onMicData((height,angle))
                         self.status = (height,angle)
                     except:
                         pass

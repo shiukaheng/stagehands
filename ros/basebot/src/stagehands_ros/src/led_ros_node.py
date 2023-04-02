@@ -51,8 +51,8 @@ class GroveWS2813RgbStrip(PixelStrip):
         self.show()
 
 def led_callback(data):
-    color = Color(data.r, data.g, data.b)
-    strip.setColor(Color(data.r, data.g, data.b))
+    color = Color(data.redValue, data.greenValue, data.blueValue)
+    strip.setColor(color)
 
 # def publish_current_led_state():
 #     rospy.Publisher('/current_led_data', ledData, queue_size=10)

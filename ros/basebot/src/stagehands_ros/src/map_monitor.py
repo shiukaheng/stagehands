@@ -45,15 +45,15 @@ def map_callback(msg):
         process = subprocess.Popen('\x03', shell=True)
         process.wait()
         
-def dummy_callback(msg):
-    rospy.loginfo(msg)
+# def dummy_callback(msg):
+#     rospy.loginfo(msg)
 
 if __name__ == '__main__':
     rospy.init_node('map_monitor')
     while not rospy.is_shutdown():
         try:
             rospy.wait_for_message('/map', OccupancyGrid,timeout=1.0)
-            rospy.Subscriber('/map', OccupancyGrid, dummy_callback)
+            rospy.Subscriber('/map', OccupancyGrid, map_callback)
             rospy.logwarn('HEEL YEA BABEY GOT DA MAPP')
             break
         except rospy.ROSException:

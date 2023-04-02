@@ -3,7 +3,7 @@ import time
 import threading
 
 class MicModule:
-    def __init__(self, serialPort, baudRate, onMicData):
+    def __init__(self, serialPort, baudRate, onMicData=None):
         self.serialPort = serialPort
         self.baudRate = baudRate
         self.connected = False
@@ -62,7 +62,8 @@ class MicModule:
             raw = data.decode()
             processed = raw.strip()
             if processed == "ZEROING":
-                self.onMicData(processed)
+                if not (onMicData is None):
+                    self.onMicData(processed)
                 self.lastReadMsg = "ZEROING"
             split = processed.split(",")
             for x in split:
@@ -73,7 +74,8 @@ class MicModule:
                         angle = float(angle)
                         # print(height, angle)
                         self.lastReadMsg = (height,angle)
-                        self.onMicData((height,angle))
+                        if not (onMicData is None):
+                           self.onMicData(processed)
                     except:
                         pass
             

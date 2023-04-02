@@ -118,7 +118,10 @@ class LED():
 
     def setOverrideLEDState(self, ledState):
         self.overrideLEDState = ledState
-        self._setRawLEDState(ledState)
+        if (ledState is None):
+            self.clearOverrideLEDState()
+        else:
+            self._setRawLEDState(ledState)
 
     def clearOverrideLEDState(self):
         self.overrideLEDState = None

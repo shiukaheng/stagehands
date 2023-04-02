@@ -1,3 +1,3 @@
 import { FakeBridgeServer } from "./server";
 
-const server = new FakeBridgeServer(2900);
+const server = new FakeBridgeServer(3000);

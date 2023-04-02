@@ -72,6 +72,8 @@ def set_target_pose(req):
 
     # send_goal_pose_ros(req.xPos, req.yPos, req.rotationQuaternion)
 
+    return setTargetPoseResponse("ewrhujoi")
+
 def publish_current_pose():
     """
     This function publishes the current pose of the robot to the robot_current_pose topic.

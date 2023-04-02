@@ -210,9 +210,11 @@ include_directories(
 
 catkin_install_python(PROGRAMS 
   src/robot_pose_server.py
-  src/aruco_location_storage.py
-  src/map_monitor.py
+  # src/aruco_location_storage.py
+  # src/map_monitor.py
   src/main.py
+  src/led_ros_node.py
+  src/mic_module_ros_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

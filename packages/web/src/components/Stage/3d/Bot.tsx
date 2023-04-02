@@ -3,35 +3,28 @@ import { BotState, FleetState, getRecallFleetState } from 'schema';
 import {Billboard, Text} from '@react-three/drei';
 import { LED } from './LED';
 import { StageContext } from '../Stage';
+import Module from './Module';
 
 import componentSelectContext from '../../../contexts/ComponentSwitchContext';
+import { ServiceContext } from '../../../contexts/ServerContext';
+import _ from 'lodash';
 
 const height = 0.15;
 const stickHeight = 0.695;
-function Module3d({bot}:{bot : BotState}){
-    if(bot.module.type === "micStand"){
-        const micHeight = 0.135 +(stickHeight-0.2) * bot.module.state?.gripPosition!/100
-        const radian = bot.module.state?.gripAngle!/180 * Math.PI
-        return(
-            <mesh position = {[0,micHeight,0]}>
-                <boxGeometry args={[0.1, 0.1, 0.15]} />
-                <meshPhysicalMaterial color="black" roughness={0.7} metalness={0.5} />
-                
-                <mesh position = {[0.1,0,0]} rotation = {[radian,Math.PI/2,Math.PI/2]}>
-                    <boxGeometry args={[0.1, 0.05, 0.05] } />
-                </mesh>
-            </mesh>
 
-        )
-    }else{
-        return null;
-    }
-}
 function Bot({bot, botID, fleet}: {bot: BotState, botID: string, fleet: {[key: string]: BotState}}) {
     // const [hovered, hover] = useState(false);
     // const [clicked, click] = useState(false);
     const selectContext = useContext(StageContext);
     const { componentSelect, setComponentSelect } = useContext(componentSelectContext);
+    // const services = useContext(ServiceContext);
+    // const fleetUpdate = useCallback(
+    //     _.debounce((newFleet: FleetState) => {
+    //       // console.log(newFleet)
+    //       services?.recallFleetState.callback(getRecallFleetState(newFleet))
+    
+    //     }, 100, { "leading": false, "trailing": true, 'maxWait': 100 })
+    //     , [services?.recallFleetState])
     // console.log("hi from live")
 
 
@@ -52,6 +45,7 @@ function Bot({bot, botID, fleet}: {bot: BotState, botID: string, fleet: {[key: s
                 receiveShadow
                 position={bodyPose}
                 scale={1}
+                rotation = {[0,bot.pose.quaternion[0],0]}
                 onClick={(event) => {
                     setComponentSelect({
                         type: "live_attributes_page",
@@ -59,12 +53,11 @@ function Bot({bot, botID, fleet}: {bot: BotState, botID: string, fleet: {[key: s
                 })
                 }}
                 // onPointerMove={(event) => {
-                //     if(selectContext.context === true){
                 //         console.log(event)
                 //         fleet[botID].targetPose.position = [event.point.x, 0, event.point.z]
                 //         fleetUpdate(fleet)
 
-                //     }
+                    
                 // }}
 
                 // onDoubleClick={(event) => {
@@ -92,7 +85,7 @@ function Bot({bot, botID, fleet}: {bot: BotState, botID: string, fleet: {[key: s
                     {/* Brushed metal */}
                     <meshPhysicalMaterial color="silver" roughness={0.2} metalness={0.9} />
                 </mesh>
-                <Module3d bot={bot} />
+                <Module bot={bot} stickHeight={stickHeight} />
                 
             </mesh>
         </Fragment>

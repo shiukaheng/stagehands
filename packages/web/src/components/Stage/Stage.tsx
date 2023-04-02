@@ -24,12 +24,11 @@ export function Stage() {
     <div className="flex-grow m-5 ui-shadow ui-div ui-highlight safari-canvas-overflow-fix">
       <Canvas
         ref={canvasRef}
-        shadows
+        shadows        
         camera={{
           position: [0, 10, 28],
           fov: 90
-        }
-        }>
+        }}>
         <StageContext.Provider value={{ setCursor }}>
         <color attach="background" args={['#222']} />
         <OrbitControls

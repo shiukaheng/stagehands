@@ -8,9 +8,9 @@ export default function PresetModuleComponents({bot, preset, presetID, presetUpd
             <Fragment>
             <NumberAndBarInput
                 title="Mic Angle"
-                value={bot.targetPose.quaternion[0]} //TODO not sure if this is the right value
+                value={bot.module.state!.gripAngle} //TODO not sure if this is the right value
                 setValue={(value: number) => {
-                  bot.targetPose.quaternion[0] = value
+                  bot.module.state!.gripAngle = value
                   presetUpdate(presetID, preset)
                 }}
                 boundary={{ min: 0, max: 180 }} />

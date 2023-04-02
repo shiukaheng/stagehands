@@ -29,8 +29,6 @@ export default function LiveBotAttributesEditor({ botID }: { botID: string }) {
   const ledAnimationElemRef = useRef<HTMLSelectElement>(null)
   const { setComponentSelect } = useContext(componentSelectContext);
 
-  // console.log(botID)
-  // console.log(bot)
 
 
   const fleetUpdate = useCallback(
@@ -81,6 +79,17 @@ export default function LiveBotAttributesEditor({ botID }: { botID: string }) {
                   fleetUpdate(fleet)
                 }}
                 boundary={{ min: -5, max: 5 }} />
+
+              <NumberAndBarInput
+                title="bot Rotation"
+                value={bot.targetPose.quaternion.at(0)! * 180 / Math.PI}
+                setValue={(value: number) => {
+                  const rad = value * Math.PI / 180
+
+                  fleet[botID].targetPose.quaternion[0] = rad
+                  fleetUpdate(fleet)
+                }}
+                boundary={{ min: 0, max: 360 }} />
 
               <FleetModuleComponents bot={bot} fleet={fleet} fleetUpdate={fleetUpdate} botID={botID} />
 

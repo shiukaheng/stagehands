@@ -16,7 +16,7 @@ export default function NumberAndBarInput( {title, value,setValue, boundary} : {
                       min={boundary.min}
                       max={boundary.max}
   
-                      value={value}
+                      value={Math.round(value)}
                       onChange={() => {
                         const val = parseInt(inputRef.current!.value)
 
@@ -49,7 +49,7 @@ export default function NumberAndBarInput( {title, value,setValue, boundary} : {
                       id={"micRange" + title}
                       min={boundary.min}
                       max={boundary.max}
-                      value={value}
+                      value={Math.round(value)}
                       step={1}
                       onChange={() => {
                         // When the range input is changed, useRef to get the input element

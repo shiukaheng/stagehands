@@ -72,9 +72,14 @@ function PresetPanel() {
                 <button
                     id="createButton" // For creating a new preset based on the current mic positions
                     onClick={() => {
+                        
                         const name = prompt("Enter a name for the preset");
                         let presetName = "Preset";
                         if (name) {
+                            if(name.length >= 20){
+                                alert("Preset name must be less than 20 characters");
+                                return;
+                            }
                             presetName = name;
                         }
                         console.log("Creating preset", serviceProvider?.createPreset);

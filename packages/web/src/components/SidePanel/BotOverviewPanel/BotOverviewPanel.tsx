@@ -58,17 +58,19 @@ function BotOverviewPanel({ presetID }: { presetID: string | null }) {
                     }
                 </div>
             </div>
+            {presetIsNull ? 
             <div className="flex flex-row gap-2 w-full">
-                    <button
-                        className="font-bold box-border flex-shrink ui-div ui-highlight-solid ui-shadow m-6 p-4 w-full"
-                        onClick={() => {
-                            {/*setScreenSelection(("connection_screen" as ScreenSelection))*/ }
-                            console.log("goto connection screen button clicked")
-                            navigate('/connectionscreen')
-                        }}>
-                        Connect Bots +
-                    </button>
-                </div>
+                <button
+                    className="font-bold box-border flex-shrink ui-div ui-highlight-solid ui-shadow m-6 p-4 w-full"
+                    onClick={() => {
+                        {/*setScreenSelection(("connection_screen" as ScreenSelection))*/ }
+                        console.log("goto connection screen button clicked")
+                        navigate('/connectionscreen')
+                    }}>
+                    Connect Bots +
+                </button>
+            </div> : null}
+
         </div>
     )
 }

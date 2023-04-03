@@ -206,11 +206,13 @@ include_directories(
 
 add_message_files(
   FILES  # e.g. Floats.msg HeaderString.msg
+  StagehandsCommandState.msg
+  StagehandsFeedback.msg
 )
-add_service_files(
-  DIRECTORY srv 
-  # FILES AddTwoInts.srv BadTwoInts.srv
-)
+# add_service_files(
+#   DIRECTORY srv 
+#   # FILES AddTwoInts.srv BadTwoInts.srv
+# )
 
 ## Generate services in the 'srv' folder
 # add_service_files(

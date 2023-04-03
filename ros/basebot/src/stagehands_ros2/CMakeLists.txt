@@ -207,7 +207,7 @@ include_directories(
 add_message_files(
   FILES  # e.g. Floats.msg HeaderString.msg
   StagehandsCommandState.msg
-  StagehandsFeedback.msg
+  StagehandsFeedbackState.msg
 )
 # add_service_files(
 #   DIRECTORY srv 

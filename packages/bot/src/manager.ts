@@ -36,5 +36,6 @@ export class StagehandsManager {
     onRequestConnect(args: PairingRequestArgs) {
         console.log("🔌 Request to connect from", args.bridgeIp);
         this.interface = new WebtopicROSInterface(args.bridgeIp, args.bridgePort.toString());
+        this.interface.startNode();
     }
 }

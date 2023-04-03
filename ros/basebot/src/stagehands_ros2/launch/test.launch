@@ -20,6 +20,6 @@
         <include file="$(find turtlebot3_bringup)/launch/turtlebot3_rpicamera.launch"/>
     </group> -->
 
-    <node pkg="stagehands_ros2" type="test_exec.py" name="stagehands_ros2_test" output="screen" launch-prefix="sudo -E PYTHONPATH=$(env PYTHONPATH)"/>
+    <node pkg="stagehands_ros2" type="run_test.py" name="stagehands_ros2_test" output="screen" launch-prefix="sudo -E PYTHONPATH=$(env PYTHONPATH)"/>
 
 </launch>

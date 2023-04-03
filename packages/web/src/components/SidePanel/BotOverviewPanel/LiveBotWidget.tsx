@@ -12,7 +12,7 @@ function LiveBotWidget({ botState, botID }: { botState: BotState, botID: string}
             id={botState.name}
             className="ui-shadow ui-highlight ui-div snap-center font-bold box-border h-32 w-64 rounded p-4"
             onClick={() => {
-                setComponentSelect({type: "live_attributes_page", bot :botState, botID : botID})
+                setComponentSelect({type: "live_attributes_page", botID : botID})
             }}>
             {/* <div className="text-left indent-[10.5%]">
                 Name: {botState.name}

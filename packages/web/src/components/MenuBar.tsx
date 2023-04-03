@@ -10,18 +10,26 @@ import { handelClickOrKeyDown } from '../utils/handelKeyDown';
 import { Tooltip } from "react-tooltip"
 import { AiFillPlayCircle } from 'react-icons/ai';
 import { BsFillExclamationTriangleFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 
 function MenuBar() {
     const serviceProvider = useContext(ServiceContext)!;
     const provider = useContext(TopicContext);
     const { componentSelect, setComponentSelect } = useContext(componentSelectContext);
+    const navigate = useNavigate();
 
     return (
         <div className="flex flex-row h-12 w-full overflow-auto items-center ui-highlight">
             <Popup trigger={<button className="px-4 py-2"><IoSettingsSharp /></button>} position="bottom left">
                 <SettingsPanel />
             </Popup>
+            <button className="px-4 py-2"
+                onClick={() => {
+                    navigate("/tutorials");
+                }}>
+                    Tutorials
+            </button>
             <div className='flex-grow font-bold text-lg'>
                 Stagehands Console
             </div>

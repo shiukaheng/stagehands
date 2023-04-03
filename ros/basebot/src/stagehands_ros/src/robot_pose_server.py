@@ -7,8 +7,6 @@ import actionlib
 import serial
 
 from stagehands_ros.srv import setTargetPose,setTargetPoseResponse
-# from stagehands_ros.srv import dummyOrientationTest, dummyOrientationTestResponse
-# from stagehands_ros.srv import dummyLEDTest, dummyLEDTestResponse
 from stagehands_ros.msg import robotCurrentPose, ledData, micModuleData
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs.msg import Pose, Point, Quaternion
@@ -57,18 +55,18 @@ def set_target_pose(req):
     :param req: The request message containing the target pose, mic height and LED colour.
     :return: A response message confirming that the target pose has been set.
     """
-    # ledMsg = ledData()
-    # ledMsg.red = req.ledRGBColour[0]
-    # ledMsg.green = req.ledRGBColour[1]
-    # ledMsg.blue = req.ledRGBColour[2]
-    # ledMsg.flashFrequency = req.flashFrequency
-    # ledMsg.ledAnimation = req.ledAnimation
-    # rospy.Publisher('/led_data', ledData, queue_size = 10).publish(ledMsg)
+    ledMsg = ledData()
+    ledMsg.red = req.ledRGBColour[0]
+    ledMsg.green = req.ledRGBColour[1]
+    ledMsg.blue = req.ledRGBColour[2]
+    ledMsg.flashFrequency = req.flashFrequency
+    ledMsg.ledAnimation = req.ledAnimation
+    rospy.Publisher('/led_data', ledData, queue_size = 10).publish(ledMsg)
 
-    # micMsg = micModuleData()
-    # micMsg.micHeight = req.micHeight
-    # micMsg.micOrientation = req.micOrientation
-    # rospy.Publisher('/mic_module_data', micModuleData, queue_size = 10).publish(micMsg)
+    micMsg = micModuleData()
+    micMsg.micHeight = req.micHeight
+    micMsg.micOrientation = req.micOrientation
+    rospy.Publisher('/mic_module_data', micModuleData, queue_size = 10).publish(micMsg)
 
     send_goal_pose_ros(req.xPos, req.yPos, req.rotationQuaternion)
 

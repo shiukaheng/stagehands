@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find ros_autonomous_slam)/launch/autonomous_explorer.launch"/>
+    <node pkg="stagehands_ros" type="robot_pose_server.py" name="stagehands_ros1_robot_pose_server" output="screen"/>
+</launch>

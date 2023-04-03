@@ -1,0 +1,3 @@
+<launch>
+    <include file="$(find ros_autonomous_slam)/launch/autonomous_explorer.launch"/>
+</launch>

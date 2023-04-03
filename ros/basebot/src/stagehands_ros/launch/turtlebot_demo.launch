@@ -1,0 +1,5 @@
+<launch>
+    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_robot.launch"/>
+    <node pkg="stagehands_ros" type="mic_module_ros_node.py" name="stagehands_ros1_mic_module_ros_node" output="screen"/>
+    <node pkg="stagehands_ros" type="led_ros_node.py" name="stagehands_ros1_led_ros_node" output="screen"/>
+</launch>

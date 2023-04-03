@@ -102,6 +102,7 @@ export class simulatedBotClient{
         this.connectionStatus=true;
         console.log("connected");
         
+        
         // client.sub(fleetTopic,(fleet)=>{
         //     this.fleetState=fleet;
         // })
@@ -123,7 +124,7 @@ export class simulatedBotClient{
                  
             this.botState.targetPose=req.targetPose
             this.botState.module.state=req.module.state
-            this.botState.ledState.base=req.baseLEDState
+        this.botState.ledState.base=req.baseLEDState
             })
             console.log("server ID");
             console.log(serverID);

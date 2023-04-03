@@ -5,6 +5,7 @@ import { selectTopic } from "../topicSelector";
 import { PairingServer } from "utils";
 import { botConnectionStatusTopic } from "schema";
 import { object } from "zod";
+import { log } from "console";
 
 /**
  * The Controller class is responsible for handling all communication with the WebTopics
@@ -69,6 +70,9 @@ export class Controller {
         setInterval(() => {
             server.sendDiscoveryPacket();
             server.subBots((availableBots) => {
+                // for(const client of availableBots.values()){
+                //     console.log(client.id);   
+                // }
                 
                 
                 //this.context.setAvailableBotNameTopicClientMap(availableBots);
@@ -88,6 +92,7 @@ export class Controller {
 
                     if(availableBots.get(domainName)===undefined){
                         delete this.context.getBotConnectionState()[botName]
+                        this.context.getAvailableBotNameTopicClientMap().delete(botName)
                         //this.context.getBotConnectionState().splice(this.context.getBotConnectionState().indexOf(BCS),1);
                     }
                 })

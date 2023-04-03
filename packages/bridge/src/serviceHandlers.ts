@@ -4,6 +4,7 @@ import { v4 } from "uuid";
 import { checkValidRecall } from "./utils/ValidationFunc";
 import { TopicClient, TopicServer } from "webtopics";
 import { retrieveIps } from "utils";
+
 /**
  * Create a new preset.
  * @param preset - The preset to be created.
@@ -361,7 +362,7 @@ export function reorderPresetsServiceHandler(
       throw new Error("Bot is already connected");
     }
     console.log("connecting");
-    
+    console.log(pairingClient.id)
     const serverId = await pairingClient?.getServerID() as string;
     const ips = retrieveIps();
     let successRequest = true;
@@ -386,36 +387,34 @@ export function reorderPresetsServiceHandler(
     if (!context.getBotConnectionState()[botName]) {
         throw new Error(`Bot ${botName} does not exist`);
     }
-    //const botName = context.getCurrentBotState()[botID].name;
     const botConnectionStatus = context.getBotConnectionState()[botName]
     if (botConnectionStatus === "disconnected") {
         throw new Error("Bot is already disconnected");
     }
     let currentBotClient =context.getAvailableBotNameTopicClientMap().get(botName) as TopicClient
-    //console.log(currentBotClient);
-    
+
     const serverID = await currentBotClient.getServerID();
     currentBotClient.req(botDisconnectionService,serverID as string)
     .then(()=>{
         context.getBotConnectionState()[botName]= "disconnected";
-        for(const botID of Object.keys(context.getCurrentBotState())){
-            if(context.getCurrentBotState()[botID].name===botName){
-                console.log(`${botName} disconnected`);
+        // for(const botID of Object.keys(context.getCurrentBotState())){
+        //     if(context.getCurrentBotState()[botID].name===botName){
+        //         console.log(`${botName} disconnected`);
                 
-                delete context.getCurrentBotState()[botID]
+        //         delete context.getCurrentBotState()[botID]
                 
-                console.log(context.getCurrentBotState());
-                console.log(context.getCurrentBotState());
-                // server.pub(fleetTopic,context.getCurrentBotState(), true, true);
-                server.pubDiff(fleetTopic, {
-                    modified: undefined,
-                    // @ts-ignore type hack
-                    deleted: {
-                        [botID]: null
-                    }
-                })
-            }
-        }
+        //         console.log(context.getCurrentBotState());
+        //         console.log(context.getCurrentBotState());
+        //         // server.pub(fleetTopic,context.getCurrentBotState(), true, true);
+        //         server.pubDiff(fleetTopic, {
+        //             modified: undefined,
+        //             // @ts-ignore type hack
+        //             deleted: {
+        //                 [botID]: null
+        //             }
+        //         })
+        //     }
+        // }
     })
     .catch((error)=>{
         throw error;

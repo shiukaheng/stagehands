@@ -8,6 +8,7 @@ import ReactJson from 'react-json-view'
 import { useContext, useEffect } from 'react'
 import { ServiceContext, TopicContext } from './contexts/ServerContext'
 import { ConnectionScreen } from './components/ConnectionScreen/ConnectionScreen'
+import Tutorials from './components/TutorialScreen/Tutorials'
 
 function ControlPanel() {
 	return (
@@ -75,6 +76,7 @@ function App() {
 					<Route path='/' element={<ControlPanel />} />
 					<Route path='/debug' element={<Debug />} />
 					<Route path='/connectionscreen' element={<ConnectionScreen />} />
+					<Route path='/tutorials' element={<Tutorials/>} />
 				</Routes>
 			</Router>
 		</AppContexts>

@@ -1,4 +1,4 @@
-import BackButton from './BackButton';
+import BackButton from '../../utils/BackButton';
 import AvailableBotsPanel from './AvailableBotsPanel';
 import PreviewBotCanvas from './PreviewBotCanvas';
 import { ServiceContext, TopicContext } from 'web/src/contexts/ServerContext';

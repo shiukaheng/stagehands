@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 # Publish to "stagehands_command_state" with a message of type "StagehandsCommandState"
 
 from stagehands_ros2.msg import StagehandsCommandState, StagehandsFeedbackState

@@ -11,7 +11,7 @@ from stagehands_ros2.nav_client import *
 
 class RobotStateServer:
 
-    def __init__(self):
+    def __init__(self, dry_run = False):
         # Initialize node
         rospy.loginfo("Initializing robot state server")
         rospy.init_node('robot_state_server')
@@ -20,20 +20,24 @@ class RobotStateServer:
         rospy.loginfo("Initializing publishers")
         self.feedbackPublisher = rospy.Publisher('stagehands_feedback_state', StagehandsFeedbackState, queue_size = 10)
         self.transformListener = tf.TransformListener()
-        
-        # Initialize mic module client
-        rospy.loginfo("Initializing mic module client")
-        self.micModuleClient = MicModule("/dev/ttyACM0", 115200)
-        self.micModuleClient.start()
+        self.dry_run = dry_run
 
-        # Initialize LED client
-        rospy.loginfo("Initializing LED client")
-        self.ledClient = LED()
-        self.ledClient.start()
+        if dry_run:
+            rospy.loginfo("Running in dry run mode")
+        else:
+            # Initialize mic module client
+            rospy.loginfo("Initializing mic module client")
+            self.micModuleClient = MicModule("/dev/ttyACM0", 115200)
+            self.micModuleClient.start()
 
-        # Initialize navigation client
-        rospy.loginfo("Initializing navigation client")
-        self.navClient = NavClient()
+            # Initialize LED client
+            rospy.loginfo("Initializing LED client")
+            self.ledClient = LED()
+            self.ledClient.start()
+
+            # Initialize navigation client
+            rospy.loginfo("Initializing navigation client")
+            self.navClient = NavClient()
 
         # Initialize state subscriber
         rospy.loginfo("Initializing state subscriber")
@@ -58,22 +62,30 @@ class RobotStateServer:
                 # Create a message to send
                 feedback = StagehandsFeedbackState()
 
-                # Get the transformation between map and baselink (where the bot is in the world)
-                (t, r) = listener.lookupTransform('/map', '/base_link', rospy.Time(0))
+                if not self.dry_run:
 
-                # Fill in the message with the data
-                feedback.xPos = t[0]
-                feedback.yPos = t[1]
-                feedback.rotationQuaternion = r
+                    # Get the transformation between map and baselink (where the bot is in the world)
+                    (t, r) = listener.lookupTransform('/map', '/base_link', rospy.Time(0))
 
-                status = self.micModule.lastReadMsg # Read message
-                if not ((status is None) or (status == "ZEROING")): # Only publish if there is data
-                    (height, angle) = self.micModule.lastReadMsg
-                    feedback.micHeight = height
-                    feedback.micAngle = angle
+                    # Fill in the message with the data
+                    feedback.xPos = t[0]
+                    feedback.yPos = t[1]
+                    feedback.rotationQuaternion = r
 
+                    status = self.micModule.lastReadMsg # Read message
+                    if not ((status is None) or (status == "ZEROING")): # Only publish if there is data
+                        (height, angle) = self.micModule.lastReadMsg
+                        feedback.micHeight = height
+                        feedback.micAngle = angle
+
+                        # Publish pose
+                        self.feedbackPublisher.publish(feedback)
+                else:
                     # Publish pose
                     self.feedbackPublisher.publish(feedback)
+
+                # Sleep
+                rate.sleep()
 
             except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException, ValueError, IndexError) as e:
                 rospy.logerr("Can't publish message for robot state server: ", e)
@@ -91,8 +103,10 @@ class RobotStateServer:
         rospy.loginfo("Received state: " + str(state))
 
         # Recieves a stagehandsState msg (identical to original request, just with unused return string removed)
+        if self.dry_run:
+            return
         self.ledClient.setLEDState((state.ledRGBColour[0], state.ledRGBColour[1], state.ledRGBColour[2]), state.isFlashing, state.flashFrequency)
-        # self.micModuleClient.setState(state.micHeight, state.micAngle)
+        self.micModuleClient.setState(state.micHeight, state.micAngle)
 
     def start(self):
         rospy.loginfo("Starting robot state server")

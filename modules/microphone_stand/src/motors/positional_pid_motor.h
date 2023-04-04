@@ -39,6 +39,7 @@ class PositionalPIDMotor {
         double getAngle();
         // PID functions and variables
         ArduPID getPID();
+        void zero();
     private:
         // Internal PID variables
         ArduPID _pid_controller;
@@ -48,7 +49,6 @@ class PositionalPIDMotor {
         double _input;
         double _output;
         // Motor parameters
-        int _pwm_pin; // PWM pin
         int _l_pin; // Left direction pin
         int _r_pin; // Right direction pin
         int _hall_a_pin; // Meant to be attached to interrupt

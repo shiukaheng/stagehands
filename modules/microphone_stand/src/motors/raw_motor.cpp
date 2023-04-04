@@ -1,13 +1,12 @@
 #include "raw_motor.h"
 
-RawMotor::RawMotor(int pwm_pin, int l_pin, int r_pin, int smoothener_window_size) {
-    _pwm_pin = pwm_pin;
-    _l_pin = l_pin;
-    _r_pin = r_pin;
+
+RawMotor::RawMotor(int lpwm_pin, int rpwm_pin, int smoothener_window_size) {
+    _lpwm_pin = lpwm_pin;
+    _rpwm_pin = rpwm_pin;
     _smoothener = new Smoothener(smoothener_window_size);
-    pinMode(_pwm_pin, OUTPUT);
-    pinMode(_l_pin, OUTPUT);
-    pinMode(_r_pin, OUTPUT);
+    pinMode(_lpwm_pin, OUTPUT);
+    pinMode(_rpwm_pin, OUTPUT);
 }
 
 RawMotor::~RawMotor() {
@@ -31,12 +30,10 @@ void RawMotor::update() {
         _actual_pwm = _smoothener->update(_target_pwm);
     }
     if (_actual_pwm > 0) {
-        digitalWrite(_l_pin, HIGH);
-        digitalWrite(_r_pin, LOW);
-        analogWrite(_pwm_pin, _actual_pwm);
+        analogWrite(_rpwm_pin, _actual_pwm);
+        analogWrite(_lpwm_pin, 0);
     } else {
-        digitalWrite(_l_pin, LOW);
-        digitalWrite(_r_pin, HIGH);
-        analogWrite(_pwm_pin, -_actual_pwm);
+        analogWrite(_rpwm_pin, 0);
+        analogWrite(_lpwm_pin, -_actual_pwm);
     }
 }

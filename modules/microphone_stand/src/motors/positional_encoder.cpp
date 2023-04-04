@@ -49,3 +49,7 @@ void PositionalEncoderReader::isr() {
 double PositionalEncoderReader::getAngle() {
     return pulses_to_angle(pulse_count, _ppr, _gear_ratio);
 }
+
+void PositionalEncoderReader::zero() {
+    pulse_count = 0;
+}

@@ -2,7 +2,6 @@
 
 PositionalPIDMotor::PositionalPIDMotor(PIDMotorConfig config) {
     // Set parameter variables
-    _pwm_pin = config.pwm_pin;
     _l_pin = config.l_pin;
     _r_pin = config.r_pin;
     _hall_a_pin = config.hall_a_pin;
@@ -14,12 +13,12 @@ PositionalPIDMotor::PositionalPIDMotor(PIDMotorConfig config) {
     _input = 0;
     _output = 0;
     // Initialize PID controller
-    _pid_controller.setOutputLimits(-110, 110);
+    _pid_controller.setOutputLimits(-config.max_pwm, config.max_pwm);
     _pid_controller.begin(&_input, &_output, &_setpoint, config.kp, config.ki, config.kd);
     // Initialize encoder
     _encoder = new PositionalEncoderReader(config.hall_a_pin, config.hall_b_pin, config.ppr, config.gear_ratio);
     // Initialize motor
-    _motor = new RawMotor(config.pwm_pin, config.l_pin, config.r_pin, config.smoothener_window_size);
+    _motor = new RawMotor(config.l_pin, config.r_pin, config.smoothener_window_size);
 }
 
 PositionalPIDMotor::~PositionalPIDMotor() {
@@ -64,4 +63,8 @@ double PositionalPIDMotor::getAngle() {
 
 ArduPID PositionalPIDMotor::getPID() {
     return _pid_controller;
+}
+
+void PositionalPIDMotor::zero() {
+    _encoder->zero();
 }

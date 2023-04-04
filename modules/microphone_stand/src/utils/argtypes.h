@@ -1,7 +1,6 @@
 #pragma once
 
 struct MotorPinout {
-    int pwm_pin;
     int l_pin;
     int r_pin;
     int hall_a_pin;
@@ -19,4 +18,5 @@ struct PIDMotorConfig : MotorConfig {
     double kp;
     double ki;
     double kd;
+    int max_pwm;
 };

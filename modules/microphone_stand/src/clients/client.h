@@ -16,6 +16,9 @@ class SerialPositionalPIDClient {
         PositionalPIDMotor* _motor;
         PositionalPIDMotor* _motor2;
         long _lastTime;
+        bool _zeroing;
+        PIDMotorConfig _config;
+        PIDMotorConfig _config2;
     public:
         SerialPositionalPIDClient(PIDMotorConfig config, PIDMotorConfig config2);
         ~SerialPositionalPIDClient();

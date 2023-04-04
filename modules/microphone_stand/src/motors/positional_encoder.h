@@ -52,4 +52,8 @@ class PositionalEncoderReader {
          * @return double The angle of the motor in radians
          */
         double getAngle();
+        /**
+         * @brief Zeroes the encoder
+        */
+        void zero();
 };

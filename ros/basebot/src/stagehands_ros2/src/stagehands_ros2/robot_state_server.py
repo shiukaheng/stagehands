@@ -65,7 +65,7 @@ class RobotStateServer:
                 if not self.dry_run:
 
                     # Get the transformation between map and baselink (where the bot is in the world)
-                    (t, r) = listener.lookupTransform('/map', '/base_link', rospy.Time(0))
+                    (t, r) = self.transformListener.lookupTransform('/map', '/base_link', rospy.Time(0))
 
                     # Fill in the message with the data
                     feedback.xPos = t[0]

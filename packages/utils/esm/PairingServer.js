@@ -98,10 +98,13 @@ export class PairingServer {
             this.updateListeners();
         });
         socket.on('disconnect', () => {
+            var _a;
             console.log('Disconnected from bot pairing service');
+            (_a = this.pointerMap.get("_stagehands_pairing._tcp.local")) === null || _a === void 0 ? void 0 : _a.delete(service.name);
             // Remove from available bots
             this.availableBots.delete(botName);
             this.updateListeners();
+            socket.close();
         });
     }
     updateListeners() {

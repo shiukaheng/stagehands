@@ -95,6 +95,8 @@ export class PairingServer {
             } else {
                 this.stagehandServices.add(service);
                 this.connectBotPairingService(service);
+
+                
             }
         }
     }
@@ -114,9 +116,11 @@ export class PairingServer {
         });
         socket.on('disconnect', () => {
             console.log('Disconnected from bot pairing service');
+            this.pointerMap.get("_stagehands_pairing._tcp.local")?.delete(service.name)
             // Remove from available bots
             this.availableBots.delete(botName);
             this.updateListeners();
+            socket.close()
         });
     }
 

@@ -38,7 +38,7 @@ export function retrieveIps() {
     return allAddresses;
 }
 export const defaultPairingClientOptions = {
-    pairingPort: 3535,
+    pairingPort: 3435,
     periodicAdvertisementInterval: 5000
 };
 export class PairingClient {

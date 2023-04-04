@@ -45,7 +45,7 @@ function retrieveIps() {
 }
 exports.retrieveIps = retrieveIps;
 exports.defaultPairingClientOptions = {
-    pairingPort: 3535,
+    pairingPort: 3435,
     periodicAdvertisementInterval: 5000
 };
 class PairingClient {

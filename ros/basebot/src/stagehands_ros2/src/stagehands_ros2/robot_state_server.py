@@ -65,12 +65,12 @@ class RobotStateServer:
                 if not self.dry_run:
 
                     # Get the transformation between map and baselink (where the bot is in the world)
-                    (t, r) = self.transformListener.lookupTransform('/map', '/base_link', rospy.Time(0))
+                    # (t, r) = self.transformListener.lookupTransform('/map', '/base_link', rospy.Time(0))
 
                     # Fill in the message with the data
-                    feedback.xPos = t[0]
-                    feedback.yPos = t[1]
-                    feedback.rotationQuaternion = r
+                    # feedback.xPos = t[0]
+                    # feedback.yPos = t[1]
+                    # feedback.rotationQuaternion = r
 
                     status = self.micModule.lastReadMsg # Read message
                     if not ((status is None) or (status == "ZEROING")): # Only publish if there is data

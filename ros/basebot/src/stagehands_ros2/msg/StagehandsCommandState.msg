@@ -4,5 +4,7 @@ float64[] rotationQuaternion
 float64 micHeight
 float64 micAngle
 bool isFlashing
-uint8[] ledRGBColour
+float64 ledR
+float64 ledG
+float64 ledB
 float64 flashFrequency

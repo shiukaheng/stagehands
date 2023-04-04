@@ -63,7 +63,7 @@ class MicModule:
             raw = data.decode()
             processed = raw.strip()
             if processed == "ZEROING":
-                if not (onMicData is None):
+                if not (self.onMicData is None):
                     self.onMicData(processed)
                 self.lastReadMsg = "ZEROING"
             split = processed.split(",")
@@ -75,7 +75,7 @@ class MicModule:
                         angle = float(angle)
                         # print(height, angle)
                         self.lastReadMsg = (height,angle)
-                        if not (onMicData is None):
+                        if not (self.onMicData is None):
                            self.onMicData(processed)
                     except:
                         pass

@@ -72,9 +72,9 @@ class RobotStateServer:
                     # feedback.yPos = t[1]
                     # feedback.rotationQuaternion = r
 
-                    status = self.micModule.lastReadMsg # Read message
+                    status = self.micModuleClient.lastReadMsg # Read message
                     if not ((status is None) or (status == "ZEROING")): # Only publish if there is data
-                        (height, angle) = self.micModule.lastReadMsg
+                        (height, angle) = self.micModuleClient.lastReadMsg
                         feedback.micHeight = height
                         feedback.micAngle = angle
 

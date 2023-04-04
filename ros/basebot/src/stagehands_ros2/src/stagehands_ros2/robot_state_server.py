@@ -36,8 +36,8 @@ class RobotStateServer:
             self.ledClient.start()
 
             # Initialize navigation client
-            rospy.loginfo("Initializing navigation client")
-            self.navClient = NavClient()
+            # rospy.loginfo("Initializing navigation client")
+            # self.navClient = NavClient()
 
         # Initialize state subscriber
         rospy.loginfo("Initializing state subscriber")

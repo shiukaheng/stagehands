@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find stagehands_ros)/launch/custom_bringup_file.launch"/>
+    <include file="$(find stagehands_ros2)/launch/robot_state_server.launch"/>
+</launch>

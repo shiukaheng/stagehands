@@ -105,7 +105,9 @@ class RobotStateServer:
         # Recieves a stagehandsState msg (identical to original request, just with unused return string removed)
         if self.dry_run:
             return
-        self.ledClient.setLEDState((state.ledRGBColour[0], state.ledRGBColour[1], state.ledRGBColour[2]), state.isFlashing, state.flashFrequency)
+        print(type(state.ledRGBColour), state.ledRGBColour)
+        colour = eval(state.ledRGBColour)
+        self.ledClient.setLEDState(LEDState((colour[0], colour[1], colour[2]), state.isFlashing, state.flashFrequency))
         self.micModuleClient.setState(state.micHeight, state.micAngle)
 
     def start(self):

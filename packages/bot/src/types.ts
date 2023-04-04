@@ -24,7 +24,10 @@ export type StagehandsCommandState = {
     micHeight: number
     micAngle: number
     isFlashing: boolean
-    ledRGBColour: [number, number, number]
+    // ledRGBColour: [number, number, number]
+    ledR: number
+    ledG: number
+    ledB: number
     flashFrequency: number
 }
 

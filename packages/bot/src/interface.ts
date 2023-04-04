@@ -138,7 +138,10 @@ export class WebtopicROSInterface {
             commandState.rotationQuaternion = data.targetPose.quaternion as [number, number, number, number]
             commandState.micHeight = data.module.state?.gripPosition ?? 0
             commandState.micAngle = data.module.state?.gripAngle ?? 0
-            commandState.ledRGBColour = data.baseLEDState.rgbValue as [number, number, number]
+            // commandState.ledRGBColour = data.baseLEDState.rgbValue as [number, number, number]
+            commandState.ledR = data.baseLEDState.rgbValue[0]
+            commandState.ledG = data.baseLEDState.rgbValue[1]
+            commandState.ledB = data.baseLEDState.rgbValue[2]
             commandState.isFlashing = data.baseLEDState.ledAnimation.animationMode === "flashing"
             commandState.flashFrequency = data.baseLEDState.ledAnimation.flashingFrequency ?? 0
 

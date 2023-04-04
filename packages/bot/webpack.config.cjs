@@ -4,7 +4,7 @@ const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: {
-    index: "./src/index.ts",
+    main: "./src/main.ts",
     getName: "./src/getName.ts",
   },
   output: {

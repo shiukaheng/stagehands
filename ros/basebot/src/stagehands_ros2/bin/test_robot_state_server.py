@@ -3,7 +3,6 @@
 # Publish to "stagehands_command_state" with a message of type "StagehandsCommandState"
 
 from stagehands_ros2.msg import StagehandsCommandState, StagehandsFeedbackState
-from geometry_msgs.msg import Pose, Point, Quaternion
 import time
 import rospy
 

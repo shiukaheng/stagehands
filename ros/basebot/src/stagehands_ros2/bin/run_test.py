@@ -47,12 +47,12 @@ if __name__ == '__main__':
     time.sleep(5)
 
     print("State 2/5")
-    micController.setState(30,45)
+    micController.setState(30,75)
     ledController.setLEDState(orange)
-    time.sleep(5)
+    time.sleep(8)
 
     print("State 3/5")
-    micController.setState(20,75)
+    micController.setState(20,120)
     ledController.setLEDState(pink)
     time.sleep(5)
 
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     time.sleep(5)
 
     print("State 5/5")
-    micController.setState(50,180)
+    micController.setState(50,90)
     ledController.setLEDState(lime)
     time.sleep(5)
 

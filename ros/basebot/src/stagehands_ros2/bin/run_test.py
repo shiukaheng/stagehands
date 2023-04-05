@@ -5,7 +5,7 @@ import stagehands_ros2.motor
 import time
 
 def onMicData(data):
-    print(data)
+    # print(data)
     pass
 
 if __name__ == '__main__':

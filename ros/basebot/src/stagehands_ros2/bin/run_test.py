@@ -39,9 +39,11 @@ if __name__ == '__main__':
     micController.start() # Start the read serial
     print("Waiting for zeroing to be done")
     micController.waitForReady() # Wait for zeroing to finish
-    print("Zeroing done, running test")
+    print("Zeroing done, waiting for 2 seconds for motor controller to be ready")
 
-    time.sleep(0.1)
+    time.sleep(2)
+
+    print("Testing states")
 
     print("State 1/5")
     micController.setState(20,90) # Set state 1

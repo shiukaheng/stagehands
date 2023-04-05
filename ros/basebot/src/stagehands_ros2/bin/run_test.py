@@ -18,12 +18,17 @@ if __name__ == '__main__':
     # Declare colors
     flashingRed = stagehands_ros2.led.LEDState((255,0,0), True, 5)
     black = stagehands_ros2.led.LEDState((0,0,0))
+    white = stagehands_ros2.led.LEDState((255,255,255))
+    orange = stagehands_ros2.led.LEDState((255,165,0))
+    pink = stagehands_ros2.led.LEDState((255,192,203))
+    teal = stagehands_ros2.led.LEDState((0,255,255))
+    lime = stagehands_ros2.led.LEDState((50,255,0))
     
     # Run commands
     ledController.setLEDState(flashingRed) # Set the state
     ledController.start() # Start rendering loop
     print("Testing flash")
-    time.sleep(5) # Let it run for 5 seconds
+    time.sleep(2) # Let it run for 2 seconds
     ledController.setLEDState(black) # Turn it off
     time.sleep(0.1) # Give rendering loop some time to set it
     ledController.stop() # Stop the rendering loop
@@ -37,24 +42,37 @@ if __name__ == '__main__':
     print("Waiting for zeroing to be done")
     micController.waitForReady() # Wait for zeroing to finish
     print("Zeroing done, running test")
+
+    print("State 1/5")
+    micController.setState(10,90) # Set state 1
+    ledController.setLEDState(white) # Set the state
+    time.sleep(5)
+
+    print("State 2/5")
+    micController.setState(30,45)
+    ledController.setLEDState(orange)
+    time.sleep(5)
+
+    print("State 3/5")
+    micController.setState(20,75)
+    ledController.setLEDState(pink)
+    time.sleep(5)
+
+    print("State 4/5")
+    micController.setState(40,135)
+    ledController.setLEDState(teal)
+    time.sleep(5)
+
+    print("State 5/5")
+    micController.setState(50,180)
+    ledController.setLEDState(lime)
+    time.sleep(5)
+
+    print("Test done")
     micController.setState(0,0) # Set state 1
-    print((0,0))
-    time.sleep(2)
-    micController.setState(10,45)
-    print((10,45))
-    time.sleep(2)
-    micController.setState(20,90)
-    print((20,90))
-    time.sleep(2)
-    micController.setState(30,135)
-    print((30,135))
-    time.sleep(2)
-    micController.setState(40,180)
-    print((40,180))
-    time.sleep(2)
-    micController.setState(50,225)
-    print((50,225))
-    time.sleep(2)
-    micController.setState(0,0)
-    print((0,0))
+    ledController.setLEDState(black) # Set the state
+
+    time.sleep(0.1) # Give rendering loop some time to set it
+
     micController.stop() # Stop readline
+    ledController.stop() # Stop the rendering loop

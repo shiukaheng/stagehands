@@ -46,6 +46,7 @@ class MicModule:
     def stop(self):
         self.connected = False
         self.serialThread.join() 
+        self.serial.close()
 
     def write(self,data):
         self.serial = serial.Serial(self.serialPort, self.baudRate)

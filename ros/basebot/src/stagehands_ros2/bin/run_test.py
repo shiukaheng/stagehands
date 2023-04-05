@@ -41,8 +41,10 @@ if __name__ == '__main__':
     micController.waitForReady() # Wait for zeroing to finish
     print("Zeroing done, running test")
 
+    time.sleep(0.1)
+
     print("State 1/5")
-    micController.setState(10,90) # Set state 1
+    micController.setState(20,90) # Set state 1
     ledController.setLEDState(white) # Set the state
     time.sleep(5)
 

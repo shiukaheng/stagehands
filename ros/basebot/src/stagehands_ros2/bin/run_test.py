@@ -16,7 +16,7 @@ if __name__ == '__main__':
     ledController = stagehands_ros2.led.LED()
 
     # Declare colors
-    flashingRed = stagehands_ros2.led.LEDState((255,0,0), True, 5)
+    flashingWhite = stagehands_ros2.led.LEDState((255,255,255), True, 3)
     black = stagehands_ros2.led.LEDState((0,0,0))
     white = stagehands_ros2.led.LEDState((255,255,255))
     orange = stagehands_ros2.led.LEDState((255,165,0))
@@ -25,13 +25,11 @@ if __name__ == '__main__':
     lime = stagehands_ros2.led.LEDState((50,255,0))
     
     # Run commands
-    ledController.setLEDState(flashingRed) # Set the state
+    ledController.setLEDState(flashingWhite) # Set the state
     ledController.start() # Start rendering loop
     print("Testing flash")
     time.sleep(2) # Let it run for 2 seconds
     ledController.setLEDState(black) # Turn it off
-    time.sleep(0.1) # Give rendering loop some time to set it
-    ledController.stop() # Stop the rendering loop
     print("Flash test done")
 
     # Test for mic module

@@ -48,27 +48,27 @@ if __name__ == '__main__':
     print("State 1/5")
     micController.setState(20,90) # Set state 1
     ledController.setLEDState(white) # Set the state
-    time.sleep(5)
+    time.sleep(3)
 
     print("State 2/5")
     micController.setState(30,75)
     ledController.setLEDState(orange)
-    time.sleep(8)
+    time.sleep(3)
 
     print("State 3/5")
     micController.setState(20,120)
     ledController.setLEDState(pink)
-    time.sleep(5)
+    time.sleep(3)
 
     print("State 4/5")
     micController.setState(40,135)
     ledController.setLEDState(teal)
-    time.sleep(5)
+    time.sleep(3)
 
     print("State 5/5")
     micController.setState(50,90)
     ledController.setLEDState(lime)
-    time.sleep(5)
+    time.sleep(3)
 
     print("Test done")
     micController.setState(0,0) # Set state 1
